@@ -22,6 +22,9 @@ pub struct BrowsingContextInfo {
     /// The parent context, for frames.
     #[serde(default)]
     pub parent: Option<String>,
+    /// The user context (isolated profile) this context belongs to.
+    #[serde(default)]
+    pub user_context: Option<String>,
     /// Child contexts, for frames.
     #[serde(default)]
     pub children: Option<Vec<BrowsingContextInfo>>,
@@ -207,17 +210,52 @@ impl BidiSession {
         parse_contexts(&result)
     }
 
-    /// Create a new tab.
+    /// Create a new tab in the default user context.
     pub async fn create_context(&self) -> BidiResult<String> {
+        self.create_context_in(None).await
+    }
+
+    /// Create a new tab, optionally in an isolated user context.
+    pub async fn create_context_in(&self, user_context: Option<&str>) -> BidiResult<String> {
+        let mut params = json!({ "type": "tab" });
+        if let Some(user_context) = user_context {
+            params["userContext"] = json!(user_context);
+        }
         let result = self
             .connection
-            .send("browsingContext.create", json!({ "type": "tab" }))
+            .send("browsingContext.create", params)
             .await?;
         result
             .get("context")
             .and_then(Value::as_str)
             .map(str::to_string)
             .ok_or_else(|| BidiError::Unexpected("browsingContext.create missing context".into()))
+    }
+
+    /// Create an isolated user context (its own cookies, storage and cache).
+    pub async fn create_user_context(&self) -> BidiResult<String> {
+        let result = self
+            .connection
+            .send("browser.createUserContext", json!({}))
+            .await?;
+        result
+            .get("userContext")
+            .and_then(Value::as_str)
+            .map(str::to_string)
+            .ok_or_else(|| {
+                BidiError::Unexpected("browser.createUserContext missing userContext".into())
+            })
+    }
+
+    /// Remove an isolated user context.
+    pub async fn remove_user_context(&self, user_context: &str) -> BidiResult<()> {
+        self.connection
+            .send(
+                "browser.removeUserContext",
+                json!({ "userContext": user_context }),
+            )
+            .await?;
+        Ok(())
     }
 
     /// Close a browsing context.

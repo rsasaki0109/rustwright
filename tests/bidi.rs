@@ -61,8 +61,13 @@ async fn spawn_server() -> String {
                         .to_string(),
                 )
             };
+            let cookie = if path.starts_with("/nocookie") {
+                ""
+            } else {
+                "Set-Cookie: rw=1; Path=/\r\n"
+            };
             let response = format!(
-                "HTTP/1.1 200 OK\r\nContent-Type: {content_type}\r\nSet-Cookie: rw=1; Path=/\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{body}",
+                "HTTP/1.1 200 OK\r\nContent-Type: {content_type}\r\n{cookie}Content-Length: {}\r\nConnection: close\r\n\r\n{body}",
                 body.len()
             );
             let _ = socket.write_all(response.as_bytes()).await;
@@ -260,6 +265,46 @@ async fn firefox_bidi_cookies_and_storage() -> BidiResult<()> {
     let restored = page.evaluate("localStorage.getItem('token')").await?;
     assert_eq!(restored.as_str(), Some("abc"));
 
+    browser.close().await?;
+    Ok(())
+}
+
+#[tokio::test]
+async fn firefox_bidi_isolated_user_context() -> BidiResult<()> {
+    if !firefox_available() {
+        return Ok(());
+    }
+    let base = spawn_server().await;
+    let Some(browser) = launch_firefox().await else {
+        return Ok(());
+    };
+
+    let default_page = browser.new_page().await?;
+    default_page.goto(&base).await?;
+    default_page
+        .evaluate("localStorage.setItem('k', 'default')")
+        .await?;
+    assert_eq!(
+        default_page
+            .evaluate("localStorage.getItem('k')")
+            .await?
+            .as_str(),
+        Some("default")
+    );
+
+    let context = browser.new_context().await?;
+    let isolated = context.new_page().await?;
+    isolated.goto(&base).await?;
+    assert!(
+        isolated
+            .evaluate("localStorage.getItem('k')")
+            .await?
+            .is_null(),
+        "isolated context must not see the default context's local storage"
+    );
+    assert_eq!(context.pages().await?.len(), 1);
+
+    context.close().await?;
     browser.close().await?;
     Ok(())
 }

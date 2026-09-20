@@ -73,12 +73,21 @@ impl BidiBrowser {
         self.session.browser_version()
     }
 
-    /// Open a new tab.
+    /// Open a new tab in the default user context.
     pub async fn new_page(&self) -> BidiResult<BidiPage> {
         let context = self.session.create_context().await?;
         let page = BidiPage::from_context(self.session.clone(), context);
         page.install_helper().await?;
         Ok(page)
+    }
+
+    /// Create an isolated user context (its own cookies, storage and cache).
+    pub async fn new_context(&self) -> BidiResult<BidiContext> {
+        let user_context = self.session.create_user_context().await?;
+        Ok(BidiContext {
+            session: self.session.clone(),
+            user_context,
+        })
     }
 
     /// The current top-level pages (tabs).
@@ -102,6 +111,62 @@ impl BidiBrowser {
         }
         self.session.connection().close();
         Ok(())
+    }
+}
+
+/// An isolated user context (its own cookies, storage and cache).
+///
+/// Created with [`BidiBrowser::new_context`]; it is the BiDi equivalent of a
+/// Chromium browser context.
+#[derive(Clone)]
+pub struct BidiContext {
+    session: BidiSession,
+    user_context: String,
+}
+
+impl std::fmt::Debug for BidiContext {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("BidiContext")
+            .field("user_context", &self.user_context)
+            .finish()
+    }
+}
+
+impl BidiContext {
+    /// The BiDi user context id.
+    pub fn user_context_id(&self) -> &str {
+        &self.user_context
+    }
+
+    /// Open a page (tab) in this isolated context.
+    pub async fn new_page(&self) -> BidiResult<BidiPage> {
+        let context = self
+            .session
+            .create_context_in(Some(&self.user_context))
+            .await?;
+        let page = BidiPage::from_context(self.session.clone(), context);
+        page.install_helper().await?;
+        Ok(page)
+    }
+
+    /// Pages (tabs) in this context.
+    pub async fn pages(&self) -> BidiResult<Vec<BidiPage>> {
+        let mut pages = Vec::new();
+        for info in self.session.get_tree().await? {
+            if info.parent.is_none()
+                && info.user_context.as_deref() == Some(self.user_context.as_str())
+            {
+                let page = BidiPage::from_context(self.session.clone(), info.context);
+                let _ = page.install_helper().await;
+                pages.push(page);
+            }
+        }
+        Ok(pages)
+    }
+
+    /// Remove this context and its pages.
+    pub async fn close(&self) -> BidiResult<()> {
+        self.session.remove_user_context(&self.user_context).await
     }
 }
 

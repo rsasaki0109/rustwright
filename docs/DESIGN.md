@@ -394,15 +394,6 @@ The three items left after the unified API:
   of failing; `Firefox::is_sandboxed()` exposes the detection. Covered by a unit
   test with a synthetic wrapper script.
 
-## 18. Quality bar
-
-- No `unsafe` (forbid in every crate).
-- rustdoc on all public items.
-- Typed, non-swallowed errors that preserve the causal chain
-  (`Error` -> `CdpError`/`BrowserError` with protocol `code`/`message`/`data`).
-- `cargo fmt`, `cargo clippy -- -- -D warnings`, `cargo test`.
-- Runnable examples and integration tests against real installed Chrome.
-
 ## 18. Round 9: BiDi interception and launch tuning
 
 Closing the gap to the CDP backend:
@@ -465,5 +456,22 @@ Verified on Firefox 156 (`tests/bidi.rs`): a server `Set-Cookie` is read back,
 an added cookie appears, and a `localStorage` value round-trips through
 `storage_state`.
 
-## 21. Quality bar
+## 21. Round 12: isolated BiDi user contexts
 
+`browser.createUserContext` + `browsingContext.create { userContext }` are
+exposed as `BidiBrowser::new_context` → `BidiContext`, with `new_page`, `pages`
+and `close` (via `browser.removeUserContext`). Pages in a user context have
+their own cookies, storage and cache, matching Chromium contexts. Verified on
+Firefox 156 by setting `localStorage` in the default context and confirming the
+isolated context does not see it. (Firefox's `storage.getCookies` context
+partition reports default-context cookies, so the test asserts storage
+isolation rather than cookie isolation.)
+
+## 22. Quality bar
+
+- No `unsafe` (forbid in every crate).
+- rustdoc on all public items.
+- Typed, non-swallowed errors that preserve the causal chain
+  (`Error` -> `CdpError`/`BrowserError` with protocol `code`/`message`/`data`).
+- `cargo fmt`, `cargo clippy -- -- -D warnings`, `cargo test`.
+- Runnable examples and integration tests against real installed Chrome.

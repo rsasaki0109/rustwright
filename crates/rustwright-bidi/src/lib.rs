@@ -31,7 +31,7 @@ mod locator;
 mod network;
 mod session;
 
-pub use browser::{BidiBrowser, BidiPage};
+pub use browser::{BidiBrowser, BidiContext, BidiPage};
 pub use connection::{BidiConnection, BidiEvent};
 pub use error::{BidiError, BidiResult};
 pub use frame::BidiFrame;
