@@ -62,7 +62,7 @@ async fn spawn_server() -> String {
                 )
             };
             let response = format!(
-                "HTTP/1.1 200 OK\r\nContent-Type: {content_type}\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{body}",
+                "HTTP/1.1 200 OK\r\nContent-Type: {content_type}\r\nSet-Cookie: rw=1; Path=/\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{body}",
                 body.len()
             );
             let _ = socket.write_all(response.as_bytes()).await;
@@ -213,6 +213,52 @@ async fn firefox_bidi_frames() -> BidiResult<()> {
         .evaluate("document.getElementById('inner').value")
         .await?;
     assert_eq!(value.as_str(), Some("from-frame"));
+
+    browser.close().await?;
+    Ok(())
+}
+
+#[tokio::test]
+async fn firefox_bidi_cookies_and_storage() -> BidiResult<()> {
+    if !firefox_available() {
+        return Ok(());
+    }
+    let base = spawn_server().await;
+    let Some(browser) = launch_firefox().await else {
+        return Ok(());
+    };
+    let page = browser.new_page().await?;
+    page.goto(&base).await?;
+
+    let cookies = page.cookies().await?;
+    assert!(
+        cookies
+            .iter()
+            .any(|cookie| cookie.name == "rw" && cookie.value == "1"),
+        "server cookie was captured: {cookies:?}"
+    );
+
+    page.add_cookie("added", "yes", "127.0.0.1").await?;
+    let cookies = page.cookies().await?;
+    assert!(
+        cookies
+            .iter()
+            .any(|cookie| cookie.name == "added" && cookie.value == "yes"),
+        "cookie was added: {cookies:?}"
+    );
+
+    page.evaluate("localStorage.setItem('token', 'abc')")
+        .await?;
+    let state = page.storage_state().await?;
+    assert!(state.origins.iter().any(|origin| origin
+        .local_storage
+        .iter()
+        .any(|item| item.name == "token" && item.value == "abc")));
+
+    page.evaluate("localStorage.clear()").await?;
+    page.restore_storage_state(&state).await?;
+    let restored = page.evaluate("localStorage.getItem('token')").await?;
+    assert_eq!(restored.as_str(), Some("abc"));
 
     browser.close().await?;
     Ok(())

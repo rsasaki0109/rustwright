@@ -37,4 +37,7 @@ pub use error::{BidiError, BidiResult};
 pub use frame::BidiFrame;
 pub use locator::BidiLocator;
 pub use network::BidiNetworkRequest;
-pub use session::{BidiSession, BrowsingContextInfo};
+pub use session::{
+    BidiCookie, BidiOriginStorage, BidiSession, BidiStorageItem, BidiStorageState,
+    BrowsingContextInfo,
+};

@@ -27,6 +27,63 @@ pub struct BrowsingContextInfo {
     pub children: Option<Vec<BrowsingContextInfo>>,
 }
 
+/// A cookie reported by BiDi `storage.getCookies`.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct BidiCookie {
+    /// Cookie name.
+    pub name: String,
+    /// Cookie value.
+    pub value: String,
+    /// Cookie domain.
+    #[serde(default)]
+    pub domain: String,
+    /// Cookie path.
+    #[serde(default)]
+    pub path: String,
+    /// Whether the cookie is HTTP-only.
+    #[serde(default)]
+    pub http_only: bool,
+    /// Whether the cookie is secure.
+    #[serde(default)]
+    pub secure: bool,
+    /// SameSite policy.
+    #[serde(default)]
+    pub same_site: Option<String>,
+    /// Expiry as seconds since the epoch.
+    #[serde(default)]
+    pub expiry: Option<i64>,
+}
+
+/// A serialized `localStorage` item.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct BidiStorageItem {
+    /// Item name.
+    pub name: String,
+    /// Item value.
+    pub value: String,
+}
+
+/// `localStorage` for a single origin.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct BidiOriginStorage {
+    /// The origin, e.g. `https://example.com`.
+    pub origin: String,
+    /// The stored items.
+    #[serde(default)]
+    pub local_storage: Vec<BidiStorageItem>,
+}
+
+/// A portable snapshot of cookies and local storage (BiDi flavour).
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct BidiStorageState {
+    /// Cookies visible to the page.
+    #[serde(default)]
+    pub cookies: Vec<BidiCookie>,
+    /// Per-origin local storage.
+    #[serde(default)]
+    pub origins: Vec<BidiOriginStorage>,
+}
+
 /// An established BiDi session.
 #[derive(Clone)]
 pub struct BidiSession {
@@ -361,6 +418,98 @@ impl BidiSession {
             .await?;
         Ok(())
     }
+
+    // -- Cookies and storage ------------------------------------------------
+
+    /// Cookies visible to a context.
+    pub async fn get_cookies(&self, context: &str) -> BidiResult<Vec<BidiCookie>> {
+        let result = self
+            .connection
+            .send(
+                "storage.getCookies",
+                json!({ "partition": { "type": "context", "context": context } }),
+            )
+            .await?;
+        let cookies = result
+            .get("cookies")
+            .and_then(Value::as_array)
+            .cloned()
+            .unwrap_or_default();
+        Ok(cookies
+            .iter()
+            .map(|cookie| BidiCookie {
+                name: string_field(cookie, "name"),
+                value: bytes_value_string(cookie.get("value")),
+                domain: string_field(cookie, "domain"),
+                path: string_field(cookie, "path"),
+                http_only: cookie
+                    .get("httpOnly")
+                    .and_then(Value::as_bool)
+                    .unwrap_or(false),
+                secure: cookie
+                    .get("secure")
+                    .and_then(Value::as_bool)
+                    .unwrap_or(false),
+                same_site: cookie
+                    .get("sameSite")
+                    .and_then(Value::as_str)
+                    .map(str::to_string),
+                expiry: cookie.get("expiry").and_then(Value::as_i64),
+            })
+            .collect())
+    }
+
+    /// Set a cookie for a domain.
+    pub async fn set_cookie(
+        &self,
+        context: &str,
+        name: &str,
+        value: &str,
+        domain: &str,
+    ) -> BidiResult<()> {
+        self.connection
+            .send(
+                "storage.setCookie",
+                json!({
+                    "cookie": {
+                        "name": name,
+                        "value": { "type": "string", "value": value },
+                        "domain": domain,
+                    },
+                    "partition": { "type": "context", "context": context },
+                }),
+            )
+            .await?;
+        Ok(())
+    }
+
+    /// Delete cookies for a context (best effort).
+    pub async fn delete_cookies(&self, context: &str) -> BidiResult<()> {
+        self.connection
+            .send(
+                "storage.deleteCookies",
+                json!({ "partition": { "type": "context", "context": context } }),
+            )
+            .await?;
+        Ok(())
+    }
+}
+
+fn string_field(value: &Value, key: &str) -> String {
+    value
+        .get(key)
+        .and_then(Value::as_str)
+        .unwrap_or_default()
+        .to_string()
+}
+
+/// Extract a string from a BiDi `BytesValue` (`{type, value}`).
+fn bytes_value_string(value: Option<&Value>) -> String {
+    value
+        .and_then(|value| value.get("value"))
+        .and_then(Value::as_str)
+        .unwrap_or_default()
+        .to_string()
 }
 
 fn parse_contexts(result: &Value) -> BidiResult<Vec<BrowsingContextInfo>> {

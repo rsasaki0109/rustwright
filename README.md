@@ -279,8 +279,10 @@ with auto-waiting `click` / `fill` / `text` / `wait_for` / `count` and the
 not synthetic DOM events. BiDi also mirrors the CDP backend's request
 interception (`route` / `mock` / `block` / `clear_routes`, backed by
 `network.addIntercept` + `network.provideResponse`), opt-in network monitoring
-(`start_network_monitoring` / `network_requests`), and frames (`frames` /
-`frame_locator` / `BidiFrame` with frame-scoped locators).
+(`start_network_monitoring` / `network_requests`), frames (`frames` /
+`frame_locator` / `BidiFrame` with frame-scoped locators), and cookies / storage
+(`cookies` / `add_cookie` / `clear_cookies` / `storage_state` /
+`restore_storage_state`, backed by `storage.*`).
 
 Notes from real machines:
 

@@ -15,7 +15,9 @@ use crate::locator::BidiLocator;
 use crate::network::{
     spawn_intercept_pump, spawn_network_pump, BidiNetworkRequest, NetworkPumpGuard,
 };
-use crate::session::BidiSession;
+use crate::session::{
+    BidiCookie, BidiOriginStorage, BidiSession, BidiStorageItem, BidiStorageState,
+};
 
 /// A browser driven over WebDriver BiDi.
 ///
@@ -281,6 +283,94 @@ impl BidiPage {
             .lock()
             .expect("bidi network mutex poisoned")
             .clone()
+    }
+
+    // -- Cookies and storage ------------------------------------------------
+
+    /// Cookies visible to the page.
+    pub async fn cookies(&self) -> BidiResult<Vec<BidiCookie>> {
+        self.session.get_cookies(&self.context).await
+    }
+
+    /// Add a cookie for `domain`.
+    pub async fn add_cookie(
+        &self,
+        name: impl AsRef<str>,
+        value: impl AsRef<str>,
+        domain: impl AsRef<str>,
+    ) -> BidiResult<()> {
+        self.session
+            .set_cookie(
+                &self.context,
+                name.as_ref(),
+                value.as_ref(),
+                domain.as_ref(),
+            )
+            .await
+    }
+
+    /// Remove cookies for this context.
+    pub async fn clear_cookies(&self) -> BidiResult<()> {
+        self.session.delete_cookies(&self.context).await
+    }
+
+    /// Capture cookies and the current origin's local storage.
+    pub async fn storage_state(&self) -> BidiResult<BidiStorageState> {
+        let cookies = self.cookies().await?;
+        let origin = self
+            .evaluate("location.origin")
+            .await?
+            .as_str()
+            .unwrap_or_default()
+            .to_string();
+        let raw = self
+            .evaluate(
+                "(() => { try { return JSON.stringify(Object.entries(localStorage)); } \
+                 catch (error) { return '[]'; } })()",
+            )
+            .await?;
+        let entries: Vec<(String, String)> = serde_json::from_str(raw.as_str().unwrap_or("[]"))?;
+        let local_storage = entries
+            .into_iter()
+            .map(|(name, value)| BidiStorageItem { name, value })
+            .collect();
+        Ok(BidiStorageState {
+            cookies,
+            origins: vec![BidiOriginStorage {
+                origin,
+                local_storage,
+            }],
+        })
+    }
+
+    /// Restore cookies and local storage from a [`BidiStorageState`].
+    pub async fn restore_storage_state(&self, state: &BidiStorageState) -> BidiResult<()> {
+        for cookie in &state.cookies {
+            let _ = self
+                .session
+                .set_cookie(&self.context, &cookie.name, &cookie.value, &cookie.domain)
+                .await;
+        }
+        let origin = self
+            .evaluate("location.origin")
+            .await?
+            .as_str()
+            .unwrap_or_default()
+            .to_string();
+        for stored in &state.origins {
+            if stored.origin != origin {
+                continue;
+            }
+            for item in &stored.local_storage {
+                let expression = format!(
+                    "(() => {{ try {{ localStorage.setItem({}, {}); }} catch (error) {{}} }})()",
+                    serde_json::to_string(&item.name)?,
+                    serde_json::to_string(&item.value)?,
+                );
+                let _ = self.evaluate(&expression).await;
+            }
+        }
+        Ok(())
     }
 
     // -- Request interception ----------------------------------------------

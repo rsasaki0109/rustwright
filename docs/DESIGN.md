@@ -444,5 +444,26 @@ backend's behaviour in `tests/advanced.rs`.
   `prelude` bundles the macro, `TestContext`, `PageApi`/`LocatorApi`. The smoke
   tests pass unchanged on Chrome and with `RUSTWRIGHT_BROWSER=firefox`.
 
-## 20. Quality bar
+## 20. Round 11: BiDi cookies and storage
+
+BiDi has no tracing domain (Firefox does not expose CDP-style `Tracing`), so
+instead this round closed the cookie/storage gap:
+
+- `BidiPage::cookies` / `add_cookie` / `clear_cookies` over `storage.getCookies`,
+  `storage.setCookie` and `storage.deleteCookies`. A probe showed that BiDi
+  cookie values are `BytesValue` objects (`{type, value}`), which the bindings
+  encode.
+- `BidiPage::storage_state` / `restore_storage_state` mirror the CDP API,
+  capturing cookies plus the current origin's `localStorage` (`BidiStorageState`
+  / `BidiCookie` / `BidiOriginStorage`), so a logged-in Firefox session can be
+  saved and restored without copying a profile.
+
+Also confirmed available for future work: `browser.createUserContext` gives
+isolated user contexts over BiDi.
+
+Verified on Firefox 156 (`tests/bidi.rs`): a server `Set-Cookie` is read back,
+an added cookie appears, and a `localStorage` value round-trips through
+`storage_state`.
+
+## 21. Quality bar
 
