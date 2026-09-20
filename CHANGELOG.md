@@ -29,7 +29,8 @@ Initial release.
 - **Tracing**: Chrome trace capture (`start_tracing`/`stop_tracing`).
 - **Storage**: cookies and `storage_state`/`restore_storage_state`.
 - **Diagnostics**: console messages, JS errors, navigations, network requests,
-  dialogs, browser version and launch flags.
+  dialogs, browser version and launch flags, plus HAR 1.2 export
+  (`Page::har` / `har_with_bodies`).
 - **WebDriver BiDi**: Firefox driver over BiDi with locators, frames,
   interception, network monitoring, cookies/storage, isolated user contexts, and
   init scripts (`add_init_script`). Downloads remain CDP-only because Firefox has
@@ -38,8 +39,9 @@ Initial release.
   `AnyPage`/`AnyLocator` for dynamic dispatch.
 - **Test runner**: `#[rustwright_test]` with per-test browser/context/page,
   `RUSTWRIGHT_BROWSER=firefox` to run the same tests on Firefox,
-  `RUSTWRIGHT_RETRIES=N`, and `expect(locator)` assertions
-  (`to_be_visible` / `to_have_text` / `to_contain_text` / `to_have_count` / ...).
+  `RUSTWRIGHT_RETRIES=N`, `RUSTWRIGHT_SHARD=i/N`, and `expect(locator)`
+  assertions (`to_be_visible` / `to_have_text` / `to_contain_text` /
+  `to_have_count` / ...).
 - **CI**: GitHub Actions running `fmt`, `clippy -D warnings` and the full test
   suite against installed Chrome (Firefox best-effort).
 - **Benchmarks**: reproducible Rustwright vs Playwright driver-overhead harness.

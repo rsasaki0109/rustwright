@@ -195,6 +195,7 @@ page.stop_tracing("trace.json").await?;
 for message in page.console_messages() { println!("[{}] {}", message.level, message.text); }
 for error in page.errors() { println!("error: {}", error.message); }
 for dialog in page.dialogs() { println!("dialog: {}", dialog.message); }
+let har = page.har_with_bodies().await?;   // HAR 1.2 network log
 let diag = browser.diagnostics();
 println!("{:?}", diag.launch_args);
 ```
@@ -325,9 +326,10 @@ async fn opens_a_page(context: TestContext) -> Result<()> {
 Run with `cargo test`. The same test runs against Chrome by default and against
 Firefox with `RUSTWRIGHT_BROWSER=firefox`; `context.page` is an `AnyPage`, so the
 body is backend-agnostic. `RUSTWRIGHT_HEADLESS=0` shows the browser,
-`RUSTWRIGHT_PROFILE=/path` uses a persistent profile, and `RUSTWRIGHT_RETRIES=N`
-retries a failing test (with a fresh browser per attempt). Tests skip cleanly
-when the selected browser is unavailable.
+`RUSTWRIGHT_PROFILE=/path` uses a persistent profile, `RUSTWRIGHT_RETRIES=N`
+retries a failing test (with a fresh browser per attempt), and
+`RUSTWRIGHT_SHARD=i/N` runs only one shard of the suite. Tests skip cleanly when
+the selected browser is unavailable.
 
 `expect(locator)` provides Playwright-style assertions:
 

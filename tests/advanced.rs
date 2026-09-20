@@ -190,6 +190,41 @@ async fn downloads_to_configured_path() {
 }
 
 #[tokio::test]
+async fn exports_har() {
+    if !chrome_available() {
+        return;
+    }
+    let base = spawn_server().await;
+    let browser = Browser::launch(Chrome::installed().headless(true))
+        .await
+        .expect("launch");
+    let page = browser.new_page().await.expect("page");
+    page.goto(&base).await.expect("goto");
+    page.evaluate("fetch('/api/data').then((response) => response.text())")
+        .await
+        .expect("fetch");
+
+    let har = page.har_with_bodies().await.expect("har");
+    let entries = har["log"]["entries"].as_array().expect("entries");
+    let api = entries
+        .iter()
+        .find(|entry| {
+            entry["request"]["url"]
+                .as_str()
+                .unwrap_or_default()
+                .contains("/api/data")
+        })
+        .expect("api entry in HAR");
+    assert_eq!(api["response"]["status"].as_i64(), Some(200));
+    assert_eq!(
+        api["response"]["content"]["text"].as_str(),
+        Some(r#"{"ok":true}"#)
+    );
+
+    browser.close().await.expect("close");
+}
+
+#[tokio::test]
 async fn records_a_chrome_trace() {
     if !chrome_available() {
         return;

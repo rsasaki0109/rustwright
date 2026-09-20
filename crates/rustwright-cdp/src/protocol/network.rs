@@ -187,3 +187,22 @@ pub struct SetCookieResult {
 
 /// Response of `Network.clearBrowserCookies`.
 pub type ClearBrowserCookiesResult = Value;
+
+/// Parameters of `Network.getResponseBody`.
+#[derive(Debug, Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct GetResponseBodyParams {
+    /// Request id.
+    pub request_id: String,
+}
+
+/// Response of `Network.getResponseBody`.
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct GetResponseBodyResult {
+    /// The response body.
+    pub body: String,
+    /// Whether `body` is base64-encoded.
+    #[serde(default)]
+    pub base64_encoded: bool,
+}

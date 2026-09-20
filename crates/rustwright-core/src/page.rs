@@ -20,8 +20,9 @@ use rustwright_cdp::protocol::input::{
     DispatchKeyEventParams, DispatchMouseEventParams, InsertTextParams,
 };
 use rustwright_cdp::protocol::network::{
-    Cookie, GetCookiesResult, LoadingFailedParams, RequestWillBeSentParams, ResponseReceivedParams,
-    SetCookieParams, SetCookieResult,
+    Cookie, GetCookiesResult, GetResponseBodyParams, GetResponseBodyResult, LoadingFailedParams,
+    LoadingFinishedParams, RequestWillBeSentParams, ResponseReceivedParams, SetCookieParams,
+    SetCookieResult,
 };
 use rustwright_cdp::protocol::page::{
     CaptureScreenshotParams, CaptureScreenshotResult, FrameAttachedParams, FrameDetachedParams,
@@ -825,6 +826,35 @@ impl Page {
             .lock()
             .expect("requests mutex poisoned")
             .clone()
+    }
+
+    /// Build a HAR 1.2 document from the requests observed so far.
+    ///
+    /// Response bodies are not included; use [`Page::har_with_bodies`] for a
+    /// HAR with content.
+    pub fn har(&self) -> Value {
+        crate::diagnostics::build_har(&self.network_requests(), None)
+    }
+
+    /// Build a HAR 1.2 document including response bodies where available.
+    pub async fn har_with_bodies(&self) -> Result<Value> {
+        let requests = self.network_requests();
+        let mut bodies = std::collections::HashMap::new();
+        for request in &requests {
+            let params = GetResponseBodyParams {
+                request_id: request.request_id.clone(),
+            };
+            if let Ok(result) = self
+                .call::<GetResponseBodyResult>("Network.getResponseBody", json!(params))
+                .await
+            {
+                bodies.insert(
+                    request.request_id.clone(),
+                    (result.body, result.base64_encoded),
+                );
+            }
+        }
+        Ok(crate::diagnostics::build_har(&requests, Some(&bodies)))
     }
 
     /// Main-frame navigations observed since the page was created.
@@ -2014,8 +2044,19 @@ fn dispatch_event(state: &PageState, method: &str, params: &Value) {
                     .iter_mut()
                     .find(|request| request.request_id == event.request_id)
                 {
-                    request.apply_response(&event.response);
+                    request.apply_response(&event.response, event.timestamp);
                     request.resource_type = event.resource_type;
+                }
+            }
+        }
+        "Network.loadingFinished" => {
+            if let Ok(event) = serde_json::from_value::<LoadingFinishedParams>(params.clone()) {
+                let mut requests = state.requests.lock().expect("requests mutex poisoned");
+                if let Some(request) = requests
+                    .iter_mut()
+                    .find(|request| request.request_id == event.request_id)
+                {
+                    request.finish(event.timestamp);
                 }
             }
         }
@@ -2027,6 +2068,7 @@ fn dispatch_event(state: &PageState, method: &str, params: &Value) {
                     .find(|request| request.request_id == event.request_id)
                 {
                     request.failure = Some(event.error_text);
+                    request.finish(event.timestamp);
                 }
             }
         }

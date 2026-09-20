@@ -498,7 +498,19 @@ Both are exercised by the runner's smoke tests on Chrome and Firefox.
 Verified on Firefox 156 (`tests/bidi.rs`, 8 tests): init scripts run on every
 document, and locators/frames still work through the preload path.
 
-## 24. Quality bar
+## 24. Round 15: HAR export and test sharding
+
+- **HAR 1.2 export (CDP)**: `Page::har` builds a HAR document from the requests
+  observed by the page (`Page::har_with_bodies` additionally fetches response
+  bodies via `Network.getResponseBody`). `NetworkRequest` now records
+  wall-clock/monotonic timings so entries carry `startedDateTime`, `time` and
+  `timings`; `build_har` also emits a small ISO 8601 formatter (no date
+  dependency). Verified against a local server in `tests/advanced.rs`.
+- **Test sharding**: `RUSTWRIGHT_SHARD=i/N` runs only the tests whose name hashes
+  into shard `i` (1-based), so a large suite can be split across CI jobs. The
+  runner still retries and skips as before.
+
+## 25. Quality bar
 
 - No `unsafe` (forbid in every crate).
 - rustdoc on all public items.

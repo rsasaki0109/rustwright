@@ -26,6 +26,7 @@
 //! - `RUSTWRIGHT_BROWSER=firefox` runs against Firefox/BiDi (default: Chrome).
 //! - `RUSTWRIGHT_HEADLESS=0` runs a visible browser (default: headless).
 //! - `RUSTWRIGHT_RETRIES=N` retries a failing test up to `N` extra times.
+//! - `RUSTWRIGHT_SHARD=i/N` runs only this shard's tests (1-based index).
 //! - `RUSTWRIGHT_PROFILE=/path` uses a persistent profile.
 //! - `RUSTWRIGHT_CHROME` / `RUSTWRIGHT_FIREFOX` pin the executable.
 
@@ -119,6 +120,13 @@ where
     F: Fn(TestContext) -> Fut + Send + Sync + 'static,
     Fut: Future<Output = Result<()>> + Send + 'static,
 {
+    if let Some((index, total)) = shard() {
+        if !in_shard(name, index, total) {
+            eprintln!("skipping test `{name}` (shard {index}/{total})");
+            return;
+        }
+    }
+
     let attempts = retries() + 1;
     let mut last_error = String::new();
 
@@ -188,6 +196,26 @@ fn retries() -> u32 {
         .unwrap_or(0)
 }
 
+/// Parse `RUSTWRIGHT_SHARD` as `index/total` (1-based).
+fn shard() -> Option<(u32, u32)> {
+    let value = std::env::var("RUSTWRIGHT_SHARD").ok()?;
+    let (index, total) = value.split_once('/')?;
+    let index: u32 = index.trim().parse().ok()?;
+    let total: u32 = total.trim().parse().ok()?;
+    if index == 0 || total == 0 || index > total {
+        return None;
+    }
+    Some((index, total))
+}
+
+/// Deterministic shard assignment by test name.
+fn in_shard(name: &str, index: u32, total: u32) -> bool {
+    use std::hash::{Hash, Hasher};
+    let mut hasher = std::collections::hash_map::DefaultHasher::new();
+    name.hash(&mut hasher);
+    (hasher.finish() % u64::from(total)) as u32 + 1 == index
+}
+
 fn panic_message(payload: &(dyn std::any::Any + Send)) -> String {
     if let Some(message) = payload.downcast_ref::<&str>() {
         (*message).to_string()
@@ -239,4 +267,21 @@ fn firefox_from_env(headless: bool) -> Firefox {
         firefox = firefox.profile(profile);
     }
     firefox
+}
+
+#[cfg(test)]
+mod tests {
+    use super::in_shard;
+
+    #[test]
+    fn shards_partition_tests() {
+        let total = 3;
+        for index in 0..40 {
+            let name = format!("test_{index}");
+            let matches = (1..=total)
+                .filter(|shard| in_shard(&name, *shard, total))
+                .count();
+            assert_eq!(matches, 1, "each test belongs to exactly one shard");
+        }
+    }
 }
