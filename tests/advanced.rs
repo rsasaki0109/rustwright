@@ -44,6 +44,20 @@ async fn spawn_server() -> String {
                     "Content-Type: application/json\r\n",
                     "{\"ok\":true}".to_string(),
                 )
+            } else if path.starts_with("/echo") {
+                let value = request
+                    .lines()
+                    .find_map(|line| {
+                        line.split_once(':').and_then(|(name, value)| {
+                            if name.eq_ignore_ascii_case("x-rustwright") {
+                                Some(value.trim().to_string())
+                            } else {
+                                None
+                            }
+                        })
+                    })
+                    .unwrap_or_else(|| "none".to_string());
+                ("Content-Type: text/plain\r\n", value)
             } else {
                 (
                     "Content-Type: text/html; charset=utf-8\r\n",
@@ -185,6 +199,62 @@ async fn downloads_to_configured_path() {
     let file = download_dir.join("hello.txt");
     let contents = wait_for_file(&file, Duration::from_secs(10)).await;
     assert_eq!(contents.as_deref(), Some("hello download"));
+
+    browser.close().await.expect("close");
+}
+
+#[tokio::test]
+async fn modifies_request_headers() {
+    if !chrome_available() {
+        return;
+    }
+    let base = spawn_server().await;
+    let browser = Browser::launch(Chrome::installed().headless(true))
+        .await
+        .expect("launch");
+    let page = browser.new_page().await.expect("page");
+    page.goto(&base).await.expect("goto");
+
+    page.route(
+        "**/echo",
+        RouteAction::SetRequestHeaders(vec![("x-rustwright".to_string(), "1".to_string())]),
+    )
+    .await
+    .expect("route");
+    let echoed = page
+        .evaluate("fetch('/echo').then((response) => response.text())")
+        .await
+        .expect("fetch echo");
+    assert_eq!(echoed.as_str(), Some("1"));
+    page.clear_routes().await.expect("clear");
+
+    browser.close().await.expect("close");
+}
+
+#[tokio::test]
+async fn modifies_response_headers() {
+    if !chrome_available() {
+        return;
+    }
+    let base = spawn_server().await;
+    let browser = Browser::launch(Chrome::installed().headless(true))
+        .await
+        .expect("launch");
+    let page = browser.new_page().await.expect("page");
+    page.goto(&base).await.expect("goto");
+
+    page.route(
+        "**/api/data",
+        RouteAction::SetResponseHeaders(vec![("x-added".to_string(), "yes".to_string())]),
+    )
+    .await
+    .expect("route");
+    let header = page
+        .evaluate("fetch('/api/data').then((response) => response.headers.get('x-added'))")
+        .await
+        .expect("fetch header");
+    assert_eq!(header.as_str(), Some("yes"));
+    page.clear_routes().await.expect("clear");
 
     browser.close().await.expect("close");
 }

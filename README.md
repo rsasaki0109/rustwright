@@ -172,6 +172,8 @@ page.restore_storage_state(&state).await?;
 // Request interception (generic; no site-specific rules).
 page.mock("**/api/data", 200, "application/json", r#"{"ok":true}"#).await?;
 page.block("**/ads/**").await?;
+page.route("**/echo", RouteAction::SetRequestHeaders(vec![("x-app".into(), "1".into())])).await?;
+page.route("**/api/**", RouteAction::SetResponseHeaders(vec![("x-served-by".into(), "rustwright".into())])).await?;
 page.clear_routes().await?;
 
 // Frames, including cross-origin iframes.
@@ -444,6 +446,7 @@ Capabilities:
 - popups / new tabs via `BrowserContext::wait_for_page`,
 - reusable login state via `Page::storage_state` / `restore_storage_state`,
 - request interception via `Page::route` / `mock` / `block` / `clear_routes`,
+  including request- and response-header modification (CDP),
 - downloads via `BrowserContext::set_download_path`, uploads via
   `Locator::set_input_files`,
 - frames via `Page::frames` / `Page::frame_locator`,

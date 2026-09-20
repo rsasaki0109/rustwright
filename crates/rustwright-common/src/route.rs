@@ -20,6 +20,14 @@ pub enum RouteAction {
         /// Response body.
         body: Vec<u8>,
     },
+    /// Continue the request, overriding (or adding) these request headers.
+    ///
+    /// Provided headers are merged onto the original request headers.
+    SetRequestHeaders(Vec<(String, String)>),
+    /// Continue the response, overriding (or adding) these response headers.
+    ///
+    /// Provided headers are merged onto the original response headers.
+    SetResponseHeaders(Vec<(String, String)>),
 }
 
 /// A URL pattern and the action to apply.

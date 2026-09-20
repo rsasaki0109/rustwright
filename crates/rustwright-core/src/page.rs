@@ -1,6 +1,6 @@
 //! The [`Page`] abstraction: navigation, content, interaction and waiting.
 
-use std::collections::{HashMap, HashSet};
+use std::collections::{BTreeMap, HashMap, HashSet};
 use std::path::{Path, PathBuf};
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{Arc, Mutex};
@@ -13,8 +13,8 @@ use rustwright_cdp::protocol::dom::{
 };
 use rustwright_cdp::protocol::emulation::SetDeviceMetricsOverrideParams;
 use rustwright_cdp::protocol::fetch::{
-    ContinueRequestParams, EnableParams as FetchEnableParams, FailRequestParams,
-    FulfillRequestParams, HeaderEntry, RequestPattern, RequestPausedParams,
+    ContinueRequestParams, ContinueResponseParams, EnableParams as FetchEnableParams,
+    FailRequestParams, FulfillRequestParams, HeaderEntry, RequestPattern, RequestPausedParams,
 };
 use rustwright_cdp::protocol::input::{
     DispatchKeyEventParams, DispatchMouseEventParams, InsertTextParams,
@@ -178,6 +178,7 @@ pub(crate) struct PageState {
     frames: Mutex<HashMap<String, FrameInfo>>,
     main_frame_id: Mutex<Option<String>>,
     routes: Mutex<Vec<Route>>,
+    response_stage: AtomicBool,
     trace: Mutex<TraceState>,
     url: Mutex<String>,
     closed: AtomicBool,
@@ -269,6 +270,7 @@ impl Page {
             frames: Mutex::new(HashMap::new()),
             main_frame_id: Mutex::new(None),
             routes: Mutex::new(Vec::new()),
+            response_stage: AtomicBool::new(false),
             trace: Mutex::new(TraceState::default()),
             url: Mutex::new("about:blank".to_string()),
             closed: AtomicBool::new(false),
@@ -1002,22 +1004,42 @@ impl Page {
     /// abort or fulfill requests, but implements no site-specific behaviour.
     pub async fn route(&self, pattern: impl Into<String>, action: RouteAction) -> Result<()> {
         self.ensure_open()?;
+        let needs_response = matches!(action, RouteAction::SetResponseHeaders(_));
         let first = {
             let mut routes = self.state.routes.lock().expect("routes mutex poisoned");
             let first = routes.is_empty();
             routes.push(Route::new(pattern, action));
             first
         };
-        if first {
-            let params = FetchEnableParams {
-                patterns: vec![RequestPattern {
-                    url_pattern: Some("*".to_string()),
-                    ..Default::default()
-                }],
-                handle_auth_requests: false,
-            };
-            self.session.send("Fetch.enable", json!(params)).await?;
+        let response_enabled = self.state.response_stage.load(Ordering::SeqCst);
+        if first || (needs_response && !response_enabled) {
+            self.enable_fetch(response_enabled || needs_response)
+                .await?;
         }
+        Ok(())
+    }
+
+    async fn enable_fetch(&self, with_response: bool) -> Result<()> {
+        let mut patterns = vec![RequestPattern {
+            url_pattern: Some("*".to_string()),
+            request_stage: Some("Request".to_string()),
+            ..Default::default()
+        }];
+        if with_response {
+            patterns.push(RequestPattern {
+                url_pattern: Some("*".to_string()),
+                request_stage: Some("Response".to_string()),
+                ..Default::default()
+            });
+        }
+        let params = FetchEnableParams {
+            patterns,
+            handle_auth_requests: false,
+        };
+        self.session.send("Fetch.enable", json!(params)).await?;
+        self.state
+            .response_stage
+            .store(with_response, Ordering::SeqCst);
         Ok(())
     }
 
@@ -1055,6 +1077,7 @@ impl Page {
         };
         if had_routes {
             let _ = self.session.send("Fetch.disable", json!({})).await;
+            self.state.response_stage.store(false, Ordering::SeqCst);
         }
         Ok(())
     }
@@ -1853,6 +1876,65 @@ async fn handle_request_paused(session: &CdpSession, state: &PageState, params: 
             .find(|route| route.matches(&paused.request.url))
             .map(|route| route.action.clone())
     };
+
+    // `Fetch.requestPaused` also fires at the response stage; response fields
+    // are present when the request had already been sent.
+    let is_response = paused.response_status_code.is_some()
+        || !paused.response_headers.is_empty()
+        || paused.response_error_reason.is_some();
+
+    if is_response {
+        match action {
+            Some(RouteAction::Abort) => {
+                let _ = session
+                    .send(
+                        "Fetch.failRequest",
+                        json!(FailRequestParams {
+                            request_id,
+                            error_reason: "Aborted".to_string(),
+                        }),
+                    )
+                    .await;
+            }
+            Some(RouteAction::Fulfill {
+                status,
+                content_type,
+                body,
+            }) => {
+                let params = FulfillRequestParams {
+                    request_id,
+                    response_code: status,
+                    response_headers: vec![HeaderEntry {
+                        name: "Content-Type".to_string(),
+                        value: content_type,
+                    }],
+                    body: Some(base64::engine::general_purpose::STANDARD.encode(body)),
+                };
+                let _ = session.send("Fetch.fulfillRequest", json!(params)).await;
+            }
+            Some(RouteAction::SetResponseHeaders(overrides)) => {
+                let headers = merge_response_headers(&paused.response_headers, &overrides);
+                let params = ContinueResponseParams {
+                    request_id,
+                    response_code: paused.response_status_code,
+                    response_phrase: None,
+                    response_headers: Some(headers),
+                };
+                let _ = session.send("Fetch.continueResponse", json!(params)).await;
+            }
+            _ => {
+                let params = ContinueResponseParams {
+                    request_id,
+                    response_code: None,
+                    response_phrase: None,
+                    response_headers: None,
+                };
+                let _ = session.send("Fetch.continueResponse", json!(params)).await;
+            }
+        }
+        return;
+    }
+
     match action {
         Some(RouteAction::Abort) => {
             let _ = session
@@ -1881,15 +1963,62 @@ async fn handle_request_paused(session: &CdpSession, state: &PageState, params: 
             };
             let _ = session.send("Fetch.fulfillRequest", json!(params)).await;
         }
+        Some(RouteAction::SetRequestHeaders(overrides)) => {
+            let headers = merge_request_headers(&paused.request.headers, &overrides);
+            let params = ContinueRequestParams {
+                request_id,
+                headers: Some(headers),
+            };
+            let _ = session.send("Fetch.continueRequest", json!(params)).await;
+        }
         _ => {
-            let _ = session
-                .send(
-                    "Fetch.continueRequest",
-                    json!(ContinueRequestParams { request_id }),
-                )
-                .await;
+            let params = ContinueRequestParams {
+                request_id,
+                headers: None,
+            };
+            let _ = session.send("Fetch.continueRequest", json!(params)).await;
         }
     }
+}
+
+fn merge_request_headers(
+    original: &serde_json::Map<String, Value>,
+    overrides: &[(String, String)],
+) -> Vec<HeaderEntry> {
+    let mut merged: BTreeMap<String, String> = original
+        .iter()
+        .map(|(name, value)| {
+            let value = value
+                .as_str()
+                .map(str::to_string)
+                .unwrap_or_else(|| value.to_string());
+            (name.clone(), value)
+        })
+        .collect();
+    for (name, value) in overrides {
+        merged.insert(name.clone(), value.clone());
+    }
+    merged
+        .into_iter()
+        .map(|(name, value)| HeaderEntry { name, value })
+        .collect()
+}
+
+fn merge_response_headers(
+    original: &[HeaderEntry],
+    overrides: &[(String, String)],
+) -> Vec<HeaderEntry> {
+    let mut merged: BTreeMap<String, String> = original
+        .iter()
+        .map(|header| (header.name.clone(), header.value.clone()))
+        .collect();
+    for (name, value) in overrides {
+        merged.insert(name.clone(), value.clone());
+    }
+    merged
+        .into_iter()
+        .map(|(name, value)| HeaderEntry { name, value })
+        .collect()
 }
 
 fn dispatch_event(state: &PageState, method: &str, params: &Value) {

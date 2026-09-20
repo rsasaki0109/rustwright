@@ -510,7 +510,24 @@ document, and locators/frames still work through the preload path.
   into shard `i` (1-based), so a large suite can be split across CI jobs. The
   runner still retries and skips as before.
 
-## 25. Quality bar
+## 25. Round 16: header modification
+
+- `RouteAction` gained `SetRequestHeaders` and `SetResponseHeaders`. On CDP,
+  request-stage rules answer with `Fetch.continueRequest { headers }` and
+  response-stage rules with `Fetch.continueResponse { responseHeaders }`; the
+  supplied headers are merged onto the originals.
+- Response-stage interception requires enabling a second `Fetch` pattern with
+  `requestStage: "Response"`. `Page::route` enables it lazily the first time a
+  response-modifying rule is added, and `clear_routes` resets the state.
+- The request/response stage is detected from the paused event (`response
+  status/headers/error`), and `Fetch.continueResponse` is used for the response
+  stage. Verified in `tests/advanced.rs`: a request header is echoed back by the
+  server, and a response header is visible to `fetch`.
+- Header modification is CDP-only for now; the BiDi backend treats the new
+  actions as "continue" (its spec supports it via `network.continue*` headers,
+  a candidate follow-up).
+
+## 26. Quality bar
 
 - No `unsafe` (forbid in every crate).
 - rustdoc on all public items.

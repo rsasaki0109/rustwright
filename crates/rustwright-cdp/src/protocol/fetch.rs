@@ -70,6 +70,26 @@ pub struct RequestPausedParams {
 pub struct ContinueRequestParams {
     /// CDP request id.
     pub request_id: String,
+    /// Replacement request headers (the complete set).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub headers: Option<Vec<HeaderEntry>>,
+}
+
+/// Parameters of `Fetch.continueResponse`.
+#[derive(Debug, Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ContinueResponseParams {
+    /// CDP request id.
+    pub request_id: String,
+    /// Replacement status code.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub response_code: Option<i64>,
+    /// Replacement reason phrase.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub response_phrase: Option<String>,
+    /// Replacement response headers (the complete set).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub response_headers: Option<Vec<HeaderEntry>>,
 }
 
 /// Parameters of `Fetch.fulfillRequest`.
