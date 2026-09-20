@@ -280,9 +280,10 @@ not synthetic DOM events. BiDi also mirrors the CDP backend's request
 interception (`route` / `mock` / `block` / `clear_routes`, backed by
 `network.addIntercept` + `network.provideResponse`), opt-in network monitoring
 (`start_network_monitoring` / `network_requests`), frames (`frames` /
-`frame_locator` / `BidiFrame` with frame-scoped locators), and cookies / storage
+`frame_locator` / `BidiFrame` with frame-scoped locators), cookies / storage
 (`cookies` / `add_cookie` / `clear_cookies` / `storage_state` /
-`restore_storage_state`, backed by `storage.*`).
+`restore_storage_state`, backed by `storage.*`), and isolated user contexts
+(`BidiBrowser::new_context` / `BidiContext`).
 
 Notes from real machines:
 
@@ -366,17 +367,6 @@ cargo run -p rustwright-examples --example compat_report -- https://example.com
 
 It reports the final URL, navigation chain, console/JS errors, failed requests,
 non-2xx document responses and a screenshot for each site.
-
-Representative results against installed Chrome 150 (no bypass logic):
-
-| Site | Headless, fresh profile | Headed, persistent profile |
-|---|---|---|
-| Mercari (`jp.mercari.com`) | loads, title correct, 0 errors | loads |
-| Rakuma (`fril.jp`) | loads, title correct, 0 errors | loads |
-| X (`x.com`) | 403 for a fresh headless session | loads (655 requests, 0 errors) |
-| YouTube | loads; `accounts.google.com` 401 is the normal passive check | loads |
-| Instagram | loads | loads |
-| TikTok | 403 / Chrome error page | 403 (server-side challenge on this network) |
 
 X demonstrates the real-browser-first premise: the same framework code that
 gets a 403 headless succeeds in a headed browser with a persistent profile.
