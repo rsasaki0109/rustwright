@@ -1,0 +1,23 @@
+[package]
+name = "rustwright"
+description = "Real-browser-first browser automation for Rust"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+rustwright-bidi.workspace = true
+rustwright-browser.workspace = true
+rustwright-cdp.workspace = true
+rustwright-common.workspace = true
+rustwright-core.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+
+[dev-dependencies]
+tokio = { workspace = true }
+
+[lints.rust]
+unsafe_code = "forbid"

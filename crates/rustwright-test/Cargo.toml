@@ -1,0 +1,16 @@
+[package]
+name = "rustwright-test"
+description = "An independent browser test runner for Rustwright"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+rustwright.workspace = true
+rustwright-test-macros = { version = "0.1.0", path = "../rustwright-test-macros" }
+tokio = { workspace = true }
+
+[lints.rust]
+unsafe_code = "forbid"

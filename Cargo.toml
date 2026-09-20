@@ -1,0 +1,50 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/rustwright",
+    "crates/rustwright-browser",
+    "crates/rustwright-cdp",
+    "crates/rustwright-core",
+    "crates/rustwright-common",
+    "crates/rustwright-bidi",
+    "crates/rustwright-test",
+    "crates/rustwright-test-macros",
+    "examples",
+    "tests",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/anomalyco/rustwright"
+rust-version = "1.75"
+authors = ["Rustwright contributors"]
+description = "Real-browser-first browser automation for Rust"
+
+[workspace.dependencies]
+rustwright = { version = "0.1.0", path = "crates/rustwright" }
+rustwright-bidi = { version = "0.1.0", path = "crates/rustwright-bidi" }
+rustwright-cdp = { version = "0.1.0", path = "crates/rustwright-cdp" }
+rustwright-common = { version = "0.1.0", path = "crates/rustwright-common" }
+rustwright-browser = { version = "0.1.0", path = "crates/rustwright-browser" }
+rustwright-core = { version = "0.1.0", path = "crates/rustwright-core" }
+
+base64 = "0.22"
+futures-util = "0.3"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+tokio = { version = "1", features = [
+    "rt-multi-thread",
+    "macros",
+    "sync",
+    "time",
+    "net",
+    "io-util",
+    "fs",
+    "process",
+    "signal",
+] }
+tokio-tungstenite = "0.30"
+tracing = "0.1"

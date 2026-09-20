@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Rustwright demo</title>
+    <style>
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+        color: #0f172a;
+        background:
+          radial-gradient(1200px 600px at 10% -10%, #dbeafe 0%, transparent 55%),
+          radial-gradient(900px 500px at 110% 10%, #fae8ff 0%, transparent 50%),
+          #f8fafc;
+        padding: 56px;
+      }
+      .card {
+        max-width: 980px;
+        margin: 0 auto;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 24px;
+        padding: 44px 48px;
+        box-shadow: 0 30px 60px -30px rgba(15, 23, 42, 0.35);
+      }
+      .brand { display: flex; align-items: center; gap: 14px; }
+      .mark {
+        width: 46px; height: 46px; border-radius: 14px;
+        background: linear-gradient(135deg, #2563eb, #7c3aed);
+        display: grid; place-items: center; color: white; font-size: 26px;
+        box-shadow: 0 10px 20px -8px rgba(37, 99, 235, 0.8);
+      }
+      h1 { font-size: 40px; margin: 0; letter-spacing: -0.02em; }
+      .tag { color: #64748b; margin: 6px 0 0; font-size: 17px; }
+      .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 34px; }
+      .tile { border: 1px solid #e2e8f0; border-radius: 16px; padding: 18px; background: #f8fafc; }
+      .tile b { display: block; font-size: 15px; }
+      .tile span { color: #64748b; font-size: 13px; }
+      .row { display: flex; align-items: center; gap: 12px; margin-top: 30px; flex-wrap: wrap; }
+      .pill {
+        font-size: 13px; font-weight: 600; padding: 7px 14px; border-radius: 999px;
+        background: #eef2ff; color: #4338ca;
+      }
+      .pill.green { background: #dcfce7; color: #15803d; }
+      .pill.amber { background: #fef3c7; color: #b45309; }
+      .browser {
+        margin-top: 30px; border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden;
+      }
+      .bar { display: flex; gap: 8px; padding: 12px 16px; background: #f1f5f9; border-bottom: 1px solid #e2e8f0; }
+      .dot { width: 11px; height: 11px; border-radius: 50%; }
+      .addr { margin-left: 12px; font-size: 13px; color: #64748b; }
+      .body { padding: 22px 24px; font-size: 15px; color: #334155; }
+      code { background: #0f172a; color: #e2e8f0; padding: 3px 7px; border-radius: 6px; font-size: 13px; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="brand">
+        <div class="mark">R</div>
+        <div>
+          <h1>Rustwright</h1>
+          <p class="tag">Real-browser-first automation for Rust — one API, Chrome and Firefox.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <span class="pill">Tokio</span>
+        <span class="pill">CDP</span>
+        <span class="pill">WebDriver BiDi</span>
+        <span class="pill green">installed Chrome</span>
+        <span class="pill amber">no bypass</span>
+      </div>
+
+      <div class="grid">
+        <div class="tile"><b>Locators</b><span>auto-waiting, semantic</span></div>
+        <div class="tile"><b>Persistent profiles</b><span>cookies + storage</span></div>
+        <div class="tile"><b>Frames</b><span>cross-origin</span></div>
+        <div class="tile"><b>Interception</b><span>mock / block</span></div>
+        <div class="tile"><b>Downloads</b><span>+ uploads</span></div>
+        <div class="tile"><b>Diagnostics</b><span>console / network</span></div>
+      </div>
+
+      <div class="browser">
+        <div class="bar">
+          <div class="dot" style="background:#ef4444"></div>
+          <div class="dot" style="background:#f59e0b"></div>
+          <div class="dot" style="background:#22c55e"></div>
+          <div class="addr">page.goto("example.com")</div>
+        </div>
+        <div class="body">
+          <code>page.get_by_role(Role::Button, Some("Submit")).click()</code> — rendered by a real
+          browser, driven by Rustwright.
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

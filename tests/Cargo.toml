@@ -1,0 +1,38 @@
+[package]
+name = "rustwright-integration-tests"
+description = "Integration tests for Rustwright"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+publish = false
+
+[dependencies]
+rustwright.workspace = true
+serde_json.workspace = true
+tokio = { workspace = true }
+
+[[test]]
+name = "vertical_slice"
+path = "vertical_slice.rs"
+
+[[test]]
+name = "features"
+path = "features.rs"
+
+[[test]]
+name = "advanced"
+path = "advanced.rs"
+
+[[test]]
+name = "bidi"
+path = "bidi.rs"
+
+[[test]]
+name = "unified"
+path = "unified.rs"
+
+[[test]]
+name = "diagnostics"
+path = "diagnostics.rs"

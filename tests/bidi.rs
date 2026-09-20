@@ -1,0 +1,153 @@
+//! Tests for the WebDriver BiDi + Firefox path.
+//!
+//! These skip cleanly when Firefox is not installed.
+
+use std::time::Duration;
+
+use rustwright::bidi::{BidiBrowser, BidiResult};
+use rustwright::prelude::*;
+use tokio::io::{AsyncReadExt, AsyncWriteExt};
+use tokio::net::TcpListener;
+
+fn firefox_available() -> bool {
+    match Firefox::installed().executable_path() {
+        Ok(path) => {
+            eprintln!("using firefox: {}", path.display());
+            true
+        }
+        Err(error) => {
+            eprintln!("skipping test, no firefox found: {error}");
+            false
+        }
+    }
+}
+
+/// A minimal HTTP server for network diagnostics.
+async fn spawn_server() -> String {
+    let listener = TcpListener::bind("127.0.0.1:0").await.expect("bind");
+    let address = listener.local_addr().expect("addr");
+    tokio::spawn(async move {
+        while let Ok((mut socket, _)) = listener.accept().await {
+            let mut buffer = [0u8; 2048];
+            let _ = socket.read(&mut buffer).await;
+            let body = "<!DOCTYPE html><html><head><title>net</title></head><body>ok</body></html>";
+            let response = format!(
+                "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{body}",
+                body.len()
+            );
+            let _ = socket.write_all(response.as_bytes()).await;
+            let _ = socket.shutdown().await;
+        }
+    });
+    format!("http://{address}/")
+}
+
+#[tokio::test]
+async fn firefox_bidi_navigates_and_evaluates() -> BidiResult<()> {
+    if !firefox_available() {
+        return Ok(());
+    }
+    // A data URL avoids filesystem access, which sandboxed Firefox builds
+    // (for example the Snap) cannot do for arbitrary paths.
+    let url = "data:text/html,<title>bidi</title><h1>Hello BiDi</h1>";
+
+    let browser = BidiBrowser::launch(Firefox::installed().headless(true)).await?;
+    assert!(browser.browser_version().is_some());
+
+    let page = browser.new_page().await?;
+    page.goto(url).await?;
+    assert_eq!(page.title().await?, "bidi");
+    assert!(page.url().await?.starts_with("data:"));
+
+    let heading = page
+        .evaluate("document.querySelector('h1').textContent")
+        .await?;
+    assert_eq!(heading.as_str(), Some("Hello BiDi"));
+
+    let content = page.content().await?;
+    assert!(content.contains("Hello BiDi"));
+
+    let screenshot = std::env::temp_dir()
+        .join("rustwright-bidi-tests")
+        .join("bidi.png");
+    page.screenshot(&screenshot).await?;
+    assert!(std::fs::read(&screenshot).expect("screenshot").len() > 8);
+
+    browser.close().await?;
+    Ok(())
+}
+
+#[tokio::test]
+async fn firefox_bidi_locators_interact() -> BidiResult<()> {
+    if !firefox_available() {
+        return Ok(());
+    }
+    let url = "data:text/html,<title>locators</title>\
+        <input name='q' placeholder='Search'>\
+        <button id='go'>Go</button>\
+        <div id='out'>waiting</div>";
+
+    let browser = BidiBrowser::launch(Firefox::installed().headless(true)).await?;
+    let page = browser.new_page().await?;
+    page.goto(url).await?;
+
+    // Arrange a click handler without relying on inline scripts in the URL.
+    page.evaluate(
+        "document.getElementById('go').addEventListener('click', () => { \
+           document.getElementById('out').textContent = 'clicked'; })",
+    )
+    .await?;
+
+    let search = page.locator("input[name=q]");
+    assert!(search.is_visible().await?);
+    search.fill("rust").await?;
+    let value = page
+        .evaluate("document.querySelector('input[name=q]').value")
+        .await?;
+    assert_eq!(value.as_str(), Some("rust"));
+
+    assert_eq!(page.locator("button").count().await?, 1);
+
+    page.get_by_role(Role::Button, Some("Go")).click().await?;
+    let output = page.get_by_text("clicked");
+    output.wait_for(WaitState::Visible).await?;
+    assert_eq!(output.text().await?, "clicked");
+
+    assert_eq!(page.locator("#missing").count().await?, 0);
+    assert!(page.locator("#missing").is_hidden().await?);
+
+    browser.close().await?;
+    Ok(())
+}
+
+#[tokio::test]
+async fn firefox_bidi_network_monitoring() -> BidiResult<()> {
+    if !firefox_available() {
+        return Ok(());
+    }
+    let base = spawn_server().await;
+    let browser = BidiBrowser::launch(Firefox::installed().headless(true)).await?;
+    let page = browser.new_page().await?;
+    page.start_network_monitoring().await?;
+    page.goto(&base).await?;
+
+    let deadline = tokio::time::Instant::now() + Duration::from_secs(10);
+    while page.network_requests().is_empty() && tokio::time::Instant::now() < deadline {
+        tokio::time::sleep(Duration::from_millis(50)).await;
+    }
+
+    let requests = page.network_requests();
+    assert!(
+        requests.iter().any(|request| request.url == base),
+        "document request was captured, got: {requests:?}"
+    );
+    assert!(
+        requests
+            .iter()
+            .any(|request| request.url == base && request.status == Some(200)),
+        "response status was captured"
+    );
+
+    browser.close().await?;
+    Ok(())
+}

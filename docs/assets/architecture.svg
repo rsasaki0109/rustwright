@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="780" viewBox="0 0 1120 780" role="img" aria-label="Rustwright architecture">
+  <style>
+    .t { font-family: Inter, 'Segoe UI', system-ui, sans-serif; }
+    .h { font-size: 22px; font-weight: 700; }
+    .s { font-size: 16px; font-weight: 500; }
+    .l { font-size: 14px; font-weight: 600; letter-spacing: .04em; }
+    .a { stroke: #94a3b8; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+    .d { stroke: #cbd5e1; stroke-width: 2.5; fill: none; stroke-dasharray: 7 6; marker-end: url(#arrow2); }
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/>
+    </marker>
+    <marker id="arrow2" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cbd5e1"/>
+    </marker>
+  </defs>
+
+  <rect width="1120" height="780" fill="#f8fafc"/>
+
+  <!-- application -->
+  <rect x="60" y="40" width="1000" height="66" rx="14" fill="#eef2ff" stroke="#c7d2fe" stroke-width="2"/>
+  <text x="560" y="80" class="t h" fill="#3730a3" text-anchor="middle">Your application / integration tests</text>
+
+  <!-- facade -->
+  <rect x="360" y="150" width="400" height="64" rx="14" fill="#dbeafe" stroke="#93c5fd" stroke-width="2"/>
+  <text x="560" y="190" class="t h" fill="#1e40af" text-anchor="middle">rustwright · facade + prelude</text>
+
+  <rect x="800" y="150" width="260" height="64" rx="14" fill="#f5f3ff" stroke="#ddd6fe" stroke-width="2"/>
+  <text x="930" y="180" class="t s" fill="#5b21b6" text-anchor="middle">rustwright-test</text>
+  <text x="930" y="202" class="t l" fill="#7c3aed" text-anchor="middle">#[rustwright_test]</text>
+
+  <!-- core / bidi -->
+  <rect x="110" y="272" width="420" height="76" rx="14" fill="#dcfce7" stroke="#86efac" stroke-width="2"/>
+  <text x="320" y="308" class="t h" fill="#166534" text-anchor="middle">rustwright-core</text>
+  <text x="320" y="332" class="t s" fill="#15803d" text-anchor="middle">Chrome object model · CDP</text>
+
+  <rect x="590" y="272" width="420" height="76" rx="14" fill="#fef3c7" stroke="#fcd34d" stroke-width="2"/>
+  <text x="800" y="308" class="t h" fill="#92400e" text-anchor="middle">rustwright-bidi</text>
+  <text x="800" y="332" class="t s" fill="#b45309" text-anchor="middle">Firefox object model · BiDi</text>
+
+  <!-- common -->
+  <rect x="200" y="404" width="720" height="72" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="560" y="436" class="t h" fill="#0f172a" text-anchor="middle">rustwright-common</text>
+  <text x="560" y="460" class="t s" fill="#64748b" text-anchor="middle">Selector · Role · PageApi / LocatorApi · injected helper</text>
+
+  <!-- transports -->
+  <rect x="110" y="532" width="420" height="72" rx="14" fill="#e0f2fe" stroke="#7dd3fc" stroke-width="2"/>
+  <text x="320" y="564" class="t h" fill="#075985" text-anchor="middle">rustwright-cdp</text>
+  <text x="320" y="588" class="t s" fill="#0369a1" text-anchor="middle">WebSocket transport · typed protocol</text>
+
+  <rect x="590" y="532" width="420" height="72" rx="14" fill="#e0f2fe" stroke="#7dd3fc" stroke-width="2"/>
+  <text x="800" y="564" class="t h" fill="#075985" text-anchor="middle">rustwright-browser</text>
+  <text x="800" y="588" class="t s" fill="#0369a1" text-anchor="middle">discovery · launch · profiles</text>
+
+  <!-- browsers -->
+  <rect x="150" y="662" width="330" height="72" rx="14" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+  <text x="315" y="700" class="t h" fill="#0f172a" text-anchor="middle">Chrome / Chromium</text>
+  <text x="315" y="722" class="t l" fill="#64748b" text-anchor="middle">INSTALLED · UNMODIFIED</text>
+
+  <rect x="640" y="662" width="330" height="72" rx="14" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+  <text x="805" y="700" class="t h" fill="#0f172a" text-anchor="middle">Firefox</text>
+  <text x="805" y="722" class="t l" fill="#64748b" text-anchor="middle">INSTALLED · BIDI REMOTE AGENT</text>
+
+  <!-- arrows -->
+  <path class="a" d="M560,106 L560,148"/>
+  <path class="a" d="M800,182 L764,182"/>
+  <path class="a" d="M560,214 L320,272"/>
+  <path class="a" d="M560,214 L800,272"/>
+  <path class="a" d="M320,348 L320,404"/>
+  <path class="a" d="M800,348 L800,404"/>
+  <path class="a" d="M240,348 L240,532"/>
+  <path class="a" d="M880,348 L880,532"/>
+  <path class="a" d="M320,604 L320,660"/>
+  <path class="a" d="M800,604 L800,660"/>
+
+  <!-- legend -->
+  <text x="60" y="760" class="t l" fill="#94a3b8">arrow = depends on / drives</text>
+</svg>
