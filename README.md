@@ -282,8 +282,10 @@ interception (`route` / `mock` / `block` / `clear_routes`, backed by
 (`start_network_monitoring` / `network_requests`), frames (`frames` /
 `frame_locator` / `BidiFrame` with frame-scoped locators), cookies / storage
 (`cookies` / `add_cookie` / `clear_cookies` / `storage_state` /
-`restore_storage_state`, backed by `storage.*`), and isolated user contexts
-(`BidiBrowser::new_context` / `BidiContext`).
+`restore_storage_state`, backed by `storage.*`), isolated user contexts
+(`BidiBrowser::new_context` / `BidiContext`), and init scripts
+(`BidiPage::add_init_script`, backed by `script.addPreloadScript` — the page
+helper is installed the same way).
 
 Notes from real machines:
 
@@ -300,6 +302,9 @@ Notes from real machines:
 - Network diagnostics are available on both backends: `Page::network_requests`
   (CDP) and `BidiPage::start_network_monitoring` + `BidiPage::network_requests`
   (BiDi).
+- Downloads are CDP-only: Firefox 156 has no BiDi download command
+  (`browsingContext.setDownloadBehavior` is `unknown command`), so
+  `BrowserContext::set_download_path` applies to Chrome.
 
 ## Testing
 

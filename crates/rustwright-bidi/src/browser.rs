@@ -176,6 +176,7 @@ pub struct BidiPage {
     session: BidiSession,
     context: String,
     helper_contexts: Arc<Mutex<HashSet<String>>>,
+    preload: Arc<Mutex<Option<String>>>,
     network: Arc<Mutex<Vec<BidiNetworkRequest>>>,
     network_started: Arc<AtomicBool>,
     network_pump: Arc<Mutex<Option<NetworkPumpGuard>>>,
@@ -198,6 +199,7 @@ impl BidiPage {
             session,
             context,
             helper_contexts: Arc::new(Mutex::new(HashSet::new())),
+            preload: Arc::new(Mutex::new(None)),
             network: Arc::new(Mutex::new(Vec::new())),
             network_started: Arc::new(AtomicBool::new(false)),
             network_pump: Arc::new(Mutex::new(None)),
@@ -219,8 +221,32 @@ impl BidiPage {
             .expect("bidi helper mutex poisoned")
             .clear();
         self.session.navigate(&self.context, url).await?;
-        self.install_helper().await?;
+        if self
+            .preload
+            .lock()
+            .expect("bidi preload mutex poisoned")
+            .is_some()
+        {
+            // The preload script already installed the helper in the new
+            // document, so no evaluate round-trip is needed.
+            self.helper_contexts
+                .lock()
+                .expect("bidi helper mutex poisoned")
+                .insert(self.context.clone());
+        } else {
+            self.install_helper().await?;
+        }
         Ok(())
+    }
+
+    /// Register a raw script to run in every new document in this page.
+    ///
+    /// Returns the preload script id. Useful for init scripts and polyfills.
+    pub async fn add_init_script(&self, script: &str) -> BidiResult<String> {
+        let declaration = format!("function () {{ {script} }}");
+        self.session
+            .add_preload_script(&declaration, &[self.context.as_str()])
+            .await
     }
 
     /// The current URL.
@@ -565,7 +591,28 @@ impl BidiPage {
     // -- Internal helpers ---------------------------------------------------
 
     pub(crate) async fn install_helper(&self) -> BidiResult<()> {
+        self.install_preload().await?;
         self.ensure_helper_in(&self.context).await
+    }
+
+    /// Register the helper as a preload script so it is present in every new
+    /// document (including after navigations) without re-injecting it.
+    pub(crate) async fn install_preload(&self) -> BidiResult<()> {
+        if self
+            .preload
+            .lock()
+            .expect("bidi preload mutex poisoned")
+            .is_some()
+        {
+            return Ok(());
+        }
+        let declaration = format!("function () {{ {INJECTED_SCRIPT} }}");
+        let script = self
+            .session
+            .add_preload_script(&declaration, &[self.context.as_str()])
+            .await?;
+        *self.preload.lock().expect("bidi preload mutex poisoned") = Some(script);
+        Ok(())
     }
 
     pub(crate) async fn ensure_helper_in(&self, context: &str) -> BidiResult<()> {
@@ -685,6 +732,14 @@ impl BidiPage {
 
     /// Close this page.
     pub async fn close(&self) -> BidiResult<()> {
+        let preload = self
+            .preload
+            .lock()
+            .expect("bidi preload mutex poisoned")
+            .take();
+        if let Some(script) = preload {
+            let _ = self.session.remove_preload_script(&script).await;
+        }
         self.session.close_context(&self.context).await
     }
 }

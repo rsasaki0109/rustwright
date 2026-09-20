@@ -300,6 +300,40 @@ impl BidiSession {
         Ok(remote_value_to_json(&remote))
     }
 
+    /// Register a preload script that runs in every new document.
+    ///
+    /// `function_declaration` must be a function (for example
+    /// `function () { ... }`). Returns the script id.
+    pub async fn add_preload_script(
+        &self,
+        function_declaration: &str,
+        contexts: &[&str],
+    ) -> BidiResult<String> {
+        let result = self
+            .connection
+            .send(
+                "script.addPreloadScript",
+                json!({
+                    "functionDeclaration": function_declaration,
+                    "contexts": contexts,
+                }),
+            )
+            .await?;
+        result
+            .get("script")
+            .and_then(Value::as_str)
+            .map(str::to_string)
+            .ok_or_else(|| BidiError::Unexpected("script.addPreloadScript missing script".into()))
+    }
+
+    /// Remove a preload script.
+    pub async fn remove_preload_script(&self, script: &str) -> BidiResult<()> {
+        self.connection
+            .send("script.removePreloadScript", json!({ "script": script }))
+            .await?;
+        Ok(())
+    }
+
     /// Capture a screenshot of a context as PNG bytes.
     pub async fn screenshot(&self, context: &str) -> BidiResult<Vec<u8>> {
         let result = self

@@ -482,7 +482,23 @@ isolation rather than cookie isolation.)
 
 Both are exercised by the runner's smoke tests on Chrome and Firefox.
 
-## 23. Quality bar
+## 23. Round 14: BiDi preload scripts
+
+- `BidiSession::add_preload_script` / `remove_preload_script` wrap
+  `script.addPreloadScript`, and `BidiPage::add_init_script` exposes it as
+  "run this in every new document".
+- The page helper (selector/locator support) is now installed as a preload
+  script per page, wrapped as `function () { <INJECTED_SCRIPT> }`. After a
+  navigation the helper is therefore already present, so `goto` skips the
+  evaluate round-trip; frames are still injected on demand.
+- Downloads are deliberately not added: Firefox 156 answers
+  `browsingContext.setDownloadBehavior` with `unknown command`, so downloads
+  stay CDP/Chrome-only.
+
+Verified on Firefox 156 (`tests/bidi.rs`, 8 tests): init scripts run on every
+document, and locators/frames still work through the preload path.
+
+## 24. Quality bar
 
 - No `unsafe` (forbid in every crate).
 - rustdoc on all public items.

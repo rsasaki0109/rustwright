@@ -194,6 +194,26 @@ async fn firefox_bidi_network_monitoring() -> BidiResult<()> {
 }
 
 #[tokio::test]
+async fn firefox_bidi_init_script() -> BidiResult<()> {
+    if !firefox_available() {
+        return Ok(());
+    }
+    let Some(browser) = launch_firefox().await else {
+        return Ok(());
+    };
+    let page = browser.new_page().await?;
+    page.add_init_script("window.__init = 'on'").await?;
+
+    page.goto("data:text/html,<title>a</title>").await?;
+    assert_eq!(page.evaluate("window.__init").await?.as_str(), Some("on"));
+    page.goto("data:text/html,<title>b</title>").await?;
+    assert_eq!(page.evaluate("window.__init").await?.as_str(), Some("on"));
+
+    browser.close().await?;
+    Ok(())
+}
+
+#[tokio::test]
 async fn firefox_bidi_frames() -> BidiResult<()> {
     if !firefox_available() {
         return Ok(());

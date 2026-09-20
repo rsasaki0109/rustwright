@@ -31,7 +31,9 @@ Initial release.
 - **Diagnostics**: console messages, JS errors, navigations, network requests,
   dialogs, browser version and launch flags.
 - **WebDriver BiDi**: Firefox driver over BiDi with locators, frames,
-  interception, network monitoring, cookies/storage and isolated user contexts.
+  interception, network monitoring, cookies/storage, isolated user contexts, and
+  init scripts (`add_init_script`). Downloads remain CDP-only because Firefox has
+  no BiDi download command.
 - **Unified API**: `PageApi`/`LocatorApi` implemented by both backends, with
   `AnyPage`/`AnyLocator` for dynamic dispatch.
 - **Test runner**: `#[rustwright_test]` with per-test browser/context/page,
