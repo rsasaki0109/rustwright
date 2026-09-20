@@ -95,7 +95,13 @@ cargo run -p rustwright-examples --example offline_smoke      # no network neede
 cargo run -p rustwright-examples --example persistent_profile
 cargo run -p rustwright-examples --example connect_existing
 cargo run -p rustwright-examples --example bidi_firefox       # Firefox / BiDi
+cargo run -p rustwright-examples --example extract_items -- \
+    "https://jp.mercari.com/search?keyword=iphone" "a[href*='/item/']"
 ```
+
+`extract_items` is a small *user-code* example: it loads a listing page and
+reads titles, prices and links via locators/evaluate. Site-specific logic stays
+in your code, never in the core.
 
 ## API sketch
 
