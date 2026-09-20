@@ -8,7 +8,7 @@
   <img alt="unsafe forbidden" src="https://img.shields.io/badge/unsafe-forbidden-success.svg">
   <img alt="Chrome CDP" src="https://img.shields.io/badge/Chrome-CDP-4285F4.svg">
   <img alt="Firefox WebDriver BiDi" src="https://img.shields.io/badge/Firefox-WebDriver%20BiDi-FF7139.svg">
-  <img alt="tests passing" src="https://img.shields.io/badge/tests-passing-brightgreen.svg">
+  <a href="https://github.com/rsasaki0109/rustwright/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/rsasaki0109/rustwright/actions/workflows/ci.yml/badge.svg"></a>
 </p>
 
 <p align="center">
