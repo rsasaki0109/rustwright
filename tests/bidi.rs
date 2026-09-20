@@ -189,6 +189,36 @@ async fn firefox_bidi_network_monitoring() -> BidiResult<()> {
 }
 
 #[tokio::test]
+async fn firefox_bidi_frames() -> BidiResult<()> {
+    if !firefox_available() {
+        return Ok(());
+    }
+    let Some(browser) = launch_firefox().await else {
+        return Ok(());
+    };
+    let page = browser.new_page().await?;
+    let url = "data:text/html,<title>frames</title>\
+        <iframe src='data:text/html,<input id=inner placeholder=Inside>'></iframe>";
+    page.goto(url).await?;
+
+    let frames = page.frames().await?;
+    assert_eq!(frames.len(), 1, "iframe became a child frame: {frames:?}");
+
+    let frame = page.frame_locator("iframe").await?;
+    frame
+        .get_by_placeholder("Inside")
+        .fill("from-frame")
+        .await?;
+    let value = frame
+        .evaluate("document.getElementById('inner').value")
+        .await?;
+    assert_eq!(value.as_str(), Some("from-frame"));
+
+    browser.close().await?;
+    Ok(())
+}
+
+#[tokio::test]
 async fn firefox_bidi_request_interception() -> BidiResult<()> {
     if !firefox_available() {
         return Ok(());

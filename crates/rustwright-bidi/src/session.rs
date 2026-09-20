@@ -141,6 +141,15 @@ impl BidiSession {
         Ok(parse_contexts(&result)?.into_iter().next())
     }
 
+    /// Get the context tree rooted at `root` (its descendants are nested).
+    pub async fn get_tree_from(&self, root: &str) -> BidiResult<Vec<BrowsingContextInfo>> {
+        let result = self
+            .connection
+            .send("browsingContext.getTree", json!({ "root": root }))
+            .await?;
+        parse_contexts(&result)
+    }
+
     /// Create a new tab.
     pub async fn create_context(&self) -> BidiResult<String> {
         let result = self

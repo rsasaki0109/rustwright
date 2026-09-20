@@ -19,6 +19,7 @@ pub const DEFAULT_TIMEOUT: Duration = Duration::from_secs(30);
 #[derive(Clone)]
 pub struct BidiLocator {
     page: BidiPage,
+    context: String,
     selector: Selector,
     nth: Option<i64>,
 }
@@ -33,8 +34,19 @@ impl std::fmt::Debug for BidiLocator {
 
 impl BidiLocator {
     pub(crate) fn new(page: BidiPage, selector: Selector) -> Self {
+        let context = page.context_id().to_string();
         Self {
             page,
+            context,
+            selector,
+            nth: None,
+        }
+    }
+
+    pub(crate) fn new_in_context(page: BidiPage, context: String, selector: Selector) -> Self {
+        Self {
+            page,
+            context,
             selector,
             nth: None,
         }
@@ -315,8 +327,8 @@ impl BidiLocator {
     }
 
     async fn evaluate(&self, expression: &str) -> BidiResult<Value> {
-        self.page.ensure_helper().await?;
-        self.page.evaluate(expression).await
+        self.page.ensure_helper_in(&self.context).await?;
+        self.page.evaluate_in(&self.context, expression).await
     }
 
     fn spec_json(&self) -> String {

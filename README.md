@@ -278,8 +278,9 @@ with auto-waiting `click` / `fill` / `text` / `wait_for` / `count` and the
 `get_by_*` strategies. Real pointer and key input uses `input.performActions`,
 not synthetic DOM events. BiDi also mirrors the CDP backend's request
 interception (`route` / `mock` / `block` / `clear_routes`, backed by
-`network.addIntercept` + `network.provideResponse`) and opt-in network
-monitoring (`start_network_monitoring` / `network_requests`).
+`network.addIntercept` + `network.provideResponse`), opt-in network monitoring
+(`start_network_monitoring` / `network_requests`), and frames (`frames` /
+`frame_locator` / `BidiFrame` with frame-scoped locators).
 
 Notes from real machines:
 
@@ -303,7 +304,7 @@ Notes from real machines:
 with a fresh browser, isolated context and page per test:
 
 ```rust
-use rustwright_test::{rustwright_test, Result, TestContext};
+use rustwright_test::prelude::*;
 
 #[rustwright_test]
 async fn opens_a_page(context: TestContext) -> Result<()> {
@@ -313,9 +314,11 @@ async fn opens_a_page(context: TestContext) -> Result<()> {
 }
 ```
 
-Run with `cargo test`. `RUSTWRIGHT_HEADLESS=0` shows the browser;
-`RUSTWRIGHT_PROFILE=/path` uses a persistent profile. Tests skip cleanly when no
-browser is installed.
+Run with `cargo test`. The same test runs against Chrome by default and against
+Firefox with `RUSTWRIGHT_BROWSER=firefox`; `context.page` is an `AnyPage`, so the
+body is backend-agnostic. `RUSTWRIGHT_HEADLESS=0` shows the browser and
+`RUSTWRIGHT_PROFILE=/path` uses a persistent profile. Tests skip cleanly when the
+selected browser is unavailable.
 
 ## Performance
 

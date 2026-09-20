@@ -1,5 +1,6 @@
 //! A minimal Firefox/BiDi browser and page on top of [`BidiSession`].
 
+use std::collections::HashSet;
 use std::path::Path;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{Arc, Mutex};
@@ -8,7 +9,8 @@ use rustwright_browser::{Firefox, LaunchedFirefox};
 use rustwright_common::{Role, Route, RouteAction, Selector, INJECTED_SCRIPT};
 use serde_json::{json, Value};
 
-use crate::error::BidiResult;
+use crate::error::{BidiError, BidiResult};
+use crate::frame::{collect_frames, BidiFrame};
 use crate::locator::BidiLocator;
 use crate::network::{
     spawn_intercept_pump, spawn_network_pump, BidiNetworkRequest, NetworkPumpGuard,
@@ -106,7 +108,7 @@ impl BidiBrowser {
 pub struct BidiPage {
     session: BidiSession,
     context: String,
-    helper: Arc<AtomicBool>,
+    helper_contexts: Arc<Mutex<HashSet<String>>>,
     network: Arc<Mutex<Vec<BidiNetworkRequest>>>,
     network_started: Arc<AtomicBool>,
     network_pump: Arc<Mutex<Option<NetworkPumpGuard>>>,
@@ -128,7 +130,7 @@ impl BidiPage {
         Self {
             session,
             context,
-            helper: Arc::new(AtomicBool::new(false)),
+            helper_contexts: Arc::new(Mutex::new(HashSet::new())),
             network: Arc::new(Mutex::new(Vec::new())),
             network_started: Arc::new(AtomicBool::new(false)),
             network_pump: Arc::new(Mutex::new(None)),
@@ -145,7 +147,10 @@ impl BidiPage {
 
     /// Navigate to `url` and wait for the load to complete.
     pub async fn goto(&self, url: &str) -> BidiResult<()> {
-        self.helper.store(false, Ordering::SeqCst);
+        self.helper_contexts
+            .lock()
+            .expect("bidi helper mutex poisoned")
+            .clear();
         self.session.navigate(&self.context, url).await?;
         self.install_helper().await?;
         Ok(())
@@ -189,7 +194,59 @@ impl BidiPage {
 
     /// Evaluate an expression in the page.
     pub async fn evaluate(&self, expression: &str) -> BidiResult<Value> {
-        self.session.evaluate(&self.context, expression).await
+        self.evaluate_in(&self.context, expression).await
+    }
+
+    /// Evaluate an expression in a specific browsing context (for example a frame).
+    pub async fn evaluate_in(&self, context: &str, expression: &str) -> BidiResult<Value> {
+        self.session.evaluate(context, expression).await
+    }
+
+    // -- Frames -------------------------------------------------------------
+
+    /// The page's main frame.
+    pub fn main_frame(&self) -> BidiFrame {
+        BidiFrame::new(self.clone(), self.context.clone(), String::new())
+    }
+
+    /// Every child frame of the page, depth-first.
+    pub async fn frames(&self) -> BidiResult<Vec<BidiFrame>> {
+        let roots = self.session.get_tree_from(&self.context).await?;
+        let mut frames = Vec::new();
+        for root in &roots {
+            collect_frames(self, root, &mut frames);
+        }
+        Ok(frames)
+    }
+
+    /// Resolve an `<iframe>` element to its current frame.
+    ///
+    /// BiDi does not expose a direct element-to-frame mapping, so this matches
+    /// the element's resolved `src` against the frame tree.
+    pub async fn frame_locator(&self, selector: impl AsRef<str>) -> BidiResult<BidiFrame> {
+        let selector = selector.as_ref();
+        let expression = format!(
+            "(() => {{ const el = document.querySelector({}); \
+             if (!el) return null; return {{ src: el.src || '', name: el.name || '' }}; }})()",
+            serde_json::to_string(selector)?
+        );
+        let value = self.evaluate(&expression).await?;
+        if value.is_null() {
+            return Err(BidiError::ElementNotFound(format!("iframe {selector:?}")));
+        }
+        let src = value
+            .get("src")
+            .and_then(Value::as_str)
+            .unwrap_or_default()
+            .to_string();
+        let frames = self.frames().await?;
+        frames
+            .into_iter()
+            .find(|frame| {
+                !src.is_empty()
+                    && (frame.url() == src.as_str() || frame.url().contains(src.as_str()))
+            })
+            .ok_or_else(|| BidiError::ElementNotFound(format!("frame for {selector:?}")))
     }
 
     // -- Network diagnostics ------------------------------------------------
@@ -353,18 +410,24 @@ impl BidiPage {
     // -- Internal helpers ---------------------------------------------------
 
     pub(crate) async fn install_helper(&self) -> BidiResult<()> {
-        self.session
-            .evaluate(&self.context, INJECTED_SCRIPT)
-            .await?;
-        self.helper.store(true, Ordering::SeqCst);
-        Ok(())
+        self.ensure_helper_in(&self.context).await
     }
 
-    pub(crate) async fn ensure_helper(&self) -> BidiResult<()> {
-        if self.helper.load(Ordering::SeqCst) {
+    pub(crate) async fn ensure_helper_in(&self, context: &str) -> BidiResult<()> {
+        if self
+            .helper_contexts
+            .lock()
+            .expect("bidi helper mutex poisoned")
+            .contains(context)
+        {
             return Ok(());
         }
-        self.install_helper().await
+        self.session.evaluate(context, INJECTED_SCRIPT).await?;
+        self.helper_contexts
+            .lock()
+            .expect("bidi helper mutex poisoned")
+            .insert(context.to_string());
+        Ok(())
     }
 
     pub(crate) async fn pointer_click(&self, x: f64, y: f64) -> BidiResult<()> {

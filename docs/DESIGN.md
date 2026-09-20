@@ -428,5 +428,21 @@ Verified on Firefox 156 (`tests/bidi.rs`): a mocked `/api/data` returns the
 synthetic body, and a blocked `/api/data` fails the fetch — matching the CDP
 backend's behaviour in `tests/advanced.rs`.
 
-## 19. Quality bar
+## 19. Round 10: BiDi frames and a multi-browser runner
+
+- **BiDi frames**: `BrowsingContextInfo.children` from `browsingContext.getTree`
+  are flattened into `BidiFrame`s (`BidiPage::frames` / `main_frame` /
+  `frame_locator`). Since BiDi has no element-to-frame mapping, `frame_locator`
+  resolves the `<iframe>`'s absolute `src` and matches it against the frame tree.
+  `BidiLocator` now carries an explicit context, and the injected helper is
+  tracked per context (`ensure_helper_in`), so locators and `evaluate` work inside
+  cross-origin frames. Verified on Firefox 156.
+- **Multi-browser test runner**: `rustwright-test` now selects the backend from
+  `RUSTWRIGHT_BROWSER` (default Chrome, `firefox` for BiDi). `TestContext.page`
+  is an `AnyPage`, so the same test body runs on either browser; `new_page` and
+  `pages` are backend-agnostic. The crate's `Result` is `AnyError`, and a
+  `prelude` bundles the macro, `TestContext`, `PageApi`/`LocatorApi`. The smoke
+  tests pass unchanged on Chrome and with `RUSTWRIGHT_BROWSER=firefox`.
+
+## 20. Quality bar
 

@@ -22,7 +22,7 @@ use std::path::Path;
 use std::time::Duration;
 
 use rustwright_bidi::{BidiError, BidiLocator as FirefoxLocator, BidiPage as FirefoxPage};
-use rustwright_common::{LocatorApi, PageApi, Selector, WaitState};
+use rustwright_common::{LocatorApi, PageApi, Role, Selector, WaitState};
 use rustwright_core::{
     Error as ChromeError, Locator as ChromeLocator, Page as ChromePage, Viewport,
 };
@@ -77,6 +77,91 @@ impl AnyPage {
             AnyPage::Chrome(_) => "chrome",
             AnyPage::Firefox(_) => "firefox",
         }
+    }
+
+    /// Navigate to `url` and wait for the page to load.
+    pub async fn goto(&self, url: &str) -> Result<(), AnyError> {
+        PageApi::goto(self, url).await
+    }
+
+    /// The current URL.
+    pub async fn url(&self) -> Result<String, AnyError> {
+        PageApi::url(self).await
+    }
+
+    /// The document title.
+    pub async fn title(&self) -> Result<String, AnyError> {
+        PageApi::title(self).await
+    }
+
+    /// The serialized HTML of the page.
+    pub async fn content(&self) -> Result<String, AnyError> {
+        PageApi::content(self).await
+    }
+
+    /// Evaluate a JavaScript expression.
+    pub async fn evaluate(&self, expression: &str) -> Result<Value, AnyError> {
+        PageApi::evaluate(self, expression).await
+    }
+
+    /// Take a screenshot and write it to `path`.
+    pub async fn screenshot(&self, path: impl AsRef<Path>) -> Result<(), AnyError> {
+        PageApi::screenshot(self, path.as_ref()).await
+    }
+
+    /// Override the viewport.
+    pub async fn set_viewport(
+        &self,
+        width: i64,
+        height: i64,
+        device_pixel_ratio: f64,
+    ) -> Result<(), AnyError> {
+        PageApi::set_viewport(self, width, height, device_pixel_ratio).await
+    }
+
+    /// Close the page.
+    pub async fn close(&self) -> Result<(), AnyError> {
+        PageApi::close(self).await
+    }
+
+    /// Create a locator from any selector strategy (CSS, text, role, ...).
+    pub fn locator(&self, selector: impl Into<Selector>) -> AnyLocator {
+        PageApi::locator(self, selector.into())
+    }
+
+    /// Create a locator that matches elements by their text.
+    pub fn get_by_text(&self, text: &str) -> AnyLocator {
+        self.locator(Selector::text(text, false))
+    }
+
+    /// Create a locator that matches elements by their exact text.
+    pub fn get_by_text_exact(&self, text: &str) -> AnyLocator {
+        self.locator(Selector::text(text, true))
+    }
+
+    /// Create a semantic locator by ARIA role and optional accessible name.
+    pub fn get_by_role(&self, role: Role, name: Option<&str>) -> AnyLocator {
+        self.locator(Selector::role(role, name))
+    }
+
+    /// Create a locator by `placeholder` attribute.
+    pub fn get_by_placeholder(&self, text: &str) -> AnyLocator {
+        self.locator(Selector::placeholder(text, false))
+    }
+
+    /// Create a locator by associated `<label>`.
+    pub fn get_by_label(&self, text: &str) -> AnyLocator {
+        self.locator(Selector::label(text, false))
+    }
+
+    /// Create a locator by image `alt` text.
+    pub fn get_by_alt_text(&self, text: &str) -> AnyLocator {
+        self.locator(Selector::alt_text(text, false))
+    }
+
+    /// Create a locator by test id.
+    pub fn get_by_test_id(&self, id: &str) -> AnyLocator {
+        self.locator(Selector::test_id(id))
     }
 }
 
