@@ -285,7 +285,8 @@ interception (`route` / `mock` / `block` / `clear_routes`, backed by
 (`start_network_monitoring` / `network_requests`), frames (`frames` /
 `frame_locator` / `BidiFrame` with frame-scoped locators), cookies / storage
 (`cookies` / `add_cookie` / `clear_cookies` / `storage_state` /
-`restore_storage_state`, backed by `storage.*`), isolated user contexts
+`restore_storage_state`, backed by `storage.*`), request- and response-header
+modification (`continueRequest` / `continueResponse`), isolated user contexts
 (`BidiBrowser::new_context` / `BidiContext`), and init scripts
 (`BidiPage::add_init_script`, backed by `script.addPreloadScript` — the page
 helper is installed the same way).
@@ -446,7 +447,7 @@ Capabilities:
 - popups / new tabs via `BrowserContext::wait_for_page`,
 - reusable login state via `Page::storage_state` / `restore_storage_state`,
 - request interception via `Page::route` / `mock` / `block` / `clear_routes`,
-  including request- and response-header modification (CDP),
+  including request- and response-header modification,
 - downloads via `BrowserContext::set_download_path`, uploads via
   `Locator::set_input_files`,
 - frames via `Page::frames` / `Page::frame_locator`,

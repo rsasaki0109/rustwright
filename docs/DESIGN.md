@@ -523,11 +523,21 @@ document, and locators/frames still work through the preload path.
   status/headers/error`), and `Fetch.continueResponse` is used for the response
   stage. Verified in `tests/advanced.rs`: a request header is echoed back by the
   server, and a response header is visible to `fetch`.
-- Header modification is CDP-only for now; the BiDi backend treats the new
-  actions as "continue" (its spec supports it via `network.continue*` headers,
-  a candidate follow-up).
+- Header modification is implemented on CDP here; the BiDi backend gained the
+  same actions in Round 17.
 
-## 26. Quality bar
+## 26. Round 17: BiDi header modification
+
+The BiDi backend now handles `SetRequestHeaders` / `SetResponseHeaders` too:
+`network.continueRequest { headers }` for the request stage and
+`network.continueResponse { headers }` for the response stage (headers merged,
+case-insensitively, onto the originals). Response-stage interception registers
+the `responseStarted` phase and the pump also handles
+`network.responseStarted`, and the shared `ensure_network_subscription` now
+subscribes to it. Verified on Firefox 156 in `tests/bidi.rs`: a request header
+is echoed by the server and a response header is visible to `fetch`.
+
+## 27. Quality bar
 
 - No `unsafe` (forbid in every crate).
 - rustdoc on all public items.

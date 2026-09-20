@@ -183,6 +183,7 @@ pub struct BidiPage {
     routes: Arc<Mutex<Vec<Route>>>,
     intercept: Arc<Mutex<Option<String>>>,
     intercept_pump: Arc<Mutex<Option<NetworkPumpGuard>>>,
+    response_stage: Arc<AtomicBool>,
 }
 
 impl std::fmt::Debug for BidiPage {
@@ -206,6 +207,7 @@ impl BidiPage {
             routes: Arc::new(Mutex::new(Vec::new())),
             intercept: Arc::new(Mutex::new(None)),
             intercept_pump: Arc::new(Mutex::new(None)),
+            response_stage: Arc::new(AtomicBool::new(false)),
         }
     }
 
@@ -471,19 +473,42 @@ impl BidiPage {
     /// The first matching rule wins; unmatched requests continue unchanged.
     /// Interception is generic and contains no site-specific behaviour.
     pub async fn route(&self, pattern: impl Into<String>, action: RouteAction) -> BidiResult<()> {
+        let needs_response = matches!(action, RouteAction::SetResponseHeaders(_));
         let first = {
             let mut routes = self.routes.lock().expect("bidi routes mutex poisoned");
             let first = routes.is_empty();
             routes.push(Route::new(pattern, action));
             first
         };
-        if first {
+        let response_enabled = self.response_stage.load(Ordering::SeqCst);
+        if first || (needs_response && !response_enabled) {
+            // Re-register the intercept with the required phases.
+            let previous = self
+                .intercept
+                .lock()
+                .expect("bidi intercept mutex poisoned")
+                .take();
+            if let Some(intercept) = previous {
+                let _ = self.session.remove_intercept(&intercept).await;
+            }
+            *self
+                .intercept_pump
+                .lock()
+                .expect("bidi intercept pump mutex poisoned") = None;
+
             self.session.ensure_network_subscription().await?;
-            let intercept = self.session.add_intercept(&self.context).await?;
+            let with_response = response_enabled || needs_response;
+            let phases: Vec<&str> = if with_response {
+                vec!["beforeRequestSent", "responseStarted"]
+            } else {
+                vec!["beforeRequestSent"]
+            };
+            let intercept = self.session.add_intercept(&self.context, &phases).await?;
             *self
                 .intercept
                 .lock()
                 .expect("bidi intercept mutex poisoned") = Some(intercept);
+            self.response_stage.store(with_response, Ordering::SeqCst);
             let guard = spawn_intercept_pump(
                 self.session.clone(),
                 self.context.clone(),
@@ -542,6 +567,7 @@ impl BidiPage {
                 .intercept_pump
                 .lock()
                 .expect("bidi intercept pump mutex poisoned") = None;
+            self.response_stage.store(false, Ordering::SeqCst);
         }
         Ok(())
     }

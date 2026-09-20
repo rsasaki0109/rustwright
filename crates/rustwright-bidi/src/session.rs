@@ -173,6 +173,7 @@ impl BidiSession {
         let result = self
             .subscribe(&[
                 "network.beforeRequestSent",
+                "network.responseStarted",
                 "network.responseCompleted",
                 "network.fetchError",
             ])
@@ -403,9 +404,9 @@ impl BidiSession {
     // -- Request interception ----------------------------------------------
 
     /// Intercept requests for a context (all URLs; filtering is done locally).
-    pub async fn add_intercept(&self, context: &str) -> BidiResult<String> {
+    pub async fn add_intercept(&self, context: &str, phases: &[&str]) -> BidiResult<String> {
         let params = crate::network::AddInterceptParams {
-            phases: vec!["beforeRequestSent".to_string()],
+            phases: phases.iter().map(|phase| (*phase).to_string()).collect(),
             url_patterns: vec![crate::network::UrlPattern {
                 kind: "pattern".to_string(),
                 pattern: "*".to_string(),
@@ -438,11 +439,42 @@ impl BidiSession {
 
     /// Continue a blocked request unchanged.
     pub async fn continue_request(&self, request: &str) -> BidiResult<()> {
+        self.continue_request_with_headers(request, None).await
+    }
+
+    /// Continue a blocked request, optionally replacing its headers.
+    pub(crate) async fn continue_request_with_headers(
+        &self,
+        request: &str,
+        headers: Option<Vec<crate::network::HeaderEntry>>,
+    ) -> BidiResult<()> {
         self.connection
             .send(
                 "network.continueRequest",
                 json!(crate::network::ContinueRequestParams {
-                    request: request.to_string()
+                    request: request.to_string(),
+                    headers,
+                }),
+            )
+            .await?;
+        Ok(())
+    }
+
+    /// Continue a blocked response, optionally replacing headers/status.
+    pub(crate) async fn continue_response(
+        &self,
+        request: &str,
+        status: Option<i64>,
+        headers: Option<Vec<crate::network::HeaderEntry>>,
+    ) -> BidiResult<()> {
+        self.connection
+            .send(
+                "network.continueResponse",
+                json!(crate::network::ContinueResponseParams {
+                    request: request.to_string(),
+                    status_code: status,
+                    reason_phrase: None,
+                    headers,
                 }),
             )
             .await?;

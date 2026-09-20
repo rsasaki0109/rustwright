@@ -54,6 +54,20 @@ async fn spawn_server() -> String {
                 .to_string();
             let (content_type, body) = if path.starts_with("/api/data") {
                 ("application/json", r#"{"real":true}"#.to_string())
+            } else if path.starts_with("/echo") {
+                let value = request
+                    .lines()
+                    .find_map(|line| {
+                        line.split_once(':').and_then(|(name, value)| {
+                            if name.eq_ignore_ascii_case("x-rustwright") {
+                                Some(value.trim().to_string())
+                            } else {
+                                None
+                            }
+                        })
+                    })
+                    .unwrap_or_else(|| "none".to_string());
+                ("text/plain", value)
             } else {
                 (
                     "text/html",
@@ -188,6 +202,44 @@ async fn firefox_bidi_network_monitoring() -> BidiResult<()> {
             .any(|request| request.url == base && request.status == Some(200)),
         "response status was captured"
     );
+
+    browser.close().await?;
+    Ok(())
+}
+
+#[tokio::test]
+async fn firefox_bidi_modifies_headers() -> BidiResult<()> {
+    if !firefox_available() {
+        return Ok(());
+    }
+    let base = spawn_server().await;
+    let Some(browser) = launch_firefox().await else {
+        return Ok(());
+    };
+    let page = browser.new_page().await?;
+    page.goto(&base).await?;
+
+    page.route(
+        "**/echo",
+        RouteAction::SetRequestHeaders(vec![("x-rustwright".to_string(), "1".to_string())]),
+    )
+    .await?;
+    let echoed = page
+        .evaluate("fetch('/echo').then((response) => response.text())")
+        .await?;
+    assert_eq!(echoed.as_str(), Some("1"));
+    page.clear_routes().await?;
+
+    page.route(
+        "**/api/data",
+        RouteAction::SetResponseHeaders(vec![("x-added".to_string(), "yes".to_string())]),
+    )
+    .await?;
+    let header = page
+        .evaluate("fetch('/api/data').then((response) => response.headers.get('x-added'))")
+        .await?;
+    assert_eq!(header.as_str(), Some("yes"));
+    page.clear_routes().await?;
 
     browser.close().await?;
     Ok(())

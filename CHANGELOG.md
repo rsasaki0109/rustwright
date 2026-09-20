@@ -25,7 +25,7 @@ Initial release.
   `mouse_wheel`, `set_input_files`.
 - **Frames**: `frames`, `main_frame`, `frame_locator`, cross-origin iframe support.
 - **Network**: request interception (`route`/`mock`/`block`), request- and
-  response-header modification (CDP), network diagnostics.
+  response-header modification, network diagnostics.
 - **Files & dialogs**: download path, uploads, auto-dismissed JavaScript dialogs.
 - **Tracing**: Chrome trace capture (`start_tracing`/`stop_tracing`).
 - **Storage**: cookies and `storage_state`/`restore_storage_state`.

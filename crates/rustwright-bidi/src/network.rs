@@ -4,6 +4,7 @@
 //! diagnostics: it collects `network.beforeRequestSent`, `responseCompleted`
 //! and `fetchError` events for a page.
 
+use std::collections::BTreeMap;
 use std::sync::{Arc, Mutex};
 
 use rustwright_common::{Route, RouteAction};
@@ -42,6 +43,8 @@ struct BidiRequest {
     url: String,
     #[serde(default)]
     method: String,
+    #[serde(default)]
+    headers: Vec<HeaderEntry>,
 }
 
 #[derive(Debug, Default, Deserialize)]
@@ -53,6 +56,8 @@ struct BidiResponse {
     status_text: String,
     #[serde(default)]
     mime_type: String,
+    #[serde(default)]
+    headers: Vec<HeaderEntry>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -83,6 +88,18 @@ struct FetchErrorParams {
     request: BidiRequest,
     #[serde(default)]
     error_text: String,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct ResponseStartedParams {
+    context: String,
+    #[serde(default)]
+    is_blocked: bool,
+    #[serde(default)]
+    request: BidiRequest,
+    #[serde(default)]
+    response: BidiResponse,
 }
 
 /// Stops the network pump when the last page clone is dropped.
@@ -210,6 +227,20 @@ pub(crate) struct RemoveInterceptParams {
 #[derive(Debug, Clone, Serialize)]
 pub(crate) struct ContinueRequestParams {
     pub request: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub headers: Option<Vec<HeaderEntry>>,
+}
+
+#[derive(Debug, Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub(crate) struct ContinueResponseParams {
+    pub request: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub status_code: Option<i64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub reason_phrase: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub headers: Option<Vec<HeaderEntry>>,
 }
 
 #[derive(Debug, Clone, Serialize)]
@@ -218,7 +249,7 @@ pub(crate) struct FailRequestParams {
 }
 
 /// A `network.BytesValue`: either UTF-8 text or base64.
-#[derive(Debug, Clone, Serialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub(crate) struct BytesValue {
     #[serde(rename = "type")]
     pub kind: String,
@@ -226,7 +257,7 @@ pub(crate) struct BytesValue {
 }
 
 /// A `network.Header`: the value is itself a [`BytesValue`].
-#[derive(Debug, Clone, Serialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub(crate) struct HeaderEntry {
     pub name: String,
     pub value: BytesValue,
@@ -254,51 +285,130 @@ pub(crate) fn spawn_intercept_pump(
         let mut events = session.events();
         loop {
             match events.recv().await {
-                Ok(event) => {
-                    if event.method != "network.beforeRequestSent" {
-                        continue;
+                Ok(event) => match event.method.as_str() {
+                    "network.beforeRequestSent" => {
+                        handle_request_stage(&session, &context, &routes, &event.params).await;
                     }
-                    let Ok(params) =
-                        serde_json::from_value::<BeforeRequestSentParams>(event.params.clone())
-                    else {
-                        continue;
-                    };
-                    if params.context != context || !params.is_blocked {
-                        continue;
+                    "network.responseStarted" => {
+                        handle_response_stage(&session, &context, &routes, &event.params).await;
                     }
-                    let request_id = params.request.request.clone();
-                    if request_id.is_empty() {
-                        continue;
-                    }
-                    let action = {
-                        let routes = routes.lock().expect("bidi routes mutex poisoned");
-                        routes
-                            .iter()
-                            .find(|route| route.matches(&params.request.url))
-                            .map(|route| route.action.clone())
-                    };
-                    match action {
-                        Some(RouteAction::Abort) => {
-                            let _ = session.fail_request(&request_id).await;
-                        }
-                        Some(RouteAction::Fulfill {
-                            status,
-                            content_type,
-                            body,
-                        }) => {
-                            let _ = session
-                                .provide_response(&request_id, status, &content_type, &body)
-                                .await;
-                        }
-                        _ => {
-                            let _ = session.continue_request(&request_id).await;
-                        }
-                    }
-                }
+                    _ => {}
+                },
                 Err(broadcast::error::RecvError::Lagged(_)) => continue,
                 Err(broadcast::error::RecvError::Closed) => break,
             }
         }
     });
     NetworkPumpGuard { handle }
+}
+
+fn route_action(routes: &Arc<Mutex<Vec<Route>>>, url: &str) -> Option<RouteAction> {
+    let routes = routes.lock().expect("bidi routes mutex poisoned");
+    routes
+        .iter()
+        .find(|route| route.matches(url))
+        .map(|route| route.action.clone())
+}
+
+async fn handle_request_stage(
+    session: &BidiSession,
+    context: &str,
+    routes: &Arc<Mutex<Vec<Route>>>,
+    params: &Value,
+) {
+    let Ok(params) = serde_json::from_value::<BeforeRequestSentParams>(params.clone()) else {
+        return;
+    };
+    if params.context != context || !params.is_blocked {
+        return;
+    }
+    let request_id = params.request.request.clone();
+    if request_id.is_empty() {
+        return;
+    }
+    match route_action(routes, &params.request.url) {
+        Some(RouteAction::Abort) => {
+            let _ = session.fail_request(&request_id).await;
+        }
+        Some(RouteAction::Fulfill {
+            status,
+            content_type,
+            body,
+        }) => {
+            let _ = session
+                .provide_response(&request_id, status, &content_type, &body)
+                .await;
+        }
+        Some(RouteAction::SetRequestHeaders(overrides)) => {
+            let headers = merge_headers(&params.request.headers, &overrides);
+            let _ = session
+                .continue_request_with_headers(&request_id, Some(headers))
+                .await;
+        }
+        _ => {
+            let _ = session.continue_request(&request_id).await;
+        }
+    }
+}
+
+async fn handle_response_stage(
+    session: &BidiSession,
+    context: &str,
+    routes: &Arc<Mutex<Vec<Route>>>,
+    params: &Value,
+) {
+    let Ok(params) = serde_json::from_value::<ResponseStartedParams>(params.clone()) else {
+        return;
+    };
+    if params.context != context || !params.is_blocked {
+        return;
+    }
+    let request_id = params.request.request.clone();
+    if request_id.is_empty() {
+        return;
+    }
+    match route_action(routes, &params.request.url) {
+        Some(RouteAction::Abort) => {
+            let _ = session.fail_request(&request_id).await;
+        }
+        Some(RouteAction::Fulfill {
+            status,
+            content_type,
+            body,
+        }) => {
+            let _ = session
+                .provide_response(&request_id, status, &content_type, &body)
+                .await;
+        }
+        Some(RouteAction::SetResponseHeaders(overrides)) => {
+            let headers = merge_headers(&params.response.headers, &overrides);
+            let _ = session
+                .continue_response(&request_id, None, Some(headers))
+                .await;
+        }
+        _ => {
+            let _ = session.continue_response(&request_id, None, None).await;
+        }
+    }
+}
+
+/// Merge overrides onto the original headers (case-insensitive by name).
+fn merge_headers(original: &[HeaderEntry], overrides: &[(String, String)]) -> Vec<HeaderEntry> {
+    let mut merged: BTreeMap<String, HeaderEntry> = original
+        .iter()
+        .map(|header| (header.name.to_ascii_lowercase(), header.clone()))
+        .collect();
+    for (name, value) in overrides {
+        merged.insert(
+            name.to_ascii_lowercase(),
+            HeaderEntry {
+                name: name.clone(),
+                value: BytesValue {
+                    kind: "string".to_string(),
+                    value: value.clone(),
+                },
+            },
+        );
+    }
+    merged.into_values().collect()
 }
