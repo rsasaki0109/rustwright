@@ -187,6 +187,16 @@ impl std::fmt::Debug for AnyLocator {
     }
 }
 
+impl AnyLocator {
+    /// A human-readable description of the locator, for diagnostics and errors.
+    pub fn describe(&self) -> String {
+        match self {
+            AnyLocator::Chrome(locator) => ChromeLocator::describe(locator),
+            AnyLocator::Firefox(locator) => FirefoxLocator::describe(locator),
+        }
+    }
+}
+
 impl PageApi for AnyPage {
     type Error = AnyError;
     type Locator = AnyLocator;

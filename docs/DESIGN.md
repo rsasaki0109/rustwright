@@ -467,7 +467,22 @@ isolated context does not see it. (Firefox's `storage.getCookies` context
 partition reports default-context cookies, so the test asserts storage
 isolation rather than cookie isolation.)
 
-## 22. Quality bar
+## 22. Round 13: test runner retries and assertions
+
+- **Retries**: `RUSTWRIGHT_RETRIES=N` reruns a failing test up to `N` extra
+  times, each with a fresh browser/context/page. Attempts run under
+  `catch_unwind` so assertion panics are retried as well as `Err` results; a
+  missing browser still skips rather than retries. This required relaxing the
+  test closure bound from `FnOnce` to `Fn`.
+- **Assertions**: `expect(locator)` adds Playwright-style matchers
+  (`to_be_visible` / `to_be_hidden` / `to_be_enabled` / `to_have_text` /
+  `to_contain_text` / `to_have_count` / `to_have_attribute`). Mismatches panic
+  with the locator description; transport errors propagate as `Result`. A new
+  `AnyLocator::describe` supplies the description for both backends.
+
+Both are exercised by the runner's smoke tests on Chrome and Firefox.
+
+## 23. Quality bar
 
 - No `unsafe` (forbid in every crate).
 - rustdoc on all public items.

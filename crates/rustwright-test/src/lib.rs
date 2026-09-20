@@ -25,16 +25,20 @@
 //!
 //! - `RUSTWRIGHT_BROWSER=firefox` runs against Firefox/BiDi (default: Chrome).
 //! - `RUSTWRIGHT_HEADLESS=0` runs a visible browser (default: headless).
+//! - `RUSTWRIGHT_RETRIES=N` retries a failing test up to `N` extra times.
 //! - `RUSTWRIGHT_PROFILE=/path` uses a persistent profile.
 //! - `RUSTWRIGHT_CHROME` / `RUSTWRIGHT_FIREFOX` pin the executable.
 
 #![forbid(unsafe_code)]
 #![warn(missing_docs)]
 
+mod expect;
+
 use std::future::Future;
 
 use tokio::runtime::Runtime;
 
+pub use expect::{expect, Expectation};
 pub use rustwright::{
     AnyError, AnyLocator, AnyPage, Browser, BrowserContext, Chrome, Firefox, LocatorApi, PageApi,
     Role, Selector, WaitState,
@@ -49,7 +53,8 @@ pub type Result<T> = std::result::Result<T, AnyError>;
 
 /// The types a test usually needs.
 pub mod prelude {
-    pub use crate::{rustwright_test, LocatorApi, PageApi, Result, TestContext};
+    pub use crate::{expect, rustwright_test, LocatorApi, PageApi, Result, TestContext};
+    pub use crate::{Role, Selector, WaitState};
 }
 
 /// The resources available to a test.
@@ -111,36 +116,86 @@ impl TestContext {
 /// tests can be driven from a custom harness.
 pub fn run_test<F, Fut>(name: &'static str, test: F)
 where
-    F: FnOnce(TestContext) -> Fut + Send + 'static,
+    F: Fn(TestContext) -> Fut + Send + Sync + 'static,
     Fut: Future<Output = Result<()>> + Send + 'static,
 {
-    runtime().block_on(async move {
-        let headless = std::env::var("RUSTWRIGHT_HEADLESS")
-            .map(|value| value != "0")
-            .unwrap_or(true);
-        let backend = std::env::var("RUSTWRIGHT_BROWSER").unwrap_or_default();
+    let attempts = retries() + 1;
+    let mut last_error = String::new();
 
-        let context = match backend.as_str() {
-            "firefox" | "bidi" => match launch_firefox(headless).await {
-                Ok(context) => context,
-                Err(error) => {
-                    eprintln!("skipping test `{name}`: firefox unavailable: {error}");
-                    return;
-                }
-            },
-            _ => match launch_chrome(headless).await {
-                Ok(context) => context,
-                Err(error) => {
-                    eprintln!("skipping test `{name}`: chrome unavailable: {error}");
-                    return;
-                }
-            },
-        };
+    for attempt in 1..=attempts {
+        // Catch panics too, so assertion failures can be retried.
+        let outcome = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+            runtime().block_on(run_attempt(&test))
+        }))
+        .unwrap_or_else(|payload| Outcome::Failed(panic_message(&payload)));
 
-        if let Err(error) = test(context).await {
-            panic!("test `{name}` failed: {error}");
+        match outcome {
+            Outcome::Passed => return,
+            Outcome::Skipped(reason) => {
+                eprintln!("skipping test `{name}`: {reason}");
+                return;
+            }
+            Outcome::Failed(message) => last_error = message,
         }
-    });
+
+        if attempt < attempts {
+            eprintln!(
+                "test `{name}` failed (attempt {attempt}/{attempts}), retrying: {last_error}"
+            );
+        }
+    }
+
+    panic!("test `{name}` failed after {attempts} attempt(s): {last_error}");
+}
+
+enum Outcome {
+    Passed,
+    Skipped(String),
+    Failed(String),
+}
+
+async fn run_attempt<F, Fut>(test: &F) -> Outcome
+where
+    F: Fn(TestContext) -> Fut,
+    Fut: Future<Output = Result<()>>,
+{
+    let headless = std::env::var("RUSTWRIGHT_HEADLESS")
+        .map(|value| value != "0")
+        .unwrap_or(true);
+    let backend = std::env::var("RUSTWRIGHT_BROWSER").unwrap_or_default();
+
+    let context = match backend.as_str() {
+        "firefox" | "bidi" => match launch_firefox(headless).await {
+            Ok(context) => context,
+            Err(error) => return Outcome::Skipped(format!("firefox unavailable: {error}")),
+        },
+        _ => match launch_chrome(headless).await {
+            Ok(context) => context,
+            Err(error) => return Outcome::Skipped(format!("chrome unavailable: {error}")),
+        },
+    };
+
+    match test(context).await {
+        Ok(()) => Outcome::Passed,
+        Err(error) => Outcome::Failed(error.to_string()),
+    }
+}
+
+fn retries() -> u32 {
+    std::env::var("RUSTWRIGHT_RETRIES")
+        .ok()
+        .and_then(|value| value.parse().ok())
+        .unwrap_or(0)
+}
+
+fn panic_message(payload: &(dyn std::any::Any + Send)) -> String {
+    if let Some(message) = payload.downcast_ref::<&str>() {
+        (*message).to_string()
+    } else if let Some(message) = payload.downcast_ref::<String>() {
+        message.clone()
+    } else {
+        "test panicked".to_string()
+    }
 }
 
 async fn launch_chrome(headless: bool) -> Result<TestContext> {

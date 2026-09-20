@@ -319,9 +319,18 @@ async fn opens_a_page(context: TestContext) -> Result<()> {
 
 Run with `cargo test`. The same test runs against Chrome by default and against
 Firefox with `RUSTWRIGHT_BROWSER=firefox`; `context.page` is an `AnyPage`, so the
-body is backend-agnostic. `RUSTWRIGHT_HEADLESS=0` shows the browser and
-`RUSTWRIGHT_PROFILE=/path` uses a persistent profile. Tests skip cleanly when the
-selected browser is unavailable.
+body is backend-agnostic. `RUSTWRIGHT_HEADLESS=0` shows the browser,
+`RUSTWRIGHT_PROFILE=/path` uses a persistent profile, and `RUSTWRIGHT_RETRIES=N`
+retries a failing test (with a fresh browser per attempt). Tests skip cleanly
+when the selected browser is unavailable.
+
+`expect(locator)` provides Playwright-style assertions:
+
+```rust
+expect(page.locator("h1")).to_have_text("Welcome").await?;
+expect(page.get_by_role(Role::Button, Some("Submit"))).to_be_visible().await?;
+expect(page.locator("li.item")).to_have_count(3).await?;
+```
 
 ## Performance
 

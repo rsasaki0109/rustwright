@@ -34,8 +34,10 @@ Initial release.
   interception, network monitoring, cookies/storage and isolated user contexts.
 - **Unified API**: `PageApi`/`LocatorApi` implemented by both backends, with
   `AnyPage`/`AnyLocator` for dynamic dispatch.
-- **Test runner**: `#[rustwright_test]` with per-test browser/context/page, and
-  `RUSTWRIGHT_BROWSER=firefox` to run the same tests on Firefox.
+- **Test runner**: `#[rustwright_test]` with per-test browser/context/page,
+  `RUSTWRIGHT_BROWSER=firefox` to run the same tests on Firefox,
+  `RUSTWRIGHT_RETRIES=N`, and `expect(locator)` assertions
+  (`to_be_visible` / `to_have_text` / `to_contain_text` / `to_have_count` / ...).
 - **CI**: GitHub Actions running `fmt`, `clippy -D warnings` and the full test
   suite against installed Chrome (Firefox best-effort).
 - **Benchmarks**: reproducible Rustwright vs Playwright driver-overhead harness.
