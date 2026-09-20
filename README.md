@@ -49,6 +49,7 @@ async fn main() -> Result<()> {
 - [One API, two backends](#one-api-two-backends)
 - [Firefox and WebDriver BiDi](#firefox-and-webdriver-bidi)
 - [Testing](#testing)
+- [Performance](#performance)
 - [Compatibility](#compatibility)
 - [Browser discovery](#browser-discovery)
 - [Status](#status)
@@ -312,6 +313,35 @@ async fn opens_a_page(context: TestContext) -> Result<()> {
 Run with `cargo test`. `RUSTWRIGHT_HEADLESS=0` shows the browser;
 `RUSTWRIGHT_PROFILE=/path` uses a persistent profile. Tests skip cleanly when no
 browser is installed.
+
+## Performance
+
+Driver-overhead comparison against Playwright, driving the **same installed
+Chrome 150** on Linux (8 vCPU, Node 22), headless, single page. Values are the
+median of 5 runs; the harnesses live in [`bench/`](bench/) and are reproducible
+(Rustwright: `examples/bench.rs`; Playwright: `bench/playwright/bench.mjs`).
+`driver RSS` is the automation process's peak `VmHWM`, excluding the browser.
+
+| Metric | Playwright (`playwright-core` 1.63) | Rustwright |
+|---|---:|---:|
+| launch → first page | 421.4 ms | **406.4 ms** |
+| `goto`, per navigation | 36.04 ms | **31.51 ms** |
+| `evaluate`, round-trip | 0.688 ms | **0.260 ms** (≈2.6×) |
+| driver peak RSS | 151.3 MB | **4.8 MB** (≈31×) |
+| process startup | ~40 ms (Node) | **~0 ms** (native) |
+| install footprint | 14 MB npm + Node runtime | **2.9 MB binary**, no runtime |
+
+Because both drive the same engine, **navigation and launch are essentially
+equivalent** — browser startup dominates, and the small differences here are
+within run-to-run variance. The wins come from removing the Node runtime:
+
+- `evaluate` round-trips are ~2.6× faster (no event loop / JS protocol layer),
+  which matters for round-trip-heavy work.
+- The driver uses ~31× less memory, starts instantly, and ships as a single
+  binary instead of an npm package plus a Node runtime.
+- Rustwright polls `DevToolsActivePort` while Playwright uses
+  `--remote-debugging-pipe`; adopting the pipe transport and doing less eager
+  page setup is a known optimization for Rustwright, not a fundamental gap.
 
 ## Compatibility
 
