@@ -6,7 +6,8 @@
 
 use std::sync::{Arc, Mutex};
 
-use serde::Deserialize;
+use rustwright_common::{Route, RouteAction};
+use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use tokio::sync::broadcast;
 use tokio::task::JoinHandle;
@@ -58,6 +59,8 @@ struct BidiResponse {
 #[serde(rename_all = "camelCase")]
 struct BeforeRequestSentParams {
     context: String,
+    #[serde(default)]
+    is_blocked: bool,
     #[serde(default)]
     request: BidiRequest,
 }
@@ -179,4 +182,123 @@ fn dispatch(
         }
         _ => {}
     }
+}
+
+// -- Request interception ---------------------------------------------------
+
+#[derive(Debug, Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub(crate) struct UrlPattern {
+    #[serde(rename = "type")]
+    pub kind: String,
+    pub pattern: String,
+}
+
+#[derive(Debug, Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub(crate) struct AddInterceptParams {
+    pub phases: Vec<String>,
+    pub url_patterns: Vec<UrlPattern>,
+    pub contexts: Vec<String>,
+}
+
+#[derive(Debug, Clone, Serialize)]
+pub(crate) struct RemoveInterceptParams {
+    pub intercept: String,
+}
+
+#[derive(Debug, Clone, Serialize)]
+pub(crate) struct ContinueRequestParams {
+    pub request: String,
+}
+
+#[derive(Debug, Clone, Serialize)]
+pub(crate) struct FailRequestParams {
+    pub request: String,
+}
+
+/// A `network.BytesValue`: either UTF-8 text or base64.
+#[derive(Debug, Clone, Serialize)]
+pub(crate) struct BytesValue {
+    #[serde(rename = "type")]
+    pub kind: String,
+    pub value: String,
+}
+
+/// A `network.Header`: the value is itself a [`BytesValue`].
+#[derive(Debug, Clone, Serialize)]
+pub(crate) struct HeaderEntry {
+    pub name: String,
+    pub value: BytesValue,
+}
+
+#[derive(Debug, Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub(crate) struct ProvideResponseParams {
+    pub request: String,
+    pub status_code: i64,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pub headers: Vec<HeaderEntry>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub body: Option<BytesValue>,
+}
+
+/// Drives interception: answers every blocked `beforeRequestSent` event using
+/// the registered routes, continuing anything that does not match.
+pub(crate) fn spawn_intercept_pump(
+    session: BidiSession,
+    context: String,
+    routes: Arc<Mutex<Vec<Route>>>,
+) -> NetworkPumpGuard {
+    let handle = tokio::spawn(async move {
+        let mut events = session.events();
+        loop {
+            match events.recv().await {
+                Ok(event) => {
+                    if event.method != "network.beforeRequestSent" {
+                        continue;
+                    }
+                    let Ok(params) =
+                        serde_json::from_value::<BeforeRequestSentParams>(event.params.clone())
+                    else {
+                        continue;
+                    };
+                    if params.context != context || !params.is_blocked {
+                        continue;
+                    }
+                    let request_id = params.request.request.clone();
+                    if request_id.is_empty() {
+                        continue;
+                    }
+                    let action = {
+                        let routes = routes.lock().expect("bidi routes mutex poisoned");
+                        routes
+                            .iter()
+                            .find(|route| route.matches(&params.request.url))
+                            .map(|route| route.action.clone())
+                    };
+                    match action {
+                        Some(RouteAction::Abort) => {
+                            let _ = session.fail_request(&request_id).await;
+                        }
+                        Some(RouteAction::Fulfill {
+                            status,
+                            content_type,
+                            body,
+                        }) => {
+                            let _ = session
+                                .provide_response(&request_id, status, &content_type, &body)
+                                .await;
+                        }
+                        _ => {
+                            let _ = session.continue_request(&request_id).await;
+                        }
+                    }
+                }
+                Err(broadcast::error::RecvError::Lagged(_)) => continue,
+                Err(broadcast::error::RecvError::Closed) => break,
+            }
+        }
+    });
+    NetworkPumpGuard { handle }
 }

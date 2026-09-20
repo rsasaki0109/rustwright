@@ -8,7 +8,7 @@ use crate::discovery::{find_firefox, firefox_candidates};
 use crate::error::{BrowserError, BrowserResult};
 use crate::launch::{pick_free_port, unique_suffix, DEFAULT_STARTUP_TIMEOUT};
 
-const STARTUP_POLL_INTERVAL: Duration = Duration::from_millis(50);
+const STARTUP_POLL_INTERVAL: Duration = Duration::from_millis(10);
 
 /// Describes which Firefox to launch and with what options.
 ///

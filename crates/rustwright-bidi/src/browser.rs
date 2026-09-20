@@ -5,12 +5,14 @@ use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{Arc, Mutex};
 
 use rustwright_browser::{Firefox, LaunchedFirefox};
-use rustwright_common::{Role, Selector, INJECTED_SCRIPT};
+use rustwright_common::{Role, Route, RouteAction, Selector, INJECTED_SCRIPT};
 use serde_json::{json, Value};
 
 use crate::error::BidiResult;
 use crate::locator::BidiLocator;
-use crate::network::{spawn_network_pump, BidiNetworkRequest, NetworkPumpGuard};
+use crate::network::{
+    spawn_intercept_pump, spawn_network_pump, BidiNetworkRequest, NetworkPumpGuard,
+};
 use crate::session::BidiSession;
 
 /// A browser driven over WebDriver BiDi.
@@ -108,6 +110,9 @@ pub struct BidiPage {
     network: Arc<Mutex<Vec<BidiNetworkRequest>>>,
     network_started: Arc<AtomicBool>,
     network_pump: Arc<Mutex<Option<NetworkPumpGuard>>>,
+    routes: Arc<Mutex<Vec<Route>>>,
+    intercept: Arc<Mutex<Option<String>>>,
+    intercept_pump: Arc<Mutex<Option<NetworkPumpGuard>>>,
 }
 
 impl std::fmt::Debug for BidiPage {
@@ -127,6 +132,9 @@ impl BidiPage {
             network: Arc::new(Mutex::new(Vec::new())),
             network_started: Arc::new(AtomicBool::new(false)),
             network_pump: Arc::new(Mutex::new(None)),
+            routes: Arc::new(Mutex::new(Vec::new())),
+            intercept: Arc::new(Mutex::new(None)),
+            intercept_pump: Arc::new(Mutex::new(None)),
         }
     }
 
@@ -216,6 +224,88 @@ impl BidiPage {
             .lock()
             .expect("bidi network mutex poisoned")
             .clone()
+    }
+
+    // -- Request interception ----------------------------------------------
+
+    /// Add a request interception rule (wildcards via `*` / `?`).
+    ///
+    /// The first matching rule wins; unmatched requests continue unchanged.
+    /// Interception is generic and contains no site-specific behaviour.
+    pub async fn route(&self, pattern: impl Into<String>, action: RouteAction) -> BidiResult<()> {
+        let first = {
+            let mut routes = self.routes.lock().expect("bidi routes mutex poisoned");
+            let first = routes.is_empty();
+            routes.push(Route::new(pattern, action));
+            first
+        };
+        if first {
+            self.session.ensure_network_subscription().await?;
+            let intercept = self.session.add_intercept(&self.context).await?;
+            *self
+                .intercept
+                .lock()
+                .expect("bidi intercept mutex poisoned") = Some(intercept);
+            let guard = spawn_intercept_pump(
+                self.session.clone(),
+                self.context.clone(),
+                self.routes.clone(),
+            );
+            *self
+                .intercept_pump
+                .lock()
+                .expect("bidi intercept pump mutex poisoned") = Some(guard);
+        }
+        Ok(())
+    }
+
+    /// Abort requests matching `pattern`.
+    pub async fn block(&self, pattern: impl Into<String>) -> BidiResult<()> {
+        self.route(pattern, RouteAction::Abort).await
+    }
+
+    /// Answer requests matching `pattern` with a synthetic response.
+    pub async fn mock(
+        &self,
+        pattern: impl Into<String>,
+        status: i64,
+        content_type: impl Into<String>,
+        body: impl Into<Vec<u8>>,
+    ) -> BidiResult<()> {
+        self.route(
+            pattern,
+            RouteAction::Fulfill {
+                status,
+                content_type: content_type.into(),
+                body: body.into(),
+            },
+        )
+        .await
+    }
+
+    /// Remove all interception rules.
+    pub async fn clear_routes(&self) -> BidiResult<()> {
+        let had_routes = {
+            let mut routes = self.routes.lock().expect("bidi routes mutex poisoned");
+            let had = !routes.is_empty();
+            routes.clear();
+            had
+        };
+        if had_routes {
+            let intercept = self
+                .intercept
+                .lock()
+                .expect("bidi intercept mutex poisoned")
+                .take();
+            if let Some(intercept) = intercept {
+                let _ = self.session.remove_intercept(&intercept).await;
+            }
+            *self
+                .intercept_pump
+                .lock()
+                .expect("bidi intercept pump mutex poisoned") = None;
+        }
+        Ok(())
     }
 
     // -- Locators -----------------------------------------------------------

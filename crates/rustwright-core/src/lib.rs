@@ -23,7 +23,6 @@ mod error;
 mod frame;
 mod locator;
 mod page;
-mod route;
 
 pub use browser::Browser;
 pub use context::BrowserContext;
@@ -35,8 +34,9 @@ pub use error::{Error, Result};
 pub use frame::{Frame, FrameLocator};
 pub use locator::Locator;
 pub use page::{normalize_url, Page, TracingOptions, Viewport, DEFAULT_TIMEOUT};
-pub use route::{glob_match, Route, RouteAction};
-pub use rustwright_common::{LoadState, LocatorApi, PageApi, Role, Selector, WaitState};
+pub use rustwright_common::{
+    glob_match, LoadState, LocatorApi, PageApi, Role, Route, RouteAction, Selector, WaitState,
+};
 
 pub use rustwright_browser::{
     BrowserError, Chrome, ChromeVariant, Firefox, LaunchedBrowser, LaunchedFirefox, Profile,

@@ -37,17 +37,32 @@ async fn launch_firefox() -> Option<BidiBrowser> {
     }
 }
 
-/// A minimal HTTP server for network diagnostics.
+/// A minimal HTTP server for network diagnostics and interception.
 async fn spawn_server() -> String {
     let listener = TcpListener::bind("127.0.0.1:0").await.expect("bind");
     let address = listener.local_addr().expect("addr");
     tokio::spawn(async move {
         while let Ok((mut socket, _)) = listener.accept().await {
             let mut buffer = [0u8; 2048];
-            let _ = socket.read(&mut buffer).await;
-            let body = "<!DOCTYPE html><html><head><title>net</title></head><body>ok</body></html>";
+            let read = socket.read(&mut buffer).await.unwrap_or(0);
+            let request = String::from_utf8_lossy(&buffer[..read]).to_string();
+            let path = request
+                .lines()
+                .next()
+                .and_then(|line| line.split_whitespace().nth(1))
+                .unwrap_or("/")
+                .to_string();
+            let (content_type, body) = if path.starts_with("/api/data") {
+                ("application/json", r#"{"real":true}"#.to_string())
+            } else {
+                (
+                    "text/html",
+                    "<!DOCTYPE html><html><head><title>net</title></head><body>ok</body></html>"
+                        .to_string(),
+                )
+            };
             let response = format!(
-                "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{body}",
+                "HTTP/1.1 200 OK\r\nContent-Type: {content_type}\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{body}",
                 body.len()
             );
             let _ = socket.write_all(response.as_bytes()).await;
@@ -168,6 +183,36 @@ async fn firefox_bidi_network_monitoring() -> BidiResult<()> {
             .any(|request| request.url == base && request.status == Some(200)),
         "response status was captured"
     );
+
+    browser.close().await?;
+    Ok(())
+}
+
+#[tokio::test]
+async fn firefox_bidi_request_interception() -> BidiResult<()> {
+    if !firefox_available() {
+        return Ok(());
+    }
+    let base = spawn_server().await;
+    let Some(browser) = launch_firefox().await else {
+        return Ok(());
+    };
+    let page = browser.new_page().await?;
+
+    page.mock("**/api/data", 200, "application/json", r#"{"ok":true}"#)
+        .await?;
+    page.goto(&base).await?;
+    let body = page
+        .evaluate("fetch('/api/data').then((response) => response.text())")
+        .await?;
+    assert_eq!(body.as_str(), Some(r#"{"ok":true}"#));
+    page.clear_routes().await?;
+
+    page.block("**/api/data").await?;
+    let outcome = page
+        .evaluate("fetch('/api/data').then(() => 'ok').catch(() => 'blocked')")
+        .await?;
+    assert_eq!(outcome.as_str(), Some("blocked"));
 
     browser.close().await?;
     Ok(())

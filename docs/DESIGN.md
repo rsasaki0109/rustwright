@@ -400,5 +400,33 @@ The three items left after the unified API:
 - rustdoc on all public items.
 - Typed, non-swallowed errors that preserve the causal chain
   (`Error` -> `CdpError`/`BrowserError` with protocol `code`/`message`/`data`).
-- `cargo fmt`, `cargo clippy -- -D warnings`, `cargo test`.
+- `cargo fmt`, `cargo clippy -- -- -D warnings`, `cargo test`.
 - Runnable examples and integration tests against real installed Chrome.
+
+## 18. Round 9: BiDi interception and launch tuning
+
+Closing the gap to the CDP backend:
+
+- **Route shared**: `Route`, `RouteAction` and `glob_match` moved from
+  `rustwright-core` to `rustwright-common`, so both backends use the same rule
+  type. `rustwright-core` re-exports them (public API unchanged).
+- **BiDi request interception**: `BidiPage::route` / `mock` / `block` /
+  `clear_routes`, built on `network.addIntercept` (phase `beforeRequestSent`,
+  all URLs, filtered locally) and answered by a `beforeRequestSent` pump with
+  `network.continueRequest` / `failRequest` / `provideResponse`. A probe against
+  Firefox 156 surfaced a wire detail: BiDi `network.Header.value` is a
+  `BytesValue` (`{type, value}`), not a bare string, which the typed bindings
+  now encode.
+- **Launch polling**: the Chrome/Firefox `DevToolsActivePort` / port poll
+  interval dropped from 50 ms to 10 ms, removing up to ~40 ms of quantization.
+  Launch remains dominated by browser startup and varies run to run; the
+  `--remote-debugging-pipe` transport would remove the polling entirely but
+  requires a small amount of platform `unsafe` for inherited file descriptors,
+  so it is intentionally left as future work given the no-`unsafe` policy.
+
+Verified on Firefox 156 (`tests/bidi.rs`): a mocked `/api/data` returns the
+synthetic body, and a blocked `/api/data` fails the fetch — matching the CDP
+backend's behaviour in `tests/advanced.rs`.
+
+## 19. Quality bar
+

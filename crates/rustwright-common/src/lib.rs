@@ -9,10 +9,12 @@
 #![warn(missing_docs)]
 
 mod api;
+mod route;
 mod selectors;
 mod wait;
 
 pub use api::{LocatorApi, PageApi};
+pub use route::{glob_match, Route, RouteAction};
 pub use selectors::{Role, Selector};
 pub use wait::{LoadState, WaitState};
 

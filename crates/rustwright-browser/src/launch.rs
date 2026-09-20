@@ -12,7 +12,7 @@ use crate::error::{BrowserError, BrowserResult};
 /// Default time to wait for a launched browser to expose its DevTools endpoint.
 pub const DEFAULT_STARTUP_TIMEOUT: Duration = Duration::from_secs(30);
 
-const STARTUP_POLL_INTERVAL: Duration = Duration::from_millis(50);
+const STARTUP_POLL_INTERVAL: Duration = Duration::from_millis(10);
 
 /// A browser process launched by Rustwright.
 ///

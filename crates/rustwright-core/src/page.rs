@@ -39,7 +39,9 @@ use rustwright_cdp::protocol::tracing::{
     TracingCompleteParams,
 };
 use rustwright_cdp::{CdpConnection, CdpSession};
-use rustwright_common::{LoadState, Role, Selector, WaitState, INJECTED_SCRIPT};
+use rustwright_common::{
+    LoadState, Role, Route, RouteAction, Selector, WaitState, INJECTED_SCRIPT,
+};
 use serde::de::DeserializeOwned;
 use serde_json::{json, Value};
 use tokio::sync::{broadcast, oneshot};
@@ -52,7 +54,6 @@ use crate::diagnostics::{
 use crate::error::{Error, Result};
 use crate::frame::{Frame, FrameLocator};
 use crate::locator::Locator;
-use crate::route::{Route, RouteAction};
 
 /// The default timeout for navigation, waits and actions.
 pub const DEFAULT_TIMEOUT: Duration = Duration::from_secs(30);

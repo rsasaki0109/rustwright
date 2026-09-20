@@ -261,6 +261,97 @@ impl BidiSession {
         let _ = self.connection.send("session.end", json!({})).await;
         Ok(())
     }
+
+    // -- Request interception ----------------------------------------------
+
+    /// Intercept requests for a context (all URLs; filtering is done locally).
+    pub async fn add_intercept(&self, context: &str) -> BidiResult<String> {
+        let params = crate::network::AddInterceptParams {
+            phases: vec!["beforeRequestSent".to_string()],
+            url_patterns: vec![crate::network::UrlPattern {
+                kind: "pattern".to_string(),
+                pattern: "*".to_string(),
+            }],
+            contexts: vec![context.to_string()],
+        };
+        let result = self
+            .connection
+            .send("network.addIntercept", json!(params))
+            .await?;
+        result
+            .get("intercept")
+            .and_then(Value::as_str)
+            .map(str::to_string)
+            .ok_or_else(|| BidiError::Unexpected("network.addIntercept missing intercept".into()))
+    }
+
+    /// Remove an interception.
+    pub async fn remove_intercept(&self, intercept: &str) -> BidiResult<()> {
+        self.connection
+            .send(
+                "network.removeIntercept",
+                json!(crate::network::RemoveInterceptParams {
+                    intercept: intercept.to_string()
+                }),
+            )
+            .await?;
+        Ok(())
+    }
+
+    /// Continue a blocked request unchanged.
+    pub async fn continue_request(&self, request: &str) -> BidiResult<()> {
+        self.connection
+            .send(
+                "network.continueRequest",
+                json!(crate::network::ContinueRequestParams {
+                    request: request.to_string()
+                }),
+            )
+            .await?;
+        Ok(())
+    }
+
+    /// Fail a blocked request.
+    pub async fn fail_request(&self, request: &str) -> BidiResult<()> {
+        self.connection
+            .send(
+                "network.failRequest",
+                json!(crate::network::FailRequestParams {
+                    request: request.to_string()
+                }),
+            )
+            .await?;
+        Ok(())
+    }
+
+    /// Answer a blocked request with a synthetic response.
+    pub async fn provide_response(
+        &self,
+        request: &str,
+        status: i64,
+        content_type: &str,
+        body: &[u8],
+    ) -> BidiResult<()> {
+        let params = crate::network::ProvideResponseParams {
+            request: request.to_string(),
+            status_code: status,
+            headers: vec![crate::network::HeaderEntry {
+                name: "Content-Type".to_string(),
+                value: crate::network::BytesValue {
+                    kind: "string".to_string(),
+                    value: content_type.to_string(),
+                },
+            }],
+            body: Some(crate::network::BytesValue {
+                kind: "base64".to_string(),
+                value: base64::engine::general_purpose::STANDARD.encode(body),
+            }),
+        };
+        self.connection
+            .send("network.provideResponse", json!(params))
+            .await?;
+        Ok(())
+    }
 }
 
 fn parse_contexts(result: &Value) -> BidiResult<Vec<BrowsingContextInfo>> {

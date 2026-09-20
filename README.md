@@ -276,7 +276,10 @@ async fn main() -> rustwright::BidiResult<()> {
 to any BiDi endpoint with `BidiBrowser::connect`, and provides `BidiLocator`
 with auto-waiting `click` / `fill` / `text` / `wait_for` / `count` and the
 `get_by_*` strategies. Real pointer and key input uses `input.performActions`,
-not synthetic DOM events.
+not synthetic DOM events. BiDi also mirrors the CDP backend's request
+interception (`route` / `mock` / `block` / `clear_routes`, backed by
+`network.addIntercept` + `network.provideResponse`) and opt-in network
+monitoring (`start_network_monitoring` / `network_requests`).
 
 Notes from real machines:
 
@@ -324,24 +327,26 @@ median of 5 runs; the harnesses live in [`bench/`](bench/) and are reproducible
 
 | Metric | Playwright (`playwright-core` 1.63) | Rustwright |
 |---|---:|---:|
-| launch → first page | 421.4 ms | **406.4 ms** |
-| `goto`, per navigation | 36.04 ms | **31.51 ms** |
-| `evaluate`, round-trip | 0.688 ms | **0.260 ms** (≈2.6×) |
-| driver peak RSS | 151.3 MB | **4.8 MB** (≈31×) |
+| launch → first page | 410.0 ms | 457.7 ms |
+| `goto`, per navigation | 36.05 ms | 35.17 ms |
+| `evaluate`, round-trip | 0.872 ms | **0.341 ms** (≈2.6×) |
+| driver peak RSS | 150.8 MB | **4.8 MB** (≈31×) |
 | process startup | ~40 ms (Node) | **~0 ms** (native) |
 | install footprint | 14 MB npm + Node runtime | **2.9 MB binary**, no runtime |
 
 Because both drive the same engine, **navigation and launch are essentially
-equivalent** — browser startup dominates, and the small differences here are
-within run-to-run variance. The wins come from removing the Node runtime:
+equivalent** — browser startup dominates, and launch varies by tens of
+milliseconds from run to run (it can favor either side). The durable wins come
+from removing the Node runtime:
 
 - `evaluate` round-trips are ~2.6× faster (no event loop / JS protocol layer),
   which matters for round-trip-heavy work.
 - The driver uses ~31× less memory, starts instantly, and ships as a single
   binary instead of an npm package plus a Node runtime.
 - Rustwright polls `DevToolsActivePort` while Playwright uses
-  `--remote-debugging-pipe`; adopting the pipe transport and doing less eager
-  page setup is a known optimization for Rustwright, not a fundamental gap.
+  `--remote-debugging-pipe`; adopting the pipe transport (which needs a small
+  amount of platform `unsafe` to pass inherited file descriptors) is a possible
+  future optimization, not a fundamental gap.
 
 ## Compatibility
 
