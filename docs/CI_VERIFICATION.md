@@ -84,7 +84,7 @@ official archive layout support correcting that installation, rather than
 retrying page creation or disabling the sandbox.
 
 The current workflow re-extracts the exact action-selected macOS Chrome version
-with `ditto`, preserving its complete signed `.app` and original links, then
+with `ditto`, preserving its complete original `.app` and links, then
 selects that executable. Native macOS confirmation remains required. Original
 job logs, source reviews and the successful Windows record are in
 [the remote evidence](ci/results/remote-20261009/). Linux jobs remain queued
@@ -110,6 +110,17 @@ them. The earlier [network-idle investigation](FIREFOX_NETWORK_IDLE.md) describe
 the frozen inspected source before this receiver correction. Historical activity,
 descendant filtering, event-lag handling and Firefox network-idle parity remain
 separate limits.
+
+The first bundle-restoration run, 37951867466 at commit `78e95e6`, stopped
+before native macOS tests because an added strict `codesign` resource check
+rejected the official ZIP's unpacked bundle. The inspected official archive
+contains no `_CodeSignature`/`CodeResources` entries; this is an introduced
+setup gate failure, not a failing native scenario. Signature-check exit/output
+is now retained as diagnostic metadata, while required native tests still
+determine compatibility. The original archive and sandbox remain unchanged.
+
+Current Linux workspace and repeated distribution records are frozen in
+[the follow-up local record](ci/results/remote-20261009/followup-local/).
 
 ## Workflow behavior
 

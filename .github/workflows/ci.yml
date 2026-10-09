@@ -150,13 +150,13 @@ jobs:
           executable = bundle / 'Contents/MacOS/Google Chrome for Testing'
           if not executable.is_file():
               raise FileNotFoundError(executable)
-          subprocess.run(['codesign', '--verify', '--deep', '--strict', str(bundle)], check=True)
+          signature = subprocess.run(['codesign', '--verify', '--deep', '--strict', str(bundle)], capture_output=True, text=True)
           with (bundle / 'Contents/Info.plist').open('rb') as stream:
               identifier = plistlib.load(stream)['CFBundleIdentifier']
           with archive.open('rb') as stream:
               digest = hashlib.file_digest(stream, 'sha256').hexdigest()
           links = {str(p.relative_to(bundle)): os.readlink(p) for p in bundle.glob('Contents/Frameworks/*.framework/Versions/Current') if p.is_symlink()}
-          record = {'version': version, 'url': url, 'archive_sha256': digest, 'bundle_identifier': identifier, 'framework_links': links, 'executable': str(executable), 'signature_verified': True}
+          record = {'version': version, 'url': url, 'archive_sha256': digest, 'bundle_identifier': identifier, 'framework_links': links, 'executable': str(executable), 'signature_verification': {'exit_code': signature.returncode, 'stdout': signature.stdout, 'stderr': signature.stderr}}
           output = pathlib.Path('target/ci/chrome-macos-setup.json')
           output.parent.mkdir(parents=True, exist_ok=True)
           output.write_text(json.dumps(record, indent=2) + '\n', encoding='utf-8')

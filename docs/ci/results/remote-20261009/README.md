@@ -82,3 +82,7 @@ two-minute step limit; the verified installer invocation is unchanged.
 sha256sum -c docs/ci/results/remote-20261009/windows-fixed/SHA256SUMS
 sha256sum -c docs/ci/results/remote-20261009/macos-bundle-before/SHA256SUMS
 ```
+
+`followup-local/` preserves 171 current-source Linux library tests, all-target
+Clippy/MSRV checks and repeated real eight-archive distribution verification.
+Its native consumer and README results are local, rather than remote Linux CI.
