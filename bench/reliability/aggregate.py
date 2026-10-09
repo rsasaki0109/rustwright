@@ -31,7 +31,7 @@ MEMORY_FIELDS = ("driver_rss_kib", "driver_pss_kib",
 FIXED_SOURCES = {
     "Cargo.toml", "Cargo.lock", "examples/Cargo.toml", "examples/reliability.rs",
     "bench/playwright/package.json", "bench/playwright/package-lock.json",
-    "bench/playwright/reliability.mjs", "bench/reliability/run.py",
+    "bench/playwright/reliability.mjs", "bench/playwright/launch_metadata.mjs", "bench/reliability/run.py",
     "bench/reliability/proc_memory.py", "scripts/ci/chrome_linux_sandbox.py",
 }
 LIMITATIONS = [
@@ -387,7 +387,7 @@ def aggregate(inputs):
                                                        "playwright_core", "rustc", "node")}
             stable["source_sha256"] = checked["source"]
             stable["measurement_harness_sha256"] = {path: checked["source"][path] for path in (
-                "examples/reliability.rs", "bench/playwright/reliability.mjs",
+                "examples/reliability.rs", "bench/playwright/reliability.mjs", "bench/playwright/launch_metadata.mjs",
                 "bench/reliability/run.py", "bench/reliability/proc_memory.py")}
             stable["ci_run"] = {field: report["ci"][field] for field in ("run_id", "run_attempt", "job")}
             if reference is None:

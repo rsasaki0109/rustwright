@@ -29,6 +29,7 @@ env:
   CARGO_INCREMENTAL: '0'
   CARGO_BUILD_JOBS: '2'
   PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+  RUSTWRIGHT_COMPARISON_OUTPUT: rustwright-comparison-${{ github.run_id }}-${{ github.run_attempt }}
 
 jobs:
   measure:
@@ -53,8 +54,15 @@ jobs:
           node-version: '24.19.0'
           cache: npm
           cache-dependency-path: bench/playwright/package-lock.json
-      - name: Prepare artifact directory
-        run: mkdir -p target/comparison
+      - name: Reserve fresh comparison artifact directory
+        run: |
+          python3 - <<'PYTHON'
+          import os, pathlib
+          output = pathlib.Path(os.environ['RUNNER_TEMP']) / os.environ['RUSTWRIGHT_COMPARISON_OUTPUT']
+          output.mkdir(parents=True, exist_ok=False)
+          with open(os.environ['GITHUB_ENV'], 'a', encoding='utf-8') as stream:
+              stream.write(f'RUSTWRIGHT_COMPARISON_OUTPUT={output}\n')
+          PYTHON
       - name: Install the locked reference driver
         run: npm ci --prefix bench/playwright
       - name: Install the common pinned browser
@@ -68,24 +76,26 @@ jobs:
         env:
           RUSTWRIGHT_CHROME: ${{ steps.chrome.outputs.chrome-path }}
           CHROME_DEVEL_SANDBOX: ''
-        run: python scripts/ci/chrome_linux_sandbox.py --output target/comparison/sandbox
+        run: python scripts/ci/chrome_linux_sandbox.py --output "$RUSTWRIGHT_COMPARISON_OUTPUT/sandbox"
       - name: Verify reporting and failure guards
-        run: python -m unittest discover -s bench/reliability -p 'test_*.py' -v
+        run: |
+          python -m unittest discover -s bench/reliability -p 'test_*.py' -v
+          node --test bench/playwright/launch_metadata.test.mjs
       - name: Build the measured release driver
-        run: cargo build --release --locked -p rustwright-examples --example reliability 2>&1 | tee target/comparison/build.log
+        run: cargo build --release --locked -p rustwright-examples --example reliability 2>&1 | tee "$RUSTWRIGHT_COMPARISON_OUTPUT/build.log"
       - name: Measure all sixteen cases in alternating order
         env:
           BENCH_CHROME: ${{ steps.chrome.outputs.chrome-path }}
         run: |
           python bench/reliability/run.py --chrome "$BENCH_CHROME" \
             --samples 100 --pairs 2 --require-engine-success rustwright \
-            --output target/comparison/report.json 2>&1 | tee target/comparison/runner.log
+            --output "$RUSTWRIGHT_COMPARISON_OUTPUT/report.json" 2>&1 | tee "$RUSTWRIGHT_COMPARISON_OUTPUT/runner.log"
       - name: Retain raw measurements and setup failures
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: comparison-${{ matrix.host }}
-          path: target/comparison/
+          path: ${{ env.RUSTWRIGHT_COMPARISON_OUTPUT }}/
           if-no-files-found: error
 
   aggregate:
@@ -99,24 +109,33 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
+      - name: Reserve fresh comparison artifact directory
+        run: |
+          python3 - <<'PYTHON'
+          import os, pathlib
+          output = pathlib.Path(os.environ['RUNNER_TEMP']) / os.environ['RUSTWRIGHT_COMPARISON_OUTPUT']
+          output.mkdir(parents=True, exist_ok=False)
+          with open(os.environ['GITHUB_ENV'], 'a', encoding='utf-8') as stream:
+              stream.write(f'RUSTWRIGHT_COMPARISON_OUTPUT={output}\n')
+          PYTHON
       - uses: actions/download-artifact@v4
         with:
           pattern: comparison-host-*
-          path: target/comparison/input
+          path: ${{ env.RUSTWRIGHT_COMPARISON_OUTPUT }}/input
       - name: Validate complete reports before comparison
         run: |
           python bench/reliability/aggregate.py --reports \
-            target/comparison/input/comparison-host-1/report.json \
-            target/comparison/input/comparison-host-2/report.json \
-            target/comparison/input/comparison-host-3/report.json \
-            --output target/comparison/aggregate.json \
-            --markdown target/comparison/REPORT.md
+            "$RUSTWRIGHT_COMPARISON_OUTPUT/input/comparison-host-1/report.json" \
+            "$RUSTWRIGHT_COMPARISON_OUTPUT/input/comparison-host-2/report.json" \
+            "$RUSTWRIGHT_COMPARISON_OUTPUT/input/comparison-host-3/report.json" \
+            --output "$RUSTWRIGHT_COMPARISON_OUTPUT/aggregate.json" \
+            --markdown "$RUSTWRIGHT_COMPARISON_OUTPUT/REPORT.md"
       - name: Retain the comparison and validation outcome
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: comparison-summary
           path: |
-            target/comparison/aggregate.json
-            target/comparison/REPORT.md
+            ${{ env.RUSTWRIGHT_COMPARISON_OUTPUT }}/aggregate.json
+            ${{ env.RUSTWRIGHT_COMPARISON_OUTPUT }}/REPORT.md
           if-no-files-found: error

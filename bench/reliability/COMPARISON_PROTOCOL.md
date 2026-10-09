@@ -30,6 +30,12 @@ port versus pipe remain different and are recorded rather than described as
 identical browser configurations. The main-context policy and viewport alignment
 are changes from the historical single-host comparison.
 
+Playwright's browser PID is identified through `SystemInfo.getProcessInfo`;
+Linux `/proc/PID/cmdline` supplies its actual argv after `/proc/PID/exe` is
+matched to the selected browser. This avoids adding `--enable-automation`
+solely for `Browser.getBrowserCommandLine`, which is unavailable with the
+current reference driver's defaults. Missing or ambiguous metadata fails setup.
+
 The sixteen cases retain delayed/disabled/covered/moving/clipped controls,
 late and cross-site frames, navigation, HTTP-disconnect recovery, graceful
 browser closure and native fetch/XHR interception, including renderer return.
@@ -91,6 +97,9 @@ python3 bench/reliability/aggregate.py --reports \
   --markdown target/comparison/REPORT.md
 ```
 
+CI output roots live outside Cargo’s cached `target` tree, in a fresh
+`RUNNER_TEMP` directory identified by workflow run and attempt. Restored build
+cache entries cannot supply old reports or block creation of new result paths.
 The workflow uploads all original measurements even when a job fails. Results
 must retain the actual tested checkout, source and driver identities, official
 artifact digests, failures and this protocol's limits. The historical

@@ -16,6 +16,9 @@ concurrency:
 env:
   CARGO_TERM_COLOR: always
   RUST_BACKTRACE: 1
+  # runner.temp is unavailable in workflow-level expressions. Each producing
+  # job resolves this fresh run-specific name against RUNNER_TEMP below.
+  RUSTWRIGHT_CI_OUTPUT: rustwright-ci-${{ github.run_id }}-${{ github.run_attempt }}
 
 jobs:
   msrv:
@@ -39,6 +42,17 @@ jobs:
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v5
+
+      - name: Reserve fresh CI artifact directory
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import os, pathlib
+          output = pathlib.Path(os.environ['RUNNER_TEMP']) / os.environ['RUSTWRIGHT_CI_OUTPUT']
+          output.mkdir(parents=True, exist_ok=False)
+          with open(os.environ['GITHUB_ENV'], 'a', encoding='utf-8') as stream:
+              stream.write(f'RUSTWRIGHT_CI_OUTPUT={output}\n')
+          PY
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
@@ -74,7 +88,7 @@ jobs:
         timeout-minutes: 3
         env:
           RUSTWRIGHT_CHROME: ${{ steps.chrome.outputs.chrome-path }}
-        run: python3 scripts/ci/chrome_linux_sandbox.py
+        run: python3 scripts/ci/chrome_linux_sandbox.py --output "$RUSTWRIGHT_CI_OUTPUT/workspace/linux-sandbox"
 
       - name: Test
         env:
@@ -90,7 +104,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: workspace-chrome-sandbox
-          path: target/ci/linux-sandbox/
+          path: ${{ env.RUSTWRIGHT_CI_OUTPUT }}/workspace/linux-sandbox/
           if-no-files-found: error
 
   headed-versions-sites:
@@ -104,6 +118,16 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
+      - name: Reserve fresh CI artifact directory
+        shell: bash
+        run: |
+          python - <<'PY'
+          import os, pathlib
+          output = pathlib.Path(os.environ['RUNNER_TEMP']) / os.environ['RUSTWRIGHT_CI_OUTPUT']
+          output.mkdir(parents=True, exist_ok=False)
+          with open(os.environ['GITHUB_ENV'], 'a', encoding='utf-8') as stream:
+              stream.write(f'RUSTWRIGHT_CI_OUTPUT={output}\n')
+          PY
       - name: Install and check the isolated X11 display tools
         run: |
           sudo apt-get update
@@ -120,7 +144,7 @@ jobs:
         env:
           RUSTWRIGHT_CHROME: ${{ steps.chrome-current.outputs.chrome-path }}
           CHROME_DEVEL_SANDBOX: ''
-        run: python scripts/ci/chrome_linux_sandbox.py --output target/ci/extended/sandbox-current
+        run: python scripts/ci/chrome_linux_sandbox.py --output "$RUSTWRIGHT_CI_OUTPUT/extended/sandbox-current"
       - name: Install pinned current Firefox
         id: firefox-current
         uses: browser-actions/setup-firefox@v1
@@ -138,7 +162,7 @@ jobs:
         env:
           RUSTWRIGHT_CHROME: ${{ steps.chrome-previous.outputs.chrome-path }}
           CHROME_DEVEL_SANDBOX: ''
-        run: python scripts/ci/chrome_linux_sandbox.py --output target/ci/extended/sandbox-previous
+        run: python scripts/ci/chrome_linux_sandbox.py --output "$RUSTWRIGHT_CI_OUTPUT/extended/sandbox-previous"
       - name: Install pinned Firefox ESR
         id: firefox-esr
         uses: browser-actions/setup-firefox@v1
@@ -155,15 +179,15 @@ jobs:
             python scripts/ci/headed_sites.py \
               --chrome-current "$CHROME_CURRENT" --firefox-current "$FIREFOX_CURRENT" \
               --chrome-previous "$CHROME_PREVIOUS" --firefox-esr "$FIREFOX_ESR" \
-              --sandbox-current target/ci/extended/sandbox-current/report.json \
-              --sandbox-previous target/ci/extended/sandbox-previous/report.json \
-              --output target/ci/extended
+              --sandbox-current "$RUSTWRIGHT_CI_OUTPUT/extended/sandbox-current/report.json" \
+              --sandbox-previous "$RUSTWRIGHT_CI_OUTPUT/extended/sandbox-previous/report.json" \
+              --output "$RUSTWRIGHT_CI_OUTPUT/extended"
       - name: Retain setup, native reports, window observations and site screenshots
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: headed-versions-sites
-          path: target/ci/extended/
+          path: ${{ env.RUSTWRIGHT_CI_OUTPUT }}/extended/
           if-no-files-found: warn
 
   browser-compat:
@@ -181,6 +205,16 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
+      - name: Reserve fresh CI artifact directory
+        shell: bash
+        run: |
+          python - <<'PY'
+          import os, pathlib
+          output = pathlib.Path(os.environ['RUNNER_TEMP']) / os.environ['RUSTWRIGHT_CI_OUTPUT']
+          output.mkdir(parents=True, exist_ok=False)
+          with open(os.environ['GITHUB_ENV'], 'a', encoding='utf-8') as stream:
+              stream.write(f'RUSTWRIGHT_CI_OUTPUT={output}\n')
+          PY
       - name: Install Chrome
         id: chrome
         uses: browser-actions/setup-chrome@v2
@@ -197,7 +231,7 @@ jobs:
         timeout-minutes: 3
         env:
           RUSTWRIGHT_CHROME: ${{ steps.chrome.outputs.chrome-path }}
-        run: python3 scripts/ci/chrome_linux_sandbox.py
+        run: python3 scripts/ci/chrome_linux_sandbox.py --output "$RUSTWRIGHT_CI_OUTPUT/native/linux-sandbox"
       - name: Configure Windows Chrome sandbox permissions
         if: runner.os == 'Windows'
         timeout-minutes: 2
@@ -250,7 +284,7 @@ jobs:
               digest = hashlib.file_digest(stream, 'sha256').hexdigest()
           links = {str(p.relative_to(bundle)): os.readlink(p) for p in bundle.glob('Contents/Frameworks/*.framework/Versions/Current') if p.is_symlink()}
           record = {'version': version, 'url': url, 'archive_sha256': digest, 'bundle_identifier': identifier, 'framework_links': links, 'executable': str(executable), 'signature_verification': {'exit_code': signature.returncode, 'stdout': signature.stdout, 'stderr': signature.stderr}}
-          output = pathlib.Path('target/ci/chrome-macos-setup.json')
+          output = pathlib.Path(os.environ['RUSTWRIGHT_CI_OUTPUT']) / 'native/chrome-macos-setup.json'
           output.parent.mkdir(parents=True, exist_ok=True)
           output.write_text(json.dumps(record, indent=2) + '\n', encoding='utf-8')
           print(json.dumps(record, indent=2))
@@ -267,22 +301,23 @@ jobs:
           echo "Chrome: $CHROME_VERSION"
           echo "Firefox: $FIREFOX_VERSION"
       - name: Required portable HTTP scenarios
+        shell: bash
         env:
           RUSTWRIGHT_CHROME: ${{ steps.chrome-macos.outputs.chrome-path || steps.chrome.outputs.chrome-path }}
           RUSTWRIGHT_FIREFOX: ${{ steps.firefox.outputs.firefox-path }}
-        run: python scripts/ci/browser_checks.py --suite portable
+        run: python scripts/ci/browser_checks.py --suite portable --output "$RUSTWRIGHT_CI_OUTPUT/native/portable"
       - name: Additional Linux HTTP regressions
         if: runner.os == 'Linux'
         env:
           RUSTWRIGHT_CHROME: ${{ steps.chrome.outputs.chrome-path }}
           RUSTWRIGHT_FIREFOX: ${{ steps.firefox.outputs.firefox-path }}
-        run: python scripts/ci/browser_checks.py --suite linux-extra
+        run: python scripts/ci/browser_checks.py --suite linux-extra --output "$RUSTWRIGHT_CI_OUTPUT/native/linux-extra"
       - name: Retain native test results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: native-http-${{ matrix.os }}
-          path: target/ci/
+          path: ${{ env.RUSTWRIGHT_CI_OUTPUT }}/native/
           if-no-files-found: error
 
   package-consumer:
@@ -297,6 +332,16 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
+      - name: Reserve fresh CI artifact directory
+        shell: bash
+        run: |
+          python - <<'PY'
+          import os, pathlib
+          output = pathlib.Path(os.environ['RUNNER_TEMP']) / os.environ['RUSTWRIGHT_CI_OUTPUT']
+          output.mkdir(parents=True, exist_ok=False)
+          with open(os.environ['GITHUB_ENV'], 'a', encoding='utf-8') as stream:
+              stream.write(f'RUSTWRIGHT_CI_OUTPUT={output}\n')
+          PY
       - name: Install Chrome
         id: chrome
         uses: browser-actions/setup-chrome@v2
@@ -312,31 +357,31 @@ jobs:
         timeout-minutes: 3
         env:
           RUSTWRIGHT_CHROME: ${{ steps.chrome.outputs.chrome-path }}
-        run: python3 scripts/ci/chrome_linux_sandbox.py --output target/release-check/linux-sandbox
+        run: python3 scripts/ci/chrome_linux_sandbox.py --output "$RUSTWRIGHT_CI_OUTPUT/release-check/linux-sandbox"
       - name: Cache exact locked dependency archives
         run: cargo +stable fetch --locked
       - name: Check real packages and native consumers
         env:
           RUSTWRIGHT_CHROME: ${{ steps.chrome.outputs.chrome-path }}
           RUSTWRIGHT_FIREFOX: ${{ steps.firefox.outputs.firefox-path }}
-        run: python scripts/release_check.py --run-browser-tests
+        run: python scripts/release_check.py --run-browser-tests --output "$RUSTWRIGHT_CI_OUTPUT/release-check"
       - name: Execute README entry points
         env:
           RUSTWRIGHT_CHROME: ${{ steps.chrome.outputs.chrome-path }}
           RUSTWRIGHT_FIREFOX: ${{ steps.firefox.outputs.firefox-path }}
-        run: python scripts/release/readme_runtime.py
+        run: python scripts/release/readme_runtime.py --output "$RUSTWRIGHT_CI_OUTPUT/release-check"
       - name: Retain release verification results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: release-verification
           path: |
-            target/release-check/*.log
-            target/release-check/*.json
-            target/release-check/package-target/*/package/*.crate
-            target/release-check/consumer/Cargo.lock
-            target/release-check/consumer/readme-snippets.json
-            target/release-check/consumer/firefox.png
-            target/release-check/native-screenshots/
-            target/release-check/linux-sandbox/
+            ${{ env.RUSTWRIGHT_CI_OUTPUT }}/release-check/*.log
+            ${{ env.RUSTWRIGHT_CI_OUTPUT }}/release-check/*.json
+            ${{ env.RUSTWRIGHT_CI_OUTPUT }}/release-check/package-target/*/package/*.crate
+            ${{ env.RUSTWRIGHT_CI_OUTPUT }}/release-check/consumer/Cargo.lock
+            ${{ env.RUSTWRIGHT_CI_OUTPUT }}/release-check/consumer/readme-snippets.json
+            ${{ env.RUSTWRIGHT_CI_OUTPUT }}/release-check/consumer/firefox.png
+            ${{ env.RUSTWRIGHT_CI_OUTPUT }}/release-check/native-screenshots/
+            ${{ env.RUSTWRIGHT_CI_OUTPUT }}/release-check/linux-sandbox/
           if-no-files-found: error

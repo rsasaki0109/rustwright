@@ -1,6 +1,7 @@
 // Counterpart of examples/reliability.rs; run through bench/reliability/run.py.
 import { chromium } from 'playwright-core';
 import { performance } from 'node:perf_hooks';
+import { browserLaunchArguments } from './launch_metadata.mjs';
 
 const base = process.env.RUSTWRIGHT_RELIABILITY_URL;
 const samples = Number(process.env.RUSTWRIGHT_RELIABILITY_SAMPLES);
@@ -14,10 +15,10 @@ const diagnostics = await browser.newBrowserCDPSession().catch(async error => {
   await browser.close();
   throw error;
 });
-const browserLaunchArgs = (await diagnostics.send('Browser.getBrowserCommandLine').catch(async error => {
+const browserLaunchArgs = await browserLaunchArguments(diagnostics, executablePath).catch(async error => {
   await browser.close();
   throw error;
-})).arguments;
+});
 const contextOptions = { viewport: { width: 1280, height: 720 }, deviceScaleFactor: 1, isMobile: false };
 const context = await browser.newContext(contextOptions).catch(async error => {
   await browser.close();
