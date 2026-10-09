@@ -1,0 +1,9 @@
+. /workspace/.rustwright-env/activate.sh
+# Exact before/after rustc invocation is in before-api.json / after-api.json.
+# Full final backend suite:
+cargo test --offline --locked -p rustwright-bidi --lib
+cargo clippy --offline --locked -p rustwright-bidi --all-targets -- -D warnings
+cargo +1.85.0 check --offline --locked -p rustwright-bidi --all-targets --target-dir /workspace/.rustwright-env/target-msrv
+cargo build --offline --locked -p rustwright-bidi --lib
+rustfmt --check --edition 2021 --config skip_children=true crates/rustwright-bidi/src/{browser.rs,session.rs,error.rs,lib.rs,network_idle.rs,network_idle/tests.rs,network_idle/protocol_tests.rs,creation_tests.rs,shutdown_tests.rs,frame_helper_cache_tests.rs,lifecycle_tests.rs,navigation_tests.rs,network_subscription_tests.rs}
+git diff --check -- crates/rustwright-bidi/src

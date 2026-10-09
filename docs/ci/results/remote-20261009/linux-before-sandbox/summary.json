@@ -1,0 +1,140 @@
+{
+  "frozen_at_utc": "2026-10-09T18:20:51.443833+00:00",
+  "run_id": 37953023827,
+  "source_commit": "b8710c968bf0d4f5efbc27843f80fc876aa812d1",
+  "full_run_status": "completed",
+  "full_run_conclusion": "failure",
+  "job_results": [
+    {
+      "id": 113896419791,
+      "name": "fmt / clippy / test",
+      "conclusion": "failure",
+      "completed_at": "2026-10-09T16:11:55Z"
+    },
+    {
+      "id": 113896419971,
+      "name": "Required Chrome + Firefox / windows-latest",
+      "conclusion": "success",
+      "completed_at": "2026-10-09T15:53:59Z"
+    },
+    {
+      "id": 113896420051,
+      "name": "Required Chrome + Firefox / macos-latest",
+      "conclusion": "success",
+      "completed_at": "2026-10-09T15:52:32Z"
+    },
+    {
+      "id": 113896420109,
+      "name": "Rust 1.85.0 / locked workspace",
+      "conclusion": "success",
+      "completed_at": "2026-10-09T16:08:03Z"
+    },
+    {
+      "id": 113896420140,
+      "name": "Required Chrome + Firefox / ubuntu-latest",
+      "conclusion": "failure",
+      "completed_at": "2026-10-09T16:20:14Z"
+    },
+    {
+      "id": 113896420202,
+      "name": "Verified archives / stable + MSRV / native consumers",
+      "conclusion": "failure",
+      "completed_at": "2026-10-09T16:14:37Z"
+    }
+  ],
+  "msrv": {
+    "job_id": 113896420109,
+    "conclusion": "success",
+    "rust_version": "1.85.0",
+    "command": "cargo check --locked --workspace --all-targets"
+  },
+  "workspace": {
+    "job_id": 113896419791,
+    "conclusion": "failure",
+    "fmt": "success",
+    "clippy_deny_warnings": "success",
+    "completed_library_cases_passed": 167,
+    "completed_library_cases_by_crate": {
+      "rustwright": 0,
+      "rustwright-bidi": 86,
+      "rustwright-browser": 4,
+      "rustwright-cdp": 17,
+      "rustwright-common": 7,
+      "rustwright-core": 53
+    },
+    "first_integration_target": "advanced",
+    "advanced_passed": 0,
+    "advanced_failed": 9,
+    "advanced_ignored": 0,
+    "advanced_filtered": 0,
+    "observed_failure": "Chrome EarlyExit signal6 SIGABRT during launch",
+    "remaining_targets": "not run after cargo stopped at advanced failure; this is not the full171-library success"
+  },
+  "ubuntu_portable": {
+    "job_id": 113896420140,
+    "conclusion": "failure",
+    "executed_target": "http_compat",
+    "firefox_passed": 12,
+    "chrome_failed": 12,
+    "ignored": 0,
+    "filtered": 0,
+    "chrome_observed_failure": "EarlyExit signal6 SIGABRT during launch",
+    "unrun_portable_targets": [
+      "http_actionability",
+      "http_clipped_control",
+      "http_bidi_navigation"
+    ],
+    "linux_extra": "not run after portable step failure",
+    "firefox_passed_case_names": [
+      "firefox_cancelled_wait_recovers",
+      "firefox_closing_page_wakes_wait",
+      "firefox_delayed_and_absent_elements",
+      "firefox_disconnect_wakes_wait",
+      "firefox_frame_click",
+      "firefox_frame_hover_and_keyboard",
+      "firefox_frame_reload",
+      "firefox_isolated_popup_ownership",
+      "firefox_isolated_storage",
+      "firefox_javascript_exceptions",
+      "firefox_navigation_and_forms",
+      "firefox_wait_deadline"
+    ],
+    "chrome_failed_case_names": [
+      "chrome_cancelled_wait_recovers",
+      "chrome_closing_page_wakes_wait",
+      "chrome_delayed_and_absent_elements",
+      "chrome_disconnect_wakes_wait",
+      "chrome_frame_click",
+      "chrome_frame_hover_and_keyboard",
+      "chrome_frame_reload",
+      "chrome_isolated_popup_ownership",
+      "chrome_isolated_storage",
+      "chrome_javascript_exceptions",
+      "chrome_navigation_and_forms",
+      "chrome_wait_deadline"
+    ]
+  },
+  "packages": {
+    "job_id": 113896420202,
+    "conclusion": "failure",
+    "archive_audits_passed": 8,
+    "third_party_archive_checksums_verified": 57,
+    "stable_exact_registry_consumer_compile": "success",
+    "msrv_exact_registry_consumer_compile": "success",
+    "stable_and_msrv_nonbrowser_consumer_runs": "success",
+    "readme_rust_fences_compiled": 9,
+    "chrome_native_passed": 0,
+    "chrome_native_failed": 2,
+    "chrome_native_ignored": 0,
+    "chrome_native_filtered": 0,
+    "chrome_observed_failure": "EarlyExit signal6 SIGABRT during launch",
+    "firefox_native": "not run after Chrome failure",
+    "readme_runtime": "workflow step skipped after package failure; not executed"
+  },
+  "browser_versions": {
+    "chrome": "155.0.8059.39",
+    "firefox": "157.0.1"
+  },
+  "root_cause_scope": "Raw Chrome startup stderr was not retained in this original run. SIGABRT shows launch termination; it does not prove a sandbox root cause.",
+  "historical_snapshot_scope": "Earlier queued run/jobs snapshots remain unchanged in earlier directories; this new final run snapshot supersedes their chronology, not their historical bytes."
+}

@@ -1,0 +1,69 @@
+{
+  "api": [
+    "BidiPage::wait_for_network_idle() -> BidiResult<()>",
+    "BidiPage::wait_for_network_idle_with_timeout(Duration) -> BidiResult<()>"
+  ],
+  "default_timeout_seconds": 30,
+  "quiet_window_ms": 500,
+  "firefox_call_floor_ms": 500,
+  "errors": [
+    "NetworkObservationIncomplete",
+    "NetworkEventsLost { skipped }",
+    "Closed",
+    "Timeout { method: network idle, timeout }"
+  ],
+  "before_api_probe": {
+    "command": [
+      "rustc",
+      "--edition=2021",
+      "--crate-type=lib",
+      "target/firefox-network-idle/api-probe.rs",
+      "--extern",
+      "rustwright_bidi=target/debug/deps/librustwright_bidi-2c438d1ad6aabbbb.rlib",
+      "-L",
+      "dependency=target/debug/deps",
+      "-o",
+      "target/firefox-network-idle/api-probe.rlib"
+    ],
+    "exit_code": 1,
+    "rlib": "target/debug/deps/librustwright_bidi-2c438d1ad6aabbbb.rlib",
+    "rlib_sha256": "f9e4f1bca67158537483f480e2c8f152b794bbc7111af1c7ef2cef6291b220a4"
+  },
+  "after_api_probe": {
+    "command": [
+      "rustc",
+      "--edition=2021",
+      "--crate-type=lib",
+      "target/firefox-network-idle/api-probe.rs",
+      "--extern",
+      "rustwright_bidi=target/debug/deps/librustwright_bidi-7f2c937d8f05b084.rlib",
+      "-L",
+      "dependency=target/debug/deps",
+      "-o",
+      "target/firefox-network-idle/api-probe.rlib"
+    ],
+    "exit_code": 0,
+    "rlib": "target/debug/deps/librustwright_bidi-7f2c937d8f05b084.rlib",
+    "rlib_sha256": "de9f1b40883796eade277f08841742d1e13697e6060648c3e48c48c79d45640e",
+    "probe_source_sha256": "80bde4f2de6652d2cfc1e0ffefd199fb28679fdae180ec34193b9beee3f6ee8b"
+  },
+  "regressions": {
+    "new_idle_cases": 22,
+    "full_bidi_passed": 108,
+    "full_bidi_failed": 0,
+    "stale_commit_before_guard": {
+      "passed": 0,
+      "failed": 1,
+      "log": "stale-commit-before.log"
+    },
+    "msrv": "1.85.0: BiDi all targets passed",
+    "clippy": "BiDi all targets, -D warnings passed",
+    "format": "13 modified/new files passed",
+    "whitespace": "passed",
+    "source_note": "Last 108/108 library run preceded two cfg(test) fixture formatting hunks; production unchanged thereafter. Root validates exact final commit separately."
+  },
+  "observation_guarantee": "New pages finish acknowledged subscription/context bootstrap before exposure. Existing discovered handles reuse a complete extant observer; unknown already-running contexts return incomplete. Zero unfinished observed owned HTTP(S); no reconstruction of pre-subscription activity.",
+  "resource_ownership": "Weak session observer registry; last page-handle drop aborts live pump; finite protected setup and finite startup replay; owned descendants only; retained diagnostics remain separate.",
+  "native_results": "Root owns native parity and exact-final-source evidence; excluded from this backend stage manifest.",
+  "source_sha256": "backend-source.sha256.json"
+}

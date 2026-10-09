@@ -1,0 +1,22 @@
+   Compiling rustwright-bidi v0.1.0 (/workspace/rustwright/crates/rustwright-bidi)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.53s
+     Running unittests src/lib.rs (target/debug/deps/rustwright_bidi-cedd5209c7d1f7e2)
+
+running 1 test
+test network_idle::tests::delayed_old_document_commit_cannot_retire_a_started_new_navigation ... FAILED
+
+failures:
+
+---- network_idle::tests::delayed_old_document_commit_cannot_retire_a_started_new_navigation stdout ----
+
+thread 'network_idle::tests::delayed_old_document_commit_cannot_retire_a_started_new_navigation' (1521562) panicked at crates/rustwright-bidi/src/network_idle/tests.rs:363:5:
+late old document commit must not remove the incoming navigation
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    network_idle::tests::delayed_old_document_commit_cannot_retire_a_started_new_navigation
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 106 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p rustwright-bidi --lib`

@@ -1,0 +1,58 @@
+{
+  "versions": {
+    "rustc-stable": "rustc 1.99.0 (b940084d7 2026-09-28)",
+    "cargo-stable": "cargo 1.99.0 (5f94df478 2026-08-27)",
+    "rustc-msrv": "rustc 1.85.0 (4d91de4e4 2025-02-17)",
+    "cargo-msrv": "cargo 1.85.0 (d73d2caf9 2024-12-31)",
+    "chrome": "Chromium 151.0.7922.173 built on Debian GNU/Linux 13 (trixie)",
+    "firefox": "Mozilla Firefox 157.0.1"
+  },
+  "browser_bindings": {
+    "RUSTWRIGHT_CHROME": "/workspace/.rustwright-env/chromium",
+    "RUSTWRIGHT_FIREFOX": "/workspace/.rustwright-env/firefox-browser"
+  },
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "measurement": "Post-run local identity recording; versions also occur in preserved native logs. Native executable bytes are not copied, and these are not pre-run binary hash assertions.",
+  "files": [
+    {
+      "path": "/workspace/.rustwright-env/chromium",
+      "size_bytes": 274,
+      "sha256": "cb14ff1b6cc927e5fddc0e7b38976cc1236a627aa5dc4ae5ad7fd44c61dec732"
+    },
+    {
+      "path": "/workspace/.rustwright-env/firefox-browser",
+      "size_bytes": 185,
+      "sha256": "b75dd5cd87b408f935f39ff30193f379194776e368f1d1a8f9c076d2fb3cd318"
+    },
+    {
+      "path": "/usr/bin/chromium",
+      "size_bytes": 5064,
+      "sha256": "2c8d32d29dc6781c35ae196ea83299d507ac88fc339301abe74672feda299779"
+    },
+    {
+      "path": "/usr/lib/chromium/chromium",
+      "size_bytes": 321686360,
+      "sha256": "d387400aaf740ccb75e5e996a34aa0940e6e97683a4eabd6ae34c1eed6804723"
+    },
+    {
+      "path": "/workspace/.rustwright-env/firefox/firefox",
+      "size_bytes": 5520,
+      "sha256": "3ba77228cea10dd8797724d1979dfe4bf8083122d5f5342c2e477d9a1c506979"
+    },
+    {
+      "path": "/workspace/.rustwright-env/firefox/firefox-bin",
+      "size_bytes": 661232,
+      "sha256": "b3089612093d427f3912dead43f377e65c709e8da4496c2912a84b447a368779"
+    }
+  ],
+  "cloud_wrapper_settings": {
+    "chrome_flags": [
+      "--no-sandbox",
+      "--disable-dev-shm-usage"
+    ],
+    "firefox_environment": {
+      "MOZ_DISABLE_CONTENT_SANDBOX": "1"
+    }
+  },
+  "scope": "Managed local cloud environment wrappers only. Native engine bytes are unchanged; this is not the remote CI sandbox configuration."
+}

@@ -1,0 +1,125 @@
+{
+  "suite": "portable",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "status": "passed",
+  "targets": [
+    "http_compat",
+    "http_actionability",
+    "http_clipped_control",
+    "http_bidi_navigation",
+    "http_network_idle_parity"
+  ],
+  "cases": [
+    {
+      "target": "http_compat",
+      "command": [
+        "/Users/runner/.cargo/bin/cargo",
+        "test",
+        "--locked",
+        "-p",
+        "rustwright-integration-tests",
+        "--test",
+        "http_compat",
+        "--",
+        "--test-threads=1",
+        "--nocapture"
+      ],
+      "log": "/Users/runner/work/rustwright/rustwright/target/ci/portable/http_compat.log",
+      "exit_code": 0,
+      "passed": 24,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0
+    },
+    {
+      "target": "http_actionability",
+      "command": [
+        "/Users/runner/.cargo/bin/cargo",
+        "test",
+        "--locked",
+        "-p",
+        "rustwright-integration-tests",
+        "--test",
+        "http_actionability",
+        "--",
+        "--test-threads=1",
+        "--nocapture"
+      ],
+      "log": "/Users/runner/work/rustwright/rustwright/target/ci/portable/http_actionability.log",
+      "exit_code": 0,
+      "passed": 12,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0
+    },
+    {
+      "target": "http_clipped_control",
+      "command": [
+        "/Users/runner/.cargo/bin/cargo",
+        "test",
+        "--locked",
+        "-p",
+        "rustwright-integration-tests",
+        "--test",
+        "http_clipped_control",
+        "--",
+        "--test-threads=1",
+        "--nocapture"
+      ],
+      "log": "/Users/runner/work/rustwright/rustwright/target/ci/portable/http_clipped_control.log",
+      "exit_code": 0,
+      "passed": 10,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0
+    },
+    {
+      "target": "http_bidi_navigation",
+      "command": [
+        "/Users/runner/.cargo/bin/cargo",
+        "test",
+        "--locked",
+        "-p",
+        "rustwright-integration-tests",
+        "--test",
+        "http_bidi_navigation",
+        "--",
+        "--test-threads=1",
+        "--nocapture"
+      ],
+      "log": "/Users/runner/work/rustwright/rustwright/target/ci/portable/http_bidi_navigation.log",
+      "exit_code": 0,
+      "passed": 7,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0
+    },
+    {
+      "target": "http_network_idle_parity",
+      "command": [
+        "/Users/runner/.cargo/bin/cargo",
+        "test",
+        "--locked",
+        "-p",
+        "rustwright-integration-tests",
+        "--test",
+        "http_network_idle_parity",
+        "--",
+        "--test-threads=1",
+        "--nocapture"
+      ],
+      "log": "/Users/runner/work/rustwright/rustwright/target/ci/portable/http_network_idle_parity.log",
+      "exit_code": 0,
+      "passed": 26,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0
+    }
+  ],
+  "browsers": {
+    "RUSTWRIGHT_CHROME": "/Users/runner/work/_temp/rustwright-chrome-cm6cu84u/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+    "RUSTWRIGHT_FIREFOX": "/Users/runner/hostedtoolcache/firefox/157.0.1/arm64/Contents/MacOS/firefox"
+  },
+  "cargo_version": "cargo 1.99.0 (5f94df478 2026-08-27)",
+  "passed": 79
+}

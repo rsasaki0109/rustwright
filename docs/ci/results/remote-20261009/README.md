@@ -94,7 +94,24 @@ the Firefox receiver correction, without adding overlap to earlier coverage.
 native passes per OS at `b8710c9` in run 37953023827. The latter confirms the
 macOS bundle restoration on an arm64 runner.
 
-Four Ubuntu jobs remain queued in that run's API snapshot. Successful Windows
-and macOS jobs do not establish a successful complete workflow. Earlier
+Four Ubuntu jobs were queued in that frozen API snapshot. The later completed
+run fails three Ubuntu jobs with Chrome SIGABRT; the MSRV job succeeds. Earlier
 failures and setup-only attempts remain separate. These repeated suites are
 independent platform/source observations, not additional distinct API coverage.
+
+
+`linux-before-sandbox/` freezes the completed Ubuntu failures at `b8710c9`,
+including original job logs and package artifacts. Chrome stderr was not retained,
+so those SIGABRT failures alone do not prove a sandbox cause.
+
+`linux-sandbox-fixed/` preserves the bounded real-renderer diagnosis and correction
+at `4b72264`, including `No usable sandbox!` before setup and successful rendering
+with the byte-identical bundled root-owned helper afterward. `three-os-passed/`
+freezes all six successful jobs of run 37972198887 at that source: 53 portable
+cases per OS, 114 additional Ubuntu HTTP cases, 405 full-workspace passes and
+one existing ignored macro doctest. This success predates Firefox network-idle.
+
+The later [Firefox network-idle record](../firefox-network-idle/) separately
+preserves implementation, local and three-OS verification at `e3bc08e7`:
+79 portable cases per OS and all six jobs successful. Keep source identities and
+repeated coverage separate when comparing these frozen attempts.

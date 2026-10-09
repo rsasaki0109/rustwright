@@ -1,9 +1,44 @@
 # Required browser CI and navigation verification
 
 The current goal is the [95% reliability checkpoint](RELIABILITY_ROADMAP.md)
-before making a broader SOTA claim. The workflow now defines native HTTP jobs on
-Linux, macOS and Windows, plus verified package consumers on Linux. Configuring
-these jobs does not establish that they have executed successfully.
+before making a broader SOTA claim. The required workflow has now succeeded on
+Linux, macOS and Windows, including the Firefox network-idle implementation.
+Earlier failures and incomplete attempts remain preserved below.
+
+## Current verified source
+
+[Run 37974358667](https://github.com/rsasaki0109/rustwright/actions/runs/37974358667)
+tests commit `e3bc08e7ce0a117d173bdcde2924165806e8e854` and completes all six
+jobs successfully. Chrome for Testing 155.0.8059.39 and Firefox 157.0.1 run on
+Ubuntu, Windows and macOS arm64 with their native CI sandbox configuration.
+
+| Check | Executed result |
+| --- | --- |
+| Portable native HTTP, each of three OSes | 79 passed; zero failed, ignored or filtered |
+| Additional Ubuntu HTTP | 114 passed; zero failed, ignored or filtered |
+| Full Ubuntu workspace | 453 passed; zero failed or filtered; one existing intentionally ignored macro doctest |
+| Library subset of workspace | 193 passed, including 108 BiDi cases |
+| Build checks | Rust 1.85 locked all-target compilation, stable Clippy and formatting passed |
+| Distribution | Eight actual archives audited, 57 dependency checksums verified, version-only consumers and nine README fences compiled on stable/MSRV |
+| Native distribution entry points | Four consumer cases and both verbatim README programs passed; five PNGs retained |
+
+The workspace total includes its 193 HTTP cases and 193 library cases. Separate
+portable jobs repeat coverage on native platforms; do not add these overlapping
+counts as distinct tests. The 26 new shared network-idle cases are included in
+79, and 22 new backend tests are included in 108/193. See the
+[Firefox implementation and limits](FIREFOX_NETWORK_IDLE_IMPLEMENTATION.md).
+
+[The exact-source remote record](ci/results/firefox-network-idle/remote/) retains
+all job conclusions, raw logs, native reports, artifact digest checks, package
+archives and the relevant Git source archive. A separate
+[local record](ci/results/firefox-network-idle/local/) verifies 193 library and
+193 HTTP cases, plus distribution, with Chrome 151 and Firefox 157 using
+container-specific launchers. Local results do not imply local sandbox support
+or a successful local run of every file/data-URL integration target.
+
+Subsequent documentation-only commits preserve this evidence without changing
+the tested production, test or workflow source. The verified CI identity is the
+commit above, rather than an assertion that every later documentation HEAD ran CI.
 
 ## Existing remote evidence
 
@@ -62,7 +97,7 @@ Creation/cancellation stage diagnostics also add fatal 30-second test bounds so
 an incomplete macOS operation produces usable evidence instead of an indefinite
 first test. The staged test code passes all 24 compatibility cases locally with
 Chrome 155 and Firefox 157. These are Linux results, not macOS verification.
-Successful three-OS CI remains unestablished.
+Successful three-OS CI was not yet established at this diagnostic stage.
 
 ## Windows correction and macOS bundle diagnosis
 
@@ -107,9 +142,9 @@ verbatim README entry points also pass with the corrected source.
 exact sources, commands, binary identities and logs. Its eight readiness checks
 and two new regressions are included in the 86/171 totals, rather than added to
 them. The earlier [network-idle investigation](FIREFOX_NETWORK_IDLE.md) describes
-the frozen inspected source before this receiver correction. Historical activity,
-descendant filtering, event-lag handling and Firefox network-idle parity remain
-separate limits.
+the frozen inspected source before this receiver correction. The investigation and receiver record predate the complete network-idle
+implementation above. Historical reconstruction still has limits; descendant
+tracking and event-loss errors now have separate implementation evidence.
 
 The first bundle-restoration run, 37951867466 at commit `78e95e6`, stopped
 before native macOS tests because an added strict `codesign` resource check
@@ -151,15 +186,37 @@ and [the latest Windows record](ci/results/remote-20261009/latest-windows/).
 The earlier Windows run with the receiver correction is separately frozen in
 [its record](ci/results/remote-20261009/windows-receiver-fixed/).
 
-The four Ubuntu jobs in this run remain queued without assigned runners at
-the recorded snapshot. The run as a whole has not succeeded. Local Linux
-verification is independent evidence and cannot replace remote workspace,
-MSRV, browser or package-consumer job conclusions.
+The frozen macOS/Windows snapshot predates Ubuntu execution. The completed run
+subsequently fails three Ubuntu jobs with Chrome SIGABRT; its MSRV job succeeds.
+[The completed pre-correction record](ci/results/remote-20261009/linux-before-sandbox/)
+preserves those failures. Their original logs lack Chrome stderr, so SIGABRT
+alone does not establish the cause.
+
+## Linux sandbox diagnosis and first full workflow success
+
+The bounded real-renderer preflight captures `No usable sandbox!` before setup.
+Only recognized sandbox setup failures permit correction. The workflow installs
+the action-selected Chrome's identical bundled helper as root-owned mode 4755
+under `/usr/local/lib/rustwright-ci`, verifies its hash, and selects it through
+`CHROME_DEVEL_SANDBOX`. A fresh-profile renderer preflight must then succeed.
+It does not disable Chrome's sandbox, weaken global AppArmor/user-namespace
+policy, retry failing tests or suppress unexpected launch errors.
+
+[Run 37972198887](https://github.com/rsasaki0109/rustwright/actions/runs/37972198887)
+at commit `4b7226472f3ac4be27e8fcadb536f7019de17894` is the first complete
+six-job success: 53 portable cases per OS, 114 additional Ubuntu HTTP cases,
+and 405 full-workspace passes with one existing ignored macro doctest. Its
+[actual sandbox record](ci/results/remote-20261009/linux-sandbox-fixed/) preserves
+before/after stderr, helper identities and successful package checks; the
+[three-OS record](ci/results/remote-20261009/three-os-passed/) preserves all jobs.
+This run predates Firefox network-idle; the current result above verifies that
+feature on the same three native platforms.
 
 ## Workflow behavior
 
 `browser-compat` installs both browsers explicitly and runs `http_compat`,
-`http_actionability`, `http_clipped_control` and `http_bidi_navigation` on each
+`http_actionability`, `http_clipped_control`, `http_bidi_navigation` and
+`http_network_idle_parity` on each
 OS. The script requires executable paths, zero retries, headless operation,
 positive test counts, and zero failed, ignored or filtered cases. Every portable
 target must execute Chrome and Firefox cases. Linux also runs the remaining HTTP
@@ -248,5 +305,6 @@ HTTP success must not be described as every integration target passing.
 Local results and frozen source identifiers are retained in
 [the CI rollout evidence](ci/results/required-browser/). The earlier package
 evidence in [RELEASE_VERIFICATION.md](RELEASE_VERIFICATION.md) remains unchanged.
-Successful three-OS workflow execution, headed sessions, representative real
-sites, broader browser versions and memory attribution remain outstanding.
+Headed sessions, representative real sites, broader browser versions and
+memory attribution remain outstanding. The current three-OS workflow result
+is recorded above.

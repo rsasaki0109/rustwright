@@ -1,0 +1,1237 @@
+﻿2026-10-09T18:17:24.6496853Z Current runner version: '2.337.0'
+2026-10-09T18:17:24.6515008Z ##[group]Runner Image Provisioner
+2026-10-09T18:17:24.6515588Z Hosted Compute Agent
+2026-10-09T18:17:24.6515948Z Version: 20261002.596
+2026-10-09T18:17:24.6516318Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
+2026-10-09T18:17:24.6516786Z Build Date: 2026-10-02T22:28:27Z
+2026-10-09T18:17:24.6517247Z Worker ID: {ecd7f842-70e4-4f7b-99d0-a82a86e2342c}
+2026-10-09T18:17:24.6517696Z Region: centralus
+2026-10-09T18:17:24.6518041Z Cloud: Azure
+2026-10-09T18:17:24.6518361Z ##[endgroup]
+2026-10-09T18:17:24.6519152Z ##[group]Operating System
+2026-10-09T18:17:24.6519543Z Ubuntu
+2026-10-09T18:17:24.6519842Z 24.04.5
+2026-10-09T18:17:24.6520384Z LTS
+2026-10-09T18:17:24.6520726Z ##[endgroup]
+2026-10-09T18:17:24.6521081Z ##[group]Runner Image
+2026-10-09T18:17:24.6521501Z Image: ubuntu-24.04
+2026-10-09T18:17:24.6521827Z Version: 20261004.327.1
+2026-10-09T18:17:24.6522615Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-09T18:17:24.6523481Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327
+2026-10-09T18:17:24.6524112Z ##[endgroup]
+2026-10-09T18:17:24.6524767Z ##[group]GITHUB_TOKEN Permissions
+2026-10-09T18:17:24.6525985Z Contents: read
+2026-10-09T18:17:24.6526314Z Metadata: read
+2026-10-09T18:17:24.6526761Z ##[endgroup]
+2026-10-09T18:17:24.6528035Z Secret source: Actions
+2026-10-09T18:17:24.6528635Z Cache mode: write
+2026-10-09T18:17:24.6529050Z Prepare workflow directory
+2026-10-09T18:17:24.6792104Z Prepare all required actions
+2026-10-09T18:17:24.6823101Z Getting action download info
+2026-10-09T18:17:24.9218883Z Download action repository 'actions/checkout@v5' (SHA:fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09)
+2026-10-09T18:17:25.0188411Z Download action repository 'dtolnay/rust-toolchain@1.85.0' (SHA:69084b241933c14c2fa24234c4596f11a2655339)
+2026-10-09T18:17:25.1946872Z Download action repository 'dtolnay/rust-toolchain@stable' (SHA:686976e191b89faba57d3206551f0f330d8cb249)
+2026-10-09T18:17:25.3474001Z Download action repository 'Swatinem/rust-cache@v2' (SHA:6323deb102c322ba6fcbdcafc7e3dddab59af2b6)
+2026-10-09T18:17:25.8524649Z Download action repository 'actions/setup-python@v6' (SHA:ece7cb06caefa5fff74198d8649806c4678c61a1)
+2026-10-09T18:17:25.9339642Z Download action repository 'browser-actions/setup-chrome@v2' (SHA:48ad923757ca74d66703209fe939badbdf80f2f4)
+2026-10-09T18:17:26.2321999Z Download action repository 'browser-actions/setup-firefox@v1' (SHA:0bc507ddf224827e3b1af68e014d5e42ab93e795)
+2026-10-09T18:17:26.5236742Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-09T18:17:26.8092524Z Complete job name: Verified archives / stable + MSRV / native consumers
+2026-10-09T18:17:26.8707165Z ##[group]Run actions/checkout@v5
+2026-10-09T18:17:26.8707868Z with:
+2026-10-09T18:17:26.8708354Z   repository: rsasaki0109/rustwright
+2026-10-09T18:17:26.8712871Z   token: ***
+2026-10-09T18:17:26.8713365Z   ssh-strict: true
+2026-10-09T18:17:26.8713856Z   ssh-user: git
+2026-10-09T18:17:26.8714352Z   persist-credentials: true
+2026-10-09T18:17:26.8714896Z   clean: true
+2026-10-09T18:17:26.8715404Z   sparse-checkout-cone-mode: true
+2026-10-09T18:17:26.8716023Z   fetch-depth: 1
+2026-10-09T18:17:26.8716517Z   fetch-tags: false
+2026-10-09T18:17:26.8717019Z   show-progress: true
+2026-10-09T18:17:26.8717516Z   lfs: false
+2026-10-09T18:17:26.8717977Z   submodules: false
+2026-10-09T18:17:26.8718483Z   set-safe-directory: true
+2026-10-09T18:17:26.8719049Z   allow-unsafe-pr-checkout: false
+2026-10-09T18:17:26.8719709Z env:
+2026-10-09T18:17:26.8720239Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:26.8720771Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:26.8721258Z ##[endgroup]
+2026-10-09T18:17:26.9389035Z Syncing repository: rsasaki0109/rustwright
+2026-10-09T18:17:26.9391493Z ##[group]Getting Git version info
+2026-10-09T18:17:26.9392659Z Working directory is '/home/runner/work/rustwright/rustwright'
+2026-10-09T18:17:26.9394097Z [command]/usr/bin/git version
+2026-10-09T18:17:26.9454964Z git version 2.55.0
+2026-10-09T18:17:26.9469723Z ##[endgroup]
+2026-10-09T18:17:26.9480703Z Temporarily overriding HOME='/home/runner/work/_temp/41ca43b7-2537-4b4e-8b79-4d5eb511ac8f' before making global git config changes
+2026-10-09T18:17:26.9483082Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-09T18:17:26.9485083Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/rustwright/rustwright
+2026-10-09T18:17:26.9527091Z Deleting the contents of '/home/runner/work/rustwright/rustwright'
+2026-10-09T18:17:26.9531299Z ##[group]Initializing the repository
+2026-10-09T18:17:26.9534631Z [command]/usr/bin/git init /home/runner/work/rustwright/rustwright
+2026-10-09T18:17:26.9619655Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-09T18:17:26.9621384Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-09T18:17:26.9622469Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-09T18:17:26.9623284Z hint: call:
+2026-10-09T18:17:26.9623740Z hint:
+2026-10-09T18:17:26.9624490Z hint: 	git config --global init.defaultBranch <name>
+2026-10-09T18:17:26.9625266Z hint:
+2026-10-09T18:17:26.9626263Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-09T18:17:26.9627856Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-09T18:17:26.9628952Z hint:
+2026-10-09T18:17:26.9629823Z hint: 	git branch -m <name>
+2026-10-09T18:17:26.9631296Z hint:
+2026-10-09T18:17:26.9632543Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-09T18:17:26.9634221Z Initialized empty Git repository in /home/runner/work/rustwright/rustwright/.git/
+2026-10-09T18:17:26.9637144Z [command]/usr/bin/git remote add origin https://github.com/rsasaki0109/rustwright
+2026-10-09T18:17:26.9676098Z ##[endgroup]
+2026-10-09T18:17:26.9677537Z ##[group]Disabling automatic garbage collection
+2026-10-09T18:17:26.9678839Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-09T18:17:26.9708291Z ##[endgroup]
+2026-10-09T18:17:26.9709674Z ##[group]Setting up auth
+2026-10-09T18:17:26.9713750Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-09T18:17:26.9742363Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-09T18:17:27.0019928Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-09T18:17:27.0049697Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-09T18:17:27.0224785Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-09T18:17:27.0252513Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-09T18:17:27.0424106Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-09T18:17:27.0456960Z ##[endgroup]
+2026-10-09T18:17:27.0458303Z ##[group]Fetching the repository
+2026-10-09T18:17:27.0464881Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +09ddeb5e64b097b29e67cdbd8c4192df5a10ddae:refs/remotes/pull/1/merge
+2026-10-09T18:17:27.9878940Z From https://github.com/rsasaki0109/rustwright
+2026-10-09T18:17:27.9879526Z  * [new ref]         09ddeb5e64b097b29e67cdbd8c4192df5a10ddae -> pull/1/merge
+2026-10-09T18:17:27.9883743Z ##[endgroup]
+2026-10-09T18:17:27.9884693Z ##[group]Determining the checkout info
+2026-10-09T18:17:27.9886342Z ##[endgroup]
+2026-10-09T18:17:27.9891795Z [command]/usr/bin/git sparse-checkout disable
+2026-10-09T18:17:27.9968763Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-09T18:17:27.9994763Z ##[group]Checking out the ref
+2026-10-09T18:17:27.9996984Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/1/merge
+2026-10-09T18:17:28.0713159Z Note: switching to 'refs/remotes/pull/1/merge'.
+2026-10-09T18:17:28.0713528Z 
+2026-10-09T18:17:28.0713754Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-10-09T18:17:28.0714084Z changes and commit them, and you can discard any commits you make in this
+2026-10-09T18:17:28.0714437Z state without impacting any branches by switching back to a branch.
+2026-10-09T18:17:28.0714607Z 
+2026-10-09T18:17:28.0714742Z If you want to create a new branch to retain commits you create, you may
+2026-10-09T18:17:28.0715111Z do so (now or later) by using -c with the switch command. Example:
+2026-10-09T18:17:28.0715272Z 
+2026-10-09T18:17:28.0715365Z   git switch -c <new-branch-name>
+2026-10-09T18:17:28.0715501Z 
+2026-10-09T18:17:28.0715598Z Or undo this operation with:
+2026-10-09T18:17:28.0715705Z 
+2026-10-09T18:17:28.0715776Z   git switch -
+2026-10-09T18:17:28.0715881Z 
+2026-10-09T18:17:28.0716097Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-10-09T18:17:28.0716280Z 
+2026-10-09T18:17:28.0716514Z HEAD is now at 09ddeb5 Merge 4b7226472f3ac4be27e8fcadb536f7019de17894 into 91e72af388d000266c9b4e7567a3e1fe4007fc33
+2026-10-09T18:17:28.0725348Z ##[endgroup]
+2026-10-09T18:17:28.0764623Z [command]/usr/bin/git log -1 --format=%H
+2026-10-09T18:17:28.0786839Z 09ddeb5e64b097b29e67cdbd8c4192df5a10ddae
+2026-10-09T18:17:28.1047264Z ##[group]Run dtolnay/rust-toolchain@1.85.0
+2026-10-09T18:17:28.1047490Z with:
+2026-10-09T18:17:28.1047630Z env:
+2026-10-09T18:17:28.1047781Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:28.1047948Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:28.1048097Z ##[endgroup]
+2026-10-09T18:17:28.1092140Z ##[start-action display=Parse toolchain version;id=__dtolnay_rust-toolchain.parse]
+2026-10-09T18:17:28.1142088Z ##[group]Run if [[ -z $toolchain ]]; then
+2026-10-09T18:17:28.1142390Z [36;1mif [[ -z $toolchain ]]; then[0m
+2026-10-09T18:17:28.1142744Z [36;1m  # GitHub does not enforce `required: true` inputs itself. https://github.com/actions/runner/issues/1070[0m
+2026-10-09T18:17:28.1143089Z [36;1m  echo "'toolchain' is a required input" >&2[0m
+2026-10-09T18:17:28.1143294Z [36;1m  exit 1[0m
+2026-10-09T18:17:28.1143524Z [36;1melif [[ $toolchain =~ ^stable' '[0-9]+' '(year|month|week|day)s?' 'ago$ ]]; then[0m
+2026-10-09T18:17:28.1143795Z [36;1m  if [[ Linux == macOS ]]; then[0m
+2026-10-09T18:17:28.1144180Z [36;1m    echo "toolchain=1.$((($(date -v-$(sed 's/stable \([0-9]*\) \(.\).*/\1\2/' <<< $toolchain) +%s)/60/60/24-16569)/7/6))" >> $GITHUB_OUTPUT[0m
+2026-10-09T18:17:28.1144496Z [36;1m  else[0m
+2026-10-09T18:17:28.1144757Z [36;1m    echo "toolchain=1.$((($(date --date "${toolchain#stable }" +%s)/60/60/24-16569)/7/6))" >> $GITHUB_OUTPUT[0m
+2026-10-09T18:17:28.1145043Z [36;1m  fi[0m
+2026-10-09T18:17:28.1145262Z [36;1melif [[ $toolchain =~ ^stable' 'minus' '[0-9]+' 'releases?$ ]]; then[0m
+2026-10-09T18:17:28.1145593Z [36;1m  echo "toolchain=1.$((($(date +%s)/60/60/24-16569)/7/6-${toolchain//[^0-9]/}))" >> $GITHUB_OUTPUT[0m
+2026-10-09T18:17:28.1145885Z [36;1melif [[ $toolchain =~ ^1\.[0-9]+$ ]]; then[0m
+2026-10-09T18:17:28.1146209Z [36;1m  echo "toolchain=1.$((i=${toolchain#1.}, c=($(date +%s)/60/60/24-16569)/7/6, i+9*i*(10*i<=c)+90*i*(100*i<=c)))" >> $GITHUB_OUTPUT[0m
+2026-10-09T18:17:28.1146508Z [36;1melse[0m
+2026-10-09T18:17:28.1146659Z [36;1m  delimiter=EOF[0m
+2026-10-09T18:17:28.1146871Z [36;1m  while [[ $toolchain == *$delimiter* ]]; do delimiter+=_; done[0m
+2026-10-09T18:17:28.1147194Z [36;1m  printf 'toolchain<<%s\n%s\n%s\n' "$delimiter" "$toolchain" "$delimiter" >> $GITHUB_OUTPUT[0m
+2026-10-09T18:17:28.1147457Z [36;1mfi[0m
+2026-10-09T18:17:28.1354716Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:28.1354995Z env:
+2026-10-09T18:17:28.1355356Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:28.1355524Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:28.1355681Z   toolchain: 1.85.0
+2026-10-09T18:17:28.1355833Z ##[endgroup]
+2026-10-09T18:17:28.1475727Z ##[end-action id=__dtolnay_rust-toolchain.parse;outcome=success;conclusion=success;duration_ms=38]
+2026-10-09T18:17:28.1479378Z ##[start-action display=Set $CARGO_HOME;id=__dtolnay_rust-toolchain.__run]
+2026-10-09T18:17:28.1509593Z ##[group]Run echo CARGO_HOME=${CARGO_HOME:-"$HOME/.cargo"} >> $GITHUB_ENV
+2026-10-09T18:17:28.1509915Z [36;1mecho CARGO_HOME=${CARGO_HOME:-"$HOME/.cargo"} >> $GITHUB_ENV[0m
+2026-10-09T18:17:28.1560961Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:28.1561185Z env:
+2026-10-09T18:17:28.1561335Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:28.1561501Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:28.1561651Z ##[endgroup]
+2026-10-09T18:17:28.1633510Z ##[end-action id=__dtolnay_rust-toolchain.__run;outcome=success;conclusion=success;duration_ms=15]
+2026-10-09T18:17:28.1635179Z ##[start-action display=Install rustup if needed;id=__dtolnay_rust-toolchain.__run_2]
+2026-10-09T18:17:28.1717809Z ##[group]Run if ! command -v rustup &>/dev/null; then
+2026-10-09T18:17:28.1718085Z [36;1mif ! command -v rustup &>/dev/null; then[0m
+2026-10-09T18:17:28.1718562Z [36;1m  curl --proto '=https' --tlsv1.2 --retry 10 --retry-connrefused --location --silent --show-error --fail https://sh.rustup.rs | sh -s -- --default-toolchain none -y[0m
+2026-10-09T18:17:28.1719006Z [36;1m  echo "$CARGO_HOME/bin" >> $GITHUB_PATH[0m
+2026-10-09T18:17:28.1719203Z [36;1mfi[0m
+2026-10-09T18:17:28.1770763Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:28.1770985Z env:
+2026-10-09T18:17:28.1771139Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:28.1771308Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:28.1771474Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T18:17:28.1771650Z ##[endgroup]
+2026-10-09T18:17:28.1843916Z ##[end-action id=__dtolnay_rust-toolchain.__run_2;outcome=success;conclusion=success;duration_ms=20]
+2026-10-09T18:17:28.1845662Z ##[start-action display=Install rustup if needed on windows;id=__dtolnay_rust-toolchain.__run_3]
+2026-10-09T18:17:28.1851340Z ##[end-action id=__dtolnay_rust-toolchain.__run_3;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-09T18:17:28.1861733Z ##[start-action display=rustup toolchain install 1.85.0;id=__dtolnay_rust-toolchain.__run_4]
+2026-10-09T18:17:28.1881869Z ##[group]Run set -f  # split targets and components on commas and whitespace, without glob expansion
+2026-10-09T18:17:28.1882303Z [36;1mset -f  # split targets and components on commas and whitespace, without glob expansion[0m
+2026-10-09T18:17:28.1882581Z [36;1mflags=()[0m
+2026-10-09T18:17:28.1882777Z [36;1mfor t in ${targets//,/ }; do flags+=(--target "$t"); done[0m
+2026-10-09T18:17:28.1883049Z [36;1mfor c in ${components//,/ }; do flags+=(--component "$c"); done[0m
+2026-10-09T18:17:28.1883370Z [36;1mif [[ $toolchain == nightly && -n $components ]]; then flags+=(--allow-downgrade); fi[0m
+2026-10-09T18:17:28.1883648Z [36;1mlog=$(mktemp)[0m
+2026-10-09T18:17:28.1883821Z [36;1mtrap 'rm -f "$log"' EXIT[0m
+2026-10-09T18:17:28.1884005Z [36;1mfor attempt in 1 2 3 4 5; do[0m
+2026-10-09T18:17:28.1884361Z [36;1m  if rustup toolchain install "$toolchain" "${flags[@]}" --profile minimal --no-self-update --force-non-host 2>&1 | tee "$log"; then[0m
+2026-10-09T18:17:28.1884703Z [36;1m    break[0m
+2026-10-09T18:17:28.1884851Z [36;1m  else[0m
+2026-10-09T18:17:28.1885001Z [36;1m    status=$?[0m
+2026-10-09T18:17:28.1885159Z [36;1m  fi[0m
+2026-10-09T18:17:28.1885371Z [36;1m  if [[ $attempt == 5 ]] || ! grep -Fq 'checksum failed for ' "$log" \[0m
+2026-10-09T18:17:28.1885719Z [36;1m      || ! grep -Fq 'this is likely due to an ongoing update of the official release server' "$log"; then[0m
+2026-10-09T18:17:28.1886015Z [36;1m    exit "$status"[0m
+2026-10-09T18:17:28.1886179Z [36;1m  fi[0m
+2026-10-09T18:17:28.1886417Z [36;1m  echo "Retrying rustup toolchain install in 30 seconds (retry $attempt of 4)" >&2[0m
+2026-10-09T18:17:28.1886800Z [36;1m  sleep 30[0m
+2026-10-09T18:17:28.1886953Z [36;1mdone[0m
+2026-10-09T18:17:28.1936384Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:28.1936603Z env:
+2026-10-09T18:17:28.1936758Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:28.1936927Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:28.1937094Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T18:17:28.1937274Z   toolchain: 1.85.0
+2026-10-09T18:17:28.1937424Z   targets: 
+2026-10-09T18:17:28.1937566Z   components: 
+2026-10-09T18:17:28.1937733Z   RUSTUP_PERMIT_COPY_RENAME: 1
+2026-10-09T18:17:28.1937905Z ##[endgroup]
+2026-10-09T18:17:28.2328722Z info: syncing channel updates for 1.85.0-x86_64-unknown-linux-gnu
+2026-10-09T18:17:28.4963013Z info: latest update on 2025-02-20 for version 1.85.0 (4d91de4e4 2025-02-17)
+2026-10-09T18:17:28.4963553Z info: downloading 3 components
+2026-10-09T18:17:33.9056152Z 
+2026-10-09T18:17:33.9119579Z   1.85.0-x86_64-unknown-linux-gnu installed - rustc 1.85.0 (4d91de4e4 2025-02-17)
+2026-10-09T18:17:33.9120086Z 
+2026-10-09T18:17:33.9193590Z ##[end-action id=__dtolnay_rust-toolchain.__run_4;outcome=success;conclusion=success;duration_ms=5733]
+2026-10-09T18:17:33.9200471Z ##[start-action display=rustup default 1.85.0;id=__dtolnay_rust-toolchain.__run_5]
+2026-10-09T18:17:33.9215737Z ##[group]Run rustup default "$toolchain" --force-non-host
+2026-10-09T18:17:33.9215985Z [36;1mrustup default "$toolchain" --force-non-host[0m
+2026-10-09T18:17:33.9268756Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:33.9268940Z env:
+2026-10-09T18:17:33.9269216Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:33.9269351Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:33.9269479Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T18:17:33.9269633Z   toolchain: 1.85.0
+2026-10-09T18:17:33.9269763Z ##[endgroup]
+2026-10-09T18:17:33.9368790Z info: using existing install for 1.85.0-x86_64-unknown-linux-gnu
+2026-10-09T18:17:33.9375468Z info: default toolchain set to 1.85.0-x86_64-unknown-linux-gnu
+2026-10-09T18:17:33.9375653Z 
+2026-10-09T18:17:33.9434219Z   1.85.0-x86_64-unknown-linux-gnu unchanged - rustc 1.85.0 (4d91de4e4 2025-02-17)
+2026-10-09T18:17:33.9434499Z 
+2026-10-09T18:17:33.9450072Z ##[end-action id=__dtolnay_rust-toolchain.__run_5;outcome=success;conclusion=success;duration_ms=24]
+2026-10-09T18:17:33.9453757Z ##[start-action display=Create cachekey;id=__dtolnay_rust-toolchain.rustc-version]
+2026-10-09T18:17:33.9468896Z ##[group]Run DATE=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-date: \(20[0-9][0-9]\)-\([01][0-9]\)-\([0-3][0-9]\)$/\1\2\3/p')
+2026-10-09T18:17:33.9469434Z [36;1mDATE=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-date: \(20[0-9][0-9]\)-\([01][0-9]\)-\([0-3][0-9]\)$/\1\2\3/p')[0m
+2026-10-09T18:17:33.9469802Z [36;1mHASH=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-hash: //p')[0m
+2026-10-09T18:17:33.9470086Z [36;1mecho "cachekey=$(echo $DATE$HASH | head -c12)" >> $GITHUB_OUTPUT[0m
+2026-10-09T18:17:33.9522592Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:33.9522779Z env:
+2026-10-09T18:17:33.9522898Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:33.9523043Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:33.9523200Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T18:17:33.9523349Z   toolchain: 1.85.0
+2026-10-09T18:17:33.9523468Z ##[endgroup]
+2026-10-09T18:17:33.9815652Z ##[end-action id=__dtolnay_rust-toolchain.rustc-version;outcome=success;conclusion=success;duration_ms=36]
+2026-10-09T18:17:33.9817746Z ##[start-action display=Disable incremental compilation;id=__dtolnay_rust-toolchain.__run_6]
+2026-10-09T18:17:33.9834272Z ##[group]Run if [ -z "${CARGO_INCREMENTAL+set}" ]; then
+2026-10-09T18:17:33.9834538Z [36;1mif [ -z "${CARGO_INCREMENTAL+set}" ]; then[0m
+2026-10-09T18:17:33.9834726Z [36;1m  echo CARGO_INCREMENTAL=0 >> $GITHUB_ENV[0m
+2026-10-09T18:17:33.9834885Z [36;1mfi[0m
+2026-10-09T18:17:33.9886567Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:33.9886881Z env:
+2026-10-09T18:17:33.9887003Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:33.9887135Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:33.9887262Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T18:17:33.9887407Z ##[endgroup]
+2026-10-09T18:17:33.9957854Z ##[end-action id=__dtolnay_rust-toolchain.__run_6;outcome=success;conclusion=success;duration_ms=13]
+2026-10-09T18:17:33.9959631Z ##[start-action display=Enable colors in Cargo output;id=__dtolnay_rust-toolchain.__run_7]
+2026-10-09T18:17:33.9974991Z ##[group]Run if [ -z "${CARGO_TERM_COLOR+set}" ]; then
+2026-10-09T18:17:33.9975238Z [36;1mif [ -z "${CARGO_TERM_COLOR+set}" ]; then[0m
+2026-10-09T18:17:33.9975430Z [36;1m  echo CARGO_TERM_COLOR=always >> $GITHUB_ENV[0m
+2026-10-09T18:17:33.9975594Z [36;1mfi[0m
+2026-10-09T18:17:34.0024426Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:34.0024622Z env:
+2026-10-09T18:17:34.0024741Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:34.0024875Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:34.0025003Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T18:17:34.0025157Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:17:34.0025284Z ##[endgroup]
+2026-10-09T18:17:34.0093555Z ##[end-action id=__dtolnay_rust-toolchain.__run_7;outcome=success;conclusion=success;duration_ms=13]
+2026-10-09T18:17:34.0096275Z ##[start-action display=Enable Cargo sparse registry;id=__dtolnay_rust-toolchain.__run_8]
+2026-10-09T18:17:34.0111565Z ##[group]Run # implemented in 1.66, stabilized in 1.68, made default in 1.70
+2026-10-09T18:17:34.0111864Z [36;1m# implemented in 1.66, stabilized in 1.68, made default in 1.70[0m
+2026-10-09T18:17:34.0112384Z [36;1mif [ -z "${CARGO_REGISTRIES_CRATES_IO_PROTOCOL+set}" -o -f "/home/runner/work/_temp"/.implicit_cargo_registries_crates_io_protocol ]; then[0m
+2026-10-09T18:17:34.0112781Z [36;1m  if rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.6[89]\.'; then[0m
+2026-10-09T18:17:34.0113093Z [36;1m    touch "/home/runner/work/_temp"/.implicit_cargo_registries_crates_io_protocol || true[0m
+2026-10-09T18:17:34.0113390Z [36;1m    echo CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse >> $GITHUB_ENV[0m
+2026-10-09T18:17:34.0113709Z [36;1m  elif rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.6[67]\.'; then[0m
+2026-10-09T18:17:34.0114019Z [36;1m    touch "/home/runner/work/_temp"/.implicit_cargo_registries_crates_io_protocol || true[0m
+2026-10-09T18:17:34.0114299Z [36;1m    echo CARGO_REGISTRIES_CRATES_IO_PROTOCOL=git >> $GITHUB_ENV[0m
+2026-10-09T18:17:34.0114491Z [36;1m  fi[0m
+2026-10-09T18:17:34.0114735Z [36;1mfi[0m
+2026-10-09T18:17:34.0161016Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:34.0161209Z env:
+2026-10-09T18:17:34.0161326Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:34.0161454Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:34.0161578Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T18:17:34.0161722Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:17:34.0161844Z   toolchain: 1.85.0
+2026-10-09T18:17:34.0161963Z ##[endgroup]
+2026-10-09T18:17:34.0433241Z ##[end-action id=__dtolnay_rust-toolchain.__run_8;outcome=success;conclusion=success;duration_ms=33]
+2026-10-09T18:17:34.0436852Z ##[start-action display=Work around spurious network errors in curl 8.0;id=__dtolnay_rust-toolchain.__run_9]
+2026-10-09T18:17:34.0452926Z ##[group]Run # https://rust-lang.zulipchat.com/#narrow/stream/246057-t-cargo/topic/timeout.20investigation
+2026-10-09T18:17:34.0453381Z [36;1m# https://rust-lang.zulipchat.com/#narrow/stream/246057-t-cargo/topic/timeout.20investigation[0m
+2026-10-09T18:17:34.0453735Z [36;1mif rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.7[01]\.'; then[0m
+2026-10-09T18:17:34.0453995Z [36;1m  echo CARGO_HTTP_MULTIPLEXING=false >> $GITHUB_ENV[0m
+2026-10-09T18:17:34.0454180Z [36;1mfi[0m
+2026-10-09T18:17:34.0506407Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:34.0506612Z env:
+2026-10-09T18:17:34.0506737Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:34.0506870Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:34.0506998Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T18:17:34.0507331Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:17:34.0507454Z   toolchain: 1.85.0
+2026-10-09T18:17:34.0507575Z ##[endgroup]
+2026-10-09T18:17:34.0688575Z ##[end-action id=__dtolnay_rust-toolchain.__run_9;outcome=success;conclusion=success;duration_ms=25]
+2026-10-09T18:17:34.0693200Z ##[start-action display=rustc +1.85.0 --version --verbose;id=__dtolnay_rust-toolchain.__run_10]
+2026-10-09T18:17:34.0708347Z ##[group]Run rustc +"$toolchain" --version --verbose
+2026-10-09T18:17:34.0708589Z [36;1mrustc +"$toolchain" --version --verbose[0m
+2026-10-09T18:17:34.0760485Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:34.0760687Z env:
+2026-10-09T18:17:34.0760808Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:34.0760943Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:34.0761070Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T18:17:34.0761218Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:17:34.0761344Z   toolchain: 1.85.0
+2026-10-09T18:17:34.0761464Z ##[endgroup]
+2026-10-09T18:17:34.0916104Z rustc 1.85.0 (4d91de4e4 2025-02-17)
+2026-10-09T18:17:34.0916479Z binary: rustc
+2026-10-09T18:17:34.0916711Z commit-hash: 4d91de4e48198da2e33413efdcd9cd2cc0c46688
+2026-10-09T18:17:34.0916928Z commit-date: 2025-02-17
+2026-10-09T18:17:34.0917072Z host: x86_64-unknown-linux-gnu
+2026-10-09T18:17:34.0917211Z release: 1.85.0
+2026-10-09T18:17:34.0917373Z LLVM version: 19.1.7
+2026-10-09T18:17:34.0930489Z ##[end-action id=__dtolnay_rust-toolchain.__run_10;outcome=success;conclusion=success;duration_ms=23]
+2026-10-09T18:17:34.1060674Z ##[group]Run dtolnay/rust-toolchain@stable
+2026-10-09T18:17:34.1060854Z with:
+2026-10-09T18:17:34.1060972Z   toolchain: stable
+2026-10-09T18:17:34.1061090Z env:
+2026-10-09T18:17:34.1061204Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:34.1061336Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:34.1061461Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T18:17:34.1061605Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:17:34.1061725Z ##[endgroup]
+2026-10-09T18:17:34.1068538Z ##[start-action display=Parse toolchain version;id=__dtolnay_rust-toolchain_2.parse]
+2026-10-09T18:17:34.1083339Z ##[group]Run if [[ -z $toolchain ]]; then
+2026-10-09T18:17:34.1083560Z [36;1mif [[ -z $toolchain ]]; then[0m
+2026-10-09T18:17:34.1083844Z [36;1m  # GitHub does not enforce `required: true` inputs itself. https://github.com/actions/runner/issues/1070[0m
+2026-10-09T18:17:34.1084143Z [36;1m  echo "'toolchain' is a required input" >&2[0m
+2026-10-09T18:17:34.1084310Z [36;1m  exit 1[0m
+2026-10-09T18:17:34.1084538Z [36;1melif [[ $toolchain =~ ^stable' '[0-9]+' '(year|month|week|day)s?' 'ago$ ]]; then[0m
+2026-10-09T18:17:34.1084768Z [36;1m  if [[ Linux == macOS ]]; then[0m
+2026-10-09T18:17:34.1085058Z [36;1m    echo "toolchain=1.$((($(date -v-$(sed 's/stable \([0-9]*\) \(.\).*/\1\2/' <<< $toolchain) +%s)/60/60/24-16569)/7/6))" >> $GITHUB_OUTPUT[0m
+2026-10-09T18:17:34.1085337Z [36;1m  else[0m
+2026-10-09T18:17:34.1085562Z [36;1m    echo "toolchain=1.$((($(date --date "${toolchain#stable }" +%s)/60/60/24-16569)/7/6))" >> $GITHUB_OUTPUT[0m
+2026-10-09T18:17:34.1085824Z [36;1m  fi[0m
+2026-10-09T18:17:34.1085994Z [36;1melif [[ $toolchain =~ ^stable' 'minus' '[0-9]+' 'releases?$ ]]; then[0m
+2026-10-09T18:17:34.1086286Z [36;1m  echo "toolchain=1.$((($(date +%s)/60/60/24-16569)/7/6-${toolchain//[^0-9]/}))" >> $GITHUB_OUTPUT[0m
+2026-10-09T18:17:34.1086539Z [36;1melif [[ $toolchain =~ ^1\.[0-9]+$ ]]; then[0m
+2026-10-09T18:17:34.1086830Z [36;1m  echo "toolchain=1.$((i=${toolchain#1.}, c=($(date +%s)/60/60/24-16569)/7/6, i+9*i*(10*i<=c)+90*i*(100*i<=c)))" >> $GITHUB_OUTPUT[0m
+2026-10-09T18:17:34.1087095Z [36;1melse[0m
+2026-10-09T18:17:34.1087213Z [36;1m  delimiter=EOF[0m
+2026-10-09T18:17:34.1087391Z [36;1m  while [[ $toolchain == *$delimiter* ]]; do delimiter+=_; done[0m
+2026-10-09T18:17:34.1087671Z [36;1m  printf 'toolchain<<%s\n%s\n%s\n' "$delimiter" "$toolchain" "$delimiter" >> $GITHUB_OUTPUT[0m
+2026-10-09T18:17:34.1087897Z [36;1mfi[0m
+2026-10-09T18:17:34.1139309Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:34.1139628Z env:
+2026-10-09T18:17:34.1139743Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:34.1139880Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:34.1140011Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T18:17:34.1140302Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:17:34.1140454Z   toolchain: stable
+2026-10-09T18:17:34.1140574Z ##[endgroup]
+2026-10-09T18:17:34.1214187Z ##[end-action id=__dtolnay_rust-toolchain_2.parse;outcome=success;conclusion=success;duration_ms=14]
+2026-10-09T18:17:34.1215814Z ##[start-action display=Set $CARGO_HOME;id=__dtolnay_rust-toolchain_2.__run]
+2026-10-09T18:17:34.1231306Z ##[group]Run echo CARGO_HOME=${CARGO_HOME:-"$HOME/.cargo"} >> $GITHUB_ENV
+2026-10-09T18:17:34.1231599Z [36;1mecho CARGO_HOME=${CARGO_HOME:-"$HOME/.cargo"} >> $GITHUB_ENV[0m
+2026-10-09T18:17:34.1281465Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:34.1281657Z env:
+2026-10-09T18:17:34.1281776Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:34.1281913Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:34.1282058Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T18:17:34.1282209Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:17:34.1282336Z ##[endgroup]
+2026-10-09T18:17:34.1352966Z ##[end-action id=__dtolnay_rust-toolchain_2.__run;outcome=success;conclusion=success;duration_ms=13]
+2026-10-09T18:17:34.1354488Z ##[start-action display=Install rustup if needed;id=__dtolnay_rust-toolchain_2.__run_2]
+2026-10-09T18:17:34.1369256Z ##[group]Run if ! command -v rustup &>/dev/null; then
+2026-10-09T18:17:34.1369636Z [36;1mif ! command -v rustup &>/dev/null; then[0m
+2026-10-09T18:17:34.1370048Z [36;1m  curl --proto '=https' --tlsv1.2 --retry 10 --retry-connrefused --location --silent --show-error --fail https://sh.rustup.rs | sh -s -- --default-toolchain none -y[0m
+2026-10-09T18:17:34.1370747Z [36;1m  echo "$CARGO_HOME/bin" >> $GITHUB_PATH[0m
+2026-10-09T18:17:34.1370910Z [36;1mfi[0m
+2026-10-09T18:17:34.1417423Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:34.1417607Z env:
+2026-10-09T18:17:34.1417733Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:34.1417864Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:34.1417996Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T18:17:34.1418141Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:17:34.1418268Z ##[endgroup]
+2026-10-09T18:17:34.1485328Z ##[end-action id=__dtolnay_rust-toolchain_2.__run_2;outcome=success;conclusion=success;duration_ms=13]
+2026-10-09T18:17:34.1486903Z ##[start-action display=Install rustup if needed on windows;id=__dtolnay_rust-toolchain_2.__run_3]
+2026-10-09T18:17:34.1489628Z ##[end-action id=__dtolnay_rust-toolchain_2.__run_3;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-09T18:17:34.1492488Z ##[start-action display=rustup toolchain install stable;id=__dtolnay_rust-toolchain_2.__run_4]
+2026-10-09T18:17:34.1506011Z ##[group]Run set -f  # split targets and components on commas and whitespace, without glob expansion
+2026-10-09T18:17:34.1506385Z [36;1mset -f  # split targets and components on commas and whitespace, without glob expansion[0m
+2026-10-09T18:17:34.1506634Z [36;1mflags=()[0m
+2026-10-09T18:17:34.1506791Z [36;1mfor t in ${targets//,/ }; do flags+=(--target "$t"); done[0m
+2026-10-09T18:17:34.1507016Z [36;1mfor c in ${components//,/ }; do flags+=(--component "$c"); done[0m
+2026-10-09T18:17:34.1507293Z [36;1mif [[ $toolchain == nightly && -n $components ]]; then flags+=(--allow-downgrade); fi[0m
+2026-10-09T18:17:34.1507522Z [36;1mlog=$(mktemp)[0m
+2026-10-09T18:17:34.1507656Z [36;1mtrap 'rm -f "$log"' EXIT[0m
+2026-10-09T18:17:34.1507814Z [36;1mfor attempt in 1 2 3 4 5; do[0m
+2026-10-09T18:17:34.1508125Z [36;1m  if rustup toolchain install "$toolchain" "${flags[@]}" --profile minimal --no-self-update --force-non-host 2>&1 | tee "$log"; then[0m
+2026-10-09T18:17:34.1508425Z [36;1m    break[0m
+2026-10-09T18:17:34.1508541Z [36;1m  else[0m
+2026-10-09T18:17:34.1508656Z [36;1m    status=$?[0m
+2026-10-09T18:17:34.1508776Z [36;1m  fi[0m
+2026-10-09T18:17:34.1508944Z [36;1m  if [[ $attempt == 5 ]] || ! grep -Fq 'checksum failed for ' "$log" \[0m
+2026-10-09T18:17:34.1509377Z [36;1m      || ! grep -Fq 'this is likely due to an ongoing update of the official release server' "$log"; then[0m
+2026-10-09T18:17:34.1509629Z [36;1m    exit "$status"[0m
+2026-10-09T18:17:34.1509758Z [36;1m  fi[0m
+2026-10-09T18:17:34.1509955Z [36;1m  echo "Retrying rustup toolchain install in 30 seconds (retry $attempt of 4)" >&2[0m
+2026-10-09T18:17:34.1510346Z [36;1m  sleep 30[0m
+2026-10-09T18:17:34.1510508Z [36;1mdone[0m
+2026-10-09T18:17:34.1557349Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:34.1557534Z env:
+2026-10-09T18:17:34.1557650Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:34.1557784Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:34.1557910Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T18:17:34.1558052Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:17:34.1558176Z   toolchain: stable
+2026-10-09T18:17:34.1558293Z   targets: 
+2026-10-09T18:17:34.1558403Z   components: 
+2026-10-09T18:17:34.1558525Z   RUSTUP_PERMIT_COPY_RENAME: 1
+2026-10-09T18:17:34.1558669Z ##[endgroup]
+2026-10-09T18:17:35.0315278Z info: syncing channel updates for stable-x86_64-unknown-linux-gnu
+2026-10-09T18:17:35.1037447Z 
+2026-10-09T18:17:35.1106986Z   stable-x86_64-unknown-linux-gnu unchanged - rustc 1.99.0 (b940084d7 2026-09-28)
+2026-10-09T18:17:35.1107428Z 
+2026-10-09T18:17:35.1151932Z ##[end-action id=__dtolnay_rust-toolchain_2.__run_4;outcome=success;conclusion=success;duration_ms=965]
+2026-10-09T18:17:35.1156339Z ##[start-action display=rustup default stable;id=__dtolnay_rust-toolchain_2.__run_5]
+2026-10-09T18:17:35.1181226Z ##[group]Run rustup default "$toolchain" --force-non-host
+2026-10-09T18:17:35.1181528Z [36;1mrustup default "$toolchain" --force-non-host[0m
+2026-10-09T18:17:35.1233483Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:35.1233667Z env:
+2026-10-09T18:17:35.1233778Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:35.1233907Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:35.1234030Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T18:17:35.1234183Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:17:35.1234301Z   toolchain: stable
+2026-10-09T18:17:35.1234418Z ##[endgroup]
+2026-10-09T18:17:35.1332548Z info: using existing install for stable-x86_64-unknown-linux-gnu
+2026-10-09T18:17:35.1342001Z info: default toolchain set to stable-x86_64-unknown-linux-gnu
+2026-10-09T18:17:35.1342222Z 
+2026-10-09T18:17:35.1407300Z   stable-x86_64-unknown-linux-gnu unchanged - rustc 1.99.0 (b940084d7 2026-09-28)
+2026-10-09T18:17:35.1407572Z 
+2026-10-09T18:17:35.1423215Z ##[end-action id=__dtolnay_rust-toolchain_2.__run_5;outcome=success;conclusion=success;duration_ms=26]
+2026-10-09T18:17:35.1425931Z ##[start-action display=Create cachekey;id=__dtolnay_rust-toolchain_2.rustc-version]
+2026-10-09T18:17:35.1444913Z ##[group]Run DATE=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-date: \(20[0-9][0-9]\)-\([01][0-9]\)-\([0-3][0-9]\)$/\1\2\3/p')
+2026-10-09T18:17:35.1445388Z [36;1mDATE=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-date: \(20[0-9][0-9]\)-\([01][0-9]\)-\([0-3][0-9]\)$/\1\2\3/p')[0m
+2026-10-09T18:17:35.1445754Z [36;1mHASH=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-hash: //p')[0m
+2026-10-09T18:17:35.1446029Z [36;1mecho "cachekey=$(echo $DATE$HASH | head -c12)" >> $GITHUB_OUTPUT[0m
+2026-10-09T18:17:35.1497107Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:35.1497286Z env:
+2026-10-09T18:17:35.1497399Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:35.1497532Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:35.1497656Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T18:17:35.1497794Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:17:35.1497910Z   toolchain: stable
+2026-10-09T18:17:35.1498027Z ##[endgroup]
+2026-10-09T18:17:35.3205709Z ##[end-action id=__dtolnay_rust-toolchain_2.rustc-version;outcome=success;conclusion=success;duration_ms=177]
+2026-10-09T18:17:35.3207492Z ##[start-action display=Disable incremental compilation;id=__dtolnay_rust-toolchain_2.__run_6]
+2026-10-09T18:17:35.3221484Z ##[group]Run if [ -z "${CARGO_INCREMENTAL+set}" ]; then
+2026-10-09T18:17:35.3221705Z [36;1mif [ -z "${CARGO_INCREMENTAL+set}" ]; then[0m
+2026-10-09T18:17:35.3221885Z [36;1m  echo CARGO_INCREMENTAL=0 >> $GITHUB_ENV[0m
+2026-10-09T18:17:35.3222041Z [36;1mfi[0m
+2026-10-09T18:17:35.3273303Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:35.3273482Z env:
+2026-10-09T18:17:35.3273595Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:35.3273723Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:35.3273862Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T18:17:35.3274001Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:17:35.3274124Z ##[endgroup]
+2026-10-09T18:17:35.3340585Z ##[end-action id=__dtolnay_rust-toolchain_2.__run_6;outcome=success;conclusion=success;duration_ms=13]
+2026-10-09T18:17:35.3341972Z ##[start-action display=Enable colors in Cargo output;id=__dtolnay_rust-toolchain_2.__run_7]
+2026-10-09T18:17:35.3354848Z ##[group]Run if [ -z "${CARGO_TERM_COLOR+set}" ]; then
+2026-10-09T18:17:35.3355059Z [36;1mif [ -z "${CARGO_TERM_COLOR+set}" ]; then[0m
+2026-10-09T18:17:35.3355256Z [36;1m  echo CARGO_TERM_COLOR=always >> $GITHUB_ENV[0m
+2026-10-09T18:17:35.3355416Z [36;1mfi[0m
+2026-10-09T18:17:35.3400107Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:35.3400414Z env:
+2026-10-09T18:17:35.3400530Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:35.3400659Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:35.3400782Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T18:17:35.3400922Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:17:35.3401183Z ##[endgroup]
+2026-10-09T18:17:35.3466115Z ##[end-action id=__dtolnay_rust-toolchain_2.__run_7;outcome=success;conclusion=success;duration_ms=12]
+2026-10-09T18:17:35.3468154Z ##[start-action display=Enable Cargo sparse registry;id=__dtolnay_rust-toolchain_2.__run_8]
+2026-10-09T18:17:35.3480915Z ##[group]Run # implemented in 1.66, stabilized in 1.68, made default in 1.70
+2026-10-09T18:17:35.3481198Z [36;1m# implemented in 1.66, stabilized in 1.68, made default in 1.70[0m
+2026-10-09T18:17:35.3481581Z [36;1mif [ -z "${CARGO_REGISTRIES_CRATES_IO_PROTOCOL+set}" -o -f "/home/runner/work/_temp"/.implicit_cargo_registries_crates_io_protocol ]; then[0m
+2026-10-09T18:17:35.3481971Z [36;1m  if rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.6[89]\.'; then[0m
+2026-10-09T18:17:35.3482302Z [36;1m    touch "/home/runner/work/_temp"/.implicit_cargo_registries_crates_io_protocol || true[0m
+2026-10-09T18:17:35.3482596Z [36;1m    echo CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse >> $GITHUB_ENV[0m
+2026-10-09T18:17:35.3482872Z [36;1m  elif rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.6[67]\.'; then[0m
+2026-10-09T18:17:35.3483177Z [36;1m    touch "/home/runner/work/_temp"/.implicit_cargo_registries_crates_io_protocol || true[0m
+2026-10-09T18:17:35.3483449Z [36;1m    echo CARGO_REGISTRIES_CRATES_IO_PROTOCOL=git >> $GITHUB_ENV[0m
+2026-10-09T18:17:35.3483632Z [36;1m  fi[0m
+2026-10-09T18:17:35.3483740Z [36;1mfi[0m
+2026-10-09T18:17:35.3527813Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:35.3527995Z env:
+2026-10-09T18:17:35.3528107Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:35.3528231Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:35.3528352Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T18:17:35.3528491Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:17:35.3528608Z   toolchain: stable
+2026-10-09T18:17:35.3528719Z ##[endgroup]
+2026-10-09T18:17:35.3794065Z ##[end-action id=__dtolnay_rust-toolchain_2.__run_8;outcome=success;conclusion=success;duration_ms=32]
+2026-10-09T18:17:35.3796732Z ##[start-action display=Work around spurious network errors in curl 8.0;id=__dtolnay_rust-toolchain_2.__run_9]
+2026-10-09T18:17:35.3810862Z ##[group]Run # https://rust-lang.zulipchat.com/#narrow/stream/246057-t-cargo/topic/timeout.20investigation
+2026-10-09T18:17:35.3811281Z [36;1m# https://rust-lang.zulipchat.com/#narrow/stream/246057-t-cargo/topic/timeout.20investigation[0m
+2026-10-09T18:17:35.3811616Z [36;1mif rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.7[01]\.'; then[0m
+2026-10-09T18:17:35.3812013Z [36;1m  echo CARGO_HTTP_MULTIPLEXING=false >> $GITHUB_ENV[0m
+2026-10-09T18:17:35.3812183Z [36;1mfi[0m
+2026-10-09T18:17:35.3864576Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:35.3864758Z env:
+2026-10-09T18:17:35.3864872Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:35.3865004Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:35.3865128Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T18:17:35.3865269Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:17:35.3865398Z   toolchain: stable
+2026-10-09T18:17:35.3865517Z ##[endgroup]
+2026-10-09T18:17:35.4037650Z ##[end-action id=__dtolnay_rust-toolchain_2.__run_9;outcome=success;conclusion=success;duration_ms=24]
+2026-10-09T18:17:35.4041207Z ##[start-action display=rustc +stable --version --verbose;id=__dtolnay_rust-toolchain_2.__run_10]
+2026-10-09T18:17:35.4054767Z ##[group]Run rustc +"$toolchain" --version --verbose
+2026-10-09T18:17:35.4054987Z [36;1mrustc +"$toolchain" --version --verbose[0m
+2026-10-09T18:17:35.4107306Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:35.4107492Z env:
+2026-10-09T18:17:35.4107606Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:35.4107737Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:35.4107868Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T18:17:35.4108010Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:17:35.4108131Z   toolchain: stable
+2026-10-09T18:17:35.4108243Z ##[endgroup]
+2026-10-09T18:17:35.4263152Z rustc 1.99.0 (b940084d7 2026-09-28)
+2026-10-09T18:17:35.4263827Z binary: rustc
+2026-10-09T18:17:35.4264054Z commit-hash: b940084d7eb6a299eb4bfeb8e34901bc051e7ac4
+2026-10-09T18:17:35.4264318Z commit-date: 2026-09-28
+2026-10-09T18:17:35.4264540Z host: x86_64-unknown-linux-gnu
+2026-10-09T18:17:35.4264770Z release: 1.99.0
+2026-10-09T18:17:35.4265329Z LLVM version: 23.1.1
+2026-10-09T18:17:35.4281068Z ##[end-action id=__dtolnay_rust-toolchain_2.__run_10;outcome=success;conclusion=success;duration_ms=23]
+2026-10-09T18:17:35.4324043Z ##[group]Run Swatinem/rust-cache@v2
+2026-10-09T18:17:35.4336971Z with:
+2026-10-09T18:17:35.4337106Z   prefix-key: v0-rust
+2026-10-09T18:17:35.4337232Z   add-job-id-key: true
+2026-10-09T18:17:35.4337363Z   add-rust-environment-hash-key: true
+2026-10-09T18:17:35.4337510Z   cache-targets: true
+2026-10-09T18:17:35.4337635Z   cache-all-crates: false
+2026-10-09T18:17:35.4337767Z   cache-workspace-crates: false
+2026-10-09T18:17:35.4337904Z   save-if: true
+2026-10-09T18:17:35.4338017Z   cache-provider: github
+2026-10-09T18:17:35.4338137Z   cache-bin: true
+2026-10-09T18:17:35.4338246Z   lookup-only: false
+2026-10-09T18:17:35.4338359Z   cmd-format: {0}
+2026-10-09T18:17:35.4338465Z env:
+2026-10-09T18:17:35.4338571Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:35.4338695Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:35.4338813Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T18:17:35.4338947Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:17:35.4339062Z ##[endgroup]
+2026-10-09T18:17:37.3483699Z ##[group]Cache Configuration
+2026-10-09T18:17:37.3484107Z Cache Provider:
+2026-10-09T18:17:37.3484299Z     github
+2026-10-09T18:17:37.3484462Z Workspaces:
+2026-10-09T18:17:37.3484657Z     /home/runner/work/rustwright/rustwright
+2026-10-09T18:17:37.3484908Z Cache Paths:
+2026-10-09T18:17:37.3485091Z     /home/runner/.cargo/bin
+2026-10-09T18:17:37.3485340Z     /home/runner/.cargo/.crates.toml
+2026-10-09T18:17:37.3485563Z     /home/runner/.cargo/.crates2.json
+2026-10-09T18:17:37.3485793Z     /home/runner/.cargo/registry
+2026-10-09T18:17:37.3486014Z     /home/runner/.cargo/git
+2026-10-09T18:17:37.3486267Z     /home/runner/work/rustwright/rustwright/target
+2026-10-09T18:17:37.3486531Z Restore Key:
+2026-10-09T18:17:37.3486755Z     v0-rust-package-consumer-Linux-x64-7a998008
+2026-10-09T18:17:37.3487007Z Cache Key:
+2026-10-09T18:17:37.3487241Z     v0-rust-package-consumer-Linux-x64-7a998008-ed23558d
+2026-10-09T18:17:37.3487528Z .. Prefix:
+2026-10-09T18:17:37.3487731Z   - v0-rust-package-consumer-Linux-x64
+2026-10-09T18:17:37.3488015Z .. Environment considered:
+2026-10-09T18:17:37.3488218Z   - Rust Versions:
+2026-10-09T18:17:37.3489100Z     - 1.85.0 x86_64-unknown-linux-gnu 4d91de4e48198da2e33413efdcd9cd2cc0c46688
+2026-10-09T18:17:37.3489519Z     - 1.99.0 x86_64-unknown-linux-gnu b940084d7eb6a299eb4bfeb8e34901bc051e7ac4
+2026-10-09T18:17:37.3489839Z   - CARGO_HOME
+2026-10-09T18:17:37.3490015Z   - CARGO_INCREMENTAL
+2026-10-09T18:17:37.3490373Z   - CARGO_TERM_COLOR
+2026-10-09T18:17:37.3490558Z   - RUST_BACKTRACE
+2026-10-09T18:17:37.3490745Z .. Lockfiles considered:
+2026-10-09T18:17:37.3490984Z   - /home/runner/work/rustwright/rustwright/Cargo.lock
+2026-10-09T18:17:37.3491352Z   - /home/runner/work/rustwright/rustwright/crates/rustwright-bidi/Cargo.toml
+2026-10-09T18:17:37.3491823Z   - /home/runner/work/rustwright/rustwright/crates/rustwright-browser/Cargo.toml
+2026-10-09T18:17:37.3492280Z   - /home/runner/work/rustwright/rustwright/crates/rustwright-cdp/Cargo.toml
+2026-10-09T18:17:37.3492721Z   - /home/runner/work/rustwright/rustwright/crates/rustwright-common/Cargo.toml
+2026-10-09T18:17:37.3493179Z   - /home/runner/work/rustwright/rustwright/crates/rustwright-core/Cargo.toml
+2026-10-09T18:17:37.3493682Z   - /home/runner/work/rustwright/rustwright/crates/rustwright-test-macros/Cargo.toml
+2026-10-09T18:17:37.3494147Z   - /home/runner/work/rustwright/rustwright/crates/rustwright-test/Cargo.toml
+2026-10-09T18:17:37.3494550Z   - /home/runner/work/rustwright/rustwright/crates/rustwright/Cargo.toml
+2026-10-09T18:17:37.3495087Z   - /home/runner/work/rustwright/rustwright/docs/ci/results/remote-20261009/followup-local/consumer/.cargo/config.toml
+2026-10-09T18:17:37.3495761Z   - /home/runner/work/rustwright/rustwright/docs/ci/results/required-browser/release/consumer/.cargo/config.toml
+2026-10-09T18:17:37.3496391Z   - /home/runner/work/rustwright/rustwright/docs/release/results/local-package/consumer/.cargo/config.toml
+2026-10-09T18:17:37.3496918Z   - /home/runner/work/rustwright/rustwright/examples/Cargo.toml
+2026-10-09T18:17:37.3497629Z   - /home/runner/work/rustwright/rustwright/tests/Cargo.toml
+2026-10-09T18:17:37.3498144Z ##[endgroup]
+2026-10-09T18:17:37.3498268Z 
+2026-10-09T18:17:37.3498353Z ... Restoring cache ...
+2026-10-09T18:17:37.4914685Z No cache found.
+2026-10-09T18:17:37.5027066Z ##[group]Run actions/setup-python@v6
+2026-10-09T18:17:37.5027317Z with:
+2026-10-09T18:17:37.5027498Z   python-version: 3.11
+2026-10-09T18:17:37.5027694Z   check-latest: false
+2026-10-09T18:17:37.5029717Z   token: ***
+2026-10-09T18:17:37.5029911Z   update-environment: true
+2026-10-09T18:17:37.5030126Z   allow-prereleases: false
+2026-10-09T18:17:37.5030939Z   freethreaded: false
+2026-10-09T18:17:37.5031058Z env:
+2026-10-09T18:17:37.5031166Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:37.5031291Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:37.5031416Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T18:17:37.5031559Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:17:37.5031683Z   CACHE_ON_FAILURE: false
+2026-10-09T18:17:37.5031807Z ##[endgroup]
+2026-10-09T18:17:37.5925498Z ##[group]Installed versions
+2026-10-09T18:17:37.5989899Z Successfully set up CPython (3.11.17)
+2026-10-09T18:17:37.5990554Z ##[endgroup]
+2026-10-09T18:17:37.6110400Z ##[group]Run browser-actions/setup-chrome@v2
+2026-10-09T18:17:37.6110580Z with:
+2026-10-09T18:17:37.6110697Z   chrome-version: stable
+2026-10-09T18:17:37.6110833Z   install-dependencies: true
+2026-10-09T18:17:37.6110975Z   install-chromedriver: false
+2026-10-09T18:17:37.6111108Z   no-sudo: false
+2026-10-09T18:17:37.6111219Z env:
+2026-10-09T18:17:37.6111329Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:37.6111455Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:37.6111583Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T18:17:37.6111727Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:17:37.6111854Z   CACHE_ON_FAILURE: false
+2026-10-09T18:17:37.6112016Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:17:37.6112263Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-10-09T18:17:37.6112495Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:17:37.6112705Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:17:37.6113113Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:17:37.6113326Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-10-09T18:17:37.6113501Z ##[endgroup]
+2026-10-09T18:17:37.6585756Z Installing dependencies
+2026-10-09T18:17:37.6617944Z [command]/usr/bin/sudo apt-get update
+2026-10-09T18:17:37.7471974Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-10-09T18:17:37.7663780Z Get:6 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+2026-10-09T18:17:37.7809640Z Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+2026-10-09T18:17:37.7827934Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+2026-10-09T18:17:37.7841673Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+2026-10-09T18:17:37.7856599Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+2026-10-09T18:17:37.8584865Z Get:7 https://packages.microsoft.com/ubuntu/24.04/prod noble/main all Packages [640 B]
+2026-10-09T18:17:37.8821156Z Get:8 https://packages.microsoft.com/ubuntu/24.04/prod noble/main armhf Packages [12.3 kB]
+2026-10-09T18:17:37.8876977Z Get:9 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [531 kB]
+2026-10-09T18:17:37.8944135Z Get:10 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [475 kB]
+2026-10-09T18:17:37.9478233Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1375 kB]
+2026-10-09T18:17:37.9537080Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [306 kB]
+2026-10-09T18:17:37.9552747Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1702 kB]
+2026-10-09T18:17:37.9612230Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [342 kB]
+2026-10-09T18:17:37.9634366Z Get:15 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [1761 kB]
+2026-10-09T18:17:37.9688151Z Get:16 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [401 kB]
+2026-10-09T18:17:37.9707926Z Get:17 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [55.0 kB]
+2026-10-09T18:17:37.9716334Z Get:18 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse Translation-en [14.3 kB]
+2026-10-09T18:17:38.0252833Z Get:19 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [1121 kB]
+2026-10-09T18:17:38.0308843Z Get:20 http://azure.archive.ubuntu.com/ubuntu noble-security/main Translation-en [228 kB]
+2026-10-09T18:17:38.0794581Z Get:21 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1220 kB]
+2026-10-09T18:17:38.0837974Z Get:22 http://azure.archive.ubuntu.com/ubuntu noble-security/universe Translation-en [245 kB]
+2026-10-09T18:17:38.0851275Z Get:23 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [1669 kB]
+2026-10-09T18:17:38.0908543Z Get:24 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted Translation-en [383 kB]
+2026-10-09T18:17:38.0925698Z Get:25 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [49.8 kB]
+2026-10-09T18:17:38.0932646Z Get:26 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse Translation-en [12.4 kB]
+2026-10-09T18:17:43.2944495Z Fetched 12.3 MB in 1s (12.1 MB/s)
+2026-10-09T18:17:43.7851269Z Reading package lists...
+2026-10-09T18:17:43.7964234Z [command]/usr/bin/sudo apt-get install --yes --no-install-recommends libasound2t64 libatk-bridge2.0-0t64 libatk1.0-0t64 libcairo2 libcups2t64 libdbus-1-3 libexpat1 libgbm1 libglib2.0-0t64 libnss3 libpango-1.0-0 libxcomposite1 libxdamage1 libxfixes3 libxkbcommon0 libxrandr2
+2026-10-09T18:17:43.8126936Z Reading package lists...
+2026-10-09T18:17:43.9476947Z Building dependency tree...
+2026-10-09T18:17:43.9481719Z Reading state information...
+2026-10-09T18:17:44.1634898Z libasound2t64 is already the newest version (1.2.11-1ubuntu0.3).
+2026-10-09T18:17:44.1635610Z libasound2t64 set to manually installed.
+2026-10-09T18:17:44.1635918Z libatk-bridge2.0-0t64 is already the newest version (2.52.0-1build1).
+2026-10-09T18:17:44.1636246Z libatk-bridge2.0-0t64 set to manually installed.
+2026-10-09T18:17:44.1636552Z libatk1.0-0t64 is already the newest version (2.52.0-1build1).
+2026-10-09T18:17:44.1636853Z libatk1.0-0t64 set to manually installed.
+2026-10-09T18:17:44.1637136Z libcairo2 is already the newest version (1.18.0-3build1).
+2026-10-09T18:17:44.1637455Z libcairo2 set to manually installed.
+2026-10-09T18:17:44.1637736Z libcups2t64 is already the newest version (2.4.7-1.2ubuntu7.14).
+2026-10-09T18:17:44.1638038Z libcups2t64 set to manually installed.
+2026-10-09T18:17:44.1638336Z libdbus-1-3 is already the newest version (1.14.10-4ubuntu4.1).
+2026-10-09T18:17:44.1661111Z libdbus-1-3 set to manually installed.
+2026-10-09T18:17:44.1661573Z libexpat1 is already the newest version (2.6.1-2ubuntu0.6).
+2026-10-09T18:17:44.1661896Z libexpat1 set to manually installed.
+2026-10-09T18:17:44.1662206Z libgbm1 is already the newest version (25.2.8-0ubuntu0.24.04.4).
+2026-10-09T18:17:44.1662513Z libgbm1 set to manually installed.
+2026-10-09T18:17:44.1662800Z libglib2.0-0t64 is already the newest version (2.80.0-6ubuntu3.9).
+2026-10-09T18:17:44.1663144Z libglib2.0-0t64 set to manually installed.
+2026-10-09T18:17:44.1663435Z libnss3 is already the newest version (2:3.98-1ubuntu0.2).
+2026-10-09T18:17:44.1663753Z libnss3 set to manually installed.
+2026-10-09T18:17:44.1664040Z libpango-1.0-0 is already the newest version (1.52.1+ds-1build1).
+2026-10-09T18:17:44.1664355Z libpango-1.0-0 set to manually installed.
+2026-10-09T18:17:44.1664667Z libxcomposite1 is already the newest version (1:0.4.5-1build3).
+2026-10-09T18:17:44.1664993Z libxcomposite1 set to manually installed.
+2026-10-09T18:17:44.1665270Z libxdamage1 is already the newest version (1:1.1.6-1build1).
+2026-10-09T18:17:44.1665551Z libxdamage1 set to manually installed.
+2026-10-09T18:17:44.1665837Z libxfixes3 is already the newest version (1:6.0.0-2build1).
+2026-10-09T18:17:44.1666131Z libxfixes3 set to manually installed.
+2026-10-09T18:17:44.1666422Z libxkbcommon0 is already the newest version (1.6.0-1build1).
+2026-10-09T18:17:44.1666747Z libxkbcommon0 set to manually installed.
+2026-10-09T18:17:44.1667034Z libxrandr2 is already the newest version (2:1.5.2-2build1).
+2026-10-09T18:17:44.1667320Z libxrandr2 set to manually installed.
+2026-10-09T18:17:44.1667624Z 0 upgraded, 0 newly installed, 0 to remove and 23 not upgraded.
+2026-10-09T18:17:44.1667926Z Setup chrome stable
+2026-10-09T18:17:44.1668431Z Attempting to download chrome stable...
+2026-10-09T18:17:44.2936553Z Acquiring chrome stable from https://storage.googleapis.com/chrome-for-testing-public/155.0.8059.39/linux64/chrome-linux64.zip
+2026-10-09T18:17:45.2378728Z Installing chrome...
+2026-10-09T18:17:45.2400509Z [command]/usr/bin/unzip -o -q /home/runner/work/_temp/20afc7bb-6786-4d6c-a75b-981feb0272b2
+2026-10-09T18:17:49.6644125Z Successfully Installed chrome to /opt/hostedtoolcache/setup-chrome/chrome/stable/x64
+2026-10-09T18:17:49.6649357Z [command]/opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome --version
+2026-10-09T18:17:49.8039662Z Google Chrome for Testing 155.0.8059.39 
+2026-10-09T18:17:49.8243538Z Successfully setup chrome 155.0.8059.39
+2026-10-09T18:17:49.8361094Z ##[group]Run browser-actions/setup-firefox@v1
+2026-10-09T18:17:49.8361364Z with:
+2026-10-09T18:17:49.8361539Z   firefox-version: 157.0.1
+2026-10-09T18:17:49.8361731Z env:
+2026-10-09T18:17:49.8361892Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:49.8362113Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:49.8362302Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T18:17:49.8362451Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:17:49.8362575Z   CACHE_ON_FAILURE: false
+2026-10-09T18:17:49.8362737Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:17:49.8362975Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-10-09T18:17:49.8363209Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:17:49.8363584Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:17:49.8363797Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:17:49.8364007Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-10-09T18:17:49.8364200Z ##[endgroup]
+2026-10-09T18:17:49.8803723Z Setup firefox 157.0.1 (en-US)
+2026-10-09T18:17:49.8807049Z Attempting to download firefox 157.0.1...
+2026-10-09T18:17:49.8808457Z This is the version number:157
+2026-10-09T18:17:49.8808911Z Acquiring 157.0.1 from https://ftp.mozilla.org/pub/firefox/releases/157.0.1/linux-x86_64/en-US/firefox-157.0.1.tar.xz
+2026-10-09T18:17:50.3288974Z Extracting Firefox...
+2026-10-09T18:17:50.3376775Z [command]/usr/bin/tar xJ --strip-components=1 --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/04a1d47e-5223-49cb-93ca-d9586fe8c0c9 -f /home/runner/work/_temp/0a5f2a6a-f827-44c6-a840-d65015b3462f
+2026-10-09T18:17:54.3671631Z Successfully extracted firefox 157.0.1 to /home/runner/work/_temp/04a1d47e-5223-49cb-93ca-d9586fe8c0c9
+2026-10-09T18:17:54.3672142Z Adding to the cache ...
+2026-10-09T18:17:55.1849893Z (node:2707) Warning: Closing file descriptor 21 on garbage collection
+2026-10-09T18:17:55.1850456Z (Use `node --trace-warnings ...` to show where the warning was created)
+2026-10-09T18:17:55.1851391Z (node:2707) [DEP0137] DeprecationWarning: Closing a FileHandle object on garbage collection is deprecated. Please close FileHandle objects explicitly using FileHandle.prototype.close(). In the future, an error will be thrown if a file descriptor is closed during garbage collection.
+2026-10-09T18:17:56.3855227Z Successfully cached firefox 157.0.1 to /opt/hostedtoolcache/firefox/157.0.1/x64
+2026-10-09T18:17:56.3855552Z [command]/opt/hostedtoolcache/firefox/157.0.1/x64/firefox --version
+2026-10-09T18:17:56.3907013Z [2724] Sandbox: CanCreateUserNamespace() unshare(CLONE_NEWPID): EPERM
+2026-10-09T18:17:56.6183661Z Mozilla Firefox 157.0.1
+2026-10-09T18:17:56.6198030Z Successfully setup firefox version 157.0.1
+2026-10-09T18:17:56.6303447Z ##[group]Run python3 scripts/ci/chrome_linux_sandbox.py --output target/release-check/linux-sandbox
+2026-10-09T18:17:56.6303845Z [36;1mpython3 scripts/ci/chrome_linux_sandbox.py --output target/release-check/linux-sandbox[0m
+2026-10-09T18:17:56.6363228Z shell: /usr/bin/bash -e {0}
+2026-10-09T18:17:56.6363372Z env:
+2026-10-09T18:17:56.6363490Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:56.6363626Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:56.6363757Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T18:17:56.6363904Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:17:56.6364033Z   CACHE_ON_FAILURE: false
+2026-10-09T18:17:56.6364203Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:17:56.6364443Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-10-09T18:17:56.6364676Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:17:56.6364887Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:17:56.6365136Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:17:56.6365354Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-10-09T18:17:56.6365607Z   RUSTWRIGHT_CHROME: /opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome
+2026-10-09T18:17:56.6365827Z ##[endgroup]
+2026-10-09T18:17:57.4131290Z Chrome before: {"phase": "before", "command": ["/opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome", "--no-first-run", "--no-default-browser-check", "--user-data-dir=/home/runner/work/rustwright/rustwright/target/release-check/linux-sandbox/before-profile-w_n6l6xj", "--headless=new", "--disable-gpu", "--hide-scrollbars", "--mute-audio", "--dump-dom", "http://127.0.0.1:40207/"], "exit_code": -6, "timed_out": false, "stdout": "/home/runner/work/rustwright/rustwright/target/release-check/linux-sandbox/before-stdout.log", "stderr": "/home/runner/work/rustwright/rustwright/target/release-check/linux-sandbox/before-stderr.log", "document_rendered": false, "passed": false}
+2026-10-09T18:17:57.4135178Z [2732:2732:1009/181756.957921:FATAL:content/browser/zygote_host/zygote_host_impl_linux.cc:130] No usable sandbox! If you are running on Ubuntu 23.10+ or another Linux distro that has disabled unprivileged user namespaces with AppArmor, see https://chromium.googlesource.com/chromium/src/+/main/docs/security/apparmor-userns-restrictions.md. Otherwise see https://chromium.googlesource.com/chromium/src/+/main/docs/linux/suid_sandbox_development.md for more information on developing with the (older) SUID sandbox. If you want to live dangerously and need an immediate workaround, you can try using --no-sandbox.
+2026-10-09T18:17:57.4136522Z [1009/181756.964190:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:145] open /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq: No such file or directory (2)
+2026-10-09T18:17:57.4137126Z [1009/181756.964220:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:145] open /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq: No such file or directory (2)
+2026-10-09T18:17:57.4137675Z Received signal 6
+2026-10-09T18:17:57.4137993Z #0 0x55b5525fafc3 (/opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome+0x6aecfc2)
+2026-10-09T18:17:57.4138315Z #1 0x55b5575c9174 (/opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome+0xbabb173)
+2026-10-09T18:17:57.4138584Z #2 0x7f0edec45330 (/usr/lib/x86_64-linux-gnu/libc.so.6+0x4532f)
+2026-10-09T18:17:57.4138806Z #3 0x7f0edec4527e (/usr/lib/x86_64-linux-gnu/libc.so.6+0x4527d)
+2026-10-09T18:17:57.4139017Z #4 0x7f0edec288ff (/usr/lib/x86_64-linux-gnu/libc.so.6+0x288fe)
+2026-10-09T18:17:57.4139271Z #5 0x55b5575bfed5 (/opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome+0xbab1ed4)
+2026-10-09T18:17:57.4139570Z #6 0x55b55757fb8d (/opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome+0xba71b8c)
+2026-10-09T18:17:57.4139864Z #7 0x55b55757fadd (/opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome+0xba71adc)
+2026-10-09T18:17:57.4140473Z #8 0x55b5522c4c12 (/opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome+0x67b6c11)
+2026-10-09T18:17:57.4140769Z #9 0x55b5519eb829 (/opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome+0x5edd828)
+2026-10-09T18:17:57.4141066Z #10 0x55b551523f58 (/opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome+0x5a15f57)
+2026-10-09T18:17:57.4141367Z #11 0x55b556a9274f (/opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome+0xaf8474e)
+2026-10-09T18:17:57.4141664Z #12 0x55b551a3490c (/opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome+0x5f2690b)
+2026-10-09T18:17:57.4141958Z #13 0x55b551a34060 (/opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome+0x5f2605f)
+2026-10-09T18:17:57.4142218Z #14 0x7f0edec2a1ca (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a1c9)
+2026-10-09T18:17:57.4142438Z #15 0x7f0edec2a28b (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a28a)
+2026-10-09T18:17:57.4142694Z #16 0x55b5528b436a (/opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome+0x6da6369)
+2026-10-09T18:17:57.4142988Z   r8: 00002fc80013c263  r9: 0000000000000001 r10: 0000000000000008 r11: 0000000000000246
+2026-10-09T18:17:57.4143265Z  r12: 0000000000000006 r13: 00002fc80013c000 r14: 0000000000000016 r15: 00007ffe57d60e88
+2026-10-09T18:17:57.4143535Z   di: 0000000000000aac  si: 0000000000000aac  bp: 00007ffe57d60800  bx: 0000000000000aac
+2026-10-09T18:17:57.4143803Z   dx: 0000000000000006  ax: 0000000000000000  cx: 00007f0edec9ec0c  sp: 00007ffe57d607c0
+2026-10-09T18:17:57.4144073Z   ip: 00007f0edec9ec0c efl: 0000000000000246 cgf: 002b000000000033 erf: 0000000000000000
+2026-10-09T18:17:57.4144327Z  trp: 0000000000000000 msk: 0000000000000000 cr2: 0000000000000000
+2026-10-09T18:17:57.4144504Z [end of stack trace]
+2026-10-09T18:17:57.4144583Z 
+2026-10-09T18:17:58.4534948Z Chrome after-configuration: {"phase": "after-configuration", "command": ["/opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome", "--no-first-run", "--no-default-browser-check", "--user-data-dir=/home/runner/work/rustwright/rustwright/target/release-check/linux-sandbox/after-configuration-profile-f3m7tutb", "--headless=new", "--disable-gpu", "--hide-scrollbars", "--mute-audio", "--dump-dom", "http://127.0.0.1:36251/"], "exit_code": 0, "timed_out": false, "stdout": "/home/runner/work/rustwright/rustwright/target/release-check/linux-sandbox/after-configuration-stdout.log", "stderr": "/home/runner/work/rustwright/rustwright/target/release-check/linux-sandbox/after-configuration-stderr.log", "document_rendered": true, "passed": true}
+2026-10-09T18:17:58.4537593Z [2756:2777:1009/181757.590080:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-09T18:17:58.4538383Z [2756:2777:1009/181757.590927:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-09T18:17:58.4539278Z [2756:2777:1009/181757.590939:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-09T18:17:58.4540426Z [2756:2777:1009/181757.592504:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-09T18:17:58.4541402Z [2756:2777:1009/181757.617828:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-09T18:17:58.4542344Z [2756:2756:1009/181757.743927:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-09T18:17:58.4543279Z [2756:2756:1009/181757.744115:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-09T18:17:58.4544362Z [2756:2756:1009/181757.745175:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-09T18:17:58.4545299Z [2756:2777:1009/181757.749996:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-09T18:17:58.4546258Z [2756:2777:1009/181757.750175:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-09T18:17:58.4547181Z [2756:2756:1009/181757.754119:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-09T18:17:58.4548038Z [2756:2777:1009/181757.754240:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-09T18:17:58.4548889Z [2756:2756:1009/181757.770749:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-09T18:17:58.4549715Z [2756:2756:1009/181757.770961:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-09T18:17:58.4550700Z [2756:2777:1009/181757.771054:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-09T18:17:58.4551534Z [2756:2756:1009/181757.771862:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-09T18:17:58.4552367Z [2756:2756:1009/181757.785779:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-09T18:17:58.4553649Z [2756:2756:1009/181757.786118:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.Properties.GetAll: object_path= /org/freedesktop/UPower/devices/DisplayDevice: org.freedesktop.DBus.Error.ServiceUnknown: The name org.freedesktop.UPower was not provided by any .service files
+2026-10-09T18:17:58.4554815Z [2756:2777:1009/181757.787006:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-09T18:17:58.4555669Z [2756:2756:1009/181757.800350:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-09T18:17:58.4556530Z [2756:2777:1009/181757.800416:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-09T18:17:58.4557413Z [2756:2756:1009/181757.805738:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-09T18:17:58.4558565Z [2756:2756:1009/181757.812432:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.NetworkManager.GetDevices: object_path= /org/freedesktop/NetworkManager: org.freedesktop.DBus.Error.ServiceUnknown: The name org.freedesktop.NetworkManager was not provided by any .service files
+2026-10-09T18:17:58.4559384Z 
+2026-10-09T18:17:58.4676425Z ##[group]Run cargo +stable fetch --locked
+2026-10-09T18:17:58.4676715Z [36;1mcargo +stable fetch --locked[0m
+2026-10-09T18:17:58.4740615Z shell: /usr/bin/bash -e {0}
+2026-10-09T18:17:58.4740765Z env:
+2026-10-09T18:17:58.4740882Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:58.4741015Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:58.4741141Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T18:17:58.4741279Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:17:58.4741401Z   CACHE_ON_FAILURE: false
+2026-10-09T18:17:58.4741578Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:17:58.4741814Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-10-09T18:17:58.4742036Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:17:58.4742238Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:17:58.4742448Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:17:58.4742672Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-10-09T18:17:58.4742916Z   CHROME_DEVEL_SANDBOX: /usr/local/lib/rustwright-ci/155.0.8059.39/chrome-sandbox
+2026-10-09T18:17:58.4743122Z ##[endgroup]
+2026-10-09T18:17:58.8025430Z [1m[92m    Updating[0m crates.io index
+2026-10-09T18:18:00.4668575Z [1m[92m Downloading[0m crates ...
+2026-10-09T18:18:00.5609566Z [1m[92m  Downloaded[0m thiserror v2.0.20
+2026-10-09T18:18:00.5659783Z [1m[92m  Downloaded[0m tungstenite v0.30.0
+2026-10-09T18:18:00.5685562Z [1m[92m  Downloaded[0m tokio-tungstenite v0.30.0
+2026-10-09T18:18:00.5713673Z [1m[92m  Downloaded[0m thiserror-impl v2.0.20
+2026-10-09T18:18:00.5844994Z [1m[92m  Downloaded[0m futures-macro v0.3.34
+2026-10-09T18:18:00.5875095Z [1m[92m  Downloaded[0m futures-task v0.3.34
+2026-10-09T18:18:00.5883570Z [1m[92m  Downloaded[0m itoa v1.0.18
+2026-10-09T18:18:00.5892910Z [1m[92m  Downloaded[0m windows-link v0.2.1
+2026-10-09T18:18:00.5975665Z [1m[92m  Downloaded[0m tokio-macros v2.7.2
+2026-10-09T18:18:00.5982841Z [1m[92m  Downloaded[0m errno v0.3.14
+2026-10-09T18:18:00.6013386Z [1m[92m  Downloaded[0m futures-sink v0.3.34
+2026-10-09T18:18:00.6116812Z [1m[92m  Downloaded[0m cfg-if v1.0.5
+2026-10-09T18:18:00.6136647Z [1m[92m  Downloaded[0m block-buffer v0.12.1
+2026-10-09T18:18:00.6145474Z [1m[92m  Downloaded[0m crypto-common v0.2.2
+2026-10-09T18:18:00.6154227Z [1m[92m  Downloaded[0m sha1 v0.11.0
+2026-10-09T18:18:00.6181193Z [1m[92m  Downloaded[0m cpufeatures v0.3.1
+2026-10-09T18:18:00.6239420Z [1m[92m  Downloaded[0m quote v1.0.47
+2026-10-09T18:18:00.6261867Z [1m[92m  Downloaded[0m futures-core v0.3.34
+2026-10-09T18:18:00.6272809Z [1m[92m  Downloaded[0m signal-hook-registry v1.4.8
+2026-10-09T18:18:00.6284447Z [1m[92m  Downloaded[0m data-encoding v2.11.1
+2026-10-09T18:18:00.6290875Z [1m[92m  Downloaded[0m digest v0.11.3
+2026-10-09T18:18:00.6307255Z [1m[92m  Downloaded[0m pin-project-lite v0.2.17
+2026-10-09T18:18:00.6349247Z [1m[92m  Downloaded[0m slab v0.4.12
+2026-10-09T18:18:00.6358211Z [1m[92m  Downloaded[0m wasi v0.11.1+wasi-snapshot-preview1
+2026-10-09T18:18:00.6369409Z [1m[92m  Downloaded[0m zmij v1.0.23
+2026-10-09T18:18:00.6388943Z [1m[92m  Downloaded[0m rand_core v0.10.1
+2026-10-09T18:18:00.6405539Z [1m[92m  Downloaded[0m once_cell v1.21.4
+2026-10-09T18:18:00.6425160Z [1m[92m  Downloaded[0m chacha20 v0.10.2
+2026-10-09T18:18:00.6441617Z [1m[92m  Downloaded[0m tracing-attributes v0.1.31
+2026-10-09T18:18:00.6461242Z [1m[92m  Downloaded[0m unicode-ident v1.0.26
+2026-10-09T18:18:00.6480486Z [1m[92m  Downloaded[0m httparse v1.10.1
+2026-10-09T18:18:00.6498440Z [1m[92m  Downloaded[0m serde_derive v1.0.229
+2026-10-09T18:18:00.6525854Z [1m[92m  Downloaded[0m const-oid v0.10.2
+2026-10-09T18:18:00.6546301Z [1m[92m  Downloaded[0m r-efi v6.0.0
+2026-10-09T18:18:00.6582231Z [1m[92m  Downloaded[0m hybrid-array v0.4.15
+2026-10-09T18:18:00.6597924Z [1m[92m  Downloaded[0m proc-macro2 v1.0.107
+2026-10-09T18:18:00.6618928Z [1m[92m  Downloaded[0m bytes v1.12.1
+2026-10-09T18:18:00.6646113Z [1m[92m  Downloaded[0m socket2 v0.6.5
+2026-10-09T18:18:00.6665131Z [1m[92m  Downloaded[0m log v0.4.34
+2026-10-09T18:18:00.6693033Z [1m[92m  Downloaded[0m base64 v0.22.1
+2026-10-09T18:18:00.6719401Z [1m[92m  Downloaded[0m getrandom v0.4.3
+2026-10-09T18:18:00.6746581Z [1m[92m  Downloaded[0m serde_core v1.0.229
+2026-10-09T18:18:00.6765641Z [1m[92m  Downloaded[0m serde v1.0.229
+2026-10-09T18:18:00.6804931Z [1m[92m  Downloaded[0m tracing-core v0.1.36
+2026-10-09T18:18:00.6830582Z [1m[92m  Downloaded[0m typenum v1.20.1
+2026-10-09T18:18:00.6855926Z [1m[92m  Downloaded[0m mio v1.2.3
+2026-10-09T18:18:00.6904473Z [1m[92m  Downloaded[0m memchr v2.8.3
+2026-10-09T18:18:00.6954115Z [1m[92m  Downloaded[0m rand v0.10.2
+2026-10-09T18:18:00.6979575Z [1m[92m  Downloaded[0m http v1.5.0
+2026-10-09T18:18:00.7004955Z [1m[92m  Downloaded[0m serde_json v1.0.151
+2026-10-09T18:18:00.7055179Z [1m[92m  Downloaded[0m futures-util v0.3.34
+2026-10-09T18:18:00.7147066Z [1m[92m  Downloaded[0m syn v3.0.6
+2026-10-09T18:18:00.7220750Z [1m[92m  Downloaded[0m syn v2.0.119
+2026-10-09T18:18:00.7293957Z [1m[92m  Downloaded[0m tracing v0.1.44
+2026-10-09T18:18:00.7401305Z [1m[92m  Downloaded[0m libc v0.2.189
+2026-10-09T18:18:00.7712473Z [1m[92m  Downloaded[0m tokio v1.53.1
+2026-10-09T18:18:00.8029667Z [1m[92m  Downloaded[0m windows-sys v0.61.2
+2026-10-09T18:18:00.8893380Z ##[group]Run python scripts/release_check.py --run-browser-tests
+2026-10-09T18:18:00.8893724Z [36;1mpython scripts/release_check.py --run-browser-tests[0m
+2026-10-09T18:18:00.8944454Z shell: /usr/bin/bash -e {0}
+2026-10-09T18:18:00.8944587Z env:
+2026-10-09T18:18:00.8944695Z   CARGO_TERM_COLOR: always
+2026-10-09T18:18:00.8944819Z   RUST_BACKTRACE: 1
+2026-10-09T18:18:00.8944938Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T18:18:00.8945072Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:18:00.8945189Z   CACHE_ON_FAILURE: false
+2026-10-09T18:18:00.8945340Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:18:00.8945562Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-10-09T18:18:00.8945780Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:18:00.8945980Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:18:00.8946185Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:18:00.8946403Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-10-09T18:18:00.8946640Z   CHROME_DEVEL_SANDBOX: /usr/local/lib/rustwright-ci/155.0.8059.39/chrome-sandbox
+2026-10-09T18:18:00.8947079Z   RUSTWRIGHT_CHROME: /opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome
+2026-10-09T18:18:00.8947325Z   RUSTWRIGHT_FIREFOX: /opt/hostedtoolcache/firefox/157.0.1/x64/firefox
+2026-10-09T18:18:00.8947506Z ##[endgroup]
+2026-10-09T18:18:00.9433226Z Running /home/runner/.cargo/bin/cargo +stable package --allow-dirty --offline --locked --target-dir /home/runner/work/rustwright/rustwright/target/release-check/package-target/43b950ee8ebb245e --package rustwright --package rustwright-bidi --package rustwright-browser --package rustwright-cdp --package rustwright-common --package rustwright-core --package rustwright-test --package rustwright-test-macros
+2026-10-09T18:18:28.4911363Z Running /home/runner/.cargo/bin/cargo +stable generate-lockfile --offline
+2026-10-09T18:18:28.5174444Z Running /home/runner/.cargo/bin/cargo +stable test --offline --locked --all-targets --no-run
+2026-10-09T18:18:42.2887105Z Running /home/runner/.cargo/bin/cargo +stable run --offline --locked --bin rustwright-release-consumer
+2026-10-09T18:18:42.3261032Z Running /home/runner/.cargo/bin/cargo +stable metadata --offline --locked --format-version 1
+2026-10-09T18:18:42.4727243Z Running /home/runner/.cargo/bin/cargo +1.85.0 test --offline --locked --all-targets --no-run
+2026-10-09T18:18:58.1948990Z Running /home/runner/.cargo/bin/cargo +1.85.0 run --offline --locked --bin rustwright-release-consumer
+2026-10-09T18:18:58.2439923Z Running /home/runner/.cargo/bin/cargo +1.85.0 metadata --offline --locked --format-version 1
+2026-10-09T18:18:58.2802019Z Running /home/runner/.cargo/bin/cargo +stable test --offline --locked --test browser -- --test-threads=1 --nocapture
+2026-10-09T18:18:59.7261285Z Running /home/runner/.cargo/bin/cargo +stable test --offline --locked --test browser -- --test-threads=1 --nocapture
+2026-10-09T18:19:03.1838758Z Release checks passed: /home/runner/work/rustwright/rustwright/target/release-check/report.json
+2026-10-09T18:19:03.1949518Z ##[group]Run python scripts/release/readme_runtime.py
+2026-10-09T18:19:03.1949740Z [36;1mpython scripts/release/readme_runtime.py[0m
+2026-10-09T18:19:03.2003638Z shell: /usr/bin/bash -e {0}
+2026-10-09T18:19:03.2003789Z env:
+2026-10-09T18:19:03.2003909Z   CARGO_TERM_COLOR: always
+2026-10-09T18:19:03.2004040Z   RUST_BACKTRACE: 1
+2026-10-09T18:19:03.2004171Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T18:19:03.2004319Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:19:03.2004450Z   CACHE_ON_FAILURE: false
+2026-10-09T18:19:03.2004623Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:19:03.2004871Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-10-09T18:19:03.2005113Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:19:03.2005331Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:19:03.2005552Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:19:03.2005793Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-10-09T18:19:03.2006052Z   CHROME_DEVEL_SANDBOX: /usr/local/lib/rustwright-ci/155.0.8059.39/chrome-sandbox
+2026-10-09T18:19:03.2006340Z   RUSTWRIGHT_CHROME: /opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome
+2026-10-09T18:19:03.2006603Z   RUSTWRIGHT_FIREFOX: /opt/hostedtoolcache/firefox/157.0.1/x64/firefox
+2026-10-09T18:19:03.2006797Z ##[endgroup]
+2026-10-09T18:19:05.6115355Z README runtime checks passed: 2
+2026-10-09T18:19:05.6229954Z ##[group]Run actions/upload-artifact@v4
+2026-10-09T18:19:05.6230121Z with:
+2026-10-09T18:19:05.6240416Z   name: release-verification
+2026-10-09T18:19:05.6241377Z   path: target/release-check/*.log
+target/release-check/*.json
+target/release-check/package-target/*/package/*.crate
+target/release-check/consumer/Cargo.lock
+target/release-check/consumer/readme-snippets.json
+target/release-check/consumer/firefox.png
+target/release-check/native-screenshots/
+target/release-check/linux-sandbox/
+
+2026-10-09T18:19:05.6242268Z   if-no-files-found: error
+2026-10-09T18:19:05.6242587Z   compression-level: 6
+2026-10-09T18:19:05.6242705Z   overwrite: false
+2026-10-09T18:19:05.6242828Z   include-hidden-files: false
+2026-10-09T18:19:05.6242955Z env:
+2026-10-09T18:19:05.6243058Z   CARGO_TERM_COLOR: always
+2026-10-09T18:19:05.6243176Z   RUST_BACKTRACE: 1
+2026-10-09T18:19:05.6243293Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T18:19:05.6243427Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:19:05.6243560Z   CACHE_ON_FAILURE: false
+2026-10-09T18:19:05.6243716Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:19:05.6243940Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-10-09T18:19:05.6244160Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:19:05.6244359Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:19:05.6244559Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:19:05.6244760Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-10-09T18:19:05.6245002Z   CHROME_DEVEL_SANDBOX: /usr/local/lib/rustwright-ci/155.0.8059.39/chrome-sandbox
+2026-10-09T18:19:05.6245204Z ##[endgroup]
+2026-10-09T18:19:05.7248674Z (node:7788) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-09T18:19:05.7249068Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-09T18:19:05.7356869Z With the provided path, there will be 39 files uploaded
+2026-10-09T18:19:05.7360418Z Artifact name is valid!
+2026-10-09T18:19:05.7360775Z Root directory input is valid!
+2026-10-09T18:19:06.0290571Z Beginning upload of artifact content to blob storage
+2026-10-09T18:19:06.0742258Z (node:7788) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-09T18:19:06.3592452Z Uploaded bytes 363768
+2026-10-09T18:19:06.4015575Z Finished uploading artifact content to blob storage!
+2026-10-09T18:19:06.4016219Z SHA256 digest of uploaded artifact zip is 5a8eabc784e65d302ad738e031fb4399192631c658fd500da05871f832639969
+2026-10-09T18:19:06.4017425Z Finalizing artifact upload
+2026-10-09T18:19:06.6464583Z Artifact release-verification.zip successfully finalized. Artifact ID 11638050352
+2026-10-09T18:19:06.6465144Z Artifact release-verification has been successfully uploaded! Final size is 363768 bytes. Artifact ID is 11638050352
+2026-10-09T18:19:06.6468892Z Artifact download URL: https://github.com/rsasaki0109/rustwright/actions/runs/37972198887/artifacts/11638050352
+2026-10-09T18:19:06.6597932Z Post job cleanup.
+2026-10-09T18:19:06.7468230Z Post job cleanup.
+2026-10-09T18:19:06.8243522Z ##[group]Cache Configuration
+2026-10-09T18:19:06.8243896Z Cache Provider:
+2026-10-09T18:19:06.8244064Z     github
+2026-10-09T18:19:06.8244209Z Workspaces:
+2026-10-09T18:19:06.8244352Z     /home/runner/work/rustwright/rustwright
+2026-10-09T18:19:06.8244538Z Cache Paths:
+2026-10-09T18:19:06.8244655Z     /home/runner/.cargo/bin
+2026-10-09T18:19:06.8244791Z     /home/runner/.cargo/.crates.toml
+2026-10-09T18:19:06.8244999Z     /home/runner/.cargo/.crates2.json
+2026-10-09T18:19:06.8245222Z     /home/runner/.cargo/registry
+2026-10-09T18:19:06.8245462Z     /home/runner/.cargo/git
+2026-10-09T18:19:06.8245704Z     /home/runner/work/rustwright/rustwright/target
+2026-10-09T18:19:06.8245960Z Restore Key:
+2026-10-09T18:19:06.8246168Z     v0-rust-package-consumer-Linux-x64-7a998008
+2026-10-09T18:19:06.8246403Z Cache Key:
+2026-10-09T18:19:06.8246601Z     v0-rust-package-consumer-Linux-x64-7a998008-ed23558d
+2026-10-09T18:19:06.8246848Z .. Prefix:
+2026-10-09T18:19:06.8247075Z   - v0-rust-package-consumer-Linux-x64
+2026-10-09T18:19:06.8247307Z .. Environment considered:
+2026-10-09T18:19:06.8247497Z   - Rust Versions:
+2026-10-09T18:19:06.8247766Z     - 1.85.0 x86_64-unknown-linux-gnu 4d91de4e48198da2e33413efdcd9cd2cc0c46688
+2026-10-09T18:19:06.8248147Z     - 1.99.0 x86_64-unknown-linux-gnu b940084d7eb6a299eb4bfeb8e34901bc051e7ac4
+2026-10-09T18:19:06.8248660Z   - CARGO_HOME
+2026-10-09T18:19:06.8248769Z   - CARGO_INCREMENTAL
+2026-10-09T18:19:06.8248887Z   - CARGO_TERM_COLOR
+2026-10-09T18:19:06.8249001Z   - RUST_BACKTRACE
+2026-10-09T18:19:06.8249114Z .. Lockfiles considered:
+2026-10-09T18:19:06.8249262Z   - /home/runner/work/rustwright/rustwright/Cargo.lock
+2026-10-09T18:19:06.8249490Z   - /home/runner/work/rustwright/rustwright/crates/rustwright-bidi/Cargo.toml
+2026-10-09T18:19:06.8249764Z   - /home/runner/work/rustwright/rustwright/crates/rustwright-browser/Cargo.toml
+2026-10-09T18:19:06.8250036Z   - /home/runner/work/rustwright/rustwright/crates/rustwright-cdp/Cargo.toml
+2026-10-09T18:19:06.8250498Z   - /home/runner/work/rustwright/rustwright/crates/rustwright-common/Cargo.toml
+2026-10-09T18:19:06.8250761Z   - /home/runner/work/rustwright/rustwright/crates/rustwright-core/Cargo.toml
+2026-10-09T18:19:06.8251034Z   - /home/runner/work/rustwright/rustwright/crates/rustwright-test-macros/Cargo.toml
+2026-10-09T18:19:06.8251312Z   - /home/runner/work/rustwright/rustwright/crates/rustwright-test/Cargo.toml
+2026-10-09T18:19:06.8251561Z   - /home/runner/work/rustwright/rustwright/crates/rustwright/Cargo.toml
+2026-10-09T18:19:06.8251886Z   - /home/runner/work/rustwright/rustwright/docs/ci/results/remote-20261009/followup-local/consumer/.cargo/config.toml
+2026-10-09T18:19:06.8252277Z   - /home/runner/work/rustwright/rustwright/docs/ci/results/required-browser/release/consumer/.cargo/config.toml
+2026-10-09T18:19:06.8252648Z   - /home/runner/work/rustwright/rustwright/docs/release/results/local-package/consumer/.cargo/config.toml
+2026-10-09T18:19:06.8252947Z   - /home/runner/work/rustwright/rustwright/examples/Cargo.toml
+2026-10-09T18:19:06.8253166Z   - /home/runner/work/rustwright/rustwright/tests/Cargo.toml
+2026-10-09T18:19:06.8253444Z ##[endgroup]
+2026-10-09T18:19:06.8253507Z 
+2026-10-09T18:19:06.8692388Z ... Cleaning /home/runner/work/rustwright/rustwright/target ...
+2026-10-09T18:19:06.9605110Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/package-target/43b950ee8ebb245e/package/rustwright-test-0.1.0/tests/target'
+2026-10-09T18:19:06.9612203Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/package-target/43b950ee8ebb245e/package/rustwright-test-0.1.0/tests/target'
+2026-10-09T18:19:06.9613776Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/package-target/43b950ee8ebb245e/package/rustwright-test-0.1.0/tests/trybuild'
+2026-10-09T18:19:06.9615785Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/package-target/43b950ee8ebb245e/package/rustwright-test-0.1.0/tests/trybuild'
+2026-10-09T18:19:07.0052675Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/const-oid-0.10.2/tests/target'
+2026-10-09T18:19:07.0054356Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/const-oid-0.10.2/tests/target'
+2026-10-09T18:19:07.0055923Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/const-oid-0.10.2/tests/trybuild'
+2026-10-09T18:19:07.0057443Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/const-oid-0.10.2/tests/trybuild'
+2026-10-09T18:19:07.0162659Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/unicode-ident-1.0.26/tests/target'
+2026-10-09T18:19:07.0164331Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/unicode-ident-1.0.26/tests/target'
+2026-10-09T18:19:07.0166647Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/unicode-ident-1.0.26/tests/trybuild'
+2026-10-09T18:19:07.0168634Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/unicode-ident-1.0.26/tests/trybuild'
+2026-10-09T18:19:07.0218813Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/zmij-1.0.23/tests/target'
+2026-10-09T18:19:07.0220323Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/zmij-1.0.23/tests/target'
+2026-10-09T18:19:07.0221950Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/zmij-1.0.23/tests/trybuild'
+2026-10-09T18:19:07.0223401Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/zmij-1.0.23/tests/trybuild'
+2026-10-09T18:19:07.0324223Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/bytes-1.12.1/tests/target'
+2026-10-09T18:19:07.0326252Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/bytes-1.12.1/tests/target'
+2026-10-09T18:19:07.0327713Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/bytes-1.12.1/tests/trybuild'
+2026-10-09T18:19:07.0329146Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/bytes-1.12.1/tests/trybuild'
+2026-10-09T18:19:07.0558702Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/log-0.4.34/tests/target'
+2026-10-09T18:19:07.0560813Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/log-0.4.34/tests/target'
+2026-10-09T18:19:07.0562406Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/log-0.4.34/tests/trybuild'
+2026-10-09T18:19:07.0564046Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/log-0.4.34/tests/trybuild'
+2026-10-09T18:19:07.0602892Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/typenum-1.20.1/tests/target'
+2026-10-09T18:19:07.0604533Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/typenum-1.20.1/tests/target'
+2026-10-09T18:19:07.0605870Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/typenum-1.20.1/tests/trybuild'
+2026-10-09T18:19:07.0607456Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/typenum-1.20.1/tests/trybuild'
+2026-10-09T18:19:07.0658960Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/getrandom-0.4.3/tests/trybuild'
+2026-10-09T18:19:07.0660829Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/getrandom-0.4.3/tests/trybuild'
+2026-10-09T18:19:07.0662117Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/getrandom-0.4.3/tests/target'
+2026-10-09T18:19:07.0663659Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/getrandom-0.4.3/tests/target'
+2026-10-09T18:19:07.0744634Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/chacha20-0.10.2/tests/target'
+2026-10-09T18:19:07.0746611Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/chacha20-0.10.2/tests/target'
+2026-10-09T18:19:07.0748239Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/chacha20-0.10.2/tests/trybuild'
+2026-10-09T18:19:07.0749776Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/chacha20-0.10.2/tests/trybuild'
+2026-10-09T18:19:07.0818830Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/pin-project-lite-0.2.17/tests/target'
+2026-10-09T18:19:07.0820944Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/pin-project-lite-0.2.17/tests/target'
+2026-10-09T18:19:07.0822712Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/pin-project-lite-0.2.17/tests/trybuild'
+2026-10-09T18:19:07.0824700Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/pin-project-lite-0.2.17/tests/trybuild'
+2026-10-09T18:19:07.0888467Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/digest-0.11.3/tests/target'
+2026-10-09T18:19:07.0890530Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/digest-0.11.3/tests/target'
+2026-10-09T18:19:07.0892154Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/digest-0.11.3/tests/trybuild'
+2026-10-09T18:19:07.0893832Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/digest-0.11.3/tests/trybuild'
+2026-10-09T18:19:07.1191311Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/quote-1.0.47/tests/target'
+2026-10-09T18:19:07.1192854Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/quote-1.0.47/tests/target'
+2026-10-09T18:19:07.1194751Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/quote-1.0.47/tests/trybuild'
+2026-10-09T18:19:07.1196434Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/quote-1.0.47/tests/trybuild'
+2026-10-09T18:19:07.1241301Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/syn-2.0.119/tests/target'
+2026-10-09T18:19:07.1243017Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/syn-2.0.119/tests/target'
+2026-10-09T18:19:07.1244370Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/syn-2.0.119/tests/trybuild'
+2026-10-09T18:19:07.1245621Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/syn-2.0.119/tests/trybuild'
+2026-10-09T18:19:07.1417963Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/syn-3.0.6/tests/target'
+2026-10-09T18:19:07.1419715Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/syn-3.0.6/tests/target'
+2026-10-09T18:19:07.1421300Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/syn-3.0.6/tests/trybuild'
+2026-10-09T18:19:07.1422650Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/syn-3.0.6/tests/trybuild'
+2026-10-09T18:19:07.1939884Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/sha1-0.11.0/tests/target'
+2026-10-09T18:19:07.1942285Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/sha1-0.11.0/tests/target'
+2026-10-09T18:19:07.1943772Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/sha1-0.11.0/tests/trybuild'
+2026-10-09T18:19:07.1945595Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/sha1-0.11.0/tests/trybuild'
+2026-10-09T18:19:07.1991533Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/proc-macro2-1.0.107/tests/target'
+2026-10-09T18:19:07.1993024Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/proc-macro2-1.0.107/tests/target'
+2026-10-09T18:19:07.1994956Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/proc-macro2-1.0.107/tests/trybuild'
+2026-10-09T18:19:07.1996598Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/proc-macro2-1.0.107/tests/trybuild'
+2026-10-09T18:19:07.2071958Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tracing-attributes-0.1.31/tests/target'
+2026-10-09T18:19:07.2073577Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tracing-attributes-0.1.31/tests/target'
+2026-10-09T18:19:07.2075250Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tracing-attributes-0.1.31/tests/trybuild'
+2026-10-09T18:19:07.2076740Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tracing-attributes-0.1.31/tests/trybuild'
+2026-10-09T18:19:07.2138716Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/httparse-1.10.1/tests/target'
+2026-10-09T18:19:07.2140536Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/httparse-1.10.1/tests/target'
+2026-10-09T18:19:07.2142404Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/httparse-1.10.1/tests/trybuild'
+2026-10-09T18:19:07.2144241Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/httparse-1.10.1/tests/trybuild'
+2026-10-09T18:19:07.2198889Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/block-buffer-0.12.1/tests/target'
+2026-10-09T18:19:07.2200943Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/block-buffer-0.12.1/tests/target'
+2026-10-09T18:19:07.2202942Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/block-buffer-0.12.1/tests/trybuild'
+2026-10-09T18:19:07.2204869Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/block-buffer-0.12.1/tests/trybuild'
+2026-10-09T18:19:07.2229559Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/slab-0.4.12/tests/target'
+2026-10-09T18:19:07.2231374Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/slab-0.4.12/tests/target'
+2026-10-09T18:19:07.2233035Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/slab-0.4.12/tests/trybuild'
+2026-10-09T18:19:07.2234770Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/slab-0.4.12/tests/trybuild'
+2026-10-09T18:19:07.2265967Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/itoa-1.0.18/tests/target'
+2026-10-09T18:19:07.2267758Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/itoa-1.0.18/tests/target'
+2026-10-09T18:19:07.2269551Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/itoa-1.0.18/tests/trybuild'
+2026-10-09T18:19:07.2271464Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/itoa-1.0.18/tests/trybuild'
+2026-10-09T18:19:07.2293956Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/rand_core-0.10.1/tests/target'
+2026-10-09T18:19:07.2295548Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/rand_core-0.10.1/tests/target'
+2026-10-09T18:19:07.2297080Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/rand_core-0.10.1/tests/trybuild'
+2026-10-09T18:19:07.2298353Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/rand_core-0.10.1/tests/trybuild'
+2026-10-09T18:19:07.2341665Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/http-1.5.0/tests/target'
+2026-10-09T18:19:07.2343491Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/http-1.5.0/tests/target'
+2026-10-09T18:19:07.2344917Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/http-1.5.0/tests/trybuild'
+2026-10-09T18:19:07.2346479Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/http-1.5.0/tests/trybuild'
+2026-10-09T18:19:07.2411928Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/cpufeatures-0.3.1/tests/target'
+2026-10-09T18:19:07.2413717Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/cpufeatures-0.3.1/tests/target'
+2026-10-09T18:19:07.2415040Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/cpufeatures-0.3.1/tests/trybuild'
+2026-10-09T18:19:07.2416588Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/cpufeatures-0.3.1/tests/trybuild'
+2026-10-09T18:19:07.2548378Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/memchr-2.8.3/src/tests/target'
+2026-10-09T18:19:07.2550639Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/memchr-2.8.3/src/tests/target'
+2026-10-09T18:19:07.2552256Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/memchr-2.8.3/src/tests/trybuild'
+2026-10-09T18:19:07.2553938Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/memchr-2.8.3/src/tests/trybuild'
+2026-10-09T18:19:07.2604755Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tracing-0.1.44/test-macros/tests/target'
+2026-10-09T18:19:07.2606357Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tracing-0.1.44/test-macros/tests/target'
+2026-10-09T18:19:07.2607716Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tracing-0.1.44/test-macros/tests/trybuild'
+2026-10-09T18:19:07.2609093Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tracing-0.1.44/test-macros/tests/trybuild'
+2026-10-09T18:19:07.2721171Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tracing-0.1.44/tests/target'
+2026-10-09T18:19:07.2723421Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tracing-0.1.44/tests/target'
+2026-10-09T18:19:07.2725599Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tracing-0.1.44/tests/trybuild'
+2026-10-09T18:19:07.2727811Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tracing-0.1.44/tests/trybuild'
+2026-10-09T18:19:07.2831244Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/cfg-if-1.0.5/tests/target'
+2026-10-09T18:19:07.2832889Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/cfg-if-1.0.5/tests/target'
+2026-10-09T18:19:07.2834502Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/cfg-if-1.0.5/tests/trybuild'
+2026-10-09T18:19:07.2836370Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/cfg-if-1.0.5/tests/trybuild'
+2026-10-09T18:19:07.2889358Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/signal-hook-registry-1.4.8/tests/target'
+2026-10-09T18:19:07.2891212Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/signal-hook-registry-1.4.8/tests/target'
+2026-10-09T18:19:07.2892838Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/signal-hook-registry-1.4.8/tests/trybuild'
+2026-10-09T18:19:07.2894725Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/signal-hook-registry-1.4.8/tests/trybuild'
+2026-10-09T18:19:07.3993827Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tracing-core-0.1.36/tests/target'
+2026-10-09T18:19:07.3995867Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tracing-core-0.1.36/tests/target'
+2026-10-09T18:19:07.3997423Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tracing-core-0.1.36/tests/trybuild'
+2026-10-09T18:19:07.3998878Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tracing-core-0.1.36/tests/trybuild'
+2026-10-09T18:19:07.4058066Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/libc-0.2.189/tests/target'
+2026-10-09T18:19:07.4059432Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/libc-0.2.189/tests/target'
+2026-10-09T18:19:07.4061187Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/libc-0.2.189/tests/trybuild'
+2026-10-09T18:19:07.4062602Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/libc-0.2.189/tests/trybuild'
+2026-10-09T18:19:07.5705455Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/serde_json-1.0.151/tests/target'
+2026-10-09T18:19:07.5707311Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/serde_json-1.0.151/tests/target'
+2026-10-09T18:19:07.5708786Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/serde_json-1.0.151/tests/trybuild'
+2026-10-09T18:19:07.5710358Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/serde_json-1.0.151/tests/trybuild'
+2026-10-09T18:19:07.5984316Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tokio-1.53.1/tests/target'
+2026-10-09T18:19:07.5986511Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tokio-1.53.1/tests/target'
+2026-10-09T18:19:07.5988630Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tokio-1.53.1/tests/trybuild'
+2026-10-09T18:19:07.5991004Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tokio-1.53.1/tests/trybuild'
+2026-10-09T18:19:07.6596925Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tokio-1.53.1/src/runtime/tests/trybuild'
+2026-10-09T18:19:07.6598717Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tokio-1.53.1/src/runtime/tests/trybuild'
+2026-10-09T18:19:07.6601000Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tokio-1.53.1/src/runtime/tests/target'
+2026-10-09T18:19:07.6602790Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tokio-1.53.1/src/runtime/tests/target'
+2026-10-09T18:19:07.6751686Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tokio-1.53.1/src/runtime/time/tests/target'
+2026-10-09T18:19:07.6753413Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tokio-1.53.1/src/runtime/time/tests/target'
+2026-10-09T18:19:07.6755071Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tokio-1.53.1/src/runtime/time/tests/trybuild'
+2026-10-09T18:19:07.6756708Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tokio-1.53.1/src/runtime/time/tests/trybuild'
+2026-10-09T18:19:07.6783324Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tokio-1.53.1/src/sync/tests/target'
+2026-10-09T18:19:07.6784812Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tokio-1.53.1/src/sync/tests/target'
+2026-10-09T18:19:07.6786596Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tokio-1.53.1/src/sync/tests/trybuild'
+2026-10-09T18:19:07.6788401Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/tokio-1.53.1/src/sync/tests/trybuild'
+2026-10-09T18:19:07.7218366Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/rustwright-test-0.1.0/tests/target'
+2026-10-09T18:19:07.7220656Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/rustwright-test-0.1.0/tests/target'
+2026-10-09T18:19:07.7222119Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/rustwright-test-0.1.0/tests/trybuild'
+2026-10-09T18:19:07.7223581Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/rustwright-test-0.1.0/tests/trybuild'
+2026-10-09T18:19:07.7271055Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/once_cell-1.21.4/tests/target'
+2026-10-09T18:19:07.7273115Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/once_cell-1.21.4/tests/target'
+2026-10-09T18:19:07.7274542Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/once_cell-1.21.4/tests/trybuild'
+2026-10-09T18:19:07.7276114Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/once_cell-1.21.4/tests/trybuild'
+2026-10-09T18:19:07.7318030Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/hybrid-array-0.4.15/tests/target'
+2026-10-09T18:19:07.7319438Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/hybrid-array-0.4.15/tests/target'
+2026-10-09T18:19:07.7321111Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/hybrid-array-0.4.15/tests/trybuild'
+2026-10-09T18:19:07.7322442Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/hybrid-array-0.4.15/tests/trybuild'
+2026-10-09T18:19:07.7440011Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/base64-0.22.1/tests/target'
+2026-10-09T18:19:07.7441701Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/base64-0.22.1/tests/target'
+2026-10-09T18:19:07.7443227Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/base64-0.22.1/tests/trybuild'
+2026-10-09T18:19:07.7444835Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-731369387602a987/base64-0.22.1/tests/trybuild'
+2026-10-09T18:19:07.7556981Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer/tests/target'
+2026-10-09T18:19:07.7558355Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer/tests/target'
+2026-10-09T18:19:07.7559864Z ##[error]ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer/tests/trybuild'
+2026-10-09T18:19:07.7561363Z ##[error]Error: ENOENT: no such file or directory, opendir '/home/runner/work/rustwright/rustwright/target/release-check/consumer/tests/trybuild'
+2026-10-09T18:19:07.8751856Z ... Cleaning cargo registry (cache-all-crates: false) ...
+2026-10-09T18:19:08.0392825Z ... Cleaning cargo/bin ...
+2026-10-09T18:19:08.0410999Z ... Cleaning cargo git cache ...
+2026-10-09T18:19:08.0413266Z ... Saving cache ...
+2026-10-09T18:19:08.0528262Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/rustwright/rustwright --files-from manifest.txt --use-compress-program zstdmt
+2026-10-09T18:19:10.3063567Z Sent 14172923 of 215499515 (6.6%), 13.5 MBs/sec
+2026-10-09T18:19:11.1940468Z Sent 215499515 of 215499515 (100.0%), 108.9 MBs/sec
+2026-10-09T18:19:11.5006548Z Post job cleanup.
+2026-10-09T18:19:11.5544229Z [command]/usr/bin/git version
+2026-10-09T18:19:11.5574028Z git version 2.55.0
+2026-10-09T18:19:11.5596342Z Temporarily overriding HOME='/home/runner/work/_temp/50bb9a82-00ff-461f-841f-ac7e6acca3cf' before making global git config changes
+2026-10-09T18:19:11.5597058Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-09T18:19:11.5599764Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/rustwright/rustwright
+2026-10-09T18:19:11.5630244Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-09T18:19:11.5666092Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-09T18:19:11.5864231Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-09T18:19:11.5891395Z http.https://github.com/.extraheader
+2026-10-09T18:19:11.5900942Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-09T18:19:11.5936080Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-09T18:19:11.6142496Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-09T18:19:11.6188418Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-09T18:19:11.6478469Z Cleaning up orphan processes
+2026-10-09T18:19:11.6671104Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

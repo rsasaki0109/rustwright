@@ -1,0 +1,629 @@
+﻿2026-10-09T18:17:39.3571200Z Current runner version: '2.337.0'
+2026-10-09T18:17:39.3625480Z ##[group]Runner Image Provisioner
+2026-10-09T18:17:39.3627480Z Hosted Compute Agent
+2026-10-09T18:17:39.3628730Z Version: 20260828.587
+2026-10-09T18:17:39.3630030Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-10-09T18:17:39.3631380Z Build Date: 2026-08-28T16:44:25Z
+2026-10-09T18:17:39.3633870Z Worker ID: {2d185227-f3cc-4aa7-a8ef-edf362f290c9}
+2026-10-09T18:17:39.3635420Z Azure Region: westus
+2026-10-09T18:17:39.3636720Z ##[endgroup]
+2026-10-09T18:17:39.3639810Z ##[group]Operating System
+2026-10-09T18:17:39.3641260Z macOS
+2026-10-09T18:17:39.3642210Z 26.6.2
+2026-10-09T18:17:39.3643270Z 25G83
+2026-10-09T18:17:39.3644500Z ##[endgroup]
+2026-10-09T18:17:39.3645650Z ##[group]Runner Image
+2026-10-09T18:17:39.3646920Z Image: macos-26-arm64
+2026-10-09T18:17:39.3648080Z Version: 20260907.0351.1
+2026-10-09T18:17:39.3650760Z Included Software: https://github.com/actions/runner-images/blob/macos-26-arm64/20260907.0351/images/macos/macos-26-arm64-Readme.md
+2026-10-09T18:17:39.3654270Z Image Release: https://github.com/actions/runner-images/releases/tag/macos-26-arm64%2F20260907.0351
+2026-10-09T18:17:39.3656290Z ##[endgroup]
+2026-10-09T18:17:39.3658330Z ##[group]GITHUB_TOKEN Permissions
+2026-10-09T18:17:39.3662580Z Contents: read
+2026-10-09T18:17:39.3663750Z Metadata: read
+2026-10-09T18:17:39.3664850Z ##[endgroup]
+2026-10-09T18:17:39.3668750Z Secret source: Actions
+2026-10-09T18:17:39.3670940Z Cache mode: write
+2026-10-09T18:17:39.3672360Z Prepare workflow directory
+2026-10-09T18:17:39.4122240Z Prepare all required actions
+2026-10-09T18:17:39.4177870Z Getting action download info
+2026-10-09T18:17:39.6340150Z Download action repository 'actions/checkout@v5' (SHA:fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09)
+2026-10-09T18:17:39.9681260Z Download action repository 'dtolnay/rust-toolchain@stable' (SHA:686976e191b89faba57d3206551f0f330d8cb249)
+2026-10-09T18:17:40.3679530Z Download action repository 'Swatinem/rust-cache@v2' (SHA:6323deb102c322ba6fcbdcafc7e3dddab59af2b6)
+2026-10-09T18:17:41.1872110Z Download action repository 'actions/setup-python@v6' (SHA:ece7cb06caefa5fff74198d8649806c4678c61a1)
+2026-10-09T18:17:41.2864440Z Download action repository 'browser-actions/setup-chrome@v2' (SHA:48ad923757ca74d66703209fe939badbdf80f2f4)
+2026-10-09T18:17:41.9197360Z Download action repository 'browser-actions/setup-firefox@v1' (SHA:0bc507ddf224827e3b1af68e014d5e42ab93e795)
+2026-10-09T18:17:42.4990950Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-09T18:17:42.7552540Z Complete job name: Required Chrome + Firefox / macos-latest
+2026-10-09T18:17:42.8483900Z ##[group]Run actions/checkout@v5
+2026-10-09T18:17:42.8484360Z with:
+2026-10-09T18:17:42.8484570Z   repository: rsasaki0109/rustwright
+2026-10-09T18:17:42.8487660Z   token: ***
+2026-10-09T18:17:42.8487880Z   ssh-strict: true
+2026-10-09T18:17:42.8488070Z   ssh-user: git
+2026-10-09T18:17:42.8488250Z   persist-credentials: true
+2026-10-09T18:17:42.8488480Z   clean: true
+2026-10-09T18:17:42.8488780Z   sparse-checkout-cone-mode: true
+2026-10-09T18:17:42.8489030Z   fetch-depth: 1
+2026-10-09T18:17:42.8489260Z   fetch-tags: false
+2026-10-09T18:17:42.8489470Z   show-progress: true
+2026-10-09T18:17:42.8489690Z   lfs: false
+2026-10-09T18:17:42.8489890Z   submodules: false
+2026-10-09T18:17:42.8490100Z   set-safe-directory: true
+2026-10-09T18:17:42.8490320Z   allow-unsafe-pr-checkout: false
+2026-10-09T18:17:42.8490880Z env:
+2026-10-09T18:17:42.8491080Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:42.8491330Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:42.8491540Z ##[endgroup]
+2026-10-09T18:17:43.3975840Z Syncing repository: rsasaki0109/rustwright
+2026-10-09T18:17:43.3977010Z ##[group]Getting Git version info
+2026-10-09T18:17:43.3977350Z Working directory is '/Users/runner/work/rustwright/rustwright'
+2026-10-09T18:17:43.3977810Z [command]/opt/homebrew/bin/git version
+2026-10-09T18:17:43.4293050Z git version 2.55.0
+2026-10-09T18:17:43.4308390Z ##[endgroup]
+2026-10-09T18:17:43.4317200Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/2bd8715f-668f-4dc0-a108-40cf694b2907/.gitconfig'
+2026-10-09T18:17:43.4329770Z Temporarily overriding HOME='/Users/runner/work/_temp/2bd8715f-668f-4dc0-a108-40cf694b2907' before making global git config changes
+2026-10-09T18:17:43.4332530Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-09T18:17:43.4333890Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/rustwright/rustwright
+2026-10-09T18:17:43.4468580Z Deleting the contents of '/Users/runner/work/rustwright/rustwright'
+2026-10-09T18:17:43.4472580Z ##[group]Initializing the repository
+2026-10-09T18:17:43.4476450Z [command]/opt/homebrew/bin/git init /Users/runner/work/rustwright/rustwright
+2026-10-09T18:17:43.4739080Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-09T18:17:43.4742400Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-09T18:17:43.4744020Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-09T18:17:43.4745210Z hint: call:
+2026-10-09T18:17:43.4746060Z hint:
+2026-10-09T18:17:43.4746330Z hint: 	git config --global init.defaultBranch <name>
+2026-10-09T18:17:43.4746680Z hint:
+2026-10-09T18:17:43.4747080Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-09T18:17:43.4747580Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-09T18:17:43.4747990Z hint:
+2026-10-09T18:17:43.4748190Z hint: 	git branch -m <name>
+2026-10-09T18:17:43.4748460Z hint:
+2026-10-09T18:17:43.4748780Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-09T18:17:43.4749280Z Initialized empty Git repository in /Users/runner/work/rustwright/rustwright/.git/
+2026-10-09T18:17:43.4752230Z [command]/opt/homebrew/bin/git remote add origin https://github.com/rsasaki0109/rustwright
+2026-10-09T18:17:43.5224920Z ##[endgroup]
+2026-10-09T18:17:43.5365360Z ##[group]Disabling automatic garbage collection
+2026-10-09T18:17:43.5488610Z [command]/opt/homebrew/bin/git config --local gc.auto 0
+2026-10-09T18:17:43.5643080Z ##[endgroup]
+2026-10-09T18:17:43.5673410Z ##[group]Setting up auth
+2026-10-09T18:17:43.5681410Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-09T18:17:43.5686050Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-09T18:17:43.7154440Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-09T18:17:43.7233000Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-09T18:17:43.8843650Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-09T18:17:43.8971460Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-09T18:17:44.0191380Z [command]/opt/homebrew/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-09T18:17:44.0463130Z ##[endgroup]
+2026-10-09T18:17:44.0474170Z ##[group]Fetching the repository
+2026-10-09T18:17:44.0574610Z [command]/opt/homebrew/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +09ddeb5e64b097b29e67cdbd8c4192df5a10ddae:refs/remotes/pull/1/merge
+2026-10-09T18:17:45.4562720Z From https://github.com/rsasaki0109/rustwright
+2026-10-09T18:17:45.4564460Z  * [new ref]         09ddeb5e64b097b29e67cdbd8c4192df5a10ddae -> pull/1/merge
+2026-10-09T18:17:45.4572300Z ##[endgroup]
+2026-10-09T18:17:45.4572840Z ##[group]Determining the checkout info
+2026-10-09T18:17:45.4573820Z ##[endgroup]
+2026-10-09T18:17:45.4578560Z [command]/opt/homebrew/bin/git sparse-checkout disable
+2026-10-09T18:17:45.4672060Z [command]/opt/homebrew/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-09T18:17:45.4778240Z ##[group]Checking out the ref
+2026-10-09T18:17:45.4779960Z [command]/opt/homebrew/bin/git checkout --progress --force refs/remotes/pull/1/merge
+2026-10-09T18:17:45.7781850Z HEAD is now at 09ddeb5 Merge 4b7226472f3ac4be27e8fcadb536f7019de17894 into 91e72af388d000266c9b4e7567a3e1fe4007fc33
+2026-10-09T18:17:45.7797010Z ##[endgroup]
+2026-10-09T18:17:45.8073110Z [command]/opt/homebrew/bin/git log -1 --format=%H
+2026-10-09T18:17:45.8224180Z 09ddeb5e64b097b29e67cdbd8c4192df5a10ddae
+2026-10-09T18:17:45.8859870Z ##[group]Run dtolnay/rust-toolchain@stable
+2026-10-09T18:17:45.8860200Z with:
+2026-10-09T18:17:45.8860370Z   toolchain: stable
+2026-10-09T18:17:45.8860520Z env:
+2026-10-09T18:17:45.8860650Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:45.8860820Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:45.8860980Z ##[endgroup]
+2026-10-09T18:17:45.8924290Z ##[start-action display=Parse toolchain version;id=__dtolnay_rust-toolchain.parse]
+2026-10-09T18:17:45.8992290Z ##[group]Run if [[ -z $toolchain ]]; then
+2026-10-09T18:17:45.8992640Z [36;1mif [[ -z $toolchain ]]; then[0m
+2026-10-09T18:17:45.8993250Z [36;1m  # GitHub does not enforce `required: true` inputs itself. https://github.com/actions/runner/issues/1070[0m
+2026-10-09T18:17:45.8993820Z [36;1m  echo "'toolchain' is a required input" >&2[0m
+2026-10-09T18:17:45.8994070Z [36;1m  exit 1[0m
+2026-10-09T18:17:45.8994420Z [36;1melif [[ $toolchain =~ ^stable' '[0-9]+' '(year|month|week|day)s?' 'ago$ ]]; then[0m
+2026-10-09T18:17:45.8994870Z [36;1m  if [[ macOS == macOS ]]; then[0m
+2026-10-09T18:17:45.8995330Z [36;1m    echo "toolchain=1.$((($(date -v-$(sed 's/stable \([0-9]*\) \(.\).*/\1\2/' <<< $toolchain) +%s)/60/60/24-16569)/7/6))" >> $GITHUB_OUTPUT[0m
+2026-10-09T18:17:45.8995830Z [36;1m  else[0m
+2026-10-09T18:17:45.8996210Z [36;1m    echo "toolchain=1.$((($(date --date "${toolchain#stable }" +%s)/60/60/24-16569)/7/6))" >> $GITHUB_OUTPUT[0m
+2026-10-09T18:17:45.8996620Z [36;1m  fi[0m
+2026-10-09T18:17:45.8996890Z [36;1melif [[ $toolchain =~ ^stable' 'minus' '[0-9]+' 'releases?$ ]]; then[0m
+2026-10-09T18:17:45.8997350Z [36;1m  echo "toolchain=1.$((($(date +%s)/60/60/24-16569)/7/6-${toolchain//[^0-9]/}))" >> $GITHUB_OUTPUT[0m
+2026-10-09T18:17:45.8997820Z [36;1melif [[ $toolchain =~ ^1\.[0-9]+$ ]]; then[0m
+2026-10-09T18:17:45.8998500Z [36;1m  echo "toolchain=1.$((i=${toolchain#1.}, c=($(date +%s)/60/60/24-16569)/7/6, i+9*i*(10*i<=c)+90*i*(100*i<=c)))" >> $GITHUB_OUTPUT[0m
+2026-10-09T18:17:45.8998920Z [36;1melse[0m
+2026-10-09T18:17:45.8999080Z [36;1m  delimiter=EOF[0m
+2026-10-09T18:17:45.8999340Z [36;1m  while [[ $toolchain == *$delimiter* ]]; do delimiter+=_; done[0m
+2026-10-09T18:17:45.8999770Z [36;1m  printf 'toolchain<<%s\n%s\n%s\n' "$delimiter" "$toolchain" "$delimiter" >> $GITHUB_OUTPUT[0m
+2026-10-09T18:17:45.9000130Z [36;1mfi[0m
+2026-10-09T18:17:45.9082040Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:45.9082950Z env:
+2026-10-09T18:17:45.9083420Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:45.9083900Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:45.9084340Z   toolchain: stable
+2026-10-09T18:17:45.9084770Z ##[endgroup]
+2026-10-09T18:17:45.9997540Z ##[end-action id=__dtolnay_rust-toolchain.parse;outcome=success;conclusion=success;duration_ms=107]
+2026-10-09T18:17:46.0002130Z ##[start-action display=Set $CARGO_HOME;id=__dtolnay_rust-toolchain.__run]
+2026-10-09T18:17:46.0037410Z ##[group]Run echo CARGO_HOME=${CARGO_HOME:-"$HOME/.cargo"} >> $GITHUB_ENV
+2026-10-09T18:17:46.0037950Z [36;1mecho CARGO_HOME=${CARGO_HOME:-"$HOME/.cargo"} >> $GITHUB_ENV[0m
+2026-10-09T18:17:46.0075040Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:46.0075380Z env:
+2026-10-09T18:17:46.0075550Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:46.0075730Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:46.0075910Z ##[endgroup]
+2026-10-09T18:17:46.0583210Z ##[end-action id=__dtolnay_rust-toolchain.__run;outcome=success;conclusion=success;duration_ms=57]
+2026-10-09T18:17:46.0585920Z ##[start-action display=Install rustup if needed;id=__dtolnay_rust-toolchain.__run_2]
+2026-10-09T18:17:46.0800090Z ##[group]Run if ! command -v rustup &>/dev/null; then
+2026-10-09T18:17:46.0800430Z [36;1mif ! command -v rustup &>/dev/null; then[0m
+2026-10-09T18:17:46.0801080Z [36;1m  curl --proto '=https' --tlsv1.2 --retry 10 --retry-connrefused --location --silent --show-error --fail https://sh.rustup.rs | sh -s -- --default-toolchain none -y[0m
+2026-10-09T18:17:46.0801740Z [36;1m  echo "$CARGO_HOME/bin" >> $GITHUB_PATH[0m
+2026-10-09T18:17:46.0802510Z [36;1mfi[0m
+2026-10-09T18:17:46.0855560Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:46.0856320Z env:
+2026-10-09T18:17:46.0856780Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:46.0857300Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:46.0857780Z   CARGO_HOME: /Users/runner/.cargo
+2026-10-09T18:17:46.0858410Z ##[endgroup]
+2026-10-09T18:17:46.1275490Z ##[end-action id=__dtolnay_rust-toolchain.__run_2;outcome=success;conclusion=success;duration_ms=68]
+2026-10-09T18:17:46.1285590Z ##[start-action display=Install rustup if needed on windows;id=__dtolnay_rust-toolchain.__run_3]
+2026-10-09T18:17:46.1297070Z ##[end-action id=__dtolnay_rust-toolchain.__run_3;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-09T18:17:46.1313620Z ##[start-action display=rustup toolchain install stable;id=__dtolnay_rust-toolchain.__run_4]
+2026-10-09T18:17:46.1426710Z ##[group]Run set -f  # split targets and components on commas and whitespace, without glob expansion
+2026-10-09T18:17:46.1428290Z [36;1mset -f  # split targets and components on commas and whitespace, without glob expansion[0m
+2026-10-09T18:17:46.1429270Z [36;1mflags=()[0m
+2026-10-09T18:17:46.1429880Z [36;1mfor t in ${targets//,/ }; do flags+=(--target "$t"); done[0m
+2026-10-09T18:17:46.1430820Z [36;1mfor c in ${components//,/ }; do flags+=(--component "$c"); done[0m
+2026-10-09T18:17:46.1431950Z [36;1mif [[ $toolchain == nightly && -n $components ]]; then flags+=(--allow-downgrade); fi[0m
+2026-10-09T18:17:46.1432890Z [36;1mlog=$(mktemp)[0m
+2026-10-09T18:17:46.1433380Z [36;1mtrap 'rm -f "$log"' EXIT[0m
+2026-10-09T18:17:46.1433990Z [36;1mfor attempt in 1 2 3 4 5; do[0m
+2026-10-09T18:17:46.1435220Z [36;1m  if rustup toolchain install "$toolchain" "${flags[@]}" --profile minimal --no-self-update --force-non-host 2>&1 | tee "$log"; then[0m
+2026-10-09T18:17:46.1436810Z [36;1m    break[0m
+2026-10-09T18:17:46.1437260Z [36;1m  else[0m
+2026-10-09T18:17:46.1437720Z [36;1m    status=$?[0m
+2026-10-09T18:17:46.1438230Z [36;1m  fi[0m
+2026-10-09T18:17:46.1438850Z [36;1m  if [[ $attempt == 5 ]] || ! grep -Fq 'checksum failed for ' "$log" \[0m
+2026-10-09T18:17:46.1440070Z [36;1m      || ! grep -Fq 'this is likely due to an ongoing update of the official release server' "$log"; then[0m
+2026-10-09T18:17:46.1441090Z [36;1m    exit "$status"[0m
+2026-10-09T18:17:46.1441620Z [36;1m  fi[0m
+2026-10-09T18:17:46.1442370Z [36;1m  echo "Retrying rustup toolchain install in 30 seconds (retry $attempt of 4)" >&2[0m
+2026-10-09T18:17:46.1443530Z [36;1m  sleep 30[0m
+2026-10-09T18:17:46.1443990Z [36;1mdone[0m
+2026-10-09T18:17:46.1478720Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:46.1479030Z env:
+2026-10-09T18:17:46.1479210Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:46.1479390Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:46.1479580Z   CARGO_HOME: /Users/runner/.cargo
+2026-10-09T18:17:46.1479790Z   toolchain: stable
+2026-10-09T18:17:46.1479970Z   targets: 
+2026-10-09T18:17:46.1480140Z   components: 
+2026-10-09T18:17:46.1480320Z   RUSTUP_PERMIT_COPY_RENAME: 1
+2026-10-09T18:17:46.1480530Z ##[endgroup]
+2026-10-09T18:17:46.7951610Z info: syncing channel updates for stable-aarch64-apple-darwin
+2026-10-09T18:17:46.9220050Z info: latest update on 2026-10-01 for version 1.99.0 (b940084d7 2026-09-28)
+2026-10-09T18:17:46.9352630Z info: removing previous version of component clippy
+2026-10-09T18:17:46.9398550Z info: removing previous version of component rustfmt
+2026-10-09T18:17:46.9401500Z info: removing previous version of component cargo
+2026-10-09T18:17:46.9463630Z info: removing previous version of component rust-std
+2026-10-09T18:17:46.9571780Z info: removing previous version of component rustc
+2026-10-09T18:17:46.9670890Z info: downloading 5 components
+2026-10-09T18:17:54.2077650Z 
+2026-10-09T18:17:54.2848260Z   stable-aarch64-apple-darwin updated - rustc 1.99.0 (b940084d7 2026-09-28) (from rustc 1.98.1 (48a229cea 2026-09-01))
+2026-10-09T18:17:54.2851550Z 
+2026-10-09T18:17:54.2863980Z info: self-update is disabled for this build of rustup
+2026-10-09T18:17:54.2865400Z info: any updates to rustup will need to be fetched with your system package manager
+2026-10-09T18:17:54.3222090Z ##[end-action id=__dtolnay_rust-toolchain.__run_4;outcome=success;conclusion=success;duration_ms=8185]
+2026-10-09T18:17:54.3241420Z ##[start-action display=rustup default stable;id=__dtolnay_rust-toolchain.__run_5]
+2026-10-09T18:17:54.3332380Z ##[group]Run rustup default "$toolchain" --force-non-host
+2026-10-09T18:17:54.3333020Z [36;1mrustup default "$toolchain" --force-non-host[0m
+2026-10-09T18:17:54.3381910Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:54.3382310Z env:
+2026-10-09T18:17:54.3382610Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:54.3382910Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:54.3383480Z   CARGO_HOME: /Users/runner/.cargo
+2026-10-09T18:17:54.3383840Z   toolchain: stable
+2026-10-09T18:17:54.3384320Z ##[endgroup]
+2026-10-09T18:17:54.4265240Z info: using existing install for stable-aarch64-apple-darwin
+2026-10-09T18:17:54.4287350Z info: default toolchain set to stable-aarch64-apple-darwin
+2026-10-09T18:17:54.4287860Z 
+2026-10-09T18:17:54.4524830Z   stable-aarch64-apple-darwin unchanged - rustc 1.99.0 (b940084d7 2026-09-28)
+2026-10-09T18:17:54.4525840Z 
+2026-10-09T18:17:54.4555300Z ##[end-action id=__dtolnay_rust-toolchain.__run_5;outcome=success;conclusion=success;duration_ms=131]
+2026-10-09T18:17:54.4561060Z ##[start-action display=Create cachekey;id=__dtolnay_rust-toolchain.rustc-version]
+2026-10-09T18:17:54.4586960Z ##[group]Run DATE=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-date: \(20[0-9][0-9]\)-\([01][0-9]\)-\([0-3][0-9]\)$/\1\2\3/p')
+2026-10-09T18:17:54.4587740Z [36;1mDATE=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-date: \(20[0-9][0-9]\)-\([01][0-9]\)-\([0-3][0-9]\)$/\1\2\3/p')[0m
+2026-10-09T18:17:54.4588460Z [36;1mHASH=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-hash: //p')[0m
+2026-10-09T18:17:54.4589010Z [36;1mecho "cachekey=$(echo $DATE$HASH | head -c12)" >> $GITHUB_OUTPUT[0m
+2026-10-09T18:17:54.4623880Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:54.4624430Z env:
+2026-10-09T18:17:54.4624690Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:54.4625050Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:54.4625280Z   CARGO_HOME: /Users/runner/.cargo
+2026-10-09T18:17:54.4625590Z   toolchain: stable
+2026-10-09T18:17:54.4625800Z ##[endgroup]
+2026-10-09T18:17:54.6150100Z ##[end-action id=__dtolnay_rust-toolchain.rustc-version;outcome=success;conclusion=success;duration_ms=158]
+2026-10-09T18:17:54.6152530Z ##[start-action display=Disable incremental compilation;id=__dtolnay_rust-toolchain.__run_6]
+2026-10-09T18:17:54.6175590Z ##[group]Run if [ -z "${CARGO_INCREMENTAL+set}" ]; then
+2026-10-09T18:17:54.6175910Z [36;1mif [ -z "${CARGO_INCREMENTAL+set}" ]; then[0m
+2026-10-09T18:17:54.6176300Z [36;1m  echo CARGO_INCREMENTAL=0 >> $GITHUB_ENV[0m
+2026-10-09T18:17:54.6176620Z [36;1mfi[0m
+2026-10-09T18:17:54.6206470Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:54.6206930Z env:
+2026-10-09T18:17:54.6207190Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:54.6207550Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:54.6207790Z   CARGO_HOME: /Users/runner/.cargo
+2026-10-09T18:17:54.6208170Z ##[endgroup]
+2026-10-09T18:17:54.6650050Z ##[end-action id=__dtolnay_rust-toolchain.__run_6;outcome=success;conclusion=success;duration_ms=49]
+2026-10-09T18:17:54.6653660Z ##[start-action display=Enable colors in Cargo output;id=__dtolnay_rust-toolchain.__run_7]
+2026-10-09T18:17:54.6714460Z ##[group]Run if [ -z "${CARGO_TERM_COLOR+set}" ]; then
+2026-10-09T18:17:54.6714820Z [36;1mif [ -z "${CARGO_TERM_COLOR+set}" ]; then[0m
+2026-10-09T18:17:54.6715170Z [36;1m  echo CARGO_TERM_COLOR=always >> $GITHUB_ENV[0m
+2026-10-09T18:17:54.6715420Z [36;1mfi[0m
+2026-10-09T18:17:54.6757040Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:54.6757400Z env:
+2026-10-09T18:17:54.6757620Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:54.6758150Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:54.6758370Z   CARGO_HOME: /Users/runner/.cargo
+2026-10-09T18:17:54.6758610Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:17:54.6758810Z ##[endgroup]
+2026-10-09T18:17:54.7214230Z ##[end-action id=__dtolnay_rust-toolchain.__run_7;outcome=success;conclusion=success;duration_ms=55]
+2026-10-09T18:17:54.7219040Z ##[start-action display=Enable Cargo sparse registry;id=__dtolnay_rust-toolchain.__run_8]
+2026-10-09T18:17:54.7242430Z ##[group]Run # implemented in 1.66, stabilized in 1.68, made default in 1.70
+2026-10-09T18:17:54.7243020Z [36;1m# implemented in 1.66, stabilized in 1.68, made default in 1.70[0m
+2026-10-09T18:17:54.7243690Z [36;1mif [ -z "${CARGO_REGISTRIES_CRATES_IO_PROTOCOL+set}" -o -f "/Users/runner/work/_temp"/.implicit_cargo_registries_crates_io_protocol ]; then[0m
+2026-10-09T18:17:54.7244320Z [36;1m  if rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.6[89]\.'; then[0m
+2026-10-09T18:17:54.7244870Z [36;1m    touch "/Users/runner/work/_temp"/.implicit_cargo_registries_crates_io_protocol || true[0m
+2026-10-09T18:17:54.7245350Z [36;1m    echo CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse >> $GITHUB_ENV[0m
+2026-10-09T18:17:54.7245800Z [36;1m  elif rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.6[67]\.'; then[0m
+2026-10-09T18:17:54.7246290Z [36;1m    touch "/Users/runner/work/_temp"/.implicit_cargo_registries_crates_io_protocol || true[0m
+2026-10-09T18:17:54.7246780Z [36;1m    echo CARGO_REGISTRIES_CRATES_IO_PROTOCOL=git >> $GITHUB_ENV[0m
+2026-10-09T18:17:54.7247120Z [36;1m  fi[0m
+2026-10-09T18:17:54.7247310Z [36;1mfi[0m
+2026-10-09T18:17:54.7280910Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:54.7281220Z env:
+2026-10-09T18:17:54.7281440Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:54.7281640Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:54.7281830Z   CARGO_HOME: /Users/runner/.cargo
+2026-10-09T18:17:54.7282040Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:17:54.7282230Z   toolchain: stable
+2026-10-09T18:17:54.7282420Z ##[endgroup]
+2026-10-09T18:17:54.8321430Z ##[end-action id=__dtolnay_rust-toolchain.__run_8;outcome=success;conclusion=success;duration_ms=110]
+2026-10-09T18:17:54.8324690Z ##[start-action display=Work around spurious network errors in curl 8.0;id=__dtolnay_rust-toolchain.__run_9]
+2026-10-09T18:17:54.8361030Z ##[group]Run # https://rust-lang.zulipchat.com/#narrow/stream/246057-t-cargo/topic/timeout.20investigation
+2026-10-09T18:17:54.8362410Z [36;1m# https://rust-lang.zulipchat.com/#narrow/stream/246057-t-cargo/topic/timeout.20investigation[0m
+2026-10-09T18:17:54.8364100Z [36;1mif rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.7[01]\.'; then[0m
+2026-10-09T18:17:54.8365180Z [36;1m  echo CARGO_HTTP_MULTIPLEXING=false >> $GITHUB_ENV[0m
+2026-10-09T18:17:54.8365950Z [36;1mfi[0m
+2026-10-09T18:17:54.8405270Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:54.8405590Z env:
+2026-10-09T18:17:54.8405780Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:54.8405970Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:54.8406210Z   CARGO_HOME: /Users/runner/.cargo
+2026-10-09T18:17:54.8406430Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:17:54.8406630Z   toolchain: stable
+2026-10-09T18:17:54.8406800Z ##[endgroup]
+2026-10-09T18:17:54.9416590Z ##[end-action id=__dtolnay_rust-toolchain.__run_9;outcome=success;conclusion=success;duration_ms=108]
+2026-10-09T18:17:54.9422580Z ##[start-action display=rustc +stable --version --verbose;id=__dtolnay_rust-toolchain.__run_10]
+2026-10-09T18:17:54.9463450Z ##[group]Run rustc +"$toolchain" --version --verbose
+2026-10-09T18:17:54.9463800Z [36;1mrustc +"$toolchain" --version --verbose[0m
+2026-10-09T18:17:54.9501470Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:17:54.9501800Z env:
+2026-10-09T18:17:54.9501940Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:54.9502140Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:54.9502310Z   CARGO_HOME: /Users/runner/.cargo
+2026-10-09T18:17:54.9502510Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:17:54.9502660Z   toolchain: stable
+2026-10-09T18:17:54.9503110Z ##[endgroup]
+2026-10-09T18:17:55.0215570Z rustc 1.99.0 (b940084d7 2026-09-28)
+2026-10-09T18:17:55.0216290Z binary: rustc
+2026-10-09T18:17:55.0216860Z commit-hash: b940084d7eb6a299eb4bfeb8e34901bc051e7ac4
+2026-10-09T18:17:55.0217530Z commit-date: 2026-09-28
+2026-10-09T18:17:55.0218030Z host: aarch64-apple-darwin
+2026-10-09T18:17:55.0218790Z release: 1.99.0
+2026-10-09T18:17:55.0219240Z LLVM version: 23.1.1
+2026-10-09T18:17:55.0243300Z ##[end-action id=__dtolnay_rust-toolchain.__run_10;outcome=success;conclusion=success;duration_ms=81]
+2026-10-09T18:17:55.0358670Z ##[group]Run Swatinem/rust-cache@v2
+2026-10-09T18:17:55.0358920Z with:
+2026-10-09T18:17:55.0359170Z   prefix-key: v0-rust
+2026-10-09T18:17:55.0359450Z   add-job-id-key: true
+2026-10-09T18:17:55.0359720Z   add-rust-environment-hash-key: true
+2026-10-09T18:17:55.0360000Z   cache-targets: true
+2026-10-09T18:17:55.0360250Z   cache-all-crates: false
+2026-10-09T18:17:55.0360510Z   cache-workspace-crates: false
+2026-10-09T18:17:55.0360770Z   save-if: true
+2026-10-09T18:17:55.0360960Z   cache-provider: github
+2026-10-09T18:17:55.0361220Z   cache-bin: true
+2026-10-09T18:17:55.0361410Z   lookup-only: false
+2026-10-09T18:17:55.0361640Z   cmd-format: {0}
+2026-10-09T18:17:55.0361800Z env:
+2026-10-09T18:17:55.0361960Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:55.0362210Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:55.0362410Z   CARGO_HOME: /Users/runner/.cargo
+2026-10-09T18:17:55.0362680Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:17:55.0362890Z ##[endgroup]
+2026-10-09T18:17:55.6464090Z ##[group]Cache Configuration
+2026-10-09T18:17:55.6464910Z Cache Provider:
+2026-10-09T18:17:55.6465440Z     github
+2026-10-09T18:17:55.6465890Z Workspaces:
+2026-10-09T18:17:55.6466440Z     /Users/runner/work/rustwright/rustwright
+2026-10-09T18:17:55.6467060Z Cache Paths:
+2026-10-09T18:17:55.6467510Z     /Users/runner/.cargo/bin
+2026-10-09T18:17:55.6468230Z     /Users/runner/.cargo/.crates.toml
+2026-10-09T18:17:55.6468830Z     /Users/runner/.cargo/.crates2.json
+2026-10-09T18:17:55.6469450Z     /Users/runner/.cargo/registry
+2026-10-09T18:17:55.6469990Z     /Users/runner/.cargo/git
+2026-10-09T18:17:55.6470630Z     /Users/runner/work/rustwright/rustwright/target
+2026-10-09T18:17:55.6471430Z Restore Key:
+2026-10-09T18:17:55.6471750Z     v0-rust-browser-compat-Darwin-arm64-22602039
+2026-10-09T18:17:55.6472300Z Cache Key:
+2026-10-09T18:17:55.6472570Z     v0-rust-browser-compat-Darwin-arm64-22602039-ed23558d
+2026-10-09T18:17:55.6472840Z .. Prefix:
+2026-10-09T18:17:55.6473090Z   - v0-rust-browser-compat-Darwin-arm64
+2026-10-09T18:17:55.6473430Z .. Environment considered:
+2026-10-09T18:17:55.6473650Z   - Rust Versions:
+2026-10-09T18:17:55.6474000Z     - 1.99.0 aarch64-apple-darwin b940084d7eb6a299eb4bfeb8e34901bc051e7ac4
+2026-10-09T18:17:55.6474360Z   - CARGO_HOME
+2026-10-09T18:17:55.6485830Z   - CARGO_INCREMENTAL
+2026-10-09T18:17:55.6486050Z   - CARGO_TERM_COLOR
+2026-10-09T18:17:55.6486240Z   - RUST_BACKTRACE
+2026-10-09T18:17:55.6486470Z .. Lockfiles considered:
+2026-10-09T18:17:55.6486710Z   - /Users/runner/work/rustwright/rustwright/Cargo.lock
+2026-10-09T18:17:55.6487150Z   - /Users/runner/work/rustwright/rustwright/crates/rustwright-bidi/Cargo.toml
+2026-10-09T18:17:55.6487780Z   - /Users/runner/work/rustwright/rustwright/crates/rustwright-browser/Cargo.toml
+2026-10-09T18:17:55.6488230Z   - /Users/runner/work/rustwright/rustwright/crates/rustwright-cdp/Cargo.toml
+2026-10-09T18:17:55.6490020Z   - /Users/runner/work/rustwright/rustwright/crates/rustwright-common/Cargo.toml
+2026-10-09T18:17:55.6490470Z   - /Users/runner/work/rustwright/rustwright/crates/rustwright-core/Cargo.toml
+2026-10-09T18:17:55.6490930Z   - /Users/runner/work/rustwright/rustwright/crates/rustwright-test-macros/Cargo.toml
+2026-10-09T18:17:55.6491420Z   - /Users/runner/work/rustwright/rustwright/crates/rustwright-test/Cargo.toml
+2026-10-09T18:17:55.6491820Z   - /Users/runner/work/rustwright/rustwright/crates/rustwright/Cargo.toml
+2026-10-09T18:17:55.6492350Z   - /Users/runner/work/rustwright/rustwright/docs/ci/results/remote-20261009/followup-local/consumer/.cargo/config.toml
+2026-10-09T18:17:55.6493040Z   - /Users/runner/work/rustwright/rustwright/docs/ci/results/required-browser/release/consumer/.cargo/config.toml
+2026-10-09T18:17:55.6493680Z   - /Users/runner/work/rustwright/rustwright/docs/release/results/local-package/consumer/.cargo/config.toml
+2026-10-09T18:17:55.6494200Z   - /Users/runner/work/rustwright/rustwright/examples/Cargo.toml
+2026-10-09T18:17:55.6494550Z   - /Users/runner/work/rustwright/rustwright/tests/Cargo.toml
+2026-10-09T18:17:55.6495180Z ##[endgroup]
+2026-10-09T18:17:55.6495890Z 
+2026-10-09T18:17:55.6496020Z ... Restoring cache ...
+2026-10-09T18:17:55.7697250Z Cache hit for: v0-rust-browser-compat-Darwin-arm64-22602039-ed23558d
+2026-10-09T18:17:56.2687620Z Received 56827943 of 56827943 (100.0%), 120.2 MBs/sec
+2026-10-09T18:17:56.2693700Z Cache Size: ~54 MB (56827943 B)
+2026-10-09T18:17:56.2758810Z [command]/opt/homebrew/bin/gtar -xf /Users/runner/work/_temp/842f7e4a-ccf4-45bd-86e4-c2f32c7d9e13/cache.tzst -P -C /Users/runner/work/rustwright/rustwright --delay-directory-restore --use-compress-program unzstd
+2026-10-09T18:17:56.8028730Z Cache restored successfully
+2026-10-09T18:17:56.8041250Z Restored from cache key "v0-rust-browser-compat-Darwin-arm64-22602039-ed23558d" full match: true.
+2026-10-09T18:17:56.8160120Z ##[group]Run actions/setup-python@v6
+2026-10-09T18:17:56.8160410Z with:
+2026-10-09T18:17:56.8160580Z   python-version: 3.11
+2026-10-09T18:17:56.8160840Z   check-latest: false
+2026-10-09T18:17:56.8163050Z   token: ***
+2026-10-09T18:17:56.8163210Z   update-environment: true
+2026-10-09T18:17:56.8163430Z   allow-prereleases: false
+2026-10-09T18:17:56.8163620Z   freethreaded: false
+2026-10-09T18:17:56.8163790Z env:
+2026-10-09T18:17:56.8163950Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:56.8164140Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:56.8164370Z   CARGO_HOME: /Users/runner/.cargo
+2026-10-09T18:17:56.8164630Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:17:56.8164820Z   CACHE_ON_FAILURE: false
+2026-10-09T18:17:56.8165010Z ##[endgroup]
+2026-10-09T18:17:56.9510480Z ##[group]Installed versions
+2026-10-09T18:17:56.9610740Z Successfully set up CPython (3.11.9)
+2026-10-09T18:17:56.9612330Z ##[endgroup]
+2026-10-09T18:17:56.9715340Z ##[group]Run browser-actions/setup-chrome@v2
+2026-10-09T18:17:56.9715620Z with:
+2026-10-09T18:17:56.9715810Z   chrome-version: stable
+2026-10-09T18:17:56.9716080Z   install-dependencies: true
+2026-10-09T18:17:56.9716340Z   install-chromedriver: false
+2026-10-09T18:17:56.9716580Z   no-sudo: false
+2026-10-09T18:17:56.9716770Z env:
+2026-10-09T18:17:56.9716930Z   CARGO_TERM_COLOR: always
+2026-10-09T18:17:56.9717150Z   RUST_BACKTRACE: 1
+2026-10-09T18:17:56.9717370Z   CARGO_HOME: /Users/runner/.cargo
+2026-10-09T18:17:56.9717600Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:17:56.9717770Z   CACHE_ON_FAILURE: false
+2026-10-09T18:17:56.9718030Z   pythonLocation: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+2026-10-09T18:17:56.9718460Z   PKG_CONFIG_PATH: /Users/runner/hostedtoolcache/Python/3.11.9/arm64/lib/pkgconfig
+2026-10-09T18:17:56.9718870Z   Python_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+2026-10-09T18:17:56.9719300Z   Python2_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+2026-10-09T18:17:56.9719780Z   Python3_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+2026-10-09T18:17:56.9720440Z ##[endgroup]
+2026-10-09T18:17:57.0633610Z Installing dependencies
+2026-10-09T18:17:57.0668720Z ##[warning]install-dependencies is only supported on Linux, but current platform is darwin
+2026-10-09T18:17:57.0680020Z Setup chrome stable
+2026-10-09T18:17:57.0681100Z Attempting to download chrome stable...
+2026-10-09T18:17:57.1096680Z Acquiring chrome stable from https://storage.googleapis.com/chrome-for-testing-public/155.0.8059.39/mac-arm64/chrome-mac-arm64.zip
+2026-10-09T18:17:58.7239820Z Installing chrome...
+2026-10-09T18:17:58.7360530Z [command]/usr/bin/unzip -o -q /Users/runner/work/_temp/ef0630e8-36ed-4d28-b2f6-c12554c9f32b
+2026-10-09T18:18:04.0576990Z Successfully Installed chrome to /Users/runner/hostedtoolcache/setup-chrome/chrome/stable/arm64
+2026-10-09T18:18:04.0584370Z [command]/Users/runner/hostedtoolcache/setup-chrome/chrome/stable/arm64/Contents/MacOS/Google Chrome for Testing --version
+2026-10-09T18:18:04.3631070Z Google Chrome for Testing 155.0.8059.39 
+2026-10-09T18:18:04.3670780Z Successfully setup chrome 155.0.8059.39
+2026-10-09T18:18:04.3954530Z ##[group]Run browser-actions/setup-firefox@v1
+2026-10-09T18:18:04.3954970Z with:
+2026-10-09T18:18:04.3955190Z   firefox-version: 157.0.1
+2026-10-09T18:18:04.3955570Z env:
+2026-10-09T18:18:04.3955910Z   CARGO_TERM_COLOR: always
+2026-10-09T18:18:04.3956190Z   RUST_BACKTRACE: 1
+2026-10-09T18:18:04.3956500Z   CARGO_HOME: /Users/runner/.cargo
+2026-10-09T18:18:04.3956800Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:18:04.3957130Z   CACHE_ON_FAILURE: false
+2026-10-09T18:18:04.3957510Z   pythonLocation: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+2026-10-09T18:18:04.3958020Z   PKG_CONFIG_PATH: /Users/runner/hostedtoolcache/Python/3.11.9/arm64/lib/pkgconfig
+2026-10-09T18:18:04.3959190Z   Python_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+2026-10-09T18:18:04.3959800Z   Python2_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+2026-10-09T18:18:04.3960720Z   Python3_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+2026-10-09T18:18:04.3961540Z ##[endgroup]
+2026-10-09T18:18:04.5922520Z Setup firefox 157.0.1 (en-US)
+2026-10-09T18:18:04.5928320Z Attempting to download firefox 157.0.1...
+2026-10-09T18:18:04.5929670Z This is the version number:157
+2026-10-09T18:18:04.5930200Z Acquiring 157.0.1 from https://ftp.mozilla.org/pub/firefox/releases/157.0.1/mac/en-US/Firefox%20157.0.1.dmg
+2026-10-09T18:18:05.5713600Z Extracting Firefox...
+2026-10-09T18:18:05.5789660Z [command]/usr/bin/hdiutil attach -quiet -noautofsck -noautoopen -mountpoint /Volumes/b2352076-7637-465c-8737-75cf5c0b57ab /Users/runner/work/_temp/b2352076-7637-465c-8737-75cf5c0b57ab
+2026-10-09T18:18:14.5153230Z Successfully extracted firefox 157.0.1 to /Volumes/b2352076-7637-465c-8737-75cf5c0b57ab/Firefox.app
+2026-10-09T18:18:14.5227080Z Adding to the cache ...
+2026-10-09T18:18:26.0892190Z Successfully cached firefox 157.0.1 to /Users/runner/hostedtoolcache/firefox/157.0.1/arm64
+2026-10-09T18:18:26.0897980Z [command]/Users/runner/hostedtoolcache/firefox/157.0.1/arm64/Contents/MacOS/firefox --version
+2026-10-09T18:18:28.4495480Z Mozilla Firefox 157.0.1
+2026-10-09T18:18:28.4629460Z Successfully setup firefox version 157.0.1
+2026-10-09T18:18:28.5520970Z ##[group]Run python - <<'PY'
+2026-10-09T18:18:28.5521930Z [36;1mpython - <<'PY'[0m
+2026-10-09T18:18:28.5522350Z [36;1mimport hashlib, json, os, pathlib, plistlib, re, subprocess, tempfile[0m
+2026-10-09T18:18:28.5522900Z [36;1mversion = os.environ['CHROME_VERSION'][0m
+2026-10-09T18:18:28.5523480Z [36;1mif not re.fullmatch(r'\d+\.\d+\.\d+\.\d+', version):[0m
+2026-10-09T18:18:28.5524000Z [36;1m    raise ValueError(f'Expected the exact installed Chrome version: {version!r}')[0m
+2026-10-09T18:18:28.5524620Z [36;1mplatform = {'ARM64': 'mac-arm64', 'X64': 'mac-x64'}[os.environ['RUNNER_ARCH']][0m
+2026-10-09T18:18:28.5525570Z [36;1mwork = pathlib.Path(tempfile.mkdtemp(prefix='rustwright-chrome-', dir=os.environ['RUNNER_TEMP']))[0m
+2026-10-09T18:18:28.5526110Z [36;1marchive = work / 'chrome.zip'[0m
+2026-10-09T18:18:28.5586530Z [36;1murl = f'https://storage.googleapis.com/chrome-for-testing-public/{version}/{platform}/chrome-{platform}.zip'[0m
+2026-10-09T18:18:28.5589300Z [36;1msubprocess.run(['curl', '--fail', '--location', '--silent', '--show-error', '--max-time', '120', '--output', str(archive), url], check=True)[0m
+2026-10-09T18:18:28.5591050Z [36;1m# Re-extract the same engine with its original .app and relative links.[0m
+2026-10-09T18:18:28.5592400Z [36;1m# Copying only .app contents into a toolcache breaks sandbox identity.[0m
+2026-10-09T18:18:28.5593820Z [36;1msubprocess.run(['ditto', '-x', '-k', str(archive), str(work)], check=True)[0m
+2026-10-09T18:18:28.5595070Z [36;1mbundle = work / f'chrome-{platform}' / 'Google Chrome for Testing.app'[0m
+2026-10-09T18:18:28.5596310Z [36;1mexecutable = bundle / 'Contents/MacOS/Google Chrome for Testing'[0m
+2026-10-09T18:18:28.5597800Z [36;1mif not executable.is_file():[0m
+2026-10-09T18:18:28.5598600Z [36;1m    raise FileNotFoundError(executable)[0m
+2026-10-09T18:18:28.5601060Z [36;1msignature = subprocess.run(['codesign', '--verify', '--deep', '--strict', str(bundle)], capture_output=True, text=True)[0m
+2026-10-09T18:18:28.5601740Z [36;1mwith (bundle / 'Contents/Info.plist').open('rb') as stream:[0m
+2026-10-09T18:18:28.5602320Z [36;1m    identifier = plistlib.load(stream)['CFBundleIdentifier'][0m
+2026-10-09T18:18:28.5602950Z [36;1mwith archive.open('rb') as stream:[0m
+2026-10-09T18:18:28.5603400Z [36;1m    digest = hashlib.file_digest(stream, 'sha256').hexdigest()[0m
+2026-10-09T18:18:28.5604110Z [36;1mlinks = {str(p.relative_to(bundle)): os.readlink(p) for p in bundle.glob('Contents/Frameworks/*.framework/Versions/Current') if p.is_symlink()}[0m
+2026-10-09T18:18:28.5605740Z [36;1mrecord = {'version': version, 'url': url, 'archive_sha256': digest, 'bundle_identifier': identifier, 'framework_links': links, 'executable': str(executable), 'signature_verification': {'exit_code': signature.returncode, 'stdout': signature.stdout, 'stderr': signature.stderr}}[0m
+2026-10-09T18:18:28.5607040Z [36;1moutput = pathlib.Path('target/ci/chrome-macos-setup.json')[0m
+2026-10-09T18:18:28.5607780Z [36;1moutput.parent.mkdir(parents=True, exist_ok=True)[0m
+2026-10-09T18:18:28.5608340Z [36;1moutput.write_text(json.dumps(record, indent=2) + '\n', encoding='utf-8')[0m
+2026-10-09T18:18:28.5608790Z [36;1mprint(json.dumps(record, indent=2))[0m
+2026-10-09T18:18:28.5609260Z [36;1msubprocess.run([str(executable), '--version'], check=True)[0m
+2026-10-09T18:18:28.5609810Z [36;1mwith open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as stream:[0m
+2026-10-09T18:18:28.5610240Z [36;1m    stream.write(f'chrome-path={executable}\n')[0m
+2026-10-09T18:18:28.5610660Z [36;1mPY[0m
+2026-10-09T18:18:28.8404540Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:18:28.8405510Z env:
+2026-10-09T18:18:28.8406140Z   CARGO_TERM_COLOR: always
+2026-10-09T18:18:28.8406860Z   RUST_BACKTRACE: 1
+2026-10-09T18:18:28.8407560Z   CARGO_HOME: /Users/runner/.cargo
+2026-10-09T18:18:28.8408240Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:18:28.8408930Z   CACHE_ON_FAILURE: false
+2026-10-09T18:18:28.8410560Z   pythonLocation: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+2026-10-09T18:18:28.8411960Z   PKG_CONFIG_PATH: /Users/runner/hostedtoolcache/Python/3.11.9/arm64/lib/pkgconfig
+2026-10-09T18:18:28.8413270Z   Python_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+2026-10-09T18:18:28.8414360Z   Python2_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+2026-10-09T18:18:28.8415520Z   Python3_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+2026-10-09T18:18:28.8416510Z   CHROME_VERSION: 155.0.8059.39
+2026-10-09T18:18:28.8417070Z ##[endgroup]
+2026-10-09T18:18:35.6161070Z Google Chrome for Testing 155.0.8059.39 
+2026-10-09T18:18:35.6174880Z {
+2026-10-09T18:18:35.6194050Z   "version": "155.0.8059.39",
+2026-10-09T18:18:35.6228900Z   "url": "https://storage.googleapis.com/chrome-for-testing-public/155.0.8059.39/mac-arm64/chrome-mac-arm64.zip",
+2026-10-09T18:18:35.6236500Z   "archive_sha256": "529a71bd61aaa2ef266a4d4bd300ae9572ba6a3468a8d55c3023ffeffb5b6b4e",
+2026-10-09T18:18:35.6237250Z   "bundle_identifier": "com.google.chrome.for.testing",
+2026-10-09T18:18:35.6237650Z   "framework_links": {
+2026-10-09T18:18:35.6239600Z     "Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/Current": "155.0.8059.39"
+2026-10-09T18:18:35.6240840Z   },
+2026-10-09T18:18:35.6242650Z   "executable": "/Users/runner/work/_temp/rustwright-chrome-9hrmm9yf/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+2026-10-09T18:18:35.6244400Z   "signature_verification": {
+2026-10-09T18:18:35.6245030Z     "exit_code": 1,
+2026-10-09T18:18:35.6245920Z     "stdout": "",
+2026-10-09T18:18:35.6247680Z     "stderr": "/Users/runner/work/_temp/rustwright-chrome-9hrmm9yf/chrome-mac-arm64/Google Chrome for Testing.app: code has no resources but signature indicates they must be present\n"
+2026-10-09T18:18:35.6249810Z   }
+2026-10-09T18:18:35.6250500Z }
+2026-10-09T18:18:35.6644850Z ##[group]Run echo "Chrome: $CHROME_VERSION"
+2026-10-09T18:18:35.6645340Z [36;1mecho "Chrome: $CHROME_VERSION"[0m
+2026-10-09T18:18:35.6645690Z [36;1mecho "Firefox: $FIREFOX_VERSION"[0m
+2026-10-09T18:18:35.6727730Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T18:18:35.6728120Z env:
+2026-10-09T18:18:35.6728360Z   CARGO_TERM_COLOR: always
+2026-10-09T18:18:35.6728670Z   RUST_BACKTRACE: 1
+2026-10-09T18:18:35.6728930Z   CARGO_HOME: /Users/runner/.cargo
+2026-10-09T18:18:35.6729260Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:18:35.6729610Z   CACHE_ON_FAILURE: false
+2026-10-09T18:18:35.6730070Z   pythonLocation: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+2026-10-09T18:18:35.6730730Z   PKG_CONFIG_PATH: /Users/runner/hostedtoolcache/Python/3.11.9/arm64/lib/pkgconfig
+2026-10-09T18:18:35.6731260Z   Python_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+2026-10-09T18:18:35.6731810Z   Python2_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+2026-10-09T18:18:35.6732540Z   Python3_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+2026-10-09T18:18:35.6733180Z   CHROME_VERSION: 155.0.8059.39
+2026-10-09T18:18:35.6733480Z   FIREFOX_VERSION: 157.0.1
+2026-10-09T18:18:35.6733860Z ##[endgroup]
+2026-10-09T18:18:35.8295340Z Chrome: 155.0.8059.39
+2026-10-09T18:18:35.8397420Z Firefox: 157.0.1
+2026-10-09T18:18:35.8611160Z ##[group]Run python scripts/ci/browser_checks.py --suite portable
+2026-10-09T18:18:35.8612560Z [36;1mpython scripts/ci/browser_checks.py --suite portable[0m
+2026-10-09T18:18:35.8722380Z shell: /bin/bash -e {0}
+2026-10-09T18:18:35.8723730Z env:
+2026-10-09T18:18:35.8725050Z   CARGO_TERM_COLOR: always
+2026-10-09T18:18:35.8726670Z   RUST_BACKTRACE: 1
+2026-10-09T18:18:35.8727550Z   CARGO_HOME: /Users/runner/.cargo
+2026-10-09T18:18:35.8728430Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:18:35.8729300Z   CACHE_ON_FAILURE: false
+2026-10-09T18:18:35.8730290Z   pythonLocation: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+2026-10-09T18:18:35.8731890Z   PKG_CONFIG_PATH: /Users/runner/hostedtoolcache/Python/3.11.9/arm64/lib/pkgconfig
+2026-10-09T18:18:35.8733060Z   Python_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+2026-10-09T18:18:35.8735390Z   Python2_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+2026-10-09T18:18:35.8737080Z   Python3_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+2026-10-09T18:18:35.8739550Z   RUSTWRIGHT_CHROME: /Users/runner/work/_temp/rustwright-chrome-9hrmm9yf/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing
+2026-10-09T18:18:35.8741310Z   RUSTWRIGHT_FIREFOX: /Users/runner/hostedtoolcache/firefox/157.0.1/arm64/Contents/MacOS/firefox
+2026-10-09T18:18:35.8742100Z ##[endgroup]
+2026-10-09T18:18:36.2678800Z Running http_compat; log: /Users/runner/work/rustwright/rustwright/target/ci/portable/http_compat.log
+2026-10-09T18:20:15.5171170Z Running http_actionability; log: /Users/runner/work/rustwright/rustwright/target/ci/portable/http_actionability.log
+2026-10-09T18:21:05.4220850Z Running http_clipped_control; log: /Users/runner/work/rustwright/rustwright/target/ci/portable/http_clipped_control.log
+2026-10-09T18:21:40.8349370Z Running http_bidi_navigation; log: /Users/runner/work/rustwright/rustwright/target/ci/portable/http_bidi_navigation.log
+2026-10-09T18:22:05.2111450Z Native HTTP portable: 53 passed, no skips
+2026-10-09T18:22:05.2870730Z ##[group]Run actions/upload-artifact@v4
+2026-10-09T18:22:05.2871220Z with:
+2026-10-09T18:22:05.2872120Z   name: native-http-macos-latest
+2026-10-09T18:22:05.2872430Z   path: target/ci/
+2026-10-09T18:22:05.2872910Z   if-no-files-found: error
+2026-10-09T18:22:05.2873330Z   compression-level: 6
+2026-10-09T18:22:05.2873630Z   overwrite: false
+2026-10-09T18:22:05.2874000Z   include-hidden-files: false
+2026-10-09T18:22:05.2874290Z env:
+2026-10-09T18:22:05.2874610Z   CARGO_TERM_COLOR: always
+2026-10-09T18:22:05.2874920Z   RUST_BACKTRACE: 1
+2026-10-09T18:22:05.2875310Z   CARGO_HOME: /Users/runner/.cargo
+2026-10-09T18:22:05.2875940Z   CARGO_INCREMENTAL: 0
+2026-10-09T18:22:05.2876670Z   CACHE_ON_FAILURE: false
+2026-10-09T18:22:05.2877070Z   pythonLocation: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+2026-10-09T18:22:05.2877610Z   PKG_CONFIG_PATH: /Users/runner/hostedtoolcache/Python/3.11.9/arm64/lib/pkgconfig
+2026-10-09T18:22:05.2878680Z   Python_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+2026-10-09T18:22:05.2879220Z   Python2_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+2026-10-09T18:22:05.2880240Z   Python3_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+2026-10-09T18:22:05.2880580Z ##[endgroup]
+2026-10-09T18:22:05.8006080Z (node:8789) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-09T18:22:05.8006980Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-09T18:22:05.8252320Z With the provided path, there will be 6 files uploaded
+2026-10-09T18:22:05.8254330Z Artifact name is valid!
+2026-10-09T18:22:05.8263390Z Root directory input is valid!
+2026-10-09T18:22:06.0665000Z Beginning upload of artifact content to blob storage
+2026-10-09T18:22:06.0955420Z (node:8789) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-09T18:22:06.1362370Z Uploaded bytes 6770
+2026-10-09T18:22:06.1535780Z Finished uploading artifact content to blob storage!
+2026-10-09T18:22:06.1537680Z SHA256 digest of uploaded artifact zip is f8298f1e6d7a464f6ba4c8e074a686c757e48ac6265637df42f3bc58c01daae0
+2026-10-09T18:22:06.1539150Z Finalizing artifact upload
+2026-10-09T18:22:06.3838500Z Artifact native-http-macos-latest.zip successfully finalized. Artifact ID 11636532440
+2026-10-09T18:22:06.3839710Z Artifact native-http-macos-latest has been successfully uploaded! Final size is 6770 bytes. Artifact ID is 11636532440
+2026-10-09T18:22:06.3840710Z Artifact download URL: https://github.com/rsasaki0109/rustwright/actions/runs/37972198887/artifacts/11636532440
+2026-10-09T18:22:06.3952540Z Post job cleanup.
+2026-10-09T18:22:06.5625930Z Post job cleanup.
+2026-10-09T18:22:06.7552720Z Cache up-to-date.
+2026-10-09T18:22:06.7725370Z Post job cleanup.
+2026-10-09T18:22:06.9264390Z [command]/opt/homebrew/bin/git version
+2026-10-09T18:22:06.9670300Z git version 2.55.0
+2026-10-09T18:22:06.9686360Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/472d47f8-0b0d-4f54-a4be-dbba2ae33a2a/.gitconfig'
+2026-10-09T18:22:06.9695590Z Temporarily overriding HOME='/Users/runner/work/_temp/472d47f8-0b0d-4f54-a4be-dbba2ae33a2a' before making global git config changes
+2026-10-09T18:22:06.9696870Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-09T18:22:06.9700460Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/rustwright/rustwright
+2026-10-09T18:22:06.9868200Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-09T18:22:06.9947440Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-09T18:22:07.1162590Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-09T18:22:07.1244880Z http.https://github.com/.extraheader
+2026-10-09T18:22:07.1252960Z [command]/opt/homebrew/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-09T18:22:07.1339660Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-09T18:22:07.2301200Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-09T18:22:07.2479990Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-09T18:22:07.5202810Z Cleaning up orphan processes
+2026-10-09T18:22:10.9740040Z Terminate orphan process: pid (2720) (diskimages-help)
+2026-10-09T18:22:11.1109420Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

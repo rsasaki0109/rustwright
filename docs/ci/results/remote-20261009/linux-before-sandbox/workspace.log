@@ -1,0 +1,1587 @@
+﻿2026-10-09T16:09:46.1252811Z Current runner version: '2.337.0'
+2026-10-09T16:09:46.1285901Z ##[group]Runner Image Provisioner
+2026-10-09T16:09:46.1287282Z Hosted Compute Agent
+2026-10-09T16:09:46.1288115Z Version: 20261002.596
+2026-10-09T16:09:46.1288993Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
+2026-10-09T16:09:46.1289958Z Build Date: 2026-10-02T22:28:27Z
+2026-10-09T16:09:46.1290911Z Worker ID: {2e551586-540b-4e36-9a6f-a1a41e0067ef}
+2026-10-09T16:09:46.1291913Z Region: northcentralus
+2026-10-09T16:09:46.1292709Z Cloud: Azure
+2026-10-09T16:09:46.1293599Z ##[endgroup]
+2026-10-09T16:09:46.1295631Z ##[group]Operating System
+2026-10-09T16:09:46.1296512Z Ubuntu
+2026-10-09T16:09:46.1297331Z 24.04.5
+2026-10-09T16:09:46.1298053Z LTS
+2026-10-09T16:09:46.1298714Z ##[endgroup]
+2026-10-09T16:09:46.1299514Z ##[group]Runner Image
+2026-10-09T16:09:46.1300346Z Image: ubuntu-24.04
+2026-10-09T16:09:46.1301116Z Version: 20261004.327.1
+2026-10-09T16:09:46.1302870Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-09T16:09:46.1305313Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327
+2026-10-09T16:09:46.1306591Z ##[endgroup]
+2026-10-09T16:09:46.1308088Z ##[group]GITHUB_TOKEN Permissions
+2026-10-09T16:09:46.1310918Z Contents: read
+2026-10-09T16:09:46.1311547Z Metadata: read
+2026-10-09T16:09:46.1312089Z ##[endgroup]
+2026-10-09T16:09:46.1314398Z Secret source: Actions
+2026-10-09T16:09:46.1315390Z Cache mode: write
+2026-10-09T16:09:46.1316289Z Prepare workflow directory
+2026-10-09T16:09:46.1761820Z Prepare all required actions
+2026-10-09T16:09:46.1831651Z Getting action download info
+2026-10-09T16:09:46.4478031Z Download action repository 'actions/checkout@v5' (SHA:fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09)
+2026-10-09T16:09:46.5483750Z Download action repository 'dtolnay/rust-toolchain@stable' (SHA:686976e191b89faba57d3206551f0f330d8cb249)
+2026-10-09T16:09:46.7129893Z Download action repository 'Swatinem/rust-cache@v2' (SHA:6323deb102c322ba6fcbdcafc7e3dddab59af2b6)
+2026-10-09T16:09:47.2014268Z Download action repository 'browser-actions/setup-chrome@v2' (SHA:48ad923757ca74d66703209fe939badbdf80f2f4)
+2026-10-09T16:09:47.4694428Z Download action repository 'browser-actions/setup-firefox@v1' (SHA:0bc507ddf224827e3b1af68e014d5e42ab93e795)
+2026-10-09T16:09:47.8467700Z Complete job name: fmt / clippy / test
+2026-10-09T16:09:47.9300356Z ##[group]Run actions/checkout@v5
+2026-10-09T16:09:47.9301324Z with:
+2026-10-09T16:09:47.9301932Z   repository: rsasaki0109/rustwright
+2026-10-09T16:09:47.9308947Z   token: ***
+2026-10-09T16:09:47.9309547Z   ssh-strict: true
+2026-10-09T16:09:47.9310145Z   ssh-user: git
+2026-10-09T16:09:47.9310744Z   persist-credentials: true
+2026-10-09T16:09:47.9311387Z   clean: true
+2026-10-09T16:09:47.9311997Z   sparse-checkout-cone-mode: true
+2026-10-09T16:09:47.9312719Z   fetch-depth: 1
+2026-10-09T16:09:47.9313386Z   fetch-tags: false
+2026-10-09T16:09:47.9314054Z   show-progress: true
+2026-10-09T16:09:47.9314664Z   lfs: false
+2026-10-09T16:09:47.9315245Z   submodules: false
+2026-10-09T16:09:47.9315859Z   set-safe-directory: true
+2026-10-09T16:09:47.9316527Z   allow-unsafe-pr-checkout: false
+2026-10-09T16:09:47.9317470Z env:
+2026-10-09T16:09:47.9317991Z   CARGO_TERM_COLOR: always
+2026-10-09T16:09:47.9318629Z   RUST_BACKTRACE: 1
+2026-10-09T16:09:47.9319212Z ##[endgroup]
+2026-10-09T16:09:48.0380887Z Syncing repository: rsasaki0109/rustwright
+2026-10-09T16:09:48.0383696Z ##[group]Getting Git version info
+2026-10-09T16:09:48.0384778Z Working directory is '/home/runner/work/rustwright/rustwright'
+2026-10-09T16:09:48.0386246Z [command]/usr/bin/git version
+2026-10-09T16:09:48.0436852Z git version 2.55.0
+2026-10-09T16:09:48.0466033Z ##[endgroup]
+2026-10-09T16:09:48.0480863Z Temporarily overriding HOME='/home/runner/work/_temp/416b4588-86da-4bfd-a2f2-3f362ff9ab69' before making global git config changes
+2026-10-09T16:09:48.0484732Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-09T16:09:48.0488109Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/rustwright/rustwright
+2026-10-09T16:09:48.0545230Z Deleting the contents of '/home/runner/work/rustwright/rustwright'
+2026-10-09T16:09:48.0550116Z ##[group]Initializing the repository
+2026-10-09T16:09:48.0554405Z [command]/usr/bin/git init /home/runner/work/rustwright/rustwright
+2026-10-09T16:09:48.0663652Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-09T16:09:48.0666506Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-09T16:09:48.0668544Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-09T16:09:48.0670027Z hint: call:
+2026-10-09T16:09:48.0670773Z hint:
+2026-10-09T16:09:48.0671787Z hint: 	git config --global init.defaultBranch <name>
+2026-10-09T16:09:48.0673067Z hint:
+2026-10-09T16:09:48.0674373Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-09T16:09:48.0676273Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-09T16:09:48.0678321Z hint:
+2026-10-09T16:09:48.0678924Z hint: 	git branch -m <name>
+2026-10-09T16:09:48.0679570Z hint:
+2026-10-09T16:09:48.0680444Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-09T16:09:48.0681955Z Initialized empty Git repository in /home/runner/work/rustwright/rustwright/.git/
+2026-10-09T16:09:48.0685559Z [command]/usr/bin/git remote add origin https://github.com/rsasaki0109/rustwright
+2026-10-09T16:09:48.0760011Z ##[endgroup]
+2026-10-09T16:09:48.0761497Z ##[group]Disabling automatic garbage collection
+2026-10-09T16:09:48.0764782Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-09T16:09:48.0808129Z ##[endgroup]
+2026-10-09T16:09:48.0809203Z ##[group]Setting up auth
+2026-10-09T16:09:48.0816879Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-09T16:09:48.0850704Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-09T16:09:48.1205895Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-09T16:09:48.1250188Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-09T16:09:48.1452913Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-09T16:09:48.1488706Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-09T16:09:48.1689228Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-09T16:09:48.1731582Z ##[endgroup]
+2026-10-09T16:09:48.1733425Z ##[group]Fetching the repository
+2026-10-09T16:09:48.1743961Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +dd07b64ac2141a71f90457b67e0022aa339f4eee:refs/remotes/pull/1/merge
+2026-10-09T16:09:49.2369894Z From https://github.com/rsasaki0109/rustwright
+2026-10-09T16:09:49.2372074Z  * [new ref]         dd07b64ac2141a71f90457b67e0022aa339f4eee -> pull/1/merge
+2026-10-09T16:09:49.2376985Z ##[endgroup]
+2026-10-09T16:09:49.2378915Z ##[group]Determining the checkout info
+2026-10-09T16:09:49.2380698Z ##[endgroup]
+2026-10-09T16:09:49.2391647Z [command]/usr/bin/git sparse-checkout disable
+2026-10-09T16:09:49.2443636Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-09T16:09:49.2476088Z ##[group]Checking out the ref
+2026-10-09T16:09:49.2478910Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/1/merge
+2026-10-09T16:09:49.3266771Z Note: switching to 'refs/remotes/pull/1/merge'.
+2026-10-09T16:09:49.3268067Z 
+2026-10-09T16:09:49.3269028Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-10-09T16:09:49.3271861Z changes and commit them, and you can discard any commits you make in this
+2026-10-09T16:09:49.3274330Z state without impacting any branches by switching back to a branch.
+2026-10-09T16:09:49.3275222Z 
+2026-10-09T16:09:49.3276131Z If you want to create a new branch to retain commits you create, you may
+2026-10-09T16:09:49.3277628Z do so (now or later) by using -c with the switch command. Example:
+2026-10-09T16:09:49.3278658Z 
+2026-10-09T16:09:49.3279249Z   git switch -c <new-branch-name>
+2026-10-09T16:09:49.3279902Z 
+2026-10-09T16:09:49.3280389Z Or undo this operation with:
+2026-10-09T16:09:49.3281061Z 
+2026-10-09T16:09:49.3281502Z   git switch -
+2026-10-09T16:09:49.3282095Z 
+2026-10-09T16:09:49.3282911Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-10-09T16:09:49.3284289Z 
+2026-10-09T16:09:49.3285515Z HEAD is now at dd07b64 Merge b8710c968bf0d4f5efbc27843f80fc876aa812d1 into 91e72af388d000266c9b4e7567a3e1fe4007fc33
+2026-10-09T16:09:49.3289861Z ##[endgroup]
+2026-10-09T16:09:49.3322055Z [command]/usr/bin/git log -1 --format=%H
+2026-10-09T16:09:49.3345882Z dd07b64ac2141a71f90457b67e0022aa339f4eee
+2026-10-09T16:09:49.3889158Z ##[group]Run dtolnay/rust-toolchain@stable
+2026-10-09T16:09:49.3890295Z with:
+2026-10-09T16:09:49.3891211Z   components: rustfmt, clippy
+2026-10-09T16:09:49.3892231Z   toolchain: stable
+2026-10-09T16:09:49.3893300Z env:
+2026-10-09T16:09:49.3894142Z   CARGO_TERM_COLOR: always
+2026-10-09T16:09:49.3895069Z   RUST_BACKTRACE: 1
+2026-10-09T16:09:49.3895998Z ##[endgroup]
+2026-10-09T16:09:49.3988335Z ##[start-action display=Parse toolchain version;id=__dtolnay_rust-toolchain.parse]
+2026-10-09T16:09:49.4099105Z ##[group]Run if [[ -z $toolchain ]]; then
+2026-10-09T16:09:49.4100465Z [36;1mif [[ -z $toolchain ]]; then[0m
+2026-10-09T16:09:49.4102081Z [36;1m  # GitHub does not enforce `required: true` inputs itself. https://github.com/actions/runner/issues/1070[0m
+2026-10-09T16:09:49.4104248Z [36;1m  echo "'toolchain' is a required input" >&2[0m
+2026-10-09T16:09:49.4105391Z [36;1m  exit 1[0m
+2026-10-09T16:09:49.4106735Z [36;1melif [[ $toolchain =~ ^stable' '[0-9]+' '(year|month|week|day)s?' 'ago$ ]]; then[0m
+2026-10-09T16:09:49.4108103Z [36;1m  if [[ Linux == macOS ]]; then[0m
+2026-10-09T16:09:49.4109766Z [36;1m    echo "toolchain=1.$((($(date -v-$(sed 's/stable \([0-9]*\) \(.\).*/\1\2/' <<< $toolchain) +%s)/60/60/24-16569)/7/6))" >> $GITHUB_OUTPUT[0m
+2026-10-09T16:09:49.4111423Z [36;1m  else[0m
+2026-10-09T16:09:49.4112778Z [36;1m    echo "toolchain=1.$((($(date --date "${toolchain#stable }" +%s)/60/60/24-16569)/7/6))" >> $GITHUB_OUTPUT[0m
+2026-10-09T16:09:49.4114601Z [36;1m  fi[0m
+2026-10-09T16:09:49.4115714Z [36;1melif [[ $toolchain =~ ^stable' 'minus' '[0-9]+' 'releases?$ ]]; then[0m
+2026-10-09T16:09:49.4117425Z [36;1m  echo "toolchain=1.$((($(date +%s)/60/60/24-16569)/7/6-${toolchain//[^0-9]/}))" >> $GITHUB_OUTPUT[0m
+2026-10-09T16:09:49.4118947Z [36;1melif [[ $toolchain =~ ^1\.[0-9]+$ ]]; then[0m
+2026-10-09T16:09:49.4120627Z [36;1m  echo "toolchain=1.$((i=${toolchain#1.}, c=($(date +%s)/60/60/24-16569)/7/6, i+9*i*(10*i<=c)+90*i*(100*i<=c)))" >> $GITHUB_OUTPUT[0m
+2026-10-09T16:09:49.4122265Z [36;1melse[0m
+2026-10-09T16:09:49.4123312Z [36;1m  delimiter=EOF[0m
+2026-10-09T16:09:49.4124497Z [36;1m  while [[ $toolchain == *$delimiter* ]]; do delimiter+=_; done[0m
+2026-10-09T16:09:49.4126159Z [36;1m  printf 'toolchain<<%s\n%s\n%s\n' "$delimiter" "$toolchain" "$delimiter" >> $GITHUB_OUTPUT[0m
+2026-10-09T16:09:49.4127563Z [36;1mfi[0m
+2026-10-09T16:09:49.4327161Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T16:09:49.4328392Z env:
+2026-10-09T16:09:49.4329382Z   CARGO_TERM_COLOR: always
+2026-10-09T16:09:49.4330330Z   RUST_BACKTRACE: 1
+2026-10-09T16:09:49.4331313Z   toolchain: stable
+2026-10-09T16:09:49.4332207Z ##[endgroup]
+2026-10-09T16:09:49.4485535Z ##[end-action id=__dtolnay_rust-toolchain.parse;outcome=success;conclusion=success;duration_ms=49]
+2026-10-09T16:09:49.4494940Z ##[start-action display=Set $CARGO_HOME;id=__dtolnay_rust-toolchain.__run]
+2026-10-09T16:09:49.4562755Z ##[group]Run echo CARGO_HOME=${CARGO_HOME:-"$HOME/.cargo"} >> $GITHUB_ENV
+2026-10-09T16:09:49.4564569Z [36;1mecho CARGO_HOME=${CARGO_HOME:-"$HOME/.cargo"} >> $GITHUB_ENV[0m
+2026-10-09T16:09:49.4612051Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T16:09:49.4613599Z env:
+2026-10-09T16:09:49.4614435Z   CARGO_TERM_COLOR: always
+2026-10-09T16:09:49.4615406Z   RUST_BACKTRACE: 1
+2026-10-09T16:09:49.4616274Z ##[endgroup]
+2026-10-09T16:09:49.4711697Z ##[end-action id=__dtolnay_rust-toolchain.__run;outcome=success;conclusion=success;duration_ms=21]
+2026-10-09T16:09:49.4719902Z ##[start-action display=Install rustup if needed;id=__dtolnay_rust-toolchain.__run_2]
+2026-10-09T16:09:49.4828860Z ##[group]Run if ! command -v rustup &>/dev/null; then
+2026-10-09T16:09:49.4830111Z [36;1mif ! command -v rustup &>/dev/null; then[0m
+2026-10-09T16:09:49.4832353Z [36;1m  curl --proto '=https' --tlsv1.2 --retry 10 --retry-connrefused --location --silent --show-error --fail https://sh.rustup.rs | sh -s -- --default-toolchain none -y[0m
+2026-10-09T16:09:49.4834870Z [36;1m  echo "$CARGO_HOME/bin" >> $GITHUB_PATH[0m
+2026-10-09T16:09:49.4836032Z [36;1mfi[0m
+2026-10-09T16:09:49.4885813Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T16:09:49.4887114Z env:
+2026-10-09T16:09:49.4887999Z   CARGO_TERM_COLOR: always
+2026-10-09T16:09:49.4889034Z   RUST_BACKTRACE: 1
+2026-10-09T16:09:49.4889999Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T16:09:49.4890965Z ##[endgroup]
+2026-10-09T16:09:49.4982438Z ##[end-action id=__dtolnay_rust-toolchain.__run_2;outcome=success;conclusion=success;duration_ms=26]
+2026-10-09T16:09:49.4989118Z ##[start-action display=Install rustup if needed on windows;id=__dtolnay_rust-toolchain.__run_3]
+2026-10-09T16:09:49.5005640Z ##[end-action id=__dtolnay_rust-toolchain.__run_3;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-09T16:09:49.5025719Z ##[start-action display=rustup toolchain install stable;id=__dtolnay_rust-toolchain.__run_4]
+2026-10-09T16:09:49.5078552Z ##[group]Run set -f  # split targets and components on commas and whitespace, without glob expansion
+2026-10-09T16:09:49.5080525Z [36;1mset -f  # split targets and components on commas and whitespace, without glob expansion[0m
+2026-10-09T16:09:49.5081984Z [36;1mflags=()[0m
+2026-10-09T16:09:49.5082993Z [36;1mfor t in ${targets//,/ }; do flags+=(--target "$t"); done[0m
+2026-10-09T16:09:49.5084521Z [36;1mfor c in ${components//,/ }; do flags+=(--component "$c"); done[0m
+2026-10-09T16:09:49.5086158Z [36;1mif [[ $toolchain == nightly && -n $components ]]; then flags+=(--allow-downgrade); fi[0m
+2026-10-09T16:09:49.5087530Z [36;1mlog=$(mktemp)[0m
+2026-10-09T16:09:49.5088511Z [36;1mtrap 'rm -f "$log"' EXIT[0m
+2026-10-09T16:09:49.5089497Z [36;1mfor attempt in 1 2 3 4 5; do[0m
+2026-10-09T16:09:49.5091249Z [36;1m  if rustup toolchain install "$toolchain" "${flags[@]}" --profile minimal --no-self-update --force-non-host 2>&1 | tee "$log"; then[0m
+2026-10-09T16:09:49.5093047Z [36;1m    break[0m
+2026-10-09T16:09:49.5094062Z [36;1m  else[0m
+2026-10-09T16:09:49.5094944Z [36;1m    status=$?[0m
+2026-10-09T16:09:49.5095803Z [36;1m  fi[0m
+2026-10-09T16:09:49.5096890Z [36;1m  if [[ $attempt == 5 ]] || ! grep -Fq 'checksum failed for ' "$log" \[0m
+2026-10-09T16:09:49.5098591Z [36;1m      || ! grep -Fq 'this is likely due to an ongoing update of the official release server' "$log"; then[0m
+2026-10-09T16:09:49.5100075Z [36;1m    exit "$status"[0m
+2026-10-09T16:09:49.5101035Z [36;1m  fi[0m
+2026-10-09T16:09:49.5102242Z [36;1m  echo "Retrying rustup toolchain install in 30 seconds (retry $attempt of 4)" >&2[0m
+2026-10-09T16:09:49.5103751Z [36;1m  sleep 30[0m
+2026-10-09T16:09:49.5104642Z [36;1mdone[0m
+2026-10-09T16:09:49.5152687Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T16:09:49.5153926Z env:
+2026-10-09T16:09:49.5154777Z   CARGO_TERM_COLOR: always
+2026-10-09T16:09:49.5155875Z   RUST_BACKTRACE: 1
+2026-10-09T16:09:49.5156770Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T16:09:49.5157745Z   toolchain: stable
+2026-10-09T16:09:49.5158615Z   targets: 
+2026-10-09T16:09:49.5159431Z   components: rustfmt, clippy
+2026-10-09T16:09:49.5160444Z   RUSTUP_PERMIT_COPY_RENAME: 1
+2026-10-09T16:09:49.5161764Z ##[endgroup]
+2026-10-09T16:09:49.7749450Z info: syncing channel updates for stable-x86_64-unknown-linux-gnu
+2026-10-09T16:09:49.9110711Z info: latest update on 2026-10-01 for version 1.99.0 (b940084d7 2026-09-28)
+2026-10-09T16:09:49.9327824Z info: component clippy is up to date
+2026-10-09T16:09:49.9328706Z info: component rustfmt is up to date
+2026-10-09T16:09:49.9335986Z 
+2026-10-09T16:09:49.9420869Z   stable-x86_64-unknown-linux-gnu unchanged - rustc 1.99.0 (b940084d7 2026-09-28)
+2026-10-09T16:09:49.9421446Z 
+2026-10-09T16:09:49.9461131Z ##[end-action id=__dtolnay_rust-toolchain.__run_4;outcome=success;conclusion=success;duration_ms=443]
+2026-10-09T16:09:49.9468271Z ##[start-action display=rustup default stable;id=__dtolnay_rust-toolchain.__run_5]
+2026-10-09T16:09:49.9502191Z ##[group]Run rustup default "$toolchain" --force-non-host
+2026-10-09T16:09:49.9502888Z [36;1mrustup default "$toolchain" --force-non-host[0m
+2026-10-09T16:09:49.9552562Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T16:09:49.9553065Z env:
+2026-10-09T16:09:49.9553581Z   CARGO_TERM_COLOR: always
+2026-10-09T16:09:49.9553969Z   RUST_BACKTRACE: 1
+2026-10-09T16:09:49.9554351Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T16:09:49.9554772Z   toolchain: stable
+2026-10-09T16:09:49.9555121Z ##[endgroup]
+2026-10-09T16:09:49.9666778Z info: using existing install for stable-x86_64-unknown-linux-gnu
+2026-10-09T16:09:49.9679051Z info: default toolchain set to stable-x86_64-unknown-linux-gnu
+2026-10-09T16:09:49.9679377Z 
+2026-10-09T16:09:49.9751795Z   stable-x86_64-unknown-linux-gnu unchanged - rustc 1.99.0 (b940084d7 2026-09-28)
+2026-10-09T16:09:49.9752551Z 
+2026-10-09T16:09:49.9771087Z ##[end-action id=__dtolnay_rust-toolchain.__run_5;outcome=success;conclusion=success;duration_ms=30]
+2026-10-09T16:09:49.9775930Z ##[start-action display=Create cachekey;id=__dtolnay_rust-toolchain.rustc-version]
+2026-10-09T16:09:49.9809201Z ##[group]Run DATE=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-date: \(20[0-9][0-9]\)-\([01][0-9]\)-\([0-3][0-9]\)$/\1\2\3/p')
+2026-10-09T16:09:49.9810173Z [36;1mDATE=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-date: \(20[0-9][0-9]\)-\([01][0-9]\)-\([0-3][0-9]\)$/\1\2\3/p')[0m
+2026-10-09T16:09:49.9810945Z [36;1mHASH=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-hash: //p')[0m
+2026-10-09T16:09:49.9811620Z [36;1mecho "cachekey=$(echo $DATE$HASH | head -c12)" >> $GITHUB_OUTPUT[0m
+2026-10-09T16:09:49.9858448Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T16:09:49.9858941Z env:
+2026-10-09T16:09:49.9859269Z   CARGO_TERM_COLOR: always
+2026-10-09T16:09:49.9859711Z   RUST_BACKTRACE: 1
+2026-10-09T16:09:49.9860100Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T16:09:49.9860494Z   toolchain: stable
+2026-10-09T16:09:49.9861249Z ##[endgroup]
+2026-10-09T16:09:50.0200718Z ##[end-action id=__dtolnay_rust-toolchain.rustc-version;outcome=success;conclusion=success;duration_ms=42]
+2026-10-09T16:09:50.0204510Z ##[start-action display=Disable incremental compilation;id=__dtolnay_rust-toolchain.__run_6]
+2026-10-09T16:09:50.0239078Z ##[group]Run if [ -z "${CARGO_INCREMENTAL+set}" ]; then
+2026-10-09T16:09:50.0239600Z [36;1mif [ -z "${CARGO_INCREMENTAL+set}" ]; then[0m
+2026-10-09T16:09:50.0240127Z [36;1m  echo CARGO_INCREMENTAL=0 >> $GITHUB_ENV[0m
+2026-10-09T16:09:50.0240572Z [36;1mfi[0m
+2026-10-09T16:09:50.0287902Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T16:09:50.0288479Z env:
+2026-10-09T16:09:50.0288877Z   CARGO_TERM_COLOR: always
+2026-10-09T16:09:50.0289257Z   RUST_BACKTRACE: 1
+2026-10-09T16:09:50.0289639Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T16:09:50.0290027Z ##[endgroup]
+2026-10-09T16:09:50.0364071Z ##[end-action id=__dtolnay_rust-toolchain.__run_6;outcome=success;conclusion=success;duration_ms=15]
+2026-10-09T16:09:50.0367255Z ##[start-action display=Enable colors in Cargo output;id=__dtolnay_rust-toolchain.__run_7]
+2026-10-09T16:09:50.0400752Z ##[group]Run if [ -z "${CARGO_TERM_COLOR+set}" ]; then
+2026-10-09T16:09:50.0401299Z [36;1mif [ -z "${CARGO_TERM_COLOR+set}" ]; then[0m
+2026-10-09T16:09:50.0401775Z [36;1m  echo CARGO_TERM_COLOR=always >> $GITHUB_ENV[0m
+2026-10-09T16:09:50.0402218Z [36;1mfi[0m
+2026-10-09T16:09:50.0444031Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T16:09:50.0444553Z env:
+2026-10-09T16:09:50.0444912Z   CARGO_TERM_COLOR: always
+2026-10-09T16:09:50.0445314Z   RUST_BACKTRACE: 1
+2026-10-09T16:09:50.0445703Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T16:09:50.0446095Z   CARGO_INCREMENTAL: 0
+2026-10-09T16:09:50.0446426Z ##[endgroup]
+2026-10-09T16:09:50.0516793Z ##[end-action id=__dtolnay_rust-toolchain.__run_7;outcome=success;conclusion=success;duration_ms=14]
+2026-10-09T16:09:50.0521249Z ##[start-action display=Enable Cargo sparse registry;id=__dtolnay_rust-toolchain.__run_8]
+2026-10-09T16:09:50.0558334Z ##[group]Run # implemented in 1.66, stabilized in 1.68, made default in 1.70
+2026-10-09T16:09:50.0558984Z [36;1m# implemented in 1.66, stabilized in 1.68, made default in 1.70[0m
+2026-10-09T16:09:50.0559784Z [36;1mif [ -z "${CARGO_REGISTRIES_CRATES_IO_PROTOCOL+set}" -o -f "/home/runner/work/_temp"/.implicit_cargo_registries_crates_io_protocol ]; then[0m
+2026-10-09T16:09:50.0560621Z [36;1m  if rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.6[89]\.'; then[0m
+2026-10-09T16:09:50.0561708Z [36;1m    touch "/home/runner/work/_temp"/.implicit_cargo_registries_crates_io_protocol || true[0m
+2026-10-09T16:09:50.0562374Z [36;1m    echo CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse >> $GITHUB_ENV[0m
+2026-10-09T16:09:50.0562987Z [36;1m  elif rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.6[67]\.'; then[0m
+2026-10-09T16:09:50.0563901Z [36;1m    touch "/home/runner/work/_temp"/.implicit_cargo_registries_crates_io_protocol || true[0m
+2026-10-09T16:09:50.0564523Z [36;1m    echo CARGO_REGISTRIES_CRATES_IO_PROTOCOL=git >> $GITHUB_ENV[0m
+2026-10-09T16:09:50.0565020Z [36;1m  fi[0m
+2026-10-09T16:09:50.0565388Z [36;1mfi[0m
+2026-10-09T16:09:50.0607423Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T16:09:50.0607901Z env:
+2026-10-09T16:09:50.0608254Z   CARGO_TERM_COLOR: always
+2026-10-09T16:09:50.0608671Z   RUST_BACKTRACE: 1
+2026-10-09T16:09:50.0609038Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T16:09:50.0609438Z   CARGO_INCREMENTAL: 0
+2026-10-09T16:09:50.0609786Z   toolchain: stable
+2026-10-09T16:09:50.0610106Z ##[endgroup]
+2026-10-09T16:09:50.0915028Z ##[end-action id=__dtolnay_rust-toolchain.__run_8;outcome=success;conclusion=success;duration_ms=39]
+2026-10-09T16:09:50.0919928Z ##[start-action display=Work around spurious network errors in curl 8.0;id=__dtolnay_rust-toolchain.__run_9]
+2026-10-09T16:09:50.0956051Z ##[group]Run # https://rust-lang.zulipchat.com/#narrow/stream/246057-t-cargo/topic/timeout.20investigation
+2026-10-09T16:09:50.0956937Z [36;1m# https://rust-lang.zulipchat.com/#narrow/stream/246057-t-cargo/topic/timeout.20investigation[0m
+2026-10-09T16:09:50.0957656Z [36;1mif rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.7[01]\.'; then[0m
+2026-10-09T16:09:50.0958307Z [36;1m  echo CARGO_HTTP_MULTIPLEXING=false >> $GITHUB_ENV[0m
+2026-10-09T16:09:50.0958754Z [36;1mfi[0m
+2026-10-09T16:09:50.1006168Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T16:09:50.1006657Z env:
+2026-10-09T16:09:50.1007106Z   CARGO_TERM_COLOR: always
+2026-10-09T16:09:50.1007477Z   RUST_BACKTRACE: 1
+2026-10-09T16:09:50.1007824Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T16:09:50.1008273Z   CARGO_INCREMENTAL: 0
+2026-10-09T16:09:50.1008628Z   toolchain: stable
+2026-10-09T16:09:50.1008967Z ##[endgroup]
+2026-10-09T16:09:50.1203098Z ##[end-action id=__dtolnay_rust-toolchain.__run_9;outcome=success;conclusion=success;duration_ms=28]
+2026-10-09T16:09:50.1209473Z ##[start-action display=rustc +stable --version --verbose;id=__dtolnay_rust-toolchain.__run_10]
+2026-10-09T16:09:50.1244351Z ##[group]Run rustc +"$toolchain" --version --verbose
+2026-10-09T16:09:50.1244880Z [36;1mrustc +"$toolchain" --version --verbose[0m
+2026-10-09T16:09:50.1291908Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T16:09:50.1292374Z env:
+2026-10-09T16:09:50.1292679Z   CARGO_TERM_COLOR: always
+2026-10-09T16:09:50.1293036Z   RUST_BACKTRACE: 1
+2026-10-09T16:09:50.1293562Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T16:09:50.1293926Z   CARGO_INCREMENTAL: 0
+2026-10-09T16:09:50.1294271Z   toolchain: stable
+2026-10-09T16:09:50.1294602Z ##[endgroup]
+2026-10-09T16:09:50.1466814Z rustc 1.99.0 (b940084d7 2026-09-28)
+2026-10-09T16:09:50.1467915Z binary: rustc
+2026-10-09T16:09:50.1469022Z commit-hash: b940084d7eb6a299eb4bfeb8e34901bc051e7ac4
+2026-10-09T16:09:50.1469929Z commit-date: 2026-09-28
+2026-10-09T16:09:50.1470783Z host: x86_64-unknown-linux-gnu
+2026-10-09T16:09:50.1471553Z release: 1.99.0
+2026-10-09T16:09:50.1472295Z LLVM version: 23.1.1
+2026-10-09T16:09:50.1485904Z ##[end-action id=__dtolnay_rust-toolchain.__run_10;outcome=success;conclusion=success;duration_ms=27]
+2026-10-09T16:09:50.1611320Z ##[group]Run Swatinem/rust-cache@v2
+2026-10-09T16:09:50.1611706Z with:
+2026-10-09T16:09:50.1612027Z   prefix-key: v0-rust
+2026-10-09T16:09:50.1612347Z   add-job-id-key: true
+2026-10-09T16:09:50.1612666Z   add-rust-environment-hash-key: true
+2026-10-09T16:09:50.1613021Z   cache-targets: true
+2026-10-09T16:09:50.1613644Z   cache-all-crates: false
+2026-10-09T16:09:50.1613968Z   cache-workspace-crates: false
+2026-10-09T16:09:50.1614295Z   save-if: true
+2026-10-09T16:09:50.1614594Z   cache-provider: github
+2026-10-09T16:09:50.1614917Z   cache-bin: true
+2026-10-09T16:09:50.1615217Z   lookup-only: false
+2026-10-09T16:09:50.1615545Z   cmd-format: {0}
+2026-10-09T16:09:50.1615819Z env:
+2026-10-09T16:09:50.1616120Z   CARGO_TERM_COLOR: always
+2026-10-09T16:09:50.1616448Z   RUST_BACKTRACE: 1
+2026-10-09T16:09:50.1616758Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T16:09:50.1617080Z   CARGO_INCREMENTAL: 0
+2026-10-09T16:09:50.1617356Z ##[endgroup]
+2026-10-09T16:09:51.4238826Z ##[group]Cache Configuration
+2026-10-09T16:09:51.4239390Z Cache Provider:
+2026-10-09T16:09:51.4239867Z     github
+2026-10-09T16:09:51.4240227Z Workspaces:
+2026-10-09T16:09:51.4240661Z     /home/runner/work/rustwright/rustwright
+2026-10-09T16:09:51.4241162Z Cache Paths:
+2026-10-09T16:09:51.4241553Z     /home/runner/.cargo/bin
+2026-10-09T16:09:51.4242051Z     /home/runner/.cargo/.crates.toml
+2026-10-09T16:09:51.4242525Z     /home/runner/.cargo/.crates2.json
+2026-10-09T16:09:51.4243274Z     /home/runner/.cargo/registry
+2026-10-09T16:09:51.4243699Z     /home/runner/.cargo/git
+2026-10-09T16:09:51.4244087Z     /home/runner/work/rustwright/rustwright/target
+2026-10-09T16:09:51.4244535Z Restore Key:
+2026-10-09T16:09:51.4244971Z     v0-rust-check-Linux-x64-2c4d122c
+2026-10-09T16:09:51.4245425Z Cache Key:
+2026-10-09T16:09:51.4245888Z     v0-rust-check-Linux-x64-2c4d122c-ed23558d
+2026-10-09T16:09:51.4246382Z .. Prefix:
+2026-10-09T16:09:51.4246800Z   - v0-rust-check-Linux-x64
+2026-10-09T16:09:51.4247253Z .. Environment considered:
+2026-10-09T16:09:51.4247704Z   - Rust Versions:
+2026-10-09T16:09:51.4248301Z     - 1.99.0 x86_64-unknown-linux-gnu b940084d7eb6a299eb4bfeb8e34901bc051e7ac4
+2026-10-09T16:09:51.4248864Z   - CARGO_HOME
+2026-10-09T16:09:51.4249185Z   - CARGO_INCREMENTAL
+2026-10-09T16:09:51.4249490Z   - CARGO_TERM_COLOR
+2026-10-09T16:09:51.4249777Z   - RUST_BACKTRACE
+2026-10-09T16:09:51.4250078Z .. Lockfiles considered:
+2026-10-09T16:09:51.4250423Z   - /home/runner/work/rustwright/rustwright/Cargo.lock
+2026-10-09T16:09:51.4250915Z   - /home/runner/work/rustwright/rustwright/crates/rustwright-bidi/Cargo.toml
+2026-10-09T16:09:51.4251537Z   - /home/runner/work/rustwright/rustwright/crates/rustwright-browser/Cargo.toml
+2026-10-09T16:09:51.4252128Z   - /home/runner/work/rustwright/rustwright/crates/rustwright-cdp/Cargo.toml
+2026-10-09T16:09:51.4252992Z   - /home/runner/work/rustwright/rustwright/crates/rustwright-common/Cargo.toml
+2026-10-09T16:09:51.4253968Z   - /home/runner/work/rustwright/rustwright/crates/rustwright-core/Cargo.toml
+2026-10-09T16:09:51.4254823Z   - /home/runner/work/rustwright/rustwright/crates/rustwright-test-macros/Cargo.toml
+2026-10-09T16:09:51.4255725Z   - /home/runner/work/rustwright/rustwright/crates/rustwright-test/Cargo.toml
+2026-10-09T16:09:51.4256381Z   - /home/runner/work/rustwright/rustwright/crates/rustwright/Cargo.toml
+2026-10-09T16:09:51.4257312Z   - /home/runner/work/rustwright/rustwright/docs/ci/results/remote-20261009/followup-local/consumer/.cargo/config.toml
+2026-10-09T16:09:51.4258192Z   - /home/runner/work/rustwright/rustwright/docs/ci/results/required-browser/release/consumer/.cargo/config.toml
+2026-10-09T16:09:51.4259129Z   - /home/runner/work/rustwright/rustwright/docs/release/results/local-package/consumer/.cargo/config.toml
+2026-10-09T16:09:51.4260004Z   - /home/runner/work/rustwright/rustwright/examples/Cargo.toml
+2026-10-09T16:09:51.4260559Z   - /home/runner/work/rustwright/rustwright/tests/Cargo.toml
+2026-10-09T16:09:51.4261659Z ##[endgroup]
+2026-10-09T16:09:51.4261851Z 
+2026-10-09T16:09:51.4262297Z ... Restoring cache ...
+2026-10-09T16:09:51.5589631Z No cache found.
+2026-10-09T16:09:51.5672426Z ##[group]Run cargo fmt --all -- --check
+2026-10-09T16:09:51.5672840Z [36;1mcargo fmt --all -- --check[0m
+2026-10-09T16:09:51.5714823Z shell: /usr/bin/bash -e {0}
+2026-10-09T16:09:51.5715277Z env:
+2026-10-09T16:09:51.5715579Z   CARGO_TERM_COLOR: always
+2026-10-09T16:09:51.5715892Z   RUST_BACKTRACE: 1
+2026-10-09T16:09:51.5716274Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T16:09:51.5716612Z   CARGO_INCREMENTAL: 0
+2026-10-09T16:09:51.5716918Z   CACHE_ON_FAILURE: false
+2026-10-09T16:09:51.5717237Z ##[endgroup]
+2026-10-09T16:09:54.1502472Z ##[group]Run cargo clippy --workspace --all-targets -- -D warnings
+2026-10-09T16:09:54.1503086Z [36;1mcargo clippy --workspace --all-targets -- -D warnings[0m
+2026-10-09T16:09:54.1542703Z shell: /usr/bin/bash -e {0}
+2026-10-09T16:09:54.1543075Z env:
+2026-10-09T16:09:54.1543762Z   CARGO_TERM_COLOR: always
+2026-10-09T16:09:54.1544084Z   RUST_BACKTRACE: 1
+2026-10-09T16:09:54.1544409Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T16:09:54.1544778Z   CARGO_INCREMENTAL: 0
+2026-10-09T16:09:54.1545082Z   CACHE_ON_FAILURE: false
+2026-10-09T16:09:54.1545409Z ##[endgroup]
+2026-10-09T16:09:55.0231641Z [1m[92m    Updating[0m crates.io index
+2026-10-09T16:09:55.8859803Z [1m[92m Downloading[0m crates ...
+2026-10-09T16:09:55.9311614Z [1m[92m  Downloaded[0m block-buffer v0.12.1
+2026-10-09T16:09:55.9338106Z [1m[92m  Downloaded[0m cfg-if v1.0.5
+2026-10-09T16:09:55.9351374Z [1m[92m  Downloaded[0m itoa v1.0.18
+2026-10-09T16:09:55.9361045Z [1m[92m  Downloaded[0m base64 v0.22.1
+2026-10-09T16:09:55.9385555Z [1m[92m  Downloaded[0m chacha20 v0.10.2
+2026-10-09T16:09:55.9403857Z [1m[92m  Downloaded[0m bytes v1.12.1
+2026-10-09T16:09:55.9426354Z [1m[92m  Downloaded[0m futures-macro v0.3.34
+2026-10-09T16:09:55.9432863Z [1m[92m  Downloaded[0m data-encoding v2.11.1
+2026-10-09T16:09:55.9439993Z [1m[92m  Downloaded[0m socket2 v0.6.5
+2026-10-09T16:09:55.9453510Z [1m[92m  Downloaded[0m const-oid v0.10.2
+2026-10-09T16:09:55.9484566Z [1m[92m  Downloaded[0m cpufeatures v0.3.1
+2026-10-09T16:09:55.9515979Z [1m[92m  Downloaded[0m crypto-common v0.2.2
+2026-10-09T16:09:55.9519533Z [1m[92m  Downloaded[0m futures-core v0.3.34
+2026-10-09T16:09:55.9529476Z [1m[92m  Downloaded[0m errno v0.3.14
+2026-10-09T16:09:55.9530353Z [1m[92m  Downloaded[0m futures-task v0.3.34
+2026-10-09T16:09:55.9534314Z [1m[92m  Downloaded[0m typenum v1.20.1
+2026-10-09T16:09:55.9558824Z [1m[92m  Downloaded[0m proc-macro2 v1.0.107
+2026-10-09T16:09:55.9576947Z [1m[92m  Downloaded[0m rand_core v0.10.1
+2026-10-09T16:09:55.9586551Z [1m[92m  Downloaded[0m thiserror-impl v2.0.20
+2026-10-09T16:09:55.9595279Z [1m[92m  Downloaded[0m futures-sink v0.3.34
+2026-10-09T16:09:55.9600352Z [1m[92m  Downloaded[0m hybrid-array v0.4.15
+2026-10-09T16:09:55.9613924Z [1m[92m  Downloaded[0m getrandom v0.4.3
+2026-10-09T16:09:55.9636520Z [1m[92m  Downloaded[0m thiserror v2.0.20
+2026-10-09T16:09:55.9668721Z [1m[92m  Downloaded[0m sha1 v0.11.0
+2026-10-09T16:09:55.9679111Z [1m[92m  Downloaded[0m signal-hook-registry v1.4.8
+2026-10-09T16:09:55.9686822Z [1m[92m  Downloaded[0m tokio-macros v2.7.2
+2026-10-09T16:09:55.9693869Z [1m[92m  Downloaded[0m quote v1.0.47
+2026-10-09T16:09:55.9709107Z [1m[92m  Downloaded[0m pin-project-lite v0.2.17
+2026-10-09T16:09:55.9738710Z [1m[92m  Downloaded[0m tracing-attributes v0.1.31
+2026-10-09T16:09:55.9754189Z [1m[92m  Downloaded[0m slab v0.4.12
+2026-10-09T16:09:55.9762185Z [1m[92m  Downloaded[0m digest v0.11.3
+2026-10-09T16:09:55.9776346Z [1m[92m  Downloaded[0m tokio-tungstenite v0.30.0
+2026-10-09T16:09:55.9789468Z [1m[92m  Downloaded[0m once_cell v1.21.4
+2026-10-09T16:09:55.9804508Z [1m[92m  Downloaded[0m serde_derive v1.0.229
+2026-10-09T16:09:55.9822865Z [1m[92m  Downloaded[0m zmij v1.0.23
+2026-10-09T16:09:55.9833861Z [1m[92m  Downloaded[0m unicode-ident v1.0.26
+2026-10-09T16:09:55.9850898Z [1m[92m  Downloaded[0m httparse v1.10.1
+2026-10-09T16:09:55.9866704Z [1m[92m  Downloaded[0m serde_core v1.0.229
+2026-10-09T16:09:55.9883911Z [1m[92m  Downloaded[0m tracing-core v0.1.36
+2026-10-09T16:09:55.9901056Z [1m[92m  Downloaded[0m tungstenite v0.30.0
+2026-10-09T16:09:55.9923693Z [1m[92m  Downloaded[0m http v1.5.0
+2026-10-09T16:09:55.9948573Z [1m[92m  Downloaded[0m log v0.4.34
+2026-10-09T16:09:55.9964901Z [1m[92m  Downloaded[0m mio v1.2.3
+2026-10-09T16:09:56.0001754Z [1m[92m  Downloaded[0m serde v1.0.229
+2026-10-09T16:09:56.0024180Z [1m[92m  Downloaded[0m serde_json v1.0.151
+2026-10-09T16:09:56.0068287Z [1m[92m  Downloaded[0m memchr v2.8.3
+2026-10-09T16:09:56.0100348Z [1m[92m  Downloaded[0m rand v0.10.2
+2026-10-09T16:09:56.0124996Z [1m[92m  Downloaded[0m futures-util v0.3.34
+2026-10-09T16:09:56.0195581Z [1m[92m  Downloaded[0m syn v2.0.119
+2026-10-09T16:09:56.0266672Z [1m[92m  Downloaded[0m syn v3.0.6
+2026-10-09T16:09:56.0336703Z [1m[92m  Downloaded[0m tracing v0.1.44
+2026-10-09T16:09:56.0442997Z [1m[92m  Downloaded[0m libc v0.2.189
+2026-10-09T16:09:56.0685325Z [1m[92m  Downloaded[0m tokio v1.53.1
+2026-10-09T16:09:56.1537253Z [1m[92m   Compiling[0m proc-macro2 v1.0.107
+2026-10-09T16:09:56.1539248Z [1m[92m   Compiling[0m quote v1.0.47
+2026-10-09T16:09:56.1539843Z [1m[92m   Compiling[0m unicode-ident v1.0.26
+2026-10-09T16:09:56.1554476Z [1m[92m   Compiling[0m libc v0.2.189
+2026-10-09T16:09:58.8228959Z [1m[92m    Checking[0m typenum v1.20.1
+2026-10-09T16:09:59.5356212Z [1m[92m    Checking[0m hybrid-array v0.4.15
+2026-10-09T16:09:59.9808819Z [1m[92m   Compiling[0m serde_core v1.0.229
+2026-10-09T16:10:00.9230072Z [1m[92m    Checking[0m itoa v1.0.18
+2026-10-09T16:10:00.9328123Z [1m[92m    Checking[0m cfg-if v1.0.5
+2026-10-09T16:10:00.9695178Z [1m[92m   Compiling[0m zmij v1.0.23
+2026-10-09T16:10:01.0340366Z [1m[92m   Compiling[0m getrandom v0.4.3
+2026-10-09T16:10:01.0779669Z [1m[92m    Checking[0m rand_core v0.10.1
+2026-10-09T16:10:01.1400786Z [1m[92m    Checking[0m cpufeatures v0.3.1
+2026-10-09T16:10:01.2985184Z [1m[92m    Checking[0m block-buffer v0.12.1
+2026-10-09T16:10:01.3614994Z [1m[92m    Checking[0m crypto-common v0.2.2
+2026-10-09T16:10:01.7731383Z [1m[92m   Compiling[0m httparse v1.10.1
+2026-10-09T16:10:02.2054205Z [1m[92m   Compiling[0m syn v3.0.6
+2026-10-09T16:10:02.2264638Z [1m[92m    Checking[0m const-oid v0.10.2
+2026-10-09T16:10:02.3750415Z [1m[92m   Compiling[0m serde_json v1.0.151
+2026-10-09T16:10:02.4614812Z [1m[92m   Compiling[0m thiserror v2.0.20
+2026-10-09T16:10:02.4644683Z [1m[92m    Checking[0m pin-project-lite v0.2.17
+2026-10-09T16:10:02.4944745Z [1m[92m    Checking[0m bytes v1.12.1
+2026-10-09T16:10:02.7425044Z [1m[92m    Checking[0m errno v0.3.14
+2026-10-09T16:10:02.7835302Z [1m[92m    Checking[0m digest v0.11.3
+2026-10-09T16:10:02.7994706Z [1m[92m   Compiling[0m syn v2.0.119
+2026-10-09T16:10:02.8810695Z [1m[92m    Checking[0m chacha20 v0.10.2
+2026-10-09T16:10:03.2324993Z [1m[92m    Checking[0m memchr v2.8.3
+2026-10-09T16:10:03.5446217Z [1m[92m    Checking[0m rand v0.10.2
+2026-10-09T16:10:04.5076046Z [1m[92m    Checking[0m http v1.5.0
+2026-10-09T16:10:04.8284698Z [1m[92m    Checking[0m sha1 v0.11.0
+2026-10-09T16:10:05.0684922Z [1m[92m    Checking[0m signal-hook-registry v1.4.8
+2026-10-09T16:10:05.1504592Z [1m[92m    Checking[0m mio v1.2.3
+2026-10-09T16:10:05.2145543Z [1m[92m    Checking[0m socket2 v0.6.5
+2026-10-09T16:10:05.4236810Z [1m[92m   Compiling[0m serde v1.0.229
+2026-10-09T16:10:05.4597745Z [1m[92m    Checking[0m once_cell v1.21.4
+2026-10-09T16:10:05.4934774Z [1m[92m   Compiling[0m thiserror-impl v2.0.20
+2026-10-09T16:10:05.5615967Z [1m[92m   Compiling[0m futures-macro v0.3.34
+2026-10-09T16:10:05.5834920Z [1m[92m   Compiling[0m tokio-macros v2.7.2
+2026-10-09T16:10:06.3853849Z [1m[92m    Checking[0m futures-task v0.3.34
+2026-10-09T16:10:06.5541122Z [1m[92m    Checking[0m futures-core v0.3.34
+2026-10-09T16:10:06.5910636Z [1m[92m    Checking[0m slab v0.4.12
+2026-10-09T16:10:06.6296057Z [1m[92m    Checking[0m futures-sink v0.3.34
+2026-10-09T16:10:06.6297179Z [1m[92m    Checking[0m data-encoding v2.11.1
+2026-10-09T16:10:06.6664871Z [1m[92m    Checking[0m log v0.4.34
+2026-10-09T16:10:06.6724653Z [1m[92m    Checking[0m tokio v1.53.1
+2026-10-09T16:10:06.6806450Z [1m[92m    Checking[0m futures-util v0.3.34
+2026-10-09T16:10:06.7474975Z [1m[92m   Compiling[0m tracing-attributes v0.1.31
+2026-10-09T16:10:06.8384780Z [1m[92m    Checking[0m tungstenite v0.30.0
+2026-10-09T16:10:07.2239879Z [1m[92m    Checking[0m tracing-core v0.1.36
+2026-10-09T16:10:07.4701696Z [1m[92m   Compiling[0m serde_derive v1.0.229
+2026-10-09T16:10:07.7174944Z [1m[92m    Checking[0m tracing v0.1.44
+2026-10-09T16:10:07.8826353Z [1m[92m    Checking[0m rustwright-common v0.1.0 (/home/runner/work/rustwright/rustwright/crates/rustwright-common)
+2026-10-09T16:10:08.4912759Z [1m[92m    Checking[0m base64 v0.22.1
+2026-10-09T16:10:08.6786882Z [1m[92m   Compiling[0m rustwright-test-macros v0.1.0 (/home/runner/work/rustwright/rustwright/crates/rustwright-test-macros)
+2026-10-09T16:10:10.0282916Z [1m[92m    Checking[0m tokio-tungstenite v0.30.0
+2026-10-09T16:10:10.1469153Z [1m[92m    Checking[0m rustwright-cdp v0.1.0 (/home/runner/work/rustwright/rustwright/crates/rustwright-cdp)
+2026-10-09T16:10:11.4272690Z [1m[92m    Checking[0m rustwright-browser v0.1.0 (/home/runner/work/rustwright/rustwright/crates/rustwright-browser)
+2026-10-09T16:10:11.6014163Z [1m[92m    Checking[0m rustwright-core v0.1.0 (/home/runner/work/rustwright/rustwright/crates/rustwright-core)
+2026-10-09T16:10:11.6015770Z [1m[92m    Checking[0m rustwright-bidi v0.1.0 (/home/runner/work/rustwright/rustwright/crates/rustwright-bidi)
+2026-10-09T16:10:13.0941372Z [1m[92m    Checking[0m rustwright v0.1.0 (/home/runner/work/rustwright/rustwright/crates/rustwright)
+2026-10-09T16:10:13.2923983Z [1m[92m    Checking[0m rustwright-test v0.1.0 (/home/runner/work/rustwright/rustwright/crates/rustwright-test)
+2026-10-09T16:10:13.2925979Z [1m[92m    Checking[0m rustwright-integration-tests v0.1.0 (/home/runner/work/rustwright/rustwright/tests)
+2026-10-09T16:10:13.6117904Z [1m[92m    Checking[0m rustwright-examples v0.1.0 (/home/runner/work/rustwright/rustwright/examples)
+2026-10-09T16:10:15.7045778Z [1m[92m    Finished[0m `dev` profile [unoptimized + debuginfo] target(s) in 21.43s
+2026-10-09T16:10:15.7422828Z ##[group]Run browser-actions/setup-chrome@v2
+2026-10-09T16:10:15.7423382Z with:
+2026-10-09T16:10:15.7423835Z   chrome-version: stable
+2026-10-09T16:10:15.7424216Z   install-dependencies: true
+2026-10-09T16:10:15.7424543Z   install-chromedriver: false
+2026-10-09T16:10:15.7424860Z   no-sudo: false
+2026-10-09T16:10:15.7425150Z env:
+2026-10-09T16:10:15.7425560Z   CARGO_TERM_COLOR: always
+2026-10-09T16:10:15.7425916Z   RUST_BACKTRACE: 1
+2026-10-09T16:10:15.7426213Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T16:10:15.7426547Z   CARGO_INCREMENTAL: 0
+2026-10-09T16:10:15.7426858Z   CACHE_ON_FAILURE: false
+2026-10-09T16:10:15.7427156Z ##[endgroup]
+2026-10-09T16:10:15.8112053Z Installing dependencies
+2026-10-09T16:10:15.8164225Z [command]/usr/bin/sudo apt-get update
+2026-10-09T16:10:15.9035432Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-10-09T16:10:15.9388117Z Get:6 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+2026-10-09T16:10:15.9491055Z Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+2026-10-09T16:10:15.9509090Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+2026-10-09T16:10:15.9546036Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+2026-10-09T16:10:15.9578656Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+2026-10-09T16:10:16.0110192Z Get:7 https://packages.microsoft.com/ubuntu/24.04/prod noble/main armhf Packages [12.3 kB]
+2026-10-09T16:10:16.0239914Z Get:8 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [531 kB]
+2026-10-09T16:10:16.0406498Z Get:9 https://packages.microsoft.com/ubuntu/24.04/prod noble/main all Packages [640 B]
+2026-10-09T16:10:16.0597268Z Get:10 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [475 kB]
+2026-10-09T16:10:16.1451772Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1375 kB]
+2026-10-09T16:10:16.1578197Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [306 kB]
+2026-10-09T16:10:16.1600529Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1702 kB]
+2026-10-09T16:10:16.1789404Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [342 kB]
+2026-10-09T16:10:16.1801339Z Get:15 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [1761 kB]
+2026-10-09T16:10:16.1899578Z Get:16 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [401 kB]
+2026-10-09T16:10:16.1915824Z Get:17 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [55.0 kB]
+2026-10-09T16:10:16.1927722Z Get:18 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse Translation-en [14.3 kB]
+2026-10-09T16:10:16.2505930Z Get:19 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [1121 kB]
+2026-10-09T16:10:16.2575232Z Get:20 http://azure.archive.ubuntu.com/ubuntu noble-security/main Translation-en [228 kB]
+2026-10-09T16:10:16.3075078Z Get:21 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1220 kB]
+2026-10-09T16:10:16.3117552Z Get:22 http://azure.archive.ubuntu.com/ubuntu noble-security/universe Translation-en [245 kB]
+2026-10-09T16:10:16.3138309Z Get:23 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [1669 kB]
+2026-10-09T16:10:16.3221430Z Get:24 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted Translation-en [383 kB]
+2026-10-09T16:10:16.3249033Z Get:25 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [49.8 kB]
+2026-10-09T16:10:16.3262154Z Get:26 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse Translation-en [12.4 kB]
+2026-10-09T16:10:19.3861453Z Fetched 12.3 MB in 1s (8892 kB/s)
+2026-10-09T16:10:20.2937348Z Reading package lists...
+2026-10-09T16:10:20.3103302Z [command]/usr/bin/sudo apt-get install --yes --no-install-recommends libasound2t64 libatk-bridge2.0-0t64 libatk1.0-0t64 libcairo2 libcups2t64 libdbus-1-3 libexpat1 libgbm1 libglib2.0-0t64 libnss3 libpango-1.0-0 libxcomposite1 libxdamage1 libxfixes3 libxkbcommon0 libxrandr2
+2026-10-09T16:10:20.3319602Z Reading package lists...
+2026-10-09T16:10:20.5335494Z Building dependency tree...
+2026-10-09T16:10:20.5340037Z Reading state information...
+2026-10-09T16:10:20.7346428Z libasound2t64 is already the newest version (1.2.11-1ubuntu0.3).
+2026-10-09T16:10:20.7347295Z libasound2t64 set to manually installed.
+2026-10-09T16:10:20.7347993Z libatk-bridge2.0-0t64 is already the newest version (2.52.0-1build1).
+2026-10-09T16:10:20.7348785Z libatk-bridge2.0-0t64 set to manually installed.
+2026-10-09T16:10:20.7349476Z libatk1.0-0t64 is already the newest version (2.52.0-1build1).
+2026-10-09T16:10:20.7350153Z libatk1.0-0t64 set to manually installed.
+2026-10-09T16:10:20.7350786Z libcairo2 is already the newest version (1.18.0-3build1).
+2026-10-09T16:10:20.7351325Z libcairo2 set to manually installed.
+2026-10-09T16:10:20.7351862Z libcups2t64 is already the newest version (2.4.7-1.2ubuntu7.14).
+2026-10-09T16:10:20.7352952Z libcups2t64 set to manually installed.
+2026-10-09T16:10:20.7353649Z libdbus-1-3 is already the newest version (1.14.10-4ubuntu4.1).
+2026-10-09T16:10:20.7354120Z libdbus-1-3 set to manually installed.
+2026-10-09T16:10:20.7354572Z libexpat1 is already the newest version (2.6.1-2ubuntu0.6).
+2026-10-09T16:10:20.7355076Z libexpat1 set to manually installed.
+2026-10-09T16:10:20.7355507Z libgbm1 is already the newest version (25.2.8-0ubuntu0.24.04.4).
+2026-10-09T16:10:20.7355929Z libgbm1 set to manually installed.
+2026-10-09T16:10:20.7356445Z libglib2.0-0t64 is already the newest version (2.80.0-6ubuntu3.9).
+2026-10-09T16:10:20.7356894Z libglib2.0-0t64 set to manually installed.
+2026-10-09T16:10:20.7357334Z libnss3 is already the newest version (2:3.98-1ubuntu0.2).
+2026-10-09T16:10:20.7357845Z libnss3 set to manually installed.
+2026-10-09T16:10:20.7358261Z libpango-1.0-0 is already the newest version (1.52.1+ds-1build1).
+2026-10-09T16:10:20.7358746Z libpango-1.0-0 set to manually installed.
+2026-10-09T16:10:20.7359181Z libxcomposite1 is already the newest version (1:0.4.5-1build3).
+2026-10-09T16:10:20.7359627Z libxcomposite1 set to manually installed.
+2026-10-09T16:10:20.7360092Z libxdamage1 is already the newest version (1:1.1.6-1build1).
+2026-10-09T16:10:20.7360527Z libxdamage1 set to manually installed.
+2026-10-09T16:10:20.7361035Z libxfixes3 is already the newest version (1:6.0.0-2build1).
+2026-10-09T16:10:20.7361425Z libxfixes3 set to manually installed.
+2026-10-09T16:10:20.7361873Z libxkbcommon0 is already the newest version (1.6.0-1build1).
+2026-10-09T16:10:20.7362282Z libxkbcommon0 set to manually installed.
+2026-10-09T16:10:20.7362691Z libxrandr2 is already the newest version (2:1.5.2-2build1).
+2026-10-09T16:10:20.7363289Z libxrandr2 set to manually installed.
+2026-10-09T16:10:20.7363782Z 0 upgraded, 0 newly installed, 0 to remove and 23 not upgraded.
+2026-10-09T16:10:20.7375997Z Setup chrome stable
+2026-10-09T16:10:20.7386898Z Attempting to download chrome stable...
+2026-10-09T16:10:20.8305430Z Acquiring chrome stable from https://storage.googleapis.com/chrome-for-testing-public/155.0.8059.39/linux64/chrome-linux64.zip
+2026-10-09T16:10:21.7611625Z Installing chrome...
+2026-10-09T16:10:21.7637800Z [command]/usr/bin/unzip -o -q /home/runner/work/_temp/d8dc09e1-45ed-4130-9f82-ab3f52713b39
+2026-10-09T16:10:27.5302426Z Successfully Installed chrome to /opt/hostedtoolcache/setup-chrome/chrome/stable/x64
+2026-10-09T16:10:27.5309727Z [command]/opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome --version
+2026-10-09T16:10:27.7004982Z Google Chrome for Testing 155.0.8059.39 
+2026-10-09T16:10:27.7238467Z Successfully setup chrome 155.0.8059.39
+2026-10-09T16:10:27.7355674Z ##[group]Run browser-actions/setup-firefox@v1
+2026-10-09T16:10:27.7356072Z with:
+2026-10-09T16:10:27.7356392Z   firefox-version: 157.0.1
+2026-10-09T16:10:27.7356700Z env:
+2026-10-09T16:10:27.7356963Z   CARGO_TERM_COLOR: always
+2026-10-09T16:10:27.7357300Z   RUST_BACKTRACE: 1
+2026-10-09T16:10:27.7357616Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T16:10:27.7358042Z   CARGO_INCREMENTAL: 0
+2026-10-09T16:10:27.7358388Z   CACHE_ON_FAILURE: false
+2026-10-09T16:10:27.7358672Z ##[endgroup]
+2026-10-09T16:10:27.8011637Z Setup firefox 157.0.1 (en-US)
+2026-10-09T16:10:27.8018600Z Attempting to download firefox 157.0.1...
+2026-10-09T16:10:27.8021167Z This is the version number:157
+2026-10-09T16:10:27.8022220Z Acquiring 157.0.1 from https://ftp.mozilla.org/pub/firefox/releases/157.0.1/linux-x86_64/en-US/firefox-157.0.1.tar.xz
+2026-10-09T16:10:28.1335767Z Extracting Firefox...
+2026-10-09T16:10:28.1437452Z [command]/usr/bin/tar xJ --strip-components=1 --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/7d8ea6d8-3a18-4d1e-8f44-09a033ce6728 -f /home/runner/work/_temp/50227d2b-3ccd-45f9-b489-a22eedd63d67
+2026-10-09T16:10:33.9015749Z Successfully extracted firefox 157.0.1 to /home/runner/work/_temp/7d8ea6d8-3a18-4d1e-8f44-09a033ce6728
+2026-10-09T16:10:33.9016345Z Adding to the cache ...
+2026-10-09T16:10:33.9094792Z (node:3522) Warning: Closing file descriptor 21 on garbage collection
+2026-10-09T16:10:33.9107276Z (Use `node --trace-warnings ...` to show where the warning was created)
+2026-10-09T16:10:33.9109198Z (node:3522) [DEP0137] DeprecationWarning: Closing a FileHandle object on garbage collection is deprecated. Please close FileHandle objects explicitly using FileHandle.prototype.close(). In the future, an error will be thrown if a file descriptor is closed during garbage collection.
+2026-10-09T16:10:35.6774407Z Successfully cached firefox 157.0.1 to /opt/hostedtoolcache/firefox/157.0.1/x64
+2026-10-09T16:10:35.6781359Z [command]/opt/hostedtoolcache/firefox/157.0.1/x64/firefox --version
+2026-10-09T16:10:35.6837465Z [3540] Sandbox: CanCreateUserNamespace() unshare(CLONE_NEWPID): EPERM
+2026-10-09T16:10:35.9387349Z Mozilla Firefox 157.0.1
+2026-10-09T16:10:35.9398798Z Successfully setup firefox version 157.0.1
+2026-10-09T16:10:35.9497592Z ##[group]Run "/opt/hostedtoolcache/firefox/157.0.1/x64/firefox" --version
+2026-10-09T16:10:35.9498169Z [36;1m"/opt/hostedtoolcache/firefox/157.0.1/x64/firefox" --version[0m
+2026-10-09T16:10:35.9538269Z shell: /usr/bin/bash -e {0}
+2026-10-09T16:10:35.9538611Z env:
+2026-10-09T16:10:35.9538982Z   CARGO_TERM_COLOR: always
+2026-10-09T16:10:35.9539332Z   RUST_BACKTRACE: 1
+2026-10-09T16:10:35.9539663Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T16:10:35.9540009Z   CARGO_INCREMENTAL: 0
+2026-10-09T16:10:35.9540336Z   CACHE_ON_FAILURE: false
+2026-10-09T16:10:35.9540671Z ##[endgroup]
+2026-10-09T16:10:35.9626831Z [3545] Sandbox: CanCreateUserNamespace() unshare(CLONE_NEWPID): EPERM
+2026-10-09T16:10:35.9786457Z Mozilla Firefox 157.0.1
+2026-10-09T16:10:35.9835600Z ##[group]Run cargo test --locked --workspace -- --test-threads=1
+2026-10-09T16:10:35.9836120Z [36;1mcargo test --locked --workspace -- --test-threads=1[0m
+2026-10-09T16:10:35.9876149Z shell: /usr/bin/bash -e {0}
+2026-10-09T16:10:35.9876589Z env:
+2026-10-09T16:10:35.9876885Z   CARGO_TERM_COLOR: always
+2026-10-09T16:10:35.9877205Z   RUST_BACKTRACE: 1
+2026-10-09T16:10:35.9877545Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T16:10:35.9877882Z   CARGO_INCREMENTAL: 0
+2026-10-09T16:10:35.9878241Z   CACHE_ON_FAILURE: false
+2026-10-09T16:10:35.9878671Z   RUSTWRIGHT_CHROME: /opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome
+2026-10-09T16:10:35.9879222Z   RUSTWRIGHT_FIREFOX: /opt/hostedtoolcache/firefox/157.0.1/x64/firefox
+2026-10-09T16:10:35.9879673Z   RUSTWRIGHT_RETRIES: 0
+2026-10-09T16:10:35.9879966Z   RUSTWRIGHT_HEADLESS: 1
+2026-10-09T16:10:35.9880295Z   RUSTWRIGHT_REQUIRE_BROWSERS: 1
+2026-10-09T16:10:35.9880606Z ##[endgroup]
+2026-10-09T16:10:36.0783431Z [1m[92m   Compiling[0m typenum v1.20.1
+2026-10-09T16:10:36.0784365Z [1m[92m   Compiling[0m libc v0.2.189
+2026-10-09T16:10:36.0785747Z [1m[92m   Compiling[0m itoa v1.0.18
+2026-10-09T16:10:36.0804680Z [1m[92m   Compiling[0m cfg-if v1.0.5
+2026-10-09T16:10:36.1350567Z [1m[92m   Compiling[0m serde_core v1.0.229
+2026-10-09T16:10:36.2351471Z [1m[92m   Compiling[0m rand_core v0.10.1
+2026-10-09T16:10:36.3324871Z [1m[92m   Compiling[0m cpufeatures v0.3.1
+2026-10-09T16:10:36.3647076Z [1m[92m   Compiling[0m zmij v1.0.23
+2026-10-09T16:10:36.6960982Z [1m[92m   Compiling[0m pin-project-lite v0.2.17
+2026-10-09T16:10:36.7404714Z [1m[92m   Compiling[0m const-oid v0.10.2
+2026-10-09T16:10:36.8805406Z [1m[92m   Compiling[0m hybrid-array v0.4.15
+2026-10-09T16:10:36.9116893Z [1m[92m   Compiling[0m bytes v1.12.1
+2026-10-09T16:10:36.9385043Z [1m[92m   Compiling[0m memchr v2.8.3
+2026-10-09T16:10:37.3395014Z [1m[92m   Compiling[0m crypto-common v0.2.2
+2026-10-09T16:10:37.4845948Z [1m[92m   Compiling[0m block-buffer v0.12.1
+2026-10-09T16:10:37.5674940Z [1m[92m   Compiling[0m errno v0.3.14
+2026-10-09T16:10:37.6159952Z [1m[92m   Compiling[0m getrandom v0.4.3
+2026-10-09T16:10:37.6374734Z [1m[92m   Compiling[0m chacha20 v0.10.2
+2026-10-09T16:10:37.7534791Z [1m[92m   Compiling[0m thiserror v2.0.20
+2026-10-09T16:10:37.7915611Z [1m[92m   Compiling[0m rand v0.10.2
+2026-10-09T16:10:37.8824779Z [1m[92m   Compiling[0m signal-hook-registry v1.4.8
+2026-10-09T16:10:38.1225006Z [1m[92m   Compiling[0m serde_json v1.0.151
+2026-10-09T16:10:38.1544737Z [1m[92m   Compiling[0m digest v0.11.3
+2026-10-09T16:10:38.2496935Z [1m[92m   Compiling[0m sha1 v0.11.0
+2026-10-09T16:10:38.3588672Z [1m[92m   Compiling[0m httparse v1.10.1
+2026-10-09T16:10:38.4128706Z [1m[92m   Compiling[0m http v1.5.0
+2026-10-09T16:10:38.4185321Z [1m[92m   Compiling[0m mio v1.2.3
+2026-10-09T16:10:38.5924780Z [1m[92m   Compiling[0m socket2 v0.6.5
+2026-10-09T16:10:38.8604862Z [1m[92m   Compiling[0m futures-sink v0.3.34
+2026-10-09T16:10:38.8965004Z [1m[92m   Compiling[0m slab v0.4.12
+2026-10-09T16:10:39.0091798Z [1m[92m   Compiling[0m data-encoding v2.11.1
+2026-10-09T16:10:39.0441222Z [1m[92m   Compiling[0m futures-task v0.3.34
+2026-10-09T16:10:39.1415805Z [1m[92m   Compiling[0m log v0.4.34
+2026-10-09T16:10:39.2565106Z [1m[92m   Compiling[0m futures-core v0.3.34
+2026-10-09T16:10:39.2995983Z [1m[92m   Compiling[0m once_cell v1.21.4
+2026-10-09T16:10:39.3435884Z [1m[92m   Compiling[0m futures-util v0.3.34
+2026-10-09T16:10:39.4101982Z [1m[92m   Compiling[0m tracing-core v0.1.36
+2026-10-09T16:10:39.4395824Z [1m[92m   Compiling[0m tungstenite v0.30.0
+2026-10-09T16:10:39.8314960Z [1m[92m   Compiling[0m tokio v1.53.1
+2026-10-09T16:10:39.9184726Z [1m[92m   Compiling[0m serde v1.0.229
+2026-10-09T16:10:40.4127073Z [1m[92m   Compiling[0m tracing v0.1.44
+2026-10-09T16:10:40.4915158Z [1m[92m   Compiling[0m rustwright-common v0.1.0 (/home/runner/work/rustwright/rustwright/crates/rustwright-common)
+2026-10-09T16:10:40.5906389Z [1m[92m   Compiling[0m base64 v0.22.1
+2026-10-09T16:10:40.6280964Z [1m[92m   Compiling[0m rustwright-test-macros v0.1.0 (/home/runner/work/rustwright/rustwright/crates/rustwright-test-macros)
+2026-10-09T16:10:42.9581785Z [1m[92m   Compiling[0m tokio-tungstenite v0.30.0
+2026-10-09T16:10:43.1502452Z [1m[92m   Compiling[0m rustwright-cdp v0.1.0 (/home/runner/work/rustwright/rustwright/crates/rustwright-cdp)
+2026-10-09T16:10:44.3385146Z [1m[92m   Compiling[0m rustwright-browser v0.1.0 (/home/runner/work/rustwright/rustwright/crates/rustwright-browser)
+2026-10-09T16:10:44.5677952Z [1m[92m   Compiling[0m rustwright-core v0.1.0 (/home/runner/work/rustwright/rustwright/crates/rustwright-core)
+2026-10-09T16:10:44.6641977Z [1m[92m   Compiling[0m rustwright-bidi v0.1.0 (/home/runner/work/rustwright/rustwright/crates/rustwright-bidi)
+2026-10-09T16:10:48.2032619Z [1m[92m   Compiling[0m rustwright v0.1.0 (/home/runner/work/rustwright/rustwright/crates/rustwright)
+2026-10-09T16:10:48.4968138Z [1m[92m   Compiling[0m rustwright-test v0.1.0 (/home/runner/work/rustwright/rustwright/crates/rustwright-test)
+2026-10-09T16:10:48.7734966Z [1m[92m   Compiling[0m rustwright-examples v0.1.0 (/home/runner/work/rustwright/rustwright/examples)
+2026-10-09T16:10:49.1806127Z [1m[92m   Compiling[0m rustwright-integration-tests v0.1.0 (/home/runner/work/rustwright/rustwright/tests)
+2026-10-09T16:11:27.2352711Z [1m[92m    Finished[0m `test` profile [unoptimized + debuginfo] target(s) in 51.23s
+2026-10-09T16:11:27.2459118Z [1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/rustwright-8953fa963d53eda2)
+2026-10-09T16:11:27.2466795Z 
+2026-10-09T16:11:27.2467378Z running 0 tests
+2026-10-09T16:11:27.2467614Z 
+2026-10-09T16:11:27.2468024Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T16:11:27.2468495Z 
+2026-10-09T16:11:27.2469065Z [1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/rustwright_bidi-0263bc3f974006f6)
+2026-10-09T16:11:27.2479281Z 
+2026-10-09T16:11:27.2479457Z running 86 tests
+2026-10-09T16:11:27.2546530Z test browser::creation_tests::cancelled_after_reply_before_handoff_removes_context ... ok
+2026-10-09T16:11:27.2588093Z test browser::creation_tests::cancelled_context_before_creation_reply_is_removed ... ok
+2026-10-09T16:11:27.2602539Z test browser::creation_tests::cancelled_creation_with_silent_peer_releases_local_waiter_after_grace ... ok
+2026-10-09T16:11:27.2650325Z test browser::creation_tests::cancelled_default_page_before_creation_reply_is_closed ... ok
+2026-10-09T16:11:27.2711012Z test browser::creation_tests::cancelled_initialization_outside_runtime_thread_cleans_up ... ok
+2026-10-09T16:11:27.2759265Z test browser::creation_tests::cancelled_page_before_creation_reply_is_closed ... ok
+2026-10-09T16:11:27.3222699Z test browser::creation_tests::cancelled_page_initialization_closes_created_page ... ok
+2026-10-09T16:11:27.3282926Z test browser::creation_tests::failed_page_initialization_closes_created_page ... ok
+2026-10-09T16:11:27.3325417Z test browser::frame_helper_cache_tests::destroyed_frame_is_not_treated_as_an_initialized_document ... ok
+2026-10-09T16:11:27.3377107Z test browser::frame_helper_cache_tests::late_injection_reply_does_not_initialize_a_replacement_document ... ok
+2026-10-09T16:11:27.3435784Z test browser::frame_helper_cache_tests::live_frame_reuses_its_document_helper_without_reinjection ... ok
+2026-10-09T16:11:27.3487656Z test browser::frame_helper_cache_tests::same_frame_id_in_a_new_document_gets_its_helper_again ... ok
+2026-10-09T16:11:32.3957065Z test browser::interception_tests::acknowledged_late_removal_is_reconciled_before_a_new_route ... ok
+2026-10-09T16:11:32.4415950Z test browser::interception_tests::canceled_pre_ack_event_continues_instead_of_being_lost ... ok
+2026-10-09T16:11:32.4877110Z test browser::interception_tests::canceled_reconciliation_restores_previous_committed_rules ... ok
+2026-10-09T16:11:32.4967904Z test browser::interception_tests::canceled_registration_reclaims_the_late_id ... ok
+2026-10-09T16:11:32.5848677Z test browser::interception_tests::cancellation_after_old_phase_removal_preserves_previous_rules ... ok
+2026-10-09T16:11:32.6206282Z test browser::interception_tests::clear_continues_after_waiter_cancellation ... ok
+2026-10-09T16:11:32.7065115Z test browser::interception_tests::closing_during_unacknowledged_add_closes_remote_and_removes_helper ... ok
+2026-10-09T16:11:32.7417941Z test browser::interception_tests::concurrent_registration_does_not_return_before_ack ... ok
+2026-10-09T16:11:32.8705673Z test browser::interception_tests::context_close_marks_every_page_closed_before_waiting_for_late_add ... ok
+2026-10-09T16:11:32.9186598Z test browser::interception_tests::descendant_events_use_owned_ids_and_foreign_intercepts_are_untouched ... ok
+2026-10-09T16:11:32.9443710Z test browser::interception_tests::discovered_handles_share_routes_and_keep_registration_alive ... ok
+2026-10-09T16:11:32.9905044Z test browser::interception_tests::failed_broader_registration_keeps_previous_phases_usable ... ok
+2026-10-09T16:11:33.0014162Z test browser::interception_tests::failed_drop_retirement_is_reused_by_discovered_handle ... ok
+2026-10-09T16:11:33.0052384Z test browser::interception_tests::failed_phase_expansion_preserves_existing_registration ... ok
+2026-10-09T16:11:33.0170299Z test browser::interception_tests::final_handle_drop_outside_runtime_uses_its_origin_runtime ... ok
+2026-10-09T16:11:33.0273540Z test browser::interception_tests::final_routed_page_handle_drop_removes_registration ... ok
+2026-10-09T16:11:33.0309644Z test browser::interception_tests::page_close_retires_routes_while_handle_is_retained ... ok
+2026-10-09T16:11:33.1428528Z test browser::interception_tests::persistent_drop_rejection_exits_after_explicit_browser_close ... ok
+2026-10-09T16:11:33.1906341Z test browser::interception_tests::previous_routes_keep_dispatching_while_broader_allocation_is_unacknowledged ... ok
+2026-10-09T16:11:33.2068873Z test browser::interception_tests::queued_unobserved_registration_handoff_is_rolled_back ... ok
+2026-10-09T16:11:33.2105215Z test browser::interception_tests::rejected_registration_is_retryable ... ok
+2026-10-09T16:11:33.2144304Z test browser::interception_tests::removal_error_is_typed_and_retains_the_id ... ok
+2026-10-09T16:11:33.4656481Z test browser::interception_tests::repeated_canceled_upgrades_do_not_retain_historical_intercept_ids ... ok
+2026-10-09T16:11:33.5102047Z test browser::interception_tests::retiring_intercept_continues_blocked_requests_until_ack ... ok
+2026-10-09T16:11:33.5140583Z test browser::interception_tests::route_removal_failure_does_not_skip_native_close_or_helper_cleanup ... ok
+2026-10-09T16:11:33.5199152Z test browser::interception_tests::user_context_close_retires_only_owned_routes ... ok
+2026-10-09T16:11:33.5644638Z test browser::navigation_tests::cancelled_history_releases_command_and_next_traversal_recovers ... ok
+2026-10-09T16:11:33.5677692Z test browser::navigation_tests::connection_shutdown_wakes_history_waiter ... ok
+2026-10-09T16:11:33.5711821Z test browser::navigation_tests::context_destruction_wakes_history_even_with_command_acknowledgment_held ... ok
+2026-10-09T16:11:33.6257469Z test browser::navigation_tests::history_deadline_covers_lifecycle_and_releases_pending_command ... ok
+2026-10-09T16:11:33.6808276Z test browser::navigation_tests::history_timeout_includes_subscription_acknowledgment ... ok
+2026-10-09T16:11:33.7667144Z test browser::navigation_tests::lifecycle_before_command_acknowledgment_is_not_lost ... ok
+2026-10-09T16:11:33.7699879Z test browser::navigation_tests::missing_history_entry_preserves_typed_protocol_error ... ok
+2026-10-09T16:11:33.8253901Z test browser::navigation_tests::reload_waits_for_complete_and_uses_one_explicit_deadline ... ok
+2026-10-09T16:11:33.9105506Z test browser::navigation_tests::same_document_history_and_fragment_commits_share_one_subscription ... ok
+2026-10-09T16:11:33.9769013Z test browser::navigation_tests::stale_foreign_and_wrong_navigation_loads_do_not_finish_history ... ok
+2026-10-09T16:11:34.0216155Z test browser::navigation_tests::subscription_setup_survives_cancellation_without_duplicate_registration ... ok
+2026-10-09T16:11:34.0971836Z test browser::network_subscription_tests::cancelled_monitoring_retains_events_received_before_subscription_acknowledgment ... ok
+2026-10-09T16:11:34.1726841Z test browser::network_subscription_tests::cancelled_monitoring_setup_finishes_with_one_reused_pump ... ok
+2026-10-09T16:11:34.2056931Z test browser::network_subscription_tests::cancelling_subscription_waiter_keeps_acknowledgment_owned ... ok
+2026-10-09T16:11:34.2389101Z test browser::network_subscription_tests::concurrent_session_subscription_waits_for_the_same_successful_handshake ... ok
+2026-10-09T16:11:34.3154599Z test browser::network_subscription_tests::monitoring_retains_events_received_before_subscription_acknowledgment ... ok
+2026-10-09T16:11:34.3597092Z test browser::network_subscription_tests::rejected_monitoring_setup_can_retry_without_installing_a_failed_pump ... ok
+2026-10-09T16:11:34.3932820Z test browser::network_subscription_tests::rejected_subscription_preserves_error_and_queued_caller_retries ... ok
+2026-10-09T16:11:34.3948946Z test browser::network_subscription_tests::silent_subscription_has_a_bounded_local_waiter ... ok
+2026-10-09T16:11:34.3962548Z test browser::shutdown_tests::browser_close_bounds_silent_end_and_closes_retained_connection ... ok
+2026-10-09T16:11:34.3996417Z test browser::shutdown_tests::cancelled_browser_close_closes_retained_connection ... ok
+2026-10-09T16:11:34.4061232Z test browser::shutdown_tests::cancelled_context_close_before_reply_removes_retained_helper ... ok
+2026-10-09T16:11:34.4092231Z test browser::shutdown_tests::cancelled_context_close_bounds_silent_remote_waiter ... ok
+2026-10-09T16:11:34.4157183Z test browser::shutdown_tests::cancelled_context_close_during_helper_removal_finishes ... ok
+2026-10-09T16:11:34.4221496Z test browser::shutdown_tests::cancelled_page_close_during_helper_removal_closes_page ... ok
+2026-10-09T16:11:34.4262073Z test browser::shutdown_tests::concurrent_and_repeated_context_close_remove_helper_once ... ok
+2026-10-09T16:11:34.4316725Z test browser::shutdown_tests::concurrent_context_cleanup_error_does_not_skip_other_helpers ... ok
+2026-10-09T16:11:34.4353000Z test browser::shutdown_tests::failed_helper_removal_is_retried_after_context_is_gone ... ok
+2026-10-09T16:11:34.4388750Z test browser::shutdown_tests::page_helper_cleanup_error_is_returned_and_clone_retries ... ok
+2026-10-09T16:11:34.4422750Z test browser::shutdown_tests::remote_context_error_is_returned_and_retry_cleans_helper ... ok
+2026-10-09T16:11:34.4430287Z test connection::tests::cancelled_request_is_removed ... ok
+2026-10-09T16:11:34.4437327Z test connection::tests::protocol_error_preserves_command_details ... ok
+2026-10-09T16:11:34.4556951Z test connection::tests::timed_out_request_is_removed ... ok
+2026-10-09T16:11:34.7108176Z test connection::transport_lifetime_tests::explicit_close_interrupts_blocked_write_and_close ... ok
+2026-10-09T16:11:34.7116339Z test connection::transport_lifetime_tests::last_clone_drop_releases_inner_and_socket ... ok
+2026-10-09T16:11:34.7126795Z test connection::transport_lifetime_tests::peer_loss_releases_waiters_and_inner ... ok
+2026-10-09T16:11:34.9675761Z test connection::transport_lifetime_tests::reader_failure_interrupts_blocked_write_and_close ... ok
+2026-10-09T16:11:34.9679545Z test connection::transport_lifetime_tests::writer_failure_releases_idle_reader_and_socket ... ok
+2026-10-09T16:11:35.0124934Z test lifecycle_tests::cancelling_helper_registration_still_releases_the_remote_script ... ok
+2026-10-09T16:11:35.0186946Z test lifecycle_tests::closing_one_context_preserves_other_context_helpers ... ok
+2026-10-09T16:11:35.0220353Z test lifecycle_tests::context_close_releases_helpers_even_while_page_handles_are_retained ... ok
+2026-10-09T16:11:35.0273351Z test lifecycle_tests::dropping_the_last_page_handle_releases_its_helper_registration ... ok
+2026-10-09T16:11:35.0514256Z test lifecycle_tests::repeated_discovery_reuses_the_page_helper_registration ... ok
+2026-10-09T16:11:35.0562768Z test network::interception_queue_tests::deferred_allocation_events_have_a_separate_bounded_queue ... ok
+2026-10-09T16:11:35.0563942Z test session::tests::converts_arrays_and_objects ... ok
+2026-10-09T16:11:35.0567301Z test session::tests::converts_scalars ... ok
+2026-10-09T16:11:35.0568779Z test session::tests::evaluation_exceptions_preserve_the_browser_message ... ok
+2026-10-09T16:11:35.0569894Z test session::tests::successful_null_and_undefined_are_distinct_from_exceptions ... ok
+2026-10-09T16:11:35.0570507Z 
+2026-10-09T16:11:35.0570885Z test result: ok. 86 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 7.81s
+2026-10-09T16:11:35.0571380Z 
+2026-10-09T16:11:35.0575709Z [1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/rustwright_browser-5f7de59dfe103c9f)
+2026-10-09T16:11:35.0584426Z 
+2026-10-09T16:11:35.0584595Z running 4 tests
+2026-10-09T16:11:35.0588279Z test firefox::tests::detects_snap_wrapper_scripts ... ok
+2026-10-09T16:11:35.0589464Z test launch::tests::build_args_includes_profile_and_headless_flags ... ok
+2026-10-09T16:11:35.0590711Z test launch::tests::parses_devtools_active_port_file ... ok
+2026-10-09T16:11:35.0591504Z test launch::tests::rejects_malformed_active_port_file ... ok
+2026-10-09T16:11:35.0592061Z 
+2026-10-09T16:11:35.0592484Z test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T16:11:35.0592903Z 
+2026-10-09T16:11:35.0593677Z [1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/rustwright_cdp-def6d2eaee8ec917)
+2026-10-09T16:11:35.0606142Z 
+2026-10-09T16:11:35.0606466Z running 17 tests
+2026-10-09T16:11:35.0616414Z test connection::tests::cancelled_request_is_removed ... ok
+2026-10-09T16:11:35.0628733Z test connection::tests::context_destruction_is_scoped_to_both_session_and_context ... ok
+2026-10-09T16:11:35.0638322Z test connection::tests::detachment_fails_only_its_sessions_pending_requests ... ok
+2026-10-09T16:11:35.0645527Z test connection::tests::protocol_error_preserves_command_details ... ok
+2026-10-09T16:11:35.0765447Z test connection::tests::timed_out_request_is_removed ... ok
+2026-10-09T16:11:35.3327795Z test connection::transport_lifetime_tests::explicit_close_interrupts_blocked_write_and_close ... ok
+2026-10-09T16:11:35.3337056Z test connection::transport_lifetime_tests::last_clone_drop_releases_inner_and_socket ... ok
+2026-10-09T16:11:35.3348126Z test connection::transport_lifetime_tests::peer_loss_releases_waiters_and_inner ... ok
+2026-10-09T16:11:35.5907813Z test connection::transport_lifetime_tests::reader_failure_interrupts_blocked_write_and_close ... ok
+2026-10-09T16:11:35.5912573Z test connection::transport_lifetime_tests::repeated_close_emits_one_disconnection_marker ... ok
+2026-10-09T16:11:35.5918872Z test connection::transport_lifetime_tests::writer_failure_releases_idle_reader_and_socket ... ok
+2026-10-09T16:11:35.5919824Z test http::tests::decodes_chunked_bodies ... ok
+2026-10-09T16:11:35.5920537Z test http::tests::detects_complete_chunked_bodies ... ok
+2026-10-09T16:11:35.5921180Z test http::tests::endpoint_parses_default_port ... ok
+2026-10-09T16:11:35.5924023Z test http::tests::missing_content_length_is_none ... ok
+2026-10-09T16:11:35.5924717Z test http::tests::parses_content_length_case_insensitively ... ok
+2026-10-09T16:11:35.5925492Z test protocol::page::tests::frame_urls_include_separately_reported_fragments ... ok
+2026-10-09T16:11:35.5925931Z 
+2026-10-09T16:11:35.5926274Z test result: ok. 17 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.53s
+2026-10-09T16:11:35.5926669Z 
+2026-10-09T16:11:35.5927251Z [1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/rustwright_common-536c9a04ebab6705)
+2026-10-09T16:11:35.5936155Z 
+2026-10-09T16:11:35.5936464Z running 7 tests
+2026-10-09T16:11:35.5937772Z test route::tests::glob_matches_wildcards ... ok
+2026-10-09T16:11:35.5938709Z test route::tests::route_uses_glob_when_wildcards_present ... ok
+2026-10-09T16:11:35.5939708Z test route::tests::substring_matches_when_no_wildcards ... ok
+2026-10-09T16:11:35.5940306Z test selectors::tests::describes_selectors_for_errors ... ok
+2026-10-09T16:11:35.5941132Z test selectors::tests::serializes_css_specs ... ok
+2026-10-09T16:11:35.5941917Z test selectors::tests::serializes_role_specs ... ok
+2026-10-09T16:11:35.5942509Z test selectors::tests::serializes_text_specs ... ok
+2026-10-09T16:11:35.5943000Z 
+2026-10-09T16:11:35.5943972Z test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T16:11:35.5944497Z 
+2026-10-09T16:11:35.5946173Z [1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/rustwright_core-3b15cbb49ab49d59)
+2026-10-09T16:11:35.5956512Z 
+2026-10-09T16:11:35.5956771Z running 53 tests
+2026-10-09T16:11:40.6117610Z test browser::shutdown_tests::cancelled_owned_shutdown_has_bounded_forced_process_and_socket_cleanup ... ok
+2026-10-09T16:11:40.6672978Z test browser::shutdown_tests::cancelled_owned_shutdown_keeps_worker_alive_until_acknowledgement ... ok
+2026-10-09T16:11:40.7224270Z test browser::shutdown_tests::concurrent_owned_shutdown_does_not_interrupt_graceful_command ... ok
+2026-10-09T16:11:40.7358692Z test browser::shutdown_tests::externally_owned_process_survives_repeated_disconnect ... ok
+2026-10-09T16:11:40.7370999Z test context::shutdown_tests::cancelled_attachment_wait_still_disposes ... ok
+2026-10-09T16:11:40.7797979Z test context::shutdown_tests::cancelled_disposal_wait_still_waits_for_acknowledgement ... ok
+2026-10-09T16:11:40.8228017Z test context::shutdown_tests::concurrent_close_waits_for_disposal_acknowledgement ... ok
+2026-10-09T16:11:40.8243322Z test context::shutdown_tests::default_context_close_keeps_foreign_context_and_connection_open ... ok
+2026-10-09T16:11:40.8256554Z test context::shutdown_tests::disposal_failure_is_visible_and_replayed_without_duplicate_command ... ok
+2026-10-09T16:11:45.8286976Z test context::shutdown_tests::stalled_attachment_still_attempts_disposal_and_replays_timeout ... ok
+2026-10-09T16:11:50.8318772Z test context::shutdown_tests::stalled_disposal_has_bounded_replayed_error_without_waiter_leak ... ok
+2026-10-09T16:11:50.8744511Z test context::tests::cancelled_page_wait_detaches_partial_initialization ... ok
+2026-10-09T16:11:50.8782823Z test context::tests::disconnect_releases_registry_with_retained_handles ... ok
+2026-10-09T16:11:50.8799782Z test context::tests::discovery_returns_initialization_errors_and_detaches_the_session ... ok
+2026-10-09T16:11:50.9307112Z test context::tests::explicit_close_releases_registry_without_discovery ... ok
+2026-10-09T16:11:50.9751125Z test context::tests::external_detach_releases_registry_with_retained_handles ... ok
+2026-10-09T16:11:51.0770017Z test context::tests::page_wait_deadline_includes_stalled_discovery ... ok
+2026-10-09T16:11:51.1796801Z test context::tests::page_wait_timeout_detaches_partial_initialization ... ok
+2026-10-09T16:11:51.2225073Z test context::tests::popup_created_during_discovery_is_not_lost ... ok
+2026-10-09T16:11:51.2274795Z test creation_tests::cancelled_after_reply_before_handoff_removes_context ... ok
+2026-10-09T16:11:51.2322944Z test creation_tests::cancelled_context_before_creation_reply_is_removed ... ok
+2026-10-09T16:11:51.2339657Z test creation_tests::cancelled_creation_with_silent_peer_releases_local_waiter_after_grace ... ok
+2026-10-09T16:11:51.2387413Z test creation_tests::cancelled_default_page_before_creation_reply_is_closed ... ok
+2026-10-09T16:11:51.2437188Z test creation_tests::cancelled_discovery_before_attach_reply_detaches_without_closing_existing_page ... ok
+2026-10-09T16:11:51.2489640Z test creation_tests::cancelled_initialization_outside_runtime_thread_cleans_up ... ok
+2026-10-09T16:11:51.2539072Z test creation_tests::cancelled_page_before_creation_reply_is_closed ... ok
+2026-10-09T16:11:51.2992731Z test creation_tests::cancelled_page_initialization_closes_created_page ... ok
+2026-10-09T16:11:51.3045977Z test creation_tests::failed_page_initialization_closes_created_page ... ok
+2026-10-09T16:11:51.3046894Z test diagnostics::tests::formats_epoch_timestamps ... ok
+2026-10-09T16:11:51.3048179Z test geometry::tests::clips_both_axes_before_selecting_the_center ... ok
+2026-10-09T16:11:51.3050418Z test geometry::tests::limits_search_for_many_inline_fragments ... ok
+2026-10-09T16:11:51.3051346Z test geometry::tests::prioritizes_distinct_fragments_and_accepts_reversed_winding ... ok
+2026-10-09T16:11:51.3051989Z test geometry::tests::projection_round_trips_affine_and_perspective_quads ... ok
+2026-10-09T16:11:51.3052777Z test geometry::tests::rejects_nonfinite_degenerate_and_offscreen_quads ... ok
+2026-10-09T16:11:51.3053875Z test geometry::tests::rotated_clipping_keeps_candidates_in_the_visible_triangle ... ok
+2026-10-09T16:11:51.3054704Z test geometry::tests::searches_edges_when_a_central_band_is_covered ... ok
+2026-10-09T16:11:51.3055766Z test geometry::tests::searches_the_actual_overflow_strip_after_scrolling_an_oversized_control ... ok
+2026-10-09T16:11:51.3057118Z test locator::tests::detached_pre_input_probes_can_retry_but_input_never_retries ... ok
+2026-10-09T16:11:51.3058157Z test network_idle::tests::colliding_ids_and_duplicate_terminal_events_preserve_the_last_request_window ... ok
+2026-10-09T16:11:51.3059243Z test network_idle::tests::new_main_document_discards_old_requests_but_preserves_its_pending_navigation ... ok
+2026-10-09T16:11:51.3060261Z test network_idle::tests::redirects_and_document_transfers_do_not_create_phantom_requests ... ok
+2026-10-09T16:11:51.3061359Z test network_idle::tests::removing_frames_and_sessions_preserves_other_pending_frames ... ok
+2026-10-09T16:11:51.3062334Z test page::tests::detaching_a_session_removes_descendants_and_preserves_siblings ... ok
+2026-10-09T16:11:51.3063348Z test page::tests::document_completion_transfers_to_its_new_session_without_duplicates ... ok
+2026-10-09T16:11:51.3064427Z test page::tests::empty_input_becomes_about_blank ... ok
+2026-10-09T16:11:51.3065031Z test page::tests::leaves_explicit_schemes_alone ... ok
+2026-10-09T16:11:51.3065714Z test page::tests::maps_common_keys ... ok
+2026-10-09T16:11:51.3066371Z test page::tests::network_ids_and_har_bodies_are_isolated_between_sessions ... ok
+2026-10-09T16:11:51.3067197Z test page::tests::new_documents_discard_old_load_states_and_ignore_late_old_events ... ok
+2026-10-09T16:11:51.3067987Z test page::tests::prefixes_bare_hosts_with_https ... ok
+2026-10-09T16:11:51.3068778Z test page::tests::same_document_and_bfcache_commits_do_not_wait_for_nonexistent_load_events ... ok
+2026-10-09T16:11:51.3071442Z test shutdown::shutdown_tests::cancelled_waiter_does_not_cancel_single_worker_or_late_result ... ok
+2026-10-09T16:11:51.3419142Z test shutdown::shutdown_tests::worker_panic_wakes_all_waiters_with_failure ... ok
+2026-10-09T16:11:51.3419619Z 
+2026-10-09T16:11:51.3420077Z test result: ok. 53 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 15.75s
+2026-10-09T16:11:51.3420439Z 
+2026-10-09T16:11:51.3438156Z [1m[92m     Running[0m advanced.rs (target/debug/deps/advanced-d7f62d24c09fdb45)
+2026-10-09T16:11:51.3448236Z 
+2026-10-09T16:11:51.3448913Z running 9 tests
+2026-10-09T16:11:51.6509917Z test aborts_blocked_requests ... FAILED
+2026-10-09T16:11:51.8754175Z test downloads_to_configured_path ... FAILED
+2026-10-09T16:11:52.1083814Z test exports_har ... FAILED
+2026-10-09T16:11:52.3309007Z test fulfills_mocked_requests ... FAILED
+2026-10-09T16:11:52.5374567Z test interacts_with_cross_origin_iframe ... FAILED
+2026-10-09T16:11:52.7376458Z test modifies_request_headers ... FAILED
+2026-10-09T16:11:52.9624475Z test modifies_response_headers ... FAILED
+2026-10-09T16:11:53.2100276Z test records_a_chrome_trace ... FAILED
+2026-10-09T16:11:53.4919188Z test uploads_files_to_input ... FAILED
+2026-10-09T16:11:53.4919726Z 
+2026-10-09T16:11:53.4920195Z failures:
+2026-10-09T16:11:53.4920696Z 
+2026-10-09T16:11:53.4920955Z ---- aborts_blocked_requests stdout ----
+2026-10-09T16:11:53.4921271Z 
+2026-10-09T16:11:53.4921596Z thread 'aborts_blocked_requests' (5314) panicked at tests/advanced.rs:117:10:
+2026-10-09T16:11:53.4922935Z launch: Browser(EarlyExit { status: "signal: 6 (SIGABRT) (core dumped)", log_path: "/tmp/rustwright-5313-1791562311345163392-0/rustwright-chrome.log" })
+2026-10-09T16:11:53.4924397Z stack backtrace:
+2026-10-09T16:11:53.4924860Z    0: __rustc::rust_begin_unwind
+2026-10-09T16:11:53.4925601Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panicking.rs:679:5
+2026-10-09T16:11:53.4926260Z    1: core::panicking::panic_fmt
+2026-10-09T16:11:53.4926844Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/panicking.rs:80:14
+2026-10-09T16:11:53.4927440Z    2: core::result::unwrap_failed
+2026-10-09T16:11:53.4928113Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/result.rs:1871:5
+2026-10-09T16:11:53.4928891Z    3: <core::result::Result<rustwright_core::browser::Browser, rustwright_core::error::Error>>::expect
+2026-10-09T16:11:53.4929607Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/result.rs:1184:23
+2026-10-09T16:11:53.4930185Z    4: advanced::aborts_blocked_requests::{closure#0}
+2026-10-09T16:11:53.4930548Z              at ./advanced.rs:117:10
+2026-10-09T16:11:53.4931075Z    5: <core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>> as core::future::future::Future>::poll
+2026-10-09T16:11:53.4931860Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/future/future.rs:133:9
+2026-10-09T16:11:53.4932728Z    6: <core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>> as core::future::future::Future>::poll
+2026-10-09T16:11:53.4933725Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/future/future.rs:133:9
+2026-10-09T16:11:53.4934958Z    7: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}
+2026-10-09T16:11:53.4936597Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:830:70
+2026-10-09T16:11:53.4938343Z    8: tokio::task::coop::with_budget::<core::task::poll::Poll<()>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}>
+2026-10-09T16:11:53.4940407Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/task/coop/mod.rs:167:5
+2026-10-09T16:11:53.4941944Z    9: tokio::task::coop::budget::<core::task::poll::Poll<()>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}>
+2026-10-09T16:11:53.4943573Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/task/coop/mod.rs:133:5
+2026-10-09T16:11:53.4944837Z   10: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}
+2026-10-09T16:11:53.4945780Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:830:25
+2026-10-09T16:11:53.4946810Z   11: <tokio::runtime::scheduler::current_thread::Context>::enter::<core::task::poll::Poll<()>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}>
+2026-10-09T16:11:53.4948068Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:488:19
+2026-10-09T16:11:53.4949397Z   12: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}
+2026-10-09T16:11:53.4950812Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:829:44
+2026-10-09T16:11:53.4951892Z   13: <tokio::runtime::scheduler::current_thread::CoreGuard>::enter::<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}
+2026-10-09T16:11:53.4953570Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:906:68
+2026-10-09T16:11:53.4955083Z   14: <tokio::runtime::context::scoped::Scoped<tokio::runtime::scheduler::Context>>::set::<<tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>)>
+2026-10-09T16:11:53.4956692Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context/scoped.rs:40:9
+2026-10-09T16:11:53.4958170Z   15: tokio::runtime::context::set_scheduler::<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>::{closure#0}
+2026-10-09T16:11:53.4960342Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context.rs:187:38
+2026-10-09T16:11:53.4963289Z   16: <std::thread::local::LocalKey<tokio::runtime::context::Context>>::try_with::<tokio::runtime::context::set_scheduler<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>)>
+2026-10-09T16:11:53.4969362Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/thread/local.rs:463:12
+2026-10-09T16:11:53.4972257Z   17: <std::thread::local::LocalKey<tokio::runtime::context::Context>>::with::<tokio::runtime::context::set_scheduler<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>)>
+2026-10-09T16:11:53.4974568Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/thread/local.rs:427:20
+2026-10-09T16:11:53.4975863Z   18: tokio::runtime::context::set_scheduler::<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>
+2026-10-09T16:11:53.4977930Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context.rs:187:17
+2026-10-09T16:11:53.4979488Z   19: <tokio::runtime::scheduler::current_thread::CoreGuard>::enter::<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>
+2026-10-09T16:11:53.4980511Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:906:27
+2026-10-09T16:11:53.4981283Z   20: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>
+2026-10-09T16:11:53.4982058Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:817:24
+2026-10-09T16:11:53.4982834Z   21: <tokio::runtime::scheduler::current_thread::CurrentThread>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>::{closure#0}
+2026-10-09T16:11:53.4984202Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:218:33
+2026-10-09T16:11:53.4985127Z   22: tokio::runtime::context::runtime::enter_runtime::<<tokio::runtime::scheduler::current_thread::CurrentThread>::block_on<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>::{closure#0}, ()>
+2026-10-09T16:11:53.4985990Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context/runtime.rs:65:16
+2026-10-09T16:11:53.4986767Z   23: <tokio::runtime::scheduler::current_thread::CurrentThread>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>
+2026-10-09T16:11:53.4987491Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:206:9
+2026-10-09T16:11:53.4988316Z   24: <tokio::runtime::runtime::Runtime>::block_on_inner::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>
+2026-10-09T16:11:53.4988952Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/runtime.rs:374:52
+2026-10-09T16:11:53.4989570Z   25: <tokio::runtime::runtime::Runtime>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>
+2026-10-09T16:11:53.4990249Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/runtime.rs:343:18
+2026-10-09T16:11:53.4990714Z   26: advanced::aborts_blocked_requests
+2026-10-09T16:11:53.4990979Z              at ./advanced.rs:128:42
+2026-10-09T16:11:53.4991264Z   27: advanced::aborts_blocked_requests::{closure#0}
+2026-10-09T16:11:53.4991610Z              at ./advanced.rs:110:35
+2026-10-09T16:11:53.4992019Z   28: <advanced::aborts_blocked_requests::{closure#0} as core::ops::function::FnOnce<()>>::call_once
+2026-10-09T16:11:53.4992561Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ops/function.rs:250:5
+2026-10-09T16:11:53.4993227Z   29: <fn() -> core::result::Result<(), alloc::string::String> as core::ops::function::FnOnce<()>>::call_once
+2026-10-09T16:11:53.4993923Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ops/function.rs:250:5
+2026-10-09T16:11:53.4994437Z note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
+2026-10-09T16:11:53.4994713Z 
+2026-10-09T16:11:53.4994840Z ---- downloads_to_configured_path stdout ----
+2026-10-09T16:11:53.4995023Z 
+2026-10-09T16:11:53.4995291Z thread 'downloads_to_configured_path' (5333) panicked at tests/advanced.rs:180:10:
+2026-10-09T16:11:53.4995949Z launch: Browser(EarlyExit { status: "signal: 6 (SIGABRT) (core dumped)", log_path: "/tmp/rustwright-5313-1791562311651146478-1/rustwright-chrome.log" })
+2026-10-09T16:11:53.4996487Z stack backtrace:
+2026-10-09T16:11:53.4996707Z    0: __rustc::rust_begin_unwind
+2026-10-09T16:11:53.4997143Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panicking.rs:679:5
+2026-10-09T16:11:53.4997549Z    1: core::panicking::panic_fmt
+2026-10-09T16:11:53.4997985Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/panicking.rs:80:14
+2026-10-09T16:11:53.4998391Z    2: core::result::unwrap_failed
+2026-10-09T16:11:53.4998830Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/result.rs:1871:5
+2026-10-09T16:11:53.4999364Z    3: <core::result::Result<rustwright_core::browser::Browser, rustwright_core::error::Error>>::expect
+2026-10-09T16:11:53.4999881Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/result.rs:1184:23
+2026-10-09T16:11:53.5000300Z    4: advanced::downloads_to_configured_path::{closure#0}
+2026-10-09T16:11:53.5000667Z              at ./advanced.rs:180:10
+2026-10-09T16:11:53.5001068Z    5: <core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>> as core::future::future::Future>::poll
+2026-10-09T16:11:53.5001606Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/future/future.rs:133:9
+2026-10-09T16:11:53.5002185Z    6: <core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>> as core::future::future::Future>::poll
+2026-10-09T16:11:53.5002764Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/future/future.rs:133:9
+2026-10-09T16:11:53.5003741Z    7: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}
+2026-10-09T16:11:53.5004613Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:830:70
+2026-10-09T16:11:53.5005674Z    8: tokio::task::coop::with_budget::<core::task::poll::Poll<()>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}>
+2026-10-09T16:11:53.5006609Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/task/coop/mod.rs:167:5
+2026-10-09T16:11:53.5007519Z    9: tokio::task::coop::budget::<core::task::poll::Poll<()>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}>
+2026-10-09T16:11:53.5008439Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/task/coop/mod.rs:133:5
+2026-10-09T16:11:53.5009199Z   10: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}
+2026-10-09T16:11:53.5010027Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:830:25
+2026-10-09T16:11:53.5011067Z   11: <tokio::runtime::scheduler::current_thread::Context>::enter::<core::task::poll::Poll<()>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}>
+2026-10-09T16:11:53.5012079Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:488:19
+2026-10-09T16:11:53.5012871Z   12: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}
+2026-10-09T16:11:53.5014008Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:829:44
+2026-10-09T16:11:53.5015120Z   13: <tokio::runtime::scheduler::current_thread::CoreGuard>::enter::<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}
+2026-10-09T16:11:53.5016157Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:906:68
+2026-10-09T16:11:53.5017614Z   14: <tokio::runtime::context::scoped::Scoped<tokio::runtime::scheduler::Context>>::set::<<tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>)>
+2026-10-09T16:11:53.5019014Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context/scoped.rs:40:9
+2026-10-09T16:11:53.5020352Z   15: tokio::runtime::context::set_scheduler::<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>::{closure#0}
+2026-10-09T16:11:53.5021710Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context.rs:187:38
+2026-10-09T16:11:53.5023683Z   16: <std::thread::local::LocalKey<tokio::runtime::context::Context>>::try_with::<tokio::runtime::context::set_scheduler<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>)>
+2026-10-09T16:11:53.5025443Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/thread/local.rs:463:12
+2026-10-09T16:11:53.5027107Z   17: <std::thread::local::LocalKey<tokio::runtime::context::Context>>::with::<tokio::runtime::context::set_scheduler<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>)>
+2026-10-09T16:11:53.5028764Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/thread/local.rs:427:20
+2026-10-09T16:11:53.5030031Z   18: tokio::runtime::context::set_scheduler::<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>
+2026-10-09T16:11:53.5031313Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context.rs:187:17
+2026-10-09T16:11:53.5032270Z   19: <tokio::runtime::scheduler::current_thread::CoreGuard>::enter::<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>
+2026-10-09T16:11:53.5034006Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:906:27
+2026-10-09T16:11:53.5035510Z   20: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>
+2026-10-09T16:11:53.5037247Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:817:24
+2026-10-09T16:11:53.5039070Z   21: <tokio::runtime::scheduler::current_thread::CurrentThread>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>::{closure#0}
+2026-10-09T16:11:53.5040402Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:218:33
+2026-10-09T16:11:53.5041326Z   22: tokio::runtime::context::runtime::enter_runtime::<<tokio::runtime::scheduler::current_thread::CurrentThread>::block_on<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>::{closure#0}, ()>
+2026-10-09T16:11:53.5042189Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context/runtime.rs:65:16
+2026-10-09T16:11:53.5042893Z   23: <tokio::runtime::scheduler::current_thread::CurrentThread>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>
+2026-10-09T16:11:53.5043811Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:206:9
+2026-10-09T16:11:53.5044511Z   24: <tokio::runtime::runtime::Runtime>::block_on_inner::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>
+2026-10-09T16:11:53.5045146Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/runtime.rs:374:52
+2026-10-09T16:11:53.5045919Z   25: <tokio::runtime::runtime::Runtime>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>
+2026-10-09T16:11:53.5046535Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/runtime.rs:343:18
+2026-10-09T16:11:53.5047010Z   26: advanced::downloads_to_configured_path
+2026-10-09T16:11:53.5047287Z              at ./advanced.rs:197:42
+2026-10-09T16:11:53.5047585Z   27: advanced::downloads_to_configured_path::{closure#0}
+2026-10-09T16:11:53.5047881Z              at ./advanced.rs:170:40
+2026-10-09T16:11:53.5048286Z   28: <advanced::downloads_to_configured_path::{closure#0} as core::ops::function::FnOnce<()>>::call_once
+2026-10-09T16:11:53.5048854Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ops/function.rs:250:5
+2026-10-09T16:11:53.5049566Z   29: <fn() -> core::result::Result<(), alloc::string::String> as core::ops::function::FnOnce<()>>::call_once
+2026-10-09T16:11:53.5050107Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ops/function.rs:250:5
+2026-10-09T16:11:53.5050628Z note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
+2026-10-09T16:11:53.5050903Z 
+2026-10-09T16:11:53.5051012Z ---- exports_har stdout ----
+2026-10-09T16:11:53.5051163Z 
+2026-10-09T16:11:53.5051329Z thread 'exports_har' (5353) panicked at tests/advanced.rs:264:10:
+2026-10-09T16:11:53.5051931Z launch: Browser(EarlyExit { status: "signal: 6 (SIGABRT) (core dumped)", log_path: "/tmp/rustwright-5313-1791562311875515758-2/rustwright-chrome.log" })
+2026-10-09T16:11:53.5052457Z stack backtrace:
+2026-10-09T16:11:53.5052674Z    0: __rustc::rust_begin_unwind
+2026-10-09T16:11:53.5053047Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panicking.rs:679:5
+2026-10-09T16:11:53.5053580Z    1: core::panicking::panic_fmt
+2026-10-09T16:11:53.5053963Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/panicking.rs:80:14
+2026-10-09T16:11:53.5054375Z    2: core::result::unwrap_failed
+2026-10-09T16:11:53.5054740Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/result.rs:1871:5
+2026-10-09T16:11:53.5055353Z    3: <core::result::Result<rustwright_core::browser::Browser, rustwright_core::error::Error>>::expect
+2026-10-09T16:11:53.5055881Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/result.rs:1184:23
+2026-10-09T16:11:53.5056275Z    4: advanced::exports_har::{closure#0}
+2026-10-09T16:11:53.5056534Z              at ./advanced.rs:264:10
+2026-10-09T16:11:53.5056934Z    5: <core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>> as core::future::future::Future>::poll
+2026-10-09T16:11:53.5057474Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/future/future.rs:133:9
+2026-10-09T16:11:53.5058057Z    6: <core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>> as core::future::future::Future>::poll
+2026-10-09T16:11:53.5058643Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/future/future.rs:133:9
+2026-10-09T16:11:53.5059400Z    7: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}
+2026-10-09T16:11:53.5060267Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:830:70
+2026-10-09T16:11:53.5061252Z    8: tokio::task::coop::with_budget::<core::task::poll::Poll<()>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}>
+2026-10-09T16:11:53.5062185Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/task/coop/mod.rs:167:5
+2026-10-09T16:11:53.5063386Z    9: tokio::task::coop::budget::<core::task::poll::Poll<()>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}>
+2026-10-09T16:11:53.5064339Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/task/coop/mod.rs:133:5
+2026-10-09T16:11:53.5065115Z   10: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}
+2026-10-09T16:11:53.5065946Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:830:25
+2026-10-09T16:11:53.5066966Z   11: <tokio::runtime::scheduler::current_thread::Context>::enter::<core::task::poll::Poll<()>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}>
+2026-10-09T16:11:53.5067998Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:488:19
+2026-10-09T16:11:53.5068795Z   12: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}
+2026-10-09T16:11:53.5069581Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:829:44
+2026-10-09T16:11:53.5070603Z   13: <tokio::runtime::scheduler::current_thread::CoreGuard>::enter::<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}
+2026-10-09T16:11:53.5071631Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:906:68
+2026-10-09T16:11:53.5073299Z   14: <tokio::runtime::context::scoped::Scoped<tokio::runtime::scheduler::Context>>::set::<<tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>)>
+2026-10-09T16:11:53.5074714Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context/scoped.rs:40:9
+2026-10-09T16:11:53.5076059Z   15: tokio::runtime::context::set_scheduler::<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>::{closure#0}
+2026-10-09T16:11:53.5077627Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context.rs:187:38
+2026-10-09T16:11:53.5079352Z   16: <std::thread::local::LocalKey<tokio::runtime::context::Context>>::try_with::<tokio::runtime::context::set_scheduler<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>)>
+2026-10-09T16:11:53.5081030Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/thread/local.rs:463:12
+2026-10-09T16:11:53.5082753Z   17: <std::thread::local::LocalKey<tokio::runtime::context::Context>>::with::<tokio::runtime::context::set_scheduler<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>)>
+2026-10-09T16:11:53.5084539Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/thread/local.rs:427:20
+2026-10-09T16:11:53.5085788Z   18: tokio::runtime::context::set_scheduler::<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>
+2026-10-09T16:11:53.5087173Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context.rs:187:17
+2026-10-09T16:11:53.5088211Z   19: <tokio::runtime::scheduler::current_thread::CoreGuard>::enter::<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>
+2026-10-09T16:11:53.5089215Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:906:27
+2026-10-09T16:11:53.5089984Z   20: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>
+2026-10-09T16:11:53.5090757Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:817:24
+2026-10-09T16:11:53.5091596Z   21: <tokio::runtime::scheduler::current_thread::CurrentThread>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>::{closure#0}
+2026-10-09T16:11:53.5092351Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:218:33
+2026-10-09T16:11:53.5093362Z   22: tokio::runtime::context::runtime::enter_runtime::<<tokio::runtime::scheduler::current_thread::CurrentThread>::block_on<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>::{closure#0}, ()>
+2026-10-09T16:11:53.5094248Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context/runtime.rs:65:16
+2026-10-09T16:11:53.5094955Z   23: <tokio::runtime::scheduler::current_thread::CurrentThread>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>
+2026-10-09T16:11:53.5095691Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:206:9
+2026-10-09T16:11:53.5096374Z   24: <tokio::runtime::runtime::Runtime>::block_on_inner::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>
+2026-10-09T16:11:53.5097001Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/runtime.rs:374:52
+2026-10-09T16:11:53.5097616Z   25: <tokio::runtime::runtime::Runtime>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>
+2026-10-09T16:11:53.5098231Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/runtime.rs:343:18
+2026-10-09T16:11:53.5098677Z   26: advanced::exports_har
+2026-10-09T16:11:53.5098912Z              at ./advanced.rs:288:42
+2026-10-09T16:11:53.5099237Z   27: advanced::exports_har::{closure#0}
+2026-10-09T16:11:53.5099486Z              at ./advanced.rs:257:23
+2026-10-09T16:11:53.5099835Z   28: <advanced::exports_har::{closure#0} as core::ops::function::FnOnce<()>>::call_once
+2026-10-09T16:11:53.5100342Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ops/function.rs:250:5
+2026-10-09T16:11:53.5100884Z   29: <fn() -> core::result::Result<(), alloc::string::String> as core::ops::function::FnOnce<()>>::call_once
+2026-10-09T16:11:53.5101413Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ops/function.rs:250:5
+2026-10-09T16:11:53.5101914Z note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
+2026-10-09T16:11:53.5102201Z 
+2026-10-09T16:11:53.5102307Z ---- fulfills_mocked_requests stdout ----
+2026-10-09T16:11:53.5102489Z 
+2026-10-09T16:11:53.5102682Z thread 'fulfills_mocked_requests' (5384) panicked at tests/advanced.rs:92:10:
+2026-10-09T16:11:53.5103426Z launch: Browser(EarlyExit { status: "signal: 6 (SIGABRT) (core dumped)", log_path: "/tmp/rustwright-5313-1791562312108075026-3/rustwright-chrome.log" })
+2026-10-09T16:11:53.5103964Z stack backtrace:
+2026-10-09T16:11:53.5104184Z    0: __rustc::rust_begin_unwind
+2026-10-09T16:11:53.5104558Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panicking.rs:679:5
+2026-10-09T16:11:53.5104944Z    1: core::panicking::panic_fmt
+2026-10-09T16:11:53.5105316Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/panicking.rs:80:14
+2026-10-09T16:11:53.5105706Z    2: core::result::unwrap_failed
+2026-10-09T16:11:53.5106067Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/result.rs:1871:5
+2026-10-09T16:11:53.5106598Z    3: <core::result::Result<rustwright_core::browser::Browser, rustwright_core::error::Error>>::expect
+2026-10-09T16:11:53.5107123Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/result.rs:1184:23
+2026-10-09T16:11:53.5107541Z    4: advanced::fulfills_mocked_requests::{closure#0}
+2026-10-09T16:11:53.5107825Z              at ./advanced.rs:92:10
+2026-10-09T16:11:53.5108216Z    5: <core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>> as core::future::future::Future>::poll
+2026-10-09T16:11:53.5108840Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/future/future.rs:133:9
+2026-10-09T16:11:53.5109425Z    6: <core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>> as core::future::future::Future>::poll
+2026-10-09T16:11:53.5109997Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/future/future.rs:133:9
+2026-10-09T16:11:53.5110808Z    7: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}
+2026-10-09T16:11:53.5111678Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:830:70
+2026-10-09T16:11:53.5112672Z    8: tokio::task::coop::with_budget::<core::task::poll::Poll<()>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}>
+2026-10-09T16:11:53.5113743Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/task/coop/mod.rs:167:5
+2026-10-09T16:11:53.5114662Z    9: tokio::task::coop::budget::<core::task::poll::Poll<()>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}>
+2026-10-09T16:11:53.5115568Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/task/coop/mod.rs:133:5
+2026-10-09T16:11:53.5116410Z   10: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}
+2026-10-09T16:11:53.5117247Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:830:25
+2026-10-09T16:11:53.5118293Z   11: <tokio::runtime::scheduler::current_thread::Context>::enter::<core::task::poll::Poll<()>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}>
+2026-10-09T16:11:53.5119303Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:488:19
+2026-10-09T16:11:53.5120088Z   12: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}
+2026-10-09T16:11:53.5120874Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:829:44
+2026-10-09T16:11:53.5121892Z   13: <tokio::runtime::scheduler::current_thread::CoreGuard>::enter::<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}
+2026-10-09T16:11:53.5122920Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:906:68
+2026-10-09T16:11:53.5124730Z   14: <tokio::runtime::context::scoped::Scoped<tokio::runtime::scheduler::Context>>::set::<<tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>)>
+2026-10-09T16:11:53.5126135Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context/scoped.rs:40:9
+2026-10-09T16:11:53.5127553Z   15: tokio::runtime::context::set_scheduler::<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>::{closure#0}
+2026-10-09T16:11:53.5128861Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context.rs:187:38
+2026-10-09T16:11:53.5130600Z   16: <std::thread::local::LocalKey<tokio::runtime::context::Context>>::try_with::<tokio::runtime::context::set_scheduler<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>)>
+2026-10-09T16:11:53.5132344Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/thread/local.rs:463:12
+2026-10-09T16:11:53.5134150Z   17: <std::thread::local::LocalKey<tokio::runtime::context::Context>>::with::<tokio::runtime::context::set_scheduler<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>)>
+2026-10-09T16:11:53.5135861Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/thread/local.rs:427:20
+2026-10-09T16:11:53.5137103Z   18: tokio::runtime::context::set_scheduler::<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>
+2026-10-09T16:11:53.5138377Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context.rs:187:17
+2026-10-09T16:11:53.5139335Z   19: <tokio::runtime::scheduler::current_thread::CoreGuard>::enter::<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>
+2026-10-09T16:11:53.5140574Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:906:27
+2026-10-09T16:11:53.5141343Z   20: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>
+2026-10-09T16:11:53.5142119Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:817:24
+2026-10-09T16:11:53.5142876Z   21: <tokio::runtime::scheduler::current_thread::CurrentThread>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>::{closure#0}
+2026-10-09T16:11:53.5143774Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:218:33
+2026-10-09T16:11:53.5144800Z   22: tokio::runtime::context::runtime::enter_runtime::<<tokio::runtime::scheduler::current_thread::CurrentThread>::block_on<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>::{closure#0}, ()>
+2026-10-09T16:11:53.5145666Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context/runtime.rs:65:16
+2026-10-09T16:11:53.5146379Z   23: <tokio::runtime::scheduler::current_thread::CurrentThread>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>
+2026-10-09T16:11:53.5147101Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:206:9
+2026-10-09T16:11:53.5147788Z   24: <tokio::runtime::runtime::Runtime>::block_on_inner::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>
+2026-10-09T16:11:53.5148417Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/runtime.rs:374:52
+2026-10-09T16:11:53.5149030Z   25: <tokio::runtime::runtime::Runtime>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>
+2026-10-09T16:11:53.5149638Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/runtime.rs:343:18
+2026-10-09T16:11:53.5150102Z   26: advanced::fulfills_mocked_requests
+2026-10-09T16:11:53.5150368Z              at ./advanced.rs:106:42
+2026-10-09T16:11:53.5150649Z   27: advanced::fulfills_mocked_requests::{closure#0}
+2026-10-09T16:11:53.5150940Z              at ./advanced.rs:85:36
+2026-10-09T16:11:53.5151324Z   28: <advanced::fulfills_mocked_requests::{closure#0} as core::ops::function::FnOnce<()>>::call_once
+2026-10-09T16:11:53.5151859Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ops/function.rs:250:5
+2026-10-09T16:11:53.5152456Z   29: <fn() -> core::result::Result<(), alloc::string::String> as core::ops::function::FnOnce<()>>::call_once
+2026-10-09T16:11:53.5152979Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ops/function.rs:250:5
+2026-10-09T16:11:53.5153604Z note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
+2026-10-09T16:11:53.5153891Z 
+2026-10-09T16:11:53.5154019Z ---- interacts_with_cross_origin_iframe stdout ----
+2026-10-09T16:11:53.5154220Z 
+2026-10-09T16:11:53.5154437Z thread 'interacts_with_cross_origin_iframe' (5414) panicked at tests/advanced.rs:343:10:
+2026-10-09T16:11:53.5155100Z launch: Browser(EarlyExit { status: "signal: 6 (SIGABRT) (core dumped)", log_path: "/tmp/rustwright-5313-1791562312309963984-4/rustwright-chrome.log" })
+2026-10-09T16:11:53.5155618Z stack backtrace:
+2026-10-09T16:11:53.5155836Z    0: __rustc::rust_begin_unwind
+2026-10-09T16:11:53.5156197Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panicking.rs:679:5
+2026-10-09T16:11:53.5156586Z    1: core::panicking::panic_fmt
+2026-10-09T16:11:53.5156950Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/panicking.rs:80:14
+2026-10-09T16:11:53.5157346Z    2: core::result::unwrap_failed
+2026-10-09T16:11:53.5157708Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/result.rs:1871:5
+2026-10-09T16:11:53.5158226Z    3: <core::result::Result<rustwright_core::browser::Browser, rustwright_core::error::Error>>::expect
+2026-10-09T16:11:53.5158739Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/result.rs:1184:23
+2026-10-09T16:11:53.5159173Z    4: advanced::interacts_with_cross_origin_iframe::{closure#0}
+2026-10-09T16:11:53.5159483Z              at ./advanced.rs:343:10
+2026-10-09T16:11:53.5159877Z    5: <core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>> as core::future::future::Future>::poll
+2026-10-09T16:11:53.5160430Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/future/future.rs:133:9
+2026-10-09T16:11:53.5161021Z    6: <core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>> as core::future::future::Future>::poll
+2026-10-09T16:11:53.5161671Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/future/future.rs:133:9
+2026-10-09T16:11:53.5162424Z    7: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}
+2026-10-09T16:11:53.5163429Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:830:70
+2026-10-09T16:11:53.5164435Z    8: tokio::task::coop::with_budget::<core::task::poll::Poll<()>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}>
+2026-10-09T16:11:53.5165361Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/task/coop/mod.rs:167:5
+2026-10-09T16:11:53.5166275Z    9: tokio::task::coop::budget::<core::task::poll::Poll<()>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}>
+2026-10-09T16:11:53.5167177Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/task/coop/mod.rs:133:5
+2026-10-09T16:11:53.5167946Z   10: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}
+2026-10-09T16:11:53.5168774Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:830:25
+2026-10-09T16:11:53.5169860Z   11: <tokio::runtime::scheduler::current_thread::Context>::enter::<core::task::poll::Poll<()>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}>
+2026-10-09T16:11:53.5170886Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:488:19
+2026-10-09T16:11:53.5171676Z   12: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}
+2026-10-09T16:11:53.5172476Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:829:44
+2026-10-09T16:11:53.5173636Z   13: <tokio::runtime::scheduler::current_thread::CoreGuard>::enter::<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}
+2026-10-09T16:11:53.5174672Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:906:68
+2026-10-09T16:11:53.5176117Z   14: <tokio::runtime::context::scoped::Scoped<tokio::runtime::scheduler::Context>>::set::<<tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>)>
+2026-10-09T16:11:53.5177522Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context/scoped.rs:40:9
+2026-10-09T16:11:53.5178941Z   15: tokio::runtime::context::set_scheduler::<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>::{closure#0}
+2026-10-09T16:11:53.5180274Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context.rs:187:38
+2026-10-09T16:11:53.5182033Z   16: <std::thread::local::LocalKey<tokio::runtime::context::Context>>::try_with::<tokio::runtime::context::set_scheduler<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>)>
+2026-10-09T16:11:53.5183847Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/thread/local.rs:463:12
+2026-10-09T16:11:53.5185532Z   17: <std::thread::local::LocalKey<tokio::runtime::context::Context>>::with::<tokio::runtime::context::set_scheduler<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>)>
+2026-10-09T16:11:53.5187197Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/thread/local.rs:427:20
+2026-10-09T16:11:53.5188517Z   18: tokio::runtime::context::set_scheduler::<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>
+2026-10-09T16:11:53.5189823Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context.rs:187:17
+2026-10-09T16:11:53.5190782Z   19: <tokio::runtime::scheduler::current_thread::CoreGuard>::enter::<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>
+2026-10-09T16:11:53.5191776Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:906:27
+2026-10-09T16:11:53.5192546Z   20: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>
+2026-10-09T16:11:53.5193449Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:817:24
+2026-10-09T16:11:53.5194207Z   21: <tokio::runtime::scheduler::current_thread::CurrentThread>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>::{closure#0}
+2026-10-09T16:11:53.5194960Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:218:33
+2026-10-09T16:11:53.5195843Z   22: tokio::runtime::context::runtime::enter_runtime::<<tokio::runtime::scheduler::current_thread::CurrentThread>::block_on<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>::{closure#0}, ()>
+2026-10-09T16:11:53.5196699Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context/runtime.rs:65:16
+2026-10-09T16:11:53.5197475Z   23: <tokio::runtime::scheduler::current_thread::CurrentThread>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>
+2026-10-09T16:11:53.5198190Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:206:9
+2026-10-09T16:11:53.5198857Z   24: <tokio::runtime::runtime::Runtime>::block_on_inner::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>
+2026-10-09T16:11:53.5199467Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/runtime.rs:374:52
+2026-10-09T16:11:53.5200064Z   25: <tokio::runtime::runtime::Runtime>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>
+2026-10-09T16:11:53.5200671Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/runtime.rs:343:18
+2026-10-09T16:11:53.5201134Z   26: advanced::interacts_with_cross_origin_iframe
+2026-10-09T16:11:53.5201411Z              at ./advanced.rs:368:42
+2026-10-09T16:11:53.5201716Z   27: advanced::interacts_with_cross_origin_iframe::{closure#0}
+2026-10-09T16:11:53.5202026Z              at ./advanced.rs:329:46
+2026-10-09T16:11:53.5202442Z   28: <advanced::interacts_with_cross_origin_iframe::{closure#0} as core::ops::function::FnOnce<()>>::call_once
+2026-10-09T16:11:53.5202995Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ops/function.rs:250:5
+2026-10-09T16:11:53.5203695Z   29: <fn() -> core::result::Result<(), alloc::string::String> as core::ops::function::FnOnce<()>>::call_once
+2026-10-09T16:11:53.5204236Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ops/function.rs:250:5
+2026-10-09T16:11:53.5204742Z note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
+2026-10-09T16:11:53.5205089Z 
+2026-10-09T16:11:53.5205205Z ---- modifies_request_headers stdout ----
+2026-10-09T16:11:53.5205384Z 
+2026-10-09T16:11:53.5205579Z thread 'modifies_request_headers' (5446) panicked at tests/advanced.rs:208:10:
+2026-10-09T16:11:53.5206209Z launch: Browser(EarlyExit { status: "signal: 6 (SIGABRT) (core dumped)", log_path: "/tmp/rustwright-5313-1791562312536265079-5/rustwright-chrome.log" })
+2026-10-09T16:11:53.5206731Z stack backtrace:
+2026-10-09T16:11:53.5206953Z    0: __rustc::rust_begin_unwind
+2026-10-09T16:11:53.5207315Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panicking.rs:679:5
+2026-10-09T16:11:53.5207703Z    1: core::panicking::panic_fmt
+2026-10-09T16:11:53.5208065Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/panicking.rs:80:14
+2026-10-09T16:11:53.5208502Z    2: core::result::unwrap_failed
+2026-10-09T16:11:53.5208863Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/result.rs:1871:5
+2026-10-09T16:11:53.5209388Z    3: <core::result::Result<rustwright_core::browser::Browser, rustwright_core::error::Error>>::expect
+2026-10-09T16:11:53.5209904Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/result.rs:1184:23
+2026-10-09T16:11:53.5210322Z    4: advanced::modifies_request_headers::{closure#0}
+2026-10-09T16:11:53.5210605Z              at ./advanced.rs:208:10
+2026-10-09T16:11:53.5211002Z    5: <core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>> as core::future::future::Future>::poll
+2026-10-09T16:11:53.5211538Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/future/future.rs:133:9
+2026-10-09T16:11:53.5212111Z    6: <core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>> as core::future::future::Future>::poll
+2026-10-09T16:11:53.5212685Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/future/future.rs:133:9
+2026-10-09T16:11:53.5213697Z    7: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}
+2026-10-09T16:11:53.5214637Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:830:70
+2026-10-09T16:11:53.5215631Z    8: tokio::task::coop::with_budget::<core::task::poll::Poll<()>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}>
+2026-10-09T16:11:53.5216548Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/task/coop/mod.rs:167:5
+2026-10-09T16:11:53.5217452Z    9: tokio::task::coop::budget::<core::task::poll::Poll<()>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}>
+2026-10-09T16:11:53.5218364Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/task/coop/mod.rs:133:5
+2026-10-09T16:11:53.5219139Z   10: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}
+2026-10-09T16:11:53.5219962Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:830:25
+2026-10-09T16:11:53.5220976Z   11: <tokio::runtime::scheduler::current_thread::Context>::enter::<core::task::poll::Poll<()>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}>
+2026-10-09T16:11:53.5221988Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:488:19
+2026-10-09T16:11:53.5222830Z   12: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}
+2026-10-09T16:11:53.5223727Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:829:44
+2026-10-09T16:11:53.5224753Z   13: <tokio::runtime::scheduler::current_thread::CoreGuard>::enter::<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}
+2026-10-09T16:11:53.5225789Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:906:68
+2026-10-09T16:11:53.5227239Z   14: <tokio::runtime::context::scoped::Scoped<tokio::runtime::scheduler::Context>>::set::<<tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>)>
+2026-10-09T16:11:53.5228629Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context/scoped.rs:40:9
+2026-10-09T16:11:53.5229974Z   15: tokio::runtime::context::set_scheduler::<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>::{closure#0}
+2026-10-09T16:11:53.5231283Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context.rs:187:38
+2026-10-09T16:11:53.5233067Z   16: <std::thread::local::LocalKey<tokio::runtime::context::Context>>::try_with::<tokio::runtime::context::set_scheduler<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>)>
+2026-10-09T16:11:53.5234816Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/thread/local.rs:463:12
+2026-10-09T16:11:53.5236466Z   17: <std::thread::local::LocalKey<tokio::runtime::context::Context>>::with::<tokio::runtime::context::set_scheduler<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>)>
+2026-10-09T16:11:53.5238096Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/thread/local.rs:427:20
+2026-10-09T16:11:53.5239340Z   18: tokio::runtime::context::set_scheduler::<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>
+2026-10-09T16:11:53.5240688Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context.rs:187:17
+2026-10-09T16:11:53.5241650Z   19: <tokio::runtime::scheduler::current_thread::CoreGuard>::enter::<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>
+2026-10-09T16:11:53.5242673Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:906:27
+2026-10-09T16:11:53.5243567Z   20: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>
+2026-10-09T16:11:53.5244342Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:817:24
+2026-10-09T16:11:53.5245111Z   21: <tokio::runtime::scheduler::current_thread::CurrentThread>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>::{closure#0}
+2026-10-09T16:11:53.5245871Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:218:33
+2026-10-09T16:11:53.5246770Z   22: tokio::runtime::context::runtime::enter_runtime::<<tokio::runtime::scheduler::current_thread::CurrentThread>::block_on<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>::{closure#0}, ()>
+2026-10-09T16:11:53.5247632Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context/runtime.rs:65:16
+2026-10-09T16:11:53.5248338Z   23: <tokio::runtime::scheduler::current_thread::CurrentThread>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>
+2026-10-09T16:11:53.5249067Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:206:9
+2026-10-09T16:11:53.5249743Z   24: <tokio::runtime::runtime::Runtime>::block_on_inner::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>
+2026-10-09T16:11:53.5250440Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/runtime.rs:374:52
+2026-10-09T16:11:53.5251059Z   25: <tokio::runtime::runtime::Runtime>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>
+2026-10-09T16:11:53.5251683Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/runtime.rs:343:18
+2026-10-09T16:11:53.5252155Z   26: advanced::modifies_request_headers
+2026-10-09T16:11:53.5252419Z              at ./advanced.rs:225:42
+2026-10-09T16:11:53.5252809Z   27: advanced::modifies_request_headers::{closure#0}
+2026-10-09T16:11:53.5253190Z              at ./advanced.rs:201:36
+2026-10-09T16:11:53.5253615Z   28: <advanced::modifies_request_headers::{closure#0} as core::ops::function::FnOnce<()>>::call_once
+2026-10-09T16:11:53.5254166Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ops/function.rs:250:5
+2026-10-09T16:11:53.5254754Z   29: <fn() -> core::result::Result<(), alloc::string::String> as core::ops::function::FnOnce<()>>::call_once
+2026-10-09T16:11:53.5255280Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ops/function.rs:250:5
+2026-10-09T16:11:53.5255782Z note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
+2026-10-09T16:11:53.5256060Z 
+2026-10-09T16:11:53.5256170Z ---- modifies_response_headers stdout ----
+2026-10-09T16:11:53.5256350Z 
+2026-10-09T16:11:53.5256548Z thread 'modifies_response_headers' (5484) panicked at tests/advanced.rs:236:10:
+2026-10-09T16:11:53.5257181Z launch: Browser(EarlyExit { status: "signal: 6 (SIGABRT) (core dumped)", log_path: "/tmp/rustwright-5313-1791562312737726618-6/rustwright-chrome.log" })
+2026-10-09T16:11:53.5257766Z stack backtrace:
+2026-10-09T16:11:53.5257980Z    0: __rustc::rust_begin_unwind
+2026-10-09T16:11:53.5258349Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panicking.rs:679:5
+2026-10-09T16:11:53.5258741Z    1: core::panicking::panic_fmt
+2026-10-09T16:11:53.5259113Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/panicking.rs:80:14
+2026-10-09T16:11:53.5259509Z    2: core::result::unwrap_failed
+2026-10-09T16:11:53.5259883Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/result.rs:1871:5
+2026-10-09T16:11:53.5260408Z    3: <core::result::Result<rustwright_core::browser::Browser, rustwright_core::error::Error>>::expect
+2026-10-09T16:11:53.5260932Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/result.rs:1184:23
+2026-10-09T16:11:53.5261355Z    4: advanced::modifies_response_headers::{closure#0}
+2026-10-09T16:11:53.5261644Z              at ./advanced.rs:236:10
+2026-10-09T16:11:53.5262041Z    5: <core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>> as core::future::future::Future>::poll
+2026-10-09T16:11:53.5262595Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/future/future.rs:133:9
+2026-10-09T16:11:53.5263257Z    6: <core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>> as core::future::future::Future>::poll
+2026-10-09T16:11:53.5263844Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/future/future.rs:133:9
+2026-10-09T16:11:53.5264598Z    7: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}
+2026-10-09T16:11:53.5265467Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:830:70
+2026-10-09T16:11:53.5266449Z    8: tokio::task::coop::with_budget::<core::task::poll::Poll<()>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}>
+2026-10-09T16:11:53.5267437Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/task/coop/mod.rs:167:5
+2026-10-09T16:11:53.5268380Z    9: tokio::task::coop::budget::<core::task::poll::Poll<()>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}>
+2026-10-09T16:11:53.5269335Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/task/coop/mod.rs:133:5
+2026-10-09T16:11:53.5270148Z   10: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}
+2026-10-09T16:11:53.5271056Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:830:25
+2026-10-09T16:11:53.5272144Z   11: <tokio::runtime::scheduler::current_thread::Context>::enter::<core::task::poll::Poll<()>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}>
+2026-10-09T16:11:53.5273245Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:488:19
+2026-10-09T16:11:53.5274050Z   12: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}
+2026-10-09T16:11:53.5274840Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:829:44
+2026-10-09T16:11:53.5275931Z   13: <tokio::runtime::scheduler::current_thread::CoreGuard>::enter::<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}
+2026-10-09T16:11:53.5276948Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:906:68
+2026-10-09T16:11:53.5278405Z   14: <tokio::runtime::context::scoped::Scoped<tokio::runtime::scheduler::Context>>::set::<<tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>)>
+2026-10-09T16:11:53.5279828Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context/scoped.rs:40:9
+2026-10-09T16:11:53.5281176Z   15: tokio::runtime::context::set_scheduler::<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>::{closure#0}
+2026-10-09T16:11:53.5282485Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context.rs:187:38
+2026-10-09T16:11:53.5284430Z   16: <std::thread::local::LocalKey<tokio::runtime::context::Context>>::try_with::<tokio::runtime::context::set_scheduler<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>)>
+2026-10-09T16:11:53.5286110Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/thread/local.rs:463:12
+2026-10-09T16:11:53.5287770Z   17: <std::thread::local::LocalKey<tokio::runtime::context::Context>>::with::<tokio::runtime::context::set_scheduler<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>)>
+2026-10-09T16:11:53.5289408Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/thread/local.rs:427:20
+2026-10-09T16:11:53.5290657Z   18: tokio::runtime::context::set_scheduler::<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>
+2026-10-09T16:11:53.5291958Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context.rs:187:17
+2026-10-09T16:11:53.5292911Z   19: <tokio::runtime::scheduler::current_thread::CoreGuard>::enter::<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>
+2026-10-09T16:11:53.5294088Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:906:27
+2026-10-09T16:11:53.5294850Z   20: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>
+2026-10-09T16:11:53.5295599Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:817:24
+2026-10-09T16:11:53.5296358Z   21: <tokio::runtime::scheduler::current_thread::CurrentThread>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>::{closure#0}
+2026-10-09T16:11:53.5297114Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:218:33
+2026-10-09T16:11:53.5298002Z   22: tokio::runtime::context::runtime::enter_runtime::<<tokio::runtime::scheduler::current_thread::CurrentThread>::block_on<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>::{closure#0}, ()>
+2026-10-09T16:11:53.5298866Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context/runtime.rs:65:16
+2026-10-09T16:11:53.5299571Z   23: <tokio::runtime::scheduler::current_thread::CurrentThread>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>
+2026-10-09T16:11:53.5300301Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:206:9
+2026-10-09T16:11:53.5300977Z   24: <tokio::runtime::runtime::Runtime>::block_on_inner::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>
+2026-10-09T16:11:53.5301604Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/runtime.rs:374:52
+2026-10-09T16:11:53.5302224Z   25: <tokio::runtime::runtime::Runtime>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>
+2026-10-09T16:11:53.5302904Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/runtime.rs:343:18
+2026-10-09T16:11:53.5303479Z   26: advanced::modifies_response_headers
+2026-10-09T16:11:53.5303754Z              at ./advanced.rs:253:42
+2026-10-09T16:11:53.5304041Z   27: advanced::modifies_response_headers::{closure#0}
+2026-10-09T16:11:53.5304323Z              at ./advanced.rs:229:37
+2026-10-09T16:11:53.5304720Z   28: <advanced::modifies_response_headers::{closure#0} as core::ops::function::FnOnce<()>>::call_once
+2026-10-09T16:11:53.5305266Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ops/function.rs:250:5
+2026-10-09T16:11:53.5305807Z   29: <fn() -> core::result::Result<(), alloc::string::String> as core::ops::function::FnOnce<()>>::call_once
+2026-10-09T16:11:53.5306395Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ops/function.rs:250:5
+2026-10-09T16:11:53.5306902Z note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
+2026-10-09T16:11:53.5307176Z 
+2026-10-09T16:11:53.5307314Z ---- records_a_chrome_trace stdout ----
+2026-10-09T16:11:53.5307477Z 
+2026-10-09T16:11:53.5307674Z thread 'records_a_chrome_trace' (5531) panicked at tests/advanced.rs:307:10:
+2026-10-09T16:11:53.5308303Z launch: Browser(EarlyExit { status: "signal: 6 (SIGABRT) (core dumped)", log_path: "/tmp/rustwright-5313-1791562312962617177-7/rustwright-chrome.log" })
+2026-10-09T16:11:53.5308824Z stack backtrace:
+2026-10-09T16:11:53.5309039Z    0: __rustc::rust_begin_unwind
+2026-10-09T16:11:53.5309405Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panicking.rs:679:5
+2026-10-09T16:11:53.5309804Z    1: core::panicking::panic_fmt
+2026-10-09T16:11:53.5310234Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/panicking.rs:80:14
+2026-10-09T16:11:53.5310631Z    2: core::result::unwrap_failed
+2026-10-09T16:11:53.5310995Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/result.rs:1871:5
+2026-10-09T16:11:53.5311519Z    3: <core::result::Result<rustwright_core::browser::Browser, rustwright_core::error::Error>>::expect
+2026-10-09T16:11:53.5312035Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/result.rs:1184:23
+2026-10-09T16:11:53.5312441Z    4: advanced::records_a_chrome_trace::{closure#0}
+2026-10-09T16:11:53.5312722Z              at ./advanced.rs:307:10
+2026-10-09T16:11:53.5313195Z    5: <core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>> as core::future::future::Future>::poll
+2026-10-09T16:11:53.5313750Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/future/future.rs:133:9
+2026-10-09T16:11:53.5314342Z    6: <core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>> as core::future::future::Future>::poll
+2026-10-09T16:11:53.5314929Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/future/future.rs:133:9
+2026-10-09T16:11:53.5315687Z    7: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}
+2026-10-09T16:11:53.5316538Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:830:70
+2026-10-09T16:11:53.5317527Z    8: tokio::task::coop::with_budget::<core::task::poll::Poll<()>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}>
+2026-10-09T16:11:53.5318442Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/task/coop/mod.rs:167:5
+2026-10-09T16:11:53.5319412Z    9: tokio::task::coop::budget::<core::task::poll::Poll<()>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}>
+2026-10-09T16:11:53.5320321Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/task/coop/mod.rs:133:5
+2026-10-09T16:11:53.5321088Z   10: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}
+2026-10-09T16:11:53.5321916Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:830:25
+2026-10-09T16:11:53.5322940Z   11: <tokio::runtime::scheduler::current_thread::Context>::enter::<core::task::poll::Poll<()>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}>
+2026-10-09T16:11:53.5324049Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:488:19
+2026-10-09T16:11:53.5324846Z   12: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}
+2026-10-09T16:11:53.5325639Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:829:44
+2026-10-09T16:11:53.5326656Z   13: <tokio::runtime::scheduler::current_thread::CoreGuard>::enter::<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}
+2026-10-09T16:11:53.5327739Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:906:68
+2026-10-09T16:11:53.5329186Z   14: <tokio::runtime::context::scoped::Scoped<tokio::runtime::scheduler::Context>>::set::<<tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>)>
+2026-10-09T16:11:53.5330582Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context/scoped.rs:40:9
+2026-10-09T16:11:53.5331907Z   15: tokio::runtime::context::set_scheduler::<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>::{closure#0}
+2026-10-09T16:11:53.5333332Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context.rs:187:38
+2026-10-09T16:11:53.5335057Z   16: <std::thread::local::LocalKey<tokio::runtime::context::Context>>::try_with::<tokio::runtime::context::set_scheduler<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>)>
+2026-10-09T16:11:53.5336703Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/thread/local.rs:463:12
+2026-10-09T16:11:53.5338428Z   17: <std::thread::local::LocalKey<tokio::runtime::context::Context>>::with::<tokio::runtime::context::set_scheduler<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>)>
+2026-10-09T16:11:53.5340085Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/thread/local.rs:427:20
+2026-10-09T16:11:53.5341342Z   18: tokio::runtime::context::set_scheduler::<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>
+2026-10-09T16:11:53.5342631Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context.rs:187:17
+2026-10-09T16:11:53.5343742Z   19: <tokio::runtime::scheduler::current_thread::CoreGuard>::enter::<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>
+2026-10-09T16:11:53.5344750Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:906:27
+2026-10-09T16:11:53.5345532Z   20: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>
+2026-10-09T16:11:53.5346366Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:817:24
+2026-10-09T16:11:53.5347129Z   21: <tokio::runtime::scheduler::current_thread::CurrentThread>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>::{closure#0}
+2026-10-09T16:11:53.5347888Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:218:33
+2026-10-09T16:11:53.5348775Z   22: tokio::runtime::context::runtime::enter_runtime::<<tokio::runtime::scheduler::current_thread::CurrentThread>::block_on<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>::{closure#0}, ()>
+2026-10-09T16:11:53.5349639Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context/runtime.rs:65:16
+2026-10-09T16:11:53.5350345Z   23: <tokio::runtime::scheduler::current_thread::CurrentThread>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>
+2026-10-09T16:11:53.5351081Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:206:9
+2026-10-09T16:11:53.5351767Z   24: <tokio::runtime::runtime::Runtime>::block_on_inner::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>
+2026-10-09T16:11:53.5352390Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/runtime.rs:374:52
+2026-10-09T16:11:53.5353013Z   25: <tokio::runtime::runtime::Runtime>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>
+2026-10-09T16:11:53.5353699Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/runtime.rs:343:18
+2026-10-09T16:11:53.5354165Z   26: advanced::records_a_chrome_trace
+2026-10-09T16:11:53.5354418Z              at ./advanced.rs:325:42
+2026-10-09T16:11:53.5354687Z   27: advanced::records_a_chrome_trace::{closure#0}
+2026-10-09T16:11:53.5354963Z              at ./advanced.rs:292:34
+2026-10-09T16:11:53.5355410Z   28: <advanced::records_a_chrome_trace::{closure#0} as core::ops::function::FnOnce<()>>::call_once
+2026-10-09T16:11:53.5355938Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ops/function.rs:250:5
+2026-10-09T16:11:53.5356481Z   29: <fn() -> core::result::Result<(), alloc::string::String> as core::ops::function::FnOnce<()>>::call_once
+2026-10-09T16:11:53.5357003Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ops/function.rs:250:5
+2026-10-09T16:11:53.5357500Z note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
+2026-10-09T16:11:53.5357780Z 
+2026-10-09T16:11:53.5357883Z ---- uploads_files_to_input stdout ----
+2026-10-09T16:11:53.5358060Z 
+2026-10-09T16:11:53.5358238Z thread 'uploads_files_to_input' (5578) panicked at tests/advanced.rs:150:10:
+2026-10-09T16:11:53.5358856Z launch: Browser(EarlyExit { status: "signal: 6 (SIGABRT) (core dumped)", log_path: "/tmp/rustwright-5313-1791562313210150362-8/rustwright-chrome.log" })
+2026-10-09T16:11:53.5359380Z stack backtrace:
+2026-10-09T16:11:53.5359593Z    0: __rustc::rust_begin_unwind
+2026-10-09T16:11:53.5359961Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panicking.rs:679:5
+2026-10-09T16:11:53.5360346Z    1: core::panicking::panic_fmt
+2026-10-09T16:11:53.5360713Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/panicking.rs:80:14
+2026-10-09T16:11:53.5361100Z    2: core::result::unwrap_failed
+2026-10-09T16:11:53.5361462Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/result.rs:1871:5
+2026-10-09T16:11:53.5361983Z    3: <core::result::Result<rustwright_core::browser::Browser, rustwright_core::error::Error>>::expect
+2026-10-09T16:11:53.5362576Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/result.rs:1184:23
+2026-10-09T16:11:53.5362983Z    4: advanced::uploads_files_to_input::{closure#0}
+2026-10-09T16:11:53.5363347Z              at ./advanced.rs:150:10
+2026-10-09T16:11:53.5363752Z    5: <core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>> as core::future::future::Future>::poll
+2026-10-09T16:11:53.5364297Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/future/future.rs:133:9
+2026-10-09T16:11:53.5364872Z    6: <core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>> as core::future::future::Future>::poll
+2026-10-09T16:11:53.5365452Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/future/future.rs:133:9
+2026-10-09T16:11:53.5366205Z    7: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}
+2026-10-09T16:11:53.5367064Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:830:70
+2026-10-09T16:11:53.5368066Z    8: tokio::task::coop::with_budget::<core::task::poll::Poll<()>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}>
+2026-10-09T16:11:53.5368987Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/task/coop/mod.rs:167:5
+2026-10-09T16:11:53.5369898Z    9: tokio::task::coop::budget::<core::task::poll::Poll<()>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}>
+2026-10-09T16:11:53.5370795Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/task/coop/mod.rs:133:5
+2026-10-09T16:11:53.5371556Z   10: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}
+2026-10-09T16:11:53.5372436Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:830:25
+2026-10-09T16:11:53.5373579Z   11: <tokio::runtime::scheduler::current_thread::Context>::enter::<core::task::poll::Poll<()>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}>
+2026-10-09T16:11:53.5374601Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:488:19
+2026-10-09T16:11:53.5375396Z   12: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}
+2026-10-09T16:11:53.5376193Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:829:44
+2026-10-09T16:11:53.5377217Z   13: <tokio::runtime::scheduler::current_thread::CoreGuard>::enter::<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}
+2026-10-09T16:11:53.5378240Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:906:68
+2026-10-09T16:11:53.5379699Z   14: <tokio::runtime::context::scoped::Scoped<tokio::runtime::scheduler::Context>>::set::<<tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>)>
+2026-10-09T16:11:53.5381150Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context/scoped.rs:40:9
+2026-10-09T16:11:53.5382484Z   15: tokio::runtime::context::set_scheduler::<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>::{closure#0}
+2026-10-09T16:11:53.5383888Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context.rs:187:38
+2026-10-09T16:11:53.5385621Z   16: <std::thread::local::LocalKey<tokio::runtime::context::Context>>::try_with::<tokio::runtime::context::set_scheduler<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>)>
+2026-10-09T16:11:53.5387282Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/thread/local.rs:463:12
+2026-10-09T16:11:53.5388996Z   17: <std::thread::local::LocalKey<tokio::runtime::context::Context>>::with::<tokio::runtime::context::set_scheduler<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>)>
+2026-10-09T16:11:53.5390676Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/thread/local.rs:427:20
+2026-10-09T16:11:53.5391933Z   18: tokio::runtime::context::set_scheduler::<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>
+2026-10-09T16:11:53.5393330Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context.rs:187:17
+2026-10-09T16:11:53.5394301Z   19: <tokio::runtime::scheduler::current_thread::CoreGuard>::enter::<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>
+2026-10-09T16:11:53.5395297Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:906:27
+2026-10-09T16:11:53.5396070Z   20: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>
+2026-10-09T16:11:53.5396826Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:817:24
+2026-10-09T16:11:53.5397584Z   21: <tokio::runtime::scheduler::current_thread::CurrentThread>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>::{closure#0}
+2026-10-09T16:11:53.5398419Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:218:33
+2026-10-09T16:11:53.5399308Z   22: tokio::runtime::context::runtime::enter_runtime::<<tokio::runtime::scheduler::current_thread::CurrentThread>::block_on<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>::{closure#0}, ()>
+2026-10-09T16:11:53.5400155Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/context/runtime.rs:65:16
+2026-10-09T16:11:53.5400847Z   23: <tokio::runtime::scheduler::current_thread::CurrentThread>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>
+2026-10-09T16:11:53.5401572Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:206:9
+2026-10-09T16:11:53.5402265Z   24: <tokio::runtime::runtime::Runtime>::block_on_inner::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>
+2026-10-09T16:11:53.5402892Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/runtime.rs:374:52
+2026-10-09T16:11:53.5403625Z   25: <tokio::runtime::runtime::Runtime>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>
+2026-10-09T16:11:53.5404245Z              at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.53.1/src/runtime/runtime.rs:343:18
+2026-10-09T16:11:53.5404703Z   26: advanced::uploads_files_to_input
+2026-10-09T16:11:53.5404966Z              at ./advanced.rs:166:42
+2026-10-09T16:11:53.5405242Z   27: advanced::uploads_files_to_input::{closure#0}
+2026-10-09T16:11:53.5405531Z              at ./advanced.rs:132:34
+2026-10-09T16:11:53.5405911Z   28: <advanced::uploads_files_to_input::{closure#0} as core::ops::function::FnOnce<()>>::call_once
+2026-10-09T16:11:53.5406443Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ops/function.rs:250:5
+2026-10-09T16:11:53.5406982Z   29: <fn() -> core::result::Result<(), alloc::string::String> as core::ops::function::FnOnce<()>>::call_once
+2026-10-09T16:11:53.5407571Z              at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ops/function.rs:250:5
+2026-10-09T16:11:53.5408077Z note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
+2026-10-09T16:11:53.5408360Z 
+2026-10-09T16:11:53.5408364Z 
+2026-10-09T16:11:53.5408445Z failures:
+2026-10-09T16:11:53.5408654Z     aborts_blocked_requests
+2026-10-09T16:11:53.5408890Z     downloads_to_configured_path
+2026-10-09T16:11:53.5409121Z     exports_har
+2026-10-09T16:11:53.5409333Z     fulfills_mocked_requests
+2026-10-09T16:11:53.5409574Z     interacts_with_cross_origin_iframe
+2026-10-09T16:11:53.5409824Z     modifies_request_headers
+2026-10-09T16:11:53.5410051Z     modifies_response_headers
+2026-10-09T16:11:53.5410281Z     records_a_chrome_trace
+2026-10-09T16:11:53.5410499Z     uploads_files_to_input
+2026-10-09T16:11:53.5410635Z 
+2026-10-09T16:11:53.5410859Z test result: FAILED. 0 passed; 9 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.15s
+2026-10-09T16:11:53.5411153Z 
+2026-10-09T16:11:53.5411814Z [1m[91merror[0m: test failed, to rerun pass `-p rustwright-integration-tests --test advanced`
+2026-10-09T16:11:53.5422843Z ##[error]Process completed with exit code 101.
+2026-10-09T16:11:53.5540530Z Post job cleanup.
+2026-10-09T16:11:53.6382657Z [command]/usr/bin/git version
+2026-10-09T16:11:53.6421805Z git version 2.55.0
+2026-10-09T16:11:53.6455879Z Temporarily overriding HOME='/home/runner/work/_temp/f6178ead-2f9d-4574-b5a5-ed2ca32bc649' before making global git config changes
+2026-10-09T16:11:53.6457081Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-09T16:11:53.6460651Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/rustwright/rustwright
+2026-10-09T16:11:53.6498604Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-09T16:11:53.6531221Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-09T16:11:53.6744969Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-09T16:11:53.6770224Z http.https://github.com/.extraheader
+2026-10-09T16:11:53.6780904Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-09T16:11:53.6815039Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-09T16:11:53.7075514Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-09T16:11:53.7132219Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-09T16:11:53.7506854Z Cleaning up orphan processes

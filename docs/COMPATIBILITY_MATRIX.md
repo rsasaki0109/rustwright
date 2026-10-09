@@ -32,9 +32,13 @@ Run with both browsers installed, or select their executables through
 cargo test --locked -p rustwright-integration-tests --test http_compat -- --test-threads=1
 ```
 
-CI is configured to install Firefox 157.0.1 and supply its executable path.
-The workflow change has been checked locally; a GitHub Actions run is separate
-evidence and has not been executed from this task.
+[GitHub Actions run 37974358667](https://github.com/rsasaki0109/rustwright/actions/runs/37974358667)
+at source `e3bc08e7ce0a117d173bdcde2924165806e8e854` passes all six jobs.
+Its five required portable targets execute 79 cases per OS on native Ubuntu,
+Windows and macOS arm64 with Chrome 155.0.8059.39 and Firefox 157.0.1.
+The 24 compatibility cases above are included in 79, rather than added to it.
+[Exact-source CI evidence](CI_VERIFICATION.md) records the full workspace,
+114 additional Ubuntu HTTP cases and verified native sandbox setup.
 
 The separate `http_disconnect` target force-terminates a browser root process
 after an unresolved evaluation and a locator wait have entered its document.
@@ -95,25 +99,35 @@ limits.
 
 ## Scope and remaining gaps
 
-This matrix does not establish complete backend parity, cross-platform reliability
-or a performance advantage. Chrome's existing `http_frames`, `http_navigation`,
+This matrix establishes the recorded scenarios on the tested platforms and
+versions; it does not establish complete backend parity or a performance advantage. Chrome's existing `http_frames`, `http_navigation`,
 `http_network_idle` and `http_contexts` targets provide additional CDP coverage;
 those cases have not all been ported to Firefox. In particular, the shared matrix
 does not yet cover transformed/clipped nested frame geometry, ancestor iframe
-overlays, renderer churn under interception, or streaming network-idle
-semantics. A separate `http_bidi_navigation` target now executes seven native
+overlays or renderer churn under interception. A separate `http_bidi_navigation` target now executes seven native
 Chrome/Firefox checks for driver reload/back/forward: hash and History API
 entries, redirected documents, resources held during reload, missing entries,
 closed pages, and Firefox timeout/cancellation recovery. `AnyPage` exposes the
 three shared methods. [CI and navigation verification](CI_VERIFICATION.md)
-records the remaining event/subscription and OS limits.
+records the tested source and remaining scope limits.
+
+The shared `http_network_idle_parity` target adds 26 native cases (13 per
+backend), included in 79 on each OS. It verifies held/partial response bodies,
+redirects, aborts, nested and cross-origin frames, frame removal, replacement
+navigation, foreign tabs, interrupted quiet, cancellation and closure.
+[Firefox network-idle documentation](FIREFOX_NETWORK_IDLE_IMPLEMENTATION.md)
+describes acknowledged page readiness, typed incomplete/lost observation errors
+and Firefox's fresh 500 ms window on every call. Service-worker, WebSocket and
+missing historical activity reconstruction are outside that guarantee.
 
 Firefox's `BidiContext::pages` is async discovery, whereas Chrome also exposes
 `BrowserContext::wait_for_page`; the shared popup case checks context-scoped
 discovery and ownership. Downloads remain documented as CDP-only; a Firefox
 download implementation is outside this matrix. Headed browsers, real-site
-compatibility, Windows/macOS and the full integration suite using file/data URLs
-need separate evidence. The [Linux endurance observations](../bench/endurance/RESULTS.md)
+compatibility and broader browser versions need further evidence. The required
+portable targets have native Windows/macOS evidence, and Ubuntu CI passes the
+full workspace including legacy file/data fixtures. Local cloud HTTP results
+alone do not establish that full suite. The [Linux endurance observations](../bench/endurance/RESULTS.md)
 cover 1,000 measured context/page cycles per backend and a further Firefox helper
 ledger run, with sampled resource counts and RSS. Follow-up Firefox operation
 ablation adds 6,000 matched cycles and RSS/PSS; Chrome default-context churn adds

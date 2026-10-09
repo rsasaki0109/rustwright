@@ -1,0 +1,200 @@
+{
+  "frozen_at_utc": "2026-10-09T18:31:13.334602+00:00",
+  "run_id": 37972198887,
+  "run_url": "https://github.com/rsasaki0109/rustwright/actions/runs/37972198887",
+  "source_commit": "4b7226472f3ac4be27e8fcadb536f7019de17894",
+  "run_status": "completed",
+  "run_conclusion": "success",
+  "completed_jobs": 6,
+  "successful_jobs": 6,
+  "jobs": [
+    {
+      "id": 113961373225,
+      "name": "Rust 1.85.0 / locked workspace",
+      "status": "completed",
+      "conclusion": "success",
+      "completed_at": "2026-10-09T18:17:28Z"
+    },
+    {
+      "id": 113961373430,
+      "name": "fmt / clippy / test",
+      "status": "completed",
+      "conclusion": "success",
+      "completed_at": "2026-10-09T18:25:16Z"
+    },
+    {
+      "id": 113961373460,
+      "name": "Verified archives / stable + MSRV / native consumers",
+      "status": "completed",
+      "conclusion": "success",
+      "completed_at": "2026-10-09T18:19:13Z"
+    },
+    {
+      "id": 113961373549,
+      "name": "Required Chrome + Firefox / windows-latest",
+      "status": "completed",
+      "conclusion": "success",
+      "completed_at": "2026-10-09T18:22:18Z"
+    },
+    {
+      "id": 113961373583,
+      "name": "Required Chrome + Firefox / macos-latest",
+      "status": "completed",
+      "conclusion": "success",
+      "completed_at": "2026-10-09T18:22:13Z"
+    },
+    {
+      "id": 113961373610,
+      "name": "Required Chrome + Firefox / ubuntu-latest",
+      "status": "completed",
+      "conclusion": "success",
+      "completed_at": "2026-10-09T18:25:10Z"
+    }
+  ],
+  "native_http": {
+    "windows": {
+      "portable_passed": 53,
+      "portable_cases_by_backend": {
+        "chrome": 26,
+        "firefox": 27
+      },
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0,
+      "platform": "Windows-10-10.0.26100-SP0",
+      "browser_bindings": {
+        "RUSTWRIGHT_CHROME": "C:\\hostedtoolcache\\windows\\setup-chrome\\chrome\\stable\\x64\\chrome.exe",
+        "RUSTWRIGHT_FIREFOX": "C:\\Program Files\\Firefox_157.0.1\\firefox.exe"
+      },
+      "cases_by_target": {
+        "http_compat": 24,
+        "http_actionability": 12,
+        "http_clipped_control": 10,
+        "http_bidi_navigation": 7
+      }
+    },
+    "macos": {
+      "portable_passed": 53,
+      "portable_cases_by_backend": {
+        "chrome": 26,
+        "firefox": 27
+      },
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0,
+      "platform": "macOS-26.6.2-arm64-arm-64bit",
+      "browser_bindings": {
+        "RUSTWRIGHT_CHROME": "/Users/runner/work/_temp/rustwright-chrome-9hrmm9yf/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+        "RUSTWRIGHT_FIREFOX": "/Users/runner/hostedtoolcache/firefox/157.0.1/arm64/Contents/MacOS/firefox"
+      },
+      "cases_by_target": {
+        "http_compat": 24,
+        "http_actionability": 12,
+        "http_clipped_control": 10,
+        "http_bidi_navigation": 7
+      }
+    },
+    "ubuntu": {
+      "portable_passed": 53,
+      "portable_cases_by_backend": {
+        "chrome": 26,
+        "firefox": 27
+      },
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0,
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "browser_bindings": {
+        "RUSTWRIGHT_CHROME": "/opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome",
+        "RUSTWRIGHT_FIREFOX": "/opt/hostedtoolcache/firefox/157.0.1/x64/firefox"
+      },
+      "cases_by_target": {
+        "http_compat": 24,
+        "http_actionability": 12,
+        "http_clipped_control": 10,
+        "http_bidi_navigation": 7
+      },
+      "linux_extra_passed": 114,
+      "total_native_http_passed": 167,
+      "linux_extra_cases_by_target": {
+        "http_frames": 67,
+        "http_navigation": 14,
+        "http_network_idle": 10,
+        "http_contexts": 10,
+        "http_disconnect": 2,
+        "http_creation": 2,
+        "http_shutdown": 3,
+        "http_frame_helpers": 2,
+        "http_intercept_lifecycle": 4
+      }
+    }
+  },
+  "browser_versions": {
+    "chrome": "155.0.8059.39",
+    "firefox": "157.0.1"
+  },
+  "workspace_counts": {
+    "library_unique_passed": 171,
+    "legacy_integration_passed": 37,
+    "http_integration_passed": 167,
+    "runner_integration_passed": 20,
+    "doctest_passed": 10,
+    "total_passed_in_single_workspace_run": 405,
+    "failed": 0,
+    "ignored": 1,
+    "filtered": 0,
+    "ignored_scope": "One existing rustwright-test-macros documentation example explicitly marked ```ignore; no native/unit/integration ignores.",
+    "browser_requirement": "RUSTWRIGHT_REQUIRE_BROWSERS=1 and explicit Chrome/Firefox bindings; no optional-browser skip messages.",
+    "overlap": "HTTP167 executes in both the workspace job and the Ubuntu native job; counts are separate execution scopes, not summed into unique coverage."
+  },
+  "msrv": {
+    "rust_version": "1.85.0",
+    "command": "cargo check --locked --workspace --all-targets",
+    "conclusion": "success"
+  },
+  "distribution": {
+    "package_job": "success",
+    "archive_count": 8,
+    "third_party_checksum_count": 57,
+    "native_consumer_passed": 4,
+    "readme_native_entry_points_passed": 2,
+    "readme_rust_fences_compiled": 9,
+    "evidence_reference": "../linux-sandbox-fixed/",
+    "note": "Already frozen package artifacts are referenced, not duplicated."
+  },
+  "downloaded_zip_digest_checks": [
+    {
+      "artifact_id": 11637316193,
+      "artifact_name": "native-http-windows-latest",
+      "zip_file": "native-windows.zip",
+      "github_api_digest": "sha256:ea07398391c7f57e9c131829f7989d4de428d6424ff9622b9f765684a194bedd",
+      "downloaded_digest": "sha256:ea07398391c7f57e9c131829f7989d4de428d6424ff9622b9f765684a194bedd",
+      "matches": true
+    },
+    {
+      "artifact_id": 11636532440,
+      "artifact_name": "native-http-macos-latest",
+      "zip_file": "native-macos.zip",
+      "github_api_digest": "sha256:f8298f1e6d7a464f6ba4c8e074a686c757e48ac6265637df42f3bc58c01daae0",
+      "downloaded_digest": "sha256:f8298f1e6d7a464f6ba4c8e074a686c757e48ac6265637df42f3bc58c01daae0",
+      "matches": true
+    },
+    {
+      "artifact_id": 11636727853,
+      "artifact_name": "native-http-ubuntu-latest",
+      "zip_file": "native-ubuntu.zip",
+      "github_api_digest": "sha256:ab343fa08d2457449c2df32837c4c0cfa4b8ee802ac6fc713ca6c0dd36fc5678",
+      "downloaded_digest": "sha256:ab343fa08d2457449c2df32837c4c0cfa4b8ee802ac6fc713ca6c0dd36fc5678",
+      "matches": true
+    },
+    {
+      "artifact_id": 11637906514,
+      "artifact_name": "workspace-chrome-sandbox",
+      "zip_file": "workspace-chrome-sandbox.zip",
+      "github_api_digest": "sha256:59422b33a9f2ba539ad4c9ab4f543e82f9a81bf00860b27ddfec5f7b76420784",
+      "downloaded_digest": "sha256:59422b33a9f2ba539ad4c9ab4f543e82f9a81bf00860b27ddfec5f7b76420784",
+      "matches": true
+    }
+  ],
+  "scope": "First completed successful six-job CI for exact source4b72264. Native versions/platforms and listed scenarios only. Later uncommitted Firefox network-idle changes are not covered; no SOTA comparison claim."
+}

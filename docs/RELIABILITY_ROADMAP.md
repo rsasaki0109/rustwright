@@ -72,9 +72,11 @@ it. Keep failing, skipped and unexecuted cases separate from passing cases.
   exact source/binary/version identifiers are preserved. This does not establish
   broad superiority. [Results and scope](../bench/reliability/COMPARISON_100.md).
 
-The relevant browser suites use local HTTP fixtures and an installed, unmodified
-Chrome and Firefox. This cloud environment restricts file/data URL browser fixtures, so these
-checks do not establish that every integration target passed. Existing benchmark
+The local browser suites use HTTP fixtures and installed Chrome/Firefox engine
+bytes, with container-specific sandbox launch adjustments. This cloud environment
+restricts file/data URL fixtures, so local HTTP success does not establish every
+integration target passed. The separately verified Ubuntu CI workspace does
+execute the full legacy integration suite with its native sandbox configuration. Existing benchmark
 measurements have their own recorded versions, sample sizes and limits in
 [the results](../bench/reliability/RESULTS.md).
 
@@ -137,32 +139,40 @@ new Windows run exposed Chrome HTTP navigation failures; macOS had an incomplete
 first test, and the Linux jobs were canceled while queued. The record preserves
 those initial failures separately from the corrected results below.
 
-The Windows installation correction subsequently passes all 53 portable native
-cases on Chrome 155 and Firefox 157. macOS now has a bounded diagnosis: Firefox
-passes twelve cases while Chrome's child processes are denied Mach rendezvous
-after its outer `.app` layout is lost. The same-version bundle restoration now
-passes all 53 native portable cases on macOS arm64. The latest Windows run also
-passes 53 on the same corrected receiver source, with Chrome 155 and Firefox
-157 on both platforms. Current-source local Linux HTTP verification passes all
-167 cases and library tests pass 171. Remote Linux jobs still await runners;
-the complete workflow has not passed.
+The Windows installation, macOS bundle and Linux bundled-sandbox corrections
+now have actual before/after records. The latest
+[run 37974358667](https://github.com/rsasaki0109/rustwright/actions/runs/37974358667)
+at `e3bc08e7ce0a117d173bdcde2924165806e8e854` succeeds in all six jobs:
+79 portable cases per OS on Chrome 155/Firefox 157, plus 114 Ubuntu HTTP cases.
+The full Ubuntu workspace passes 453 cases with one existing ignored macro
+doctest. Its library subset is 193, including 108 BiDi cases; overlapping job
+counts are not additional distinct coverage. Actual eight-archive distribution,
+version-only consumers on stable/MSRV and both native README programs also pass.
 
-The [Firefox network-idle investigation](FIREFOX_NETWORK_IDLE.md) preserves raw
-protocol evidence for delayed response bodies, child contexts and an incomplete
-late-subscription event sequence. Firefox network-idle parity remains unimplemented;
-the document specifies acceptance criteria rather than a passing API.
-The existing diagnostics receiver's separate acknowledgment window is corrected
-with two before/after regressions and native canceled-setup reuse evidence;
-that correction does not implement network-idle parity.
+[Firefox network-idle waits](FIREFOX_NETWORK_IDLE_IMPLEMENTATION.md) are now
+implemented for `BidiPage` and `AnyPage`, with body-completion, redirect-hop,
+nested/cross-origin frame, cancellation, closure and event-loss handling.
+Twenty-six shared native cases pass on each OS; 22 new backend cases are
+included in the library totals. New Firefox pages establish acknowledged
+observation before handoff. Cold already-active discovered contexts return a
+typed incomplete-observation error, and every Firefox wait starts a fresh
+500 ms window. This scope does not reconstruct missing historical activity.
+The earlier [investigation](FIREFOX_NETWORK_IDLE.md) remains a frozen
+pre-implementation record rather than a current missing-API statement.
 
-1. **Execute required CI:** test the reviewed changes on Linux, macOS and Windows
+The provisional development estimate is **92% toward the 95% checkpoint**.
+Three-OS CI and the new network-idle scope are verified; memory attribution,
+lost remote allocations/cleanup refusal, representative sites, headed sessions
+and broader version coverage still prevent claiming 95% or general SOTA.
+
+1. **Maintain verified required CI:** test the reviewed changes on Linux, macOS and Windows
    with explicitly installed Chrome and Firefox. Reject missing browsers,
    initialization failure, zero tests, ignored tests and filtered suites. Retain
    logs and actual browser versions; distinguish the old main-branch run from
    runs containing the reviewed feature-branch changes.
-2. **Expand backend parity:** cover driver reload/back/forward, nested frame
-   transforms and clipping, ancestor overlays, interception during renderer
-   changes, and response-body completion during network-idle waits. Document
+2. **Expand backend parity:** preserve verified reload/history and response-body
+   network-idle coverage, then cover nested frame transforms and clipping,
+   ancestor overlays and interception during renderer changes. Document
    backend-specific APIs rather than implying complete parity.
 3. **Bound long-running resources:** attribute remaining memory growth, count
    sessions/intercepts as well as pages and contexts, and exercise lost replies,
