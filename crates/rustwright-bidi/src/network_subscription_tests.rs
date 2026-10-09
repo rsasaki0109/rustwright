@@ -211,7 +211,8 @@ async fn rejected_subscription_preserves_error_and_queued_caller_retries() {
 #[tokio::test]
 async fn cancelled_monitoring_setup_finishes_with_one_reused_pump() {
     let (remote, browser) = remote(true, false).await;
-    let page = browser.new_page().await.unwrap();
+    let context = browser.session().create_context().await.unwrap();
+    let page = BidiPage::from_context(browser.session().clone(), context, None);
     let starting = page.clone();
     let first = tokio::spawn(async move { starting.start_network_monitoring().await });
     entered(&remote).await;
@@ -244,7 +245,8 @@ async fn cancelled_monitoring_setup_finishes_with_one_reused_pump() {
 #[tokio::test]
 async fn rejected_monitoring_setup_can_retry_without_installing_a_failed_pump() {
     let (remote, browser) = remote(false, true).await;
-    let page = browser.new_page().await.unwrap();
+    let context = browser.session().create_context().await.unwrap();
+    let page = BidiPage::from_context(browser.session().clone(), context, None);
     assert!(
         matches!(page.start_network_monitoring().await, Err(BidiError::Protocol { error, .. }) if error == "invalid argument")
     );
@@ -289,7 +291,8 @@ async fn silent_subscription_has_a_bounded_local_waiter() {
 
 async fn pre_ack_events_remain_observable(cancel_first_waiter: bool) {
     let (remote, browser) = remote(true, false).await;
-    let page = browser.new_page().await.unwrap();
+    let context = browser.session().create_context().await.unwrap();
+    let page = BidiPage::from_context(browser.session().clone(), context, None);
     let mut transport_events = browser.session().events();
     let starting = page.clone();
     let mut setup = tokio::spawn(async move { starting.start_network_monitoring().await });

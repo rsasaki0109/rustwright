@@ -64,6 +64,9 @@ async fn remote(hold: &'static str, fail: bool) -> (Remote, BidiBrowser) {
                         state.owners.insert(id.clone());
                         json!({"userContext":id})
                     }
+                    "browsingContext.getTree" => {
+                        json!({"contexts":[{"context":params["root"],"children":[]}]})
+                    }
                     "browsingContext.create" => {
                         sequence += 1;
                         let id = format!("page-{sequence}");
@@ -91,7 +94,7 @@ async fn remote(hold: &'static str, fail: bool) -> (Remote, BidiBrowser) {
                         json!({})
                     }
                     "script.evaluate" => json!({"type":"success","result":{"type":"undefined"}}),
-                    "session.end" => json!({}),
+                    "session.subscribe" | "session.end" => json!({}),
                     method => panic!("unexpected command {method}"),
                 }
             };

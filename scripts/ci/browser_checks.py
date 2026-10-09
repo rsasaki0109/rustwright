@@ -14,7 +14,7 @@ import sys
 import tomllib
 
 ROOT = Path(__file__).resolve().parents[2]
-PORTABLE = ("http_compat", "http_actionability", "http_clipped_control", "http_bidi_navigation")
+PORTABLE = ("http_compat", "http_actionability", "http_clipped_control", "http_bidi_navigation", "http_network_idle_parity")
 
 
 def targets(suite: str) -> list[str]:

@@ -83,12 +83,18 @@ async fn remote() -> (Remote, BidiBrowser) {
                 let mut state = active.lock().unwrap();
                 match command["method"].as_str().unwrap() {
                     "session.new" => (json!({"sessionId":"test","capabilities":{}}), None),
+                    "browsingContext.getTree" => (
+                        json!({"contexts":[{"context":params["root"],"children":[]}]}),
+                        None,
+                    ),
                     "browsingContext.create" => {
                         state.documents.insert("page".into(), false);
                         (json!({"context":"page"}), None)
                     }
                     "script.addPreloadScript" => (json!({"script":"helper"}), None),
-                    "script.removePreloadScript" | "session.end" => (json!({}), None),
+                    "session.subscribe" | "script.removePreloadScript" | "session.end" => {
+                        (json!({}), None)
+                    }
                     "browsingContext.close" => {
                         state.documents.remove(params["context"].as_str().unwrap());
                         (json!({}), None)

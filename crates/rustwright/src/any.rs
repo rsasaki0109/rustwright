@@ -24,7 +24,7 @@ use std::time::Duration;
 use rustwright_bidi::{BidiError, BidiLocator as FirefoxLocator, BidiPage as FirefoxPage};
 use rustwright_common::{LocatorApi, PageApi, Role, Selector, WaitState};
 use rustwright_core::{
-    Error as ChromeError, Locator as ChromeLocator, Page as ChromePage, Viewport,
+    Error as ChromeError, LoadState, Locator as ChromeLocator, Page as ChromePage, Viewport,
 };
 use serde_json::Value;
 use thiserror::Error;
@@ -107,6 +107,37 @@ impl AnyPage {
         match self {
             AnyPage::Chrome(page) => page.go_forward().await.map_err(Into::into),
             AnyPage::Firefox(page) => page.go_forward().await.map_err(Into::into),
+        }
+    }
+
+    /// Wait for 500 ms without pending HTTP(S) requests on this page or its frames.
+    ///
+    /// Uses a 30-second timeout. Firefox requires monitoring established before
+    /// page activity; an already-running discovered page without complete
+    /// observations returns an error instead of inferring quiet activity.
+    pub async fn wait_for_network_idle(&self) -> Result<(), AnyError> {
+        self.wait_for_network_idle_with_timeout(Duration::from_secs(30))
+            .await
+    }
+
+    /// Wait for network idle with an explicit timeout.
+    ///
+    /// A timeout or canceled waiter leaves shared request monitoring active.
+    /// Firefox observes a fresh 500 ms window on each call to account for
+    /// network events arriving after command responses; shorter timeouts expire.
+    pub async fn wait_for_network_idle_with_timeout(
+        &self,
+        timeout: Duration,
+    ) -> Result<(), AnyError> {
+        match self {
+            AnyPage::Chrome(page) => page
+                .wait_for_load_state_with_timeout(LoadState::NetworkIdle, timeout)
+                .await
+                .map_err(Into::into),
+            AnyPage::Firefox(page) => page
+                .wait_for_network_idle_with_timeout(timeout)
+                .await
+                .map_err(Into::into),
         }
     }
 

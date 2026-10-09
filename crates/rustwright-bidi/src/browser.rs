@@ -101,6 +101,7 @@ impl BidiBrowser {
         );
         let page = BidiPage::from_context(self.session.clone(), created.id().to_owned(), None);
         page.install_helper().await?;
+        page.idle.initialize(self.session.clone()).await?;
         created.take();
         Ok(page)
     }
@@ -200,6 +201,7 @@ impl BidiContext {
             Some(&self.user_context),
         );
         page.install_helper().await?;
+        page.idle.initialize(self.session.clone()).await?;
         created.take();
         Ok(page)
     }
@@ -298,6 +300,7 @@ pub struct BidiPage {
     network_started: Arc<tokio::sync::Mutex<bool>>,
     network_pump: Arc<Mutex<Option<NetworkPumpGuard>>>,
     routing: Arc<crate::interception::Routing>,
+    pub(crate) idle: Arc<crate::network_idle::IdleObserver>,
 }
 
 impl std::fmt::Debug for BidiPage {
@@ -312,6 +315,7 @@ impl BidiPage {
     fn from_context(session: BidiSession, context: String, user_context: Option<&str>) -> Self {
         let helper = session.page_helper(&context, user_context);
         let routing = session.page_routing(&context, user_context);
+        let idle = session.page_idle(&context, user_context);
         Self {
             session,
             context,
@@ -320,6 +324,7 @@ impl BidiPage {
             network_started: Arc::new(tokio::sync::Mutex::new(false)),
             network_pump: Arc::new(Mutex::new(None)),
             routing,
+            idle,
         }
     }
 
@@ -484,6 +489,30 @@ impl BidiPage {
                     && (frame.url() == src.as_str() || frame.url().contains(src.as_str()))
             })
             .ok_or_else(|| BidiError::ElementNotFound(format!("frame for {selector:?}")))
+    }
+
+    /// Wait for 500 ms without unfinished observed HTTP(S) requests in this
+    /// page or its descendants. New pages begin acknowledged observation before
+    /// being handed to the caller. Each call observes a fresh minimum 500 ms
+    /// window because Firefox can acknowledge a script before its request event
+    /// arrives. Discovered pages require an existing shared observer; activity
+    /// before subscription cannot be reconstructed.
+    pub async fn wait_for_network_idle(&self) -> BidiResult<()> {
+        self.wait_for_network_idle_with_timeout(std::time::Duration::from_secs(30))
+            .await
+    }
+
+    /// Wait for network idle with a caller-supplied deadline. A timed-out or
+    /// cancelled waiter leaves the shared observer intact. Lost events produce
+    /// an observation error instead of a potentially false idle result.
+    pub async fn wait_for_network_idle_with_timeout(
+        &self,
+        timeout: std::time::Duration,
+    ) -> BidiResult<()> {
+        if self.session.connection().is_closed() {
+            return Err(BidiError::Closed);
+        }
+        self.idle.wait(timeout).await
     }
 
     // -- Network diagnostics ------------------------------------------------

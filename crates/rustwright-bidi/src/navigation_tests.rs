@@ -91,7 +91,8 @@ async fn remote(
         }
     });
     let browser = BidiBrowser::connect(&endpoint).await.unwrap();
-    let page = browser.new_page().await.unwrap();
+    let context = browser.session().create_context().await.unwrap();
+    let page = BidiPage::from_context(browser.session().clone(), context, None);
     (
         Remote {
             events,

@@ -101,6 +101,11 @@ struct RoutingEntry {
     core: Weak<crate::interception::RoutingCore>,
 }
 
+struct IdleEntry {
+    user_context: String,
+    observer: Weak<crate::network_idle::IdleObserver>,
+}
+
 struct HelperEntry {
     user_context: String,
     helper: Weak<PageHelper>,
@@ -116,6 +121,7 @@ pub struct BidiSession {
     navigation_subscribed: Arc<tokio::sync::Mutex<bool>>,
     helpers: Arc<Mutex<HashMap<String, HelperEntry>>>,
     routing: Arc<Mutex<HashMap<String, RoutingEntry>>>,
+    idle: Arc<Mutex<HashMap<String, IdleEntry>>>,
     registered_helpers: Arc<AtomicUsize>,
     closing: Arc<CloseLocks>,
 }
@@ -149,9 +155,45 @@ impl BidiSession {
             navigation_subscribed: Arc::new(tokio::sync::Mutex::new(false)),
             helpers: Arc::new(Mutex::new(HashMap::new())),
             routing: Arc::new(Mutex::new(HashMap::new())),
+            idle: Arc::new(Mutex::new(HashMap::new())),
             registered_helpers: Arc::new(AtomicUsize::new(0)),
             closing: Arc::new(Mutex::new(HashMap::new())),
         })
+    }
+
+    pub(crate) fn page_idle(
+        &self,
+        context: &str,
+        user_context: Option<&str>,
+    ) -> Arc<crate::network_idle::IdleObserver> {
+        let mut registry = self.idle.lock().expect("idle registry mutex poisoned");
+        registry.retain(|_, entry| entry.observer.strong_count() > 0);
+        if let Some(observer) = registry
+            .get(context)
+            .and_then(|entry| entry.observer.upgrade())
+        {
+            return observer;
+        }
+        let observer = Arc::new(crate::network_idle::IdleObserver::new(context.to_owned()));
+        registry.insert(
+            context.to_owned(),
+            IdleEntry {
+                user_context: user_context.unwrap_or("default").to_owned(),
+                observer: Arc::downgrade(&observer),
+            },
+        );
+        observer
+    }
+
+    fn close_idle(&self, id: &str, user: bool) {
+        let registry = self.idle.lock().expect("idle registry mutex poisoned");
+        for (context, entry) in registry.iter() {
+            if (user && entry.user_context == id) || (!user && context == id) {
+                if let Some(observer) = entry.observer.upgrade() {
+                    observer.mark_closed();
+                }
+            }
+        }
     }
 
     pub(crate) fn page_routing(
@@ -312,6 +354,11 @@ impl BidiSession {
                         "network.responseStarted",
                         "network.responseCompleted",
                         "network.fetchError",
+                        "browsingContext.contextCreated",
+                        "browsingContext.contextDestroyed",
+                        "browsingContext.navigationStarted",
+                        "browsingContext.domContentLoaded",
+                        "browsingContext.load",
                     ])
                     .await?;
                 *ready = true;
@@ -416,6 +463,7 @@ impl BidiSession {
             "browsingContext.close"
         };
         let key = if user { "userContext" } else { "context" };
+        self.close_idle(id, user);
         let id = id.to_owned();
         let session = self.clone();
         // Only active close workers own the lock. Pruning weak entries bounds

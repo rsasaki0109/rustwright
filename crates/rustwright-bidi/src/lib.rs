@@ -31,6 +31,7 @@ mod frame;
 mod interception;
 mod locator;
 mod network;
+mod network_idle;
 mod session;
 
 pub use browser::{BidiBrowser, BidiContext, BidiPage};

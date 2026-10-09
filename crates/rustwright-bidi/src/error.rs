@@ -28,6 +28,18 @@ pub enum BidiError {
     #[error("bidi connection closed")]
     Closed,
 
+    /// The page was discovered after network observation began and its prior
+    /// activity cannot be reconstructed safely.
+    #[error("network activity observation is incomplete for this discovered page")]
+    NetworkObservationIncomplete,
+
+    /// Events were lost, so a reliable idle decision cannot be made.
+    #[error("network observation lost {skipped} events")]
+    NetworkEventsLost {
+        /// Number of broadcast events skipped by the receiver.
+        skipped: u64,
+    },
+
     /// A message could not be (de)serialized.
     #[error("bidi json error: {0}")]
     Json(#[from] serde_json::Error),

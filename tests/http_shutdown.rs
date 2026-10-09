@@ -162,7 +162,17 @@ async fn firefox_cancelled_monitor_setup_still_waits_for_subscription() {
     .expect("Firefox must start; no skip");
     let proxy = proxy(process.ws_url().to_owned()).await;
     let browser = BidiBrowser::connect(&proxy.endpoint).await.unwrap();
-    let page = browser.new_page().await.unwrap();
+    // Public new_page now acknowledges idle monitoring before handoff. Use a
+    // genuinely cold discovered context to exercise diagnostic subscription
+    // cancellation, rather than arming an already-completed handshake.
+    let context = browser.session().create_context().await.unwrap();
+    let page = browser
+        .pages()
+        .await
+        .unwrap()
+        .into_iter()
+        .find(|page| page.context_id() == context)
+        .expect("created context must be discoverable");
     page.goto(&fixture.url).await.unwrap();
     let (entered, release) = proxy.arm("session.subscribe").await;
     let caller = page.clone();
