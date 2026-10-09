@@ -7,7 +7,7 @@ It does not define a general state-of-the-art result or a reliability percentage
 The `Matched Chromium comparison` workflow runs three separate Ubuntu job
 environments, with no builds or other browser tests concurrent with measurement
 inside a job. Each builds the same release source with locked dependencies and
-uses Chrome for Testing `155.0.8059.39`, Playwright Core `1.63.0`, Node `24.19.0`
+uses Chrome for Testing `155.0.8059.39`, Playwright Core `1.64.0`, Node `24.19.0`
 and Rust `1.99.0`. CLI/protocol versions and executable hashes identify the
 browser; job/host identities distinguish the recorded environments. Separate
 jobs do not establish physically independent hosts or a population-level sample.
