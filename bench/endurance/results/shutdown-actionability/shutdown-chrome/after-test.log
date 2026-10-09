@@ -1,0 +1,21 @@
+   Compiling rustwright-core v0.1.0 (/workspace/rustwright/crates/rustwright-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.30s
+     Running unittests src/lib.rs (target/debug/deps/rustwright_core-01704876b489003a)
+
+running 13 tests
+test browser::shutdown_tests::cancelled_owned_shutdown_has_bounded_forced_process_and_socket_cleanup ... ok
+test browser::shutdown_tests::cancelled_owned_shutdown_keeps_worker_alive_until_acknowledgement ... ok
+test browser::shutdown_tests::concurrent_owned_shutdown_does_not_interrupt_graceful_command ... ok
+test browser::shutdown_tests::externally_owned_process_survives_repeated_disconnect ... ok
+test context::shutdown_tests::cancelled_attachment_wait_still_disposes ... ok
+test context::shutdown_tests::cancelled_disposal_wait_still_waits_for_acknowledgement ... ok
+test context::shutdown_tests::concurrent_close_waits_for_disposal_acknowledgement ... ok
+test context::shutdown_tests::default_context_close_keeps_foreign_context_and_connection_open ... ok
+test context::shutdown_tests::disposal_failure_is_visible_and_replayed_without_duplicate_command ... ok
+test context::shutdown_tests::stalled_attachment_still_attempts_disposal_and_replays_timeout ... ok
+test context::shutdown_tests::stalled_disposal_has_bounded_replayed_error_without_waiter_leak ... ok
+test shutdown::shutdown_tests::cancelled_waiter_does_not_cancel_single_worker_or_late_result ... ok
+test shutdown::shutdown_tests::worker_panic_wakes_all_waiters_with_failure ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 39 filtered out; finished in 15.26s
+

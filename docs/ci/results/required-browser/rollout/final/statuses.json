@@ -1,0 +1,58 @@
+[
+  {
+    "check": "fmt",
+    "command": [
+      "cargo",
+      "fmt",
+      "--all",
+      "--",
+      "--check"
+    ],
+    "exit_code": 0
+  },
+  {
+    "check": "clippy",
+    "command": [
+      "cargo",
+      "clippy",
+      "--workspace",
+      "--all-targets",
+      "--offline",
+      "--locked",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "exit_code": 0
+  },
+  {
+    "check": "msrv",
+    "command": [
+      "cargo",
+      "+1.85.0",
+      "check",
+      "--workspace",
+      "--all-targets",
+      "--offline",
+      "--locked"
+    ],
+    "exit_code": 0
+  },
+  {
+    "check": "actionlint",
+    "command": [
+      "/workspace/.rustwright-env/actionlint/actionlint",
+      ".github/workflows/ci.yml"
+    ],
+    "exit_code": 0
+  },
+  {
+    "check": "whitespace",
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "exit_code": 0
+  }
+]

@@ -1,0 +1,28 @@
+--- a/crates/rustwright-bidi/src/network.rs
++++ b/crates/rustwright-bidi/src/network.rs
+@@ -107,6 +107,13 @@
+     handle: JoinHandle<()>,
+ }
+ 
++#[cfg(test)]
++impl NetworkPumpGuard {
++    pub(crate) fn task_id(&self) -> tokio::task::Id {
++        self.handle.id()
++    }
++}
++
+ impl Drop for NetworkPumpGuard {
+     fn drop(&mut self) {
+         self.handle.abort();
+@@ -132,8 +139,10 @@
+     context: String,
+     sink: Arc<Mutex<Vec<BidiNetworkRequest>>>,
+ ) -> NetworkPumpGuard {
++    // Register the receiver before returning readiness to the page. Events can
++    // arrive before the spawned pump receives its first scheduling turn.
++    let mut events = session.events();
+     let handle = tokio::spawn(async move {
+-        let mut events = session.events();
+         loop {
+             match events.recv().await {
+                 Ok(event) => dispatch(&context, &sink, &event.method, &event.params),

@@ -25,8 +25,10 @@
 mod api;
 mod browser;
 mod connection;
+mod creation;
 mod error;
 mod frame;
+mod interception;
 mod locator;
 mod network;
 mod session;
@@ -41,3 +43,6 @@ pub use session::{
     BidiCookie, BidiOriginStorage, BidiSession, BidiStorageItem, BidiStorageState,
     BrowsingContextInfo,
 };
+
+#[cfg(test)]
+mod lifecycle_tests;

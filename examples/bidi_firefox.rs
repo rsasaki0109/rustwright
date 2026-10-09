@@ -4,18 +4,29 @@
 //!
 //! ```sh
 //! cargo run -p rustwright-examples --example bidi_firefox
+//! cargo run -p rustwright-examples --example bidi_firefox -- --headless --profile ./target/firefox-example https://example.com/
 //! ```
 
 use rustwright::bidi::{BidiBrowser, BidiResult};
 use rustwright::prelude::*;
 
+#[path = "support/run_options.rs"]
+mod run_options;
+
 #[tokio::main]
 async fn main() -> BidiResult<()> {
-    let browser = BidiBrowser::launch(Firefox::installed().headless(false)).await?;
+    let Some(options) = run_options::RunOptions::parse("bidi_firefox", "firefox.png")? else {
+        return Ok(());
+    };
+    let mut firefox = Firefox::installed().headless(options.headless);
+    if let Some(profile) = options.profile {
+        firefox = firefox.profile(profile);
+    }
+    let browser = BidiBrowser::launch(firefox).await?;
     println!("firefox: {:?}", browser.browser_version());
 
     let page = browser.new_page().await?;
-    page.goto("https://example.com/").await?;
+    page.goto(&options.url).await?;
     println!("title: {}", page.title().await?);
 
     let heading = page
@@ -23,8 +34,8 @@ async fn main() -> BidiResult<()> {
         .await?;
     println!("h1: {heading}");
 
-    page.screenshot("firefox.png").await?;
-    println!("screenshot: firefox.png");
+    page.screenshot(&options.screenshot).await?;
+    println!("screenshot: {}", options.screenshot.display());
 
     browser.close().await?;
     Ok(())

@@ -180,14 +180,15 @@ pub struct BrowserDiagnostics {
 
 /// Build a HAR 1.2 document from the requests observed by a page.
 ///
-/// `bodies` maps a request id to `(body, base64_encoded)` and is optional.
+/// `bodies` maps a request index to `(body, base64_encoded)` and is optional.
 pub fn build_har(
     requests: &[NetworkRequest],
-    bodies: Option<&HashMap<String, (String, bool)>>,
+    bodies: Option<&HashMap<usize, (String, bool)>>,
 ) -> Value {
     let entries: Vec<Value> = requests
         .iter()
-        .map(|request| har_entry(request, bodies))
+        .enumerate()
+        .map(|(index, request)| har_entry(request, bodies.and_then(|bodies| bodies.get(&index))))
         .collect();
     json!({
         "log": {
@@ -198,7 +199,7 @@ pub fn build_har(
     })
 }
 
-fn har_entry(request: &NetworkRequest, bodies: Option<&HashMap<String, (String, bool)>>) -> Value {
+fn har_entry(request: &NetworkRequest, body: Option<&(String, bool)>) -> Value {
     let time_ms = match (request.started, request.finished) {
         (Some(start), Some(end)) => (end - start).max(0.0) * 1000.0,
         _ => 0.0,
@@ -218,7 +219,7 @@ fn har_entry(request: &NetworkRequest, bodies: Option<&HashMap<String, (String, 
         "size": 0,
         "mimeType": request.mime_type.clone().unwrap_or_default(),
     });
-    if let Some((body, base64)) = bodies.and_then(|bodies| bodies.get(&request.request_id)) {
+    if let Some((body, base64)) = body {
         content["size"] = json!(body.len());
         content["text"] = json!(body);
         if *base64 {

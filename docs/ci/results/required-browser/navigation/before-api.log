@@ -1,0 +1,36 @@
+   Compiling rustwright-bidi v0.1.0 (/workspace/rustwright/crates/rustwright-bidi)
+error[E0599]: no method named `reload` found for struct `BidiPage` in the current scope
+   --> crates/rustwright-bidi/src/navigation_tests.rs:5:10
+    |
+  5 |     page.reload().await.unwrap();
+    |          ^^^^^^ method not found in `BidiPage`
+    |
+   ::: crates/rustwright-bidi/src/browser.rs:293:1
+    |
+293 | pub struct BidiPage {
+    | ------------------- method `reload` not found for this struct
+
+error[E0599]: no method named `go_back` found for struct `BidiPage` in the current scope
+   --> crates/rustwright-bidi/src/navigation_tests.rs:6:10
+    |
+  6 |     page.go_back().await.unwrap();
+    |          ^^^^^^^ method not found in `BidiPage`
+    |
+   ::: crates/rustwright-bidi/src/browser.rs:293:1
+    |
+293 | pub struct BidiPage {
+    | ------------------- method `go_back` not found for this struct
+
+error[E0599]: no method named `go_forward` found for struct `BidiPage` in the current scope
+   --> crates/rustwright-bidi/src/navigation_tests.rs:7:10
+    |
+  7 |     page.go_forward().await.unwrap();
+    |          ^^^^^^^^^^ method not found in `BidiPage`
+    |
+   ::: crates/rustwright-bidi/src/browser.rs:293:1
+    |
+293 | pub struct BidiPage {
+    | ------------------- method `go_forward` not found for this struct
+
+For more information about this error, try `rustc --explain E0599`.
+error: could not compile `rustwright-bidi` (lib test) due to 3 previous errors

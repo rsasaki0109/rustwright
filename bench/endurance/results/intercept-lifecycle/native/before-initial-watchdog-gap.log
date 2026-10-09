@@ -1,0 +1,36 @@
+   Compiling tokio v1.53.1
+   Compiling tokio-tungstenite v0.30.0
+   Compiling rustwright-cdp v0.1.0 (/workspace/rustwright/target/intercept-lifecycle/baseline-workspace/crates/rustwright-cdp)
+   Compiling rustwright-browser v0.1.0 (/workspace/rustwright/target/intercept-lifecycle/baseline-workspace/crates/rustwright-browser)
+   Compiling rustwright-bidi v0.1.0 (/workspace/rustwright/target/intercept-lifecycle/baseline-workspace/crates/rustwright-bidi)
+   Compiling rustwright-core v0.1.0 (/workspace/rustwright/target/intercept-lifecycle/baseline-workspace/crates/rustwright-core)
+   Compiling rustwright v0.1.0 (/workspace/rustwright/target/intercept-lifecycle/baseline-workspace/crates/rustwright)
+   Compiling rustwright-integration-tests v0.1.0 (/workspace/rustwright/target/intercept-lifecycle/baseline-workspace/tests)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 10.52s
+     Running http_intercept_lifecycle.rs (target/intercept-lifecycle/baseline-target/debug/deps/http_intercept_lifecycle-f9239ae13a2862ff)
+
+running 3 tests
+test firefox_intercept_cancellation_preserves_live_requests_and_prior_rules ... 
+thread 'firefox_intercept_cancellation_preserves_live_requests_and_prior_rules' (1199183) panicked at tests/http_intercept_lifecycle.rs:65:18:
+pre-ack blocked request must be released during cancellation cleanup: Elapsed(())
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+test firefox_routing_phases_and_child_frame_requests_remain_functional ... 
+thread 'firefox_routing_phases_and_child_frame_requests_remain_functional' (1199504) panicked at tests/http_intercept_lifecycle.rs:293:230:
+called `Result::unwrap()` on an `Err` value: Closed
+FAILED
+test firefox_shared_handles_drop_and_close_retire_only_owned_intercepts ... 
+thread 'firefox_shared_handles_drop_and_close_retire_only_owned_intercepts' (1200211) panicked at tests/http_intercept_lifecycle.rs:15:6:
+fetch must not be stranded by an owned intercept: Elapsed(())
+FAILED
+
+failures:
+
+failures:
+    firefox_intercept_cancellation_preserves_live_requests_and_prior_rules
+    firefox_routing_phases_and_child_frame_requests_remain_functional
+    firefox_shared_handles_drop_and_close_retire_only_owned_intercepts
+
+test result: FAILED. 0 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 71.21s
+
+error: test failed, to rerun pass `-p rustwright-integration-tests --test http_intercept_lifecycle`

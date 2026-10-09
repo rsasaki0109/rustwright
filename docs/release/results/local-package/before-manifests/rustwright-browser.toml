@@ -1,0 +1,22 @@
+[package]
+name = "rustwright-browser"
+description = "Chrome/Chromium discovery, launch, profiles and process lifecycle for Rustwright"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage = "https://github.com/rsasaki0109/rustwright"
+keywords = ["chrome", "firefox", "browser", "process", "discovery"]
+categories = ["development-tools", "web-programming"]
+rust-version.workspace = true
+
+[dependencies]
+rustwright-cdp.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+
+[lints.rust]
+unsafe_code = "forbid"

@@ -1,0 +1,11 @@
+# Clipped control evidence
+
+The original six paired cases failed against pre-clipping Chrome and the newly revised BiDi actionability path (viewport-clipped client rectangles). `before-test.log` records the browser versions, geometry, failures and no trusted click for each. Original core page/geometry and shared injected helper source copies are retained.
+
+After the clipping fix, `after-test.log` records ten successful native cases: the original six plus four guards for fixed descendants escaping overflow and a clipped control after document scrolling. Each expects exactly one trusted click and zero clicks on the clipping container. `chrome-after-test.log` records five successful Chrome cases independently. `geometry-test.log` records eight successful geometry unit tests, including the new 60 px / 3 px strip regression.
+
+Source in `after-source` and `source-sha256.json` identifies the implementations and fixture at the successful ten-case run. Other shutdown changes being developed in parallel are present in the package dependencies but are not claimed as clipped-control fixes. `changes.patch` isolates the new core geometry and shared helper edits relative to this agent's pre-fix copies; it does not contain the independently owned BiDi callsite change or earlier accumulated work.
+
+The baseline six-case fixture file was not snapshotted before four guards were added; the original six scenarios retain the same scripts and assertions, apart from an empty additional setup argument. Do not claim an exact whole-repository baseline snapshot from these partial source copies.
+
+Scope: conservative intersection of viewport and ordinary two-axis overflow ancestor outer bounding boxes. Overflow clip margin is expanded, display:contents and root/body overflow propagation are ignored, and traversal stops after absolute/fixed elements to avoid false clipping of descendants that escape ordinary ancestor overflow. Bounds are candidate hints; native hit testing and pre-input hover/geometry validation remain mandatory. Chrome applies the new rectangle to direct main-page locator clicks; frame coordinate projection is unchanged. This is not complete transformed-frame, arbitrary clip-path, or Firefox actionability parity.

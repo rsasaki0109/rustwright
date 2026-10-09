@@ -26,6 +26,26 @@ pub enum CdpError {
     #[error("CDP connection closed")]
     Closed,
 
+    /// The target session detached before its command received a response.
+    #[error("CDP session {session_id} detached while waiting for `{method}`")]
+    SessionDetached {
+        /// The detached flat CDP session.
+        session_id: String,
+        /// The command whose response was pending.
+        method: String,
+    },
+
+    /// An explicitly selected execution context was destroyed during a command.
+    #[error("CDP context {context_id} in session {session_id} was destroyed while waiting for `{method}`")]
+    ContextDestroyed {
+        /// The session owning the context.
+        session_id: String,
+        /// The destroyed context id, scoped to that session.
+        context_id: i64,
+        /// The pending command.
+        method: String,
+    },
+
     /// A message could not be (de)serialized as JSON.
     #[error("json error: {0}")]
     Json(#[from] serde_json::Error),

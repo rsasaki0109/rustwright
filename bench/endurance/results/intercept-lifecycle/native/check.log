@@ -1,0 +1,13 @@
+    Checking rustwright-bidi v0.1.0 (/workspace/rustwright/crates/rustwright-bidi)
+    Checking rustwright v0.1.0 (/workspace/rustwright/crates/rustwright)
+    Checking rustwright-integration-tests v0.1.0 (/workspace/rustwright/tests)
+warning: unused import: `tungstenite::Message`
+  --> tests/support/intercept.rs:17:54
+   |
+17 | use tokio_tungstenite::{accept_async, connect_async, tungstenite::Message};
+   |                                                      ^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `rustwright-integration-tests` (test "http_intercept_lifecycle") generated 1 warning (run `cargo fix --test "http_intercept_lifecycle" -p rustwright-integration-tests` to apply 1 suggestion)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.60s

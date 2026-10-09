@@ -1,0 +1,89 @@
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.26
+   Compiling quote v1.0.47
+   Compiling libc v0.2.189
+   Compiling typenum v1.20.1
+   Compiling cfg-if v1.0.5
+   Compiling getrandom v0.4.3
+   Compiling serde_core v1.0.229
+   Compiling rand_core v0.10.1
+   Compiling cpufeatures v0.3.1
+   Compiling syn v3.0.6
+   Compiling hybrid-array v0.4.15
+   Compiling itoa v1.0.18
+   Compiling httparse v1.10.1
+   Compiling const-oid v0.10.2
+   Compiling crypto-common v0.2.2
+   Compiling block-buffer v0.12.1
+   Compiling thiserror v2.0.20
+   Compiling pin-project-lite v0.2.17
+   Compiling bytes v1.12.1
+   Compiling zmij v1.0.23
+   Compiling errno v0.3.14
+   Compiling digest v0.11.3
+   Compiling chacha20 v0.10.2
+   Compiling serde_json v1.0.151
+   Compiling rand v0.10.2
+   Compiling sha1 v0.11.0
+   Compiling signal-hook-registry v1.4.8
+   Compiling http v1.5.0
+   Compiling mio v1.2.3
+   Compiling socket2 v0.6.5
+   Compiling syn v2.0.119
+   Compiling futures-core v0.3.34
+   Compiling once_cell v1.21.4
+   Compiling serde v1.0.229
+   Compiling data-encoding v2.11.1
+   Compiling slab v0.4.12
+   Compiling thiserror-impl v2.0.20
+   Compiling tokio-macros v2.7.2
+   Compiling futures-macro v0.3.34
+   Compiling futures-task v0.3.34
+   Compiling futures-sink v0.3.34
+   Compiling log v0.4.34
+   Compiling memchr v2.8.3
+   Compiling futures-util v0.3.34
+   Compiling tungstenite v0.30.0
+   Compiling tokio v1.53.1
+   Compiling serde_derive v1.0.229
+   Compiling tracing-core v0.1.36
+   Compiling tracing-attributes v0.1.31
+   Compiling rustwright-common v0.1.0 (/workspace/rustwright/target/intercept-lifecycle/identical-after-workspace/crates/rustwright-common)
+   Compiling base64 v0.22.1
+   Compiling tracing v0.1.44
+   Compiling tokio-tungstenite v0.30.0
+   Compiling rustwright-cdp v0.1.0 (/workspace/rustwright/target/intercept-lifecycle/identical-after-workspace/crates/rustwright-cdp)
+   Compiling rustwright-browser v0.1.0 (/workspace/rustwright/target/intercept-lifecycle/identical-after-workspace/crates/rustwright-browser)
+   Compiling rustwright-bidi v0.1.0 (/workspace/rustwright/target/intercept-lifecycle/identical-after-workspace/crates/rustwright-bidi)
+warning: methods `weak_core` and `event_id_count` are never used
+  --> crates/rustwright-bidi/src/interception.rs:84:19
+   |
+56 | impl Routing {
+   | ------------ methods in this implementation
+...
+84 |     pub(crate) fn weak_core(&self) -> std::sync::Weak<RoutingCore> {
+   |                   ^^^^^^^^^
+...
+88 |     pub(crate) async fn event_id_count(&self) -> usize {
+   |                         ^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `rustwright-bidi` (lib test) generated 1 warning
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 25.36s
+     Running unittests src/lib.rs (target/intercept-lifecycle/identical-target/debug/deps/rustwright_bidi-cedd5209c7d1f7e2)
+
+running 10 tests
+test browser::interception_tests::canceled_registration_reclaims_the_late_id ... ok
+test browser::interception_tests::clear_continues_after_waiter_cancellation ... ok
+test browser::interception_tests::concurrent_registration_does_not_return_before_ack ... ok
+test browser::interception_tests::discovered_handles_share_routes_and_keep_registration_alive ... ok
+test browser::interception_tests::failed_phase_expansion_preserves_existing_registration ... ok
+test browser::interception_tests::final_routed_page_handle_drop_removes_registration ... ok
+test browser::interception_tests::page_close_retires_routes_while_handle_is_retained ... ok
+test browser::interception_tests::rejected_registration_is_retryable ... ok
+test browser::interception_tests::removal_error_is_typed_and_retains_the_id ... ok
+test browser::interception_tests::user_context_close_retires_only_owned_routes ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 47 filtered out; finished in 0.14s
+

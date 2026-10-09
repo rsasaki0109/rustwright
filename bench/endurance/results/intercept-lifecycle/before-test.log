@@ -1,0 +1,143 @@
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.26
+   Compiling quote v1.0.47
+   Compiling libc v0.2.189
+   Compiling typenum v1.20.1
+   Compiling cfg-if v1.0.5
+   Compiling serde_core v1.0.229
+   Compiling rand_core v0.10.1
+   Compiling cpufeatures v0.3.1
+   Compiling itoa v1.0.18
+   Compiling getrandom v0.4.3
+   Compiling hybrid-array v0.4.15
+   Compiling syn v3.0.6
+   Compiling thiserror v2.0.20
+   Compiling crypto-common v0.2.2
+   Compiling block-buffer v0.12.1
+   Compiling bytes v1.12.1
+   Compiling pin-project-lite v0.2.17
+   Compiling httparse v1.10.1
+   Compiling zmij v1.0.23
+   Compiling const-oid v0.10.2
+   Compiling errno v0.3.14
+   Compiling digest v0.11.3
+   Compiling chacha20 v0.10.2
+   Compiling serde_json v1.0.151
+   Compiling sha1 v0.11.0
+   Compiling rand v0.10.2
+   Compiling signal-hook-registry v1.4.8
+   Compiling http v1.5.0
+   Compiling socket2 v0.6.5
+   Compiling mio v1.2.3
+   Compiling syn v2.0.119
+   Compiling once_cell v1.21.4
+   Compiling futures-core v0.3.34
+   Compiling data-encoding v2.11.1
+   Compiling thiserror-impl v2.0.20
+   Compiling futures-macro v0.3.34
+   Compiling tokio-macros v2.7.2
+   Compiling serde v1.0.229
+   Compiling log v0.4.34
+   Compiling slab v0.4.12
+   Compiling futures-task v0.3.34
+   Compiling futures-sink v0.3.34
+   Compiling memchr v2.8.3
+   Compiling futures-util v0.3.34
+   Compiling tungstenite v0.30.0
+   Compiling tokio v1.53.1
+   Compiling serde_derive v1.0.229
+   Compiling tracing-attributes v0.1.31
+   Compiling tracing-core v0.1.36
+   Compiling rustwright-common v0.1.0 (/workspace/rustwright/target/intercept-lifecycle/baseline-workspace/crates/rustwright-common)
+   Compiling tracing v0.1.44
+   Compiling base64 v0.22.1
+   Compiling tokio-tungstenite v0.30.0
+   Compiling rustwright-cdp v0.1.0 (/workspace/rustwright/target/intercept-lifecycle/baseline-workspace/crates/rustwright-cdp)
+   Compiling rustwright-browser v0.1.0 (/workspace/rustwright/target/intercept-lifecycle/baseline-workspace/crates/rustwright-browser)
+   Compiling rustwright-bidi v0.1.0 (/workspace/rustwright/target/intercept-lifecycle/baseline-workspace/crates/rustwright-bidi)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 20.10s
+     Running unittests src/lib.rs (target/intercept-lifecycle/baseline-target/debug/deps/rustwright_bidi-cedd5209c7d1f7e2)
+
+running 10 tests
+test browser::interception_tests::canceled_registration_reclaims_the_late_id ... FAILED
+test browser::interception_tests::clear_continues_after_waiter_cancellation ... ok
+test browser::interception_tests::concurrent_registration_does_not_return_before_ack ... FAILED
+test browser::interception_tests::discovered_handles_share_routes_and_keep_registration_alive ... FAILED
+test browser::interception_tests::failed_phase_expansion_preserves_existing_registration ... FAILED
+test browser::interception_tests::final_routed_page_handle_drop_removes_registration ... FAILED
+test browser::interception_tests::page_close_retires_routes_while_handle_is_retained ... FAILED
+test browser::interception_tests::rejected_registration_is_retryable ... FAILED
+test browser::interception_tests::removal_error_is_typed_and_retains_the_id ... FAILED
+test browser::interception_tests::user_context_close_retires_only_owned_routes ... FAILED
+
+failures:
+
+---- browser::interception_tests::canceled_registration_reclaims_the_late_id stdout ----
+
+thread 'browser::interception_tests::canceled_registration_reclaims_the_late_id' (1197120) panicked at crates/rustwright-bidi/src/interception_tests.rs:20:169:
+called `Result::unwrap()` on an `Err` value: Elapsed(())
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- browser::interception_tests::concurrent_registration_does_not_return_before_ack stdout ----
+
+thread 'browser::interception_tests::concurrent_registration_does_not_return_before_ack' (1197122) panicked at crates/rustwright-bidi/src/interception_tests.rs:65:374:
+assertion failed: !second.is_finished()
+
+---- browser::interception_tests::discovered_handles_share_routes_and_keep_registration_alive stdout ----
+
+thread 'browser::interception_tests::discovered_handles_share_routes_and_keep_registration_alive' (1197123) panicked at crates/rustwright-bidi/src/interception_tests.rs:69:258:
+assertion `left == right` failed
+  left: 2
+ right: 1
+
+---- browser::interception_tests::failed_phase_expansion_preserves_existing_registration stdout ----
+
+thread 'browser::interception_tests::failed_phase_expansion_preserves_existing_registration' (1197124) panicked at crates/rustwright-bidi/src/interception_tests.rs:75:191:
+assertion failed: matches!(p.route("*two*",RouteAction::SetResponseHeaders(vec![])).await,Err(BidiError::Protocol{..}))
+
+---- browser::interception_tests::final_routed_page_handle_drop_removes_registration stdout ----
+
+thread 'browser::interception_tests::final_routed_page_handle_drop_removes_registration' (1197125) panicked at crates/rustwright-bidi/src/interception_tests.rs:20:169:
+called `Result::unwrap()` on an `Err` value: Elapsed(())
+
+---- browser::interception_tests::page_close_retires_routes_while_handle_is_retained stdout ----
+
+thread 'browser::interception_tests::page_close_retires_routes_while_handle_is_retained' (1197126) panicked at crates/rustwright-bidi/src/interception_tests.rs:71:174:
+assertion `left == right` failed
+  left: 1
+ right: 0
+
+---- browser::interception_tests::rejected_registration_is_retryable stdout ----
+
+thread 'browser::interception_tests::rejected_registration_is_retryable' (1197127) panicked at crates/rustwright-bidi/src/interception_tests.rs:57:209:
+assertion `left == right` failed
+  left: 0
+ right: 1
+
+---- browser::interception_tests::removal_error_is_typed_and_retains_the_id stdout ----
+
+thread 'browser::interception_tests::removal_error_is_typed_and_retains_the_id' (1197128) panicked at crates/rustwright-bidi/src/interception_tests.rs:59:174:
+assertion failed: matches!(p.clear_routes().await,Err(BidiError::Protocol{..}))
+
+---- browser::interception_tests::user_context_close_retires_only_owned_routes stdout ----
+
+thread 'browser::interception_tests::user_context_close_retires_only_owned_routes' (1197129) panicked at crates/rustwright-bidi/src/interception_tests.rs:73:277:
+assertion `left == right` failed
+  left: 2
+ right: 1
+
+
+failures:
+    browser::interception_tests::canceled_registration_reclaims_the_late_id
+    browser::interception_tests::concurrent_registration_does_not_return_before_ack
+    browser::interception_tests::discovered_handles_share_routes_and_keep_registration_alive
+    browser::interception_tests::failed_phase_expansion_preserves_existing_registration
+    browser::interception_tests::final_routed_page_handle_drop_removes_registration
+    browser::interception_tests::page_close_retires_routes_while_handle_is_retained
+    browser::interception_tests::rejected_registration_is_retryable
+    browser::interception_tests::removal_error_is_typed_and_retains_the_id
+    browser::interception_tests::user_context_close_retires_only_owned_routes
+
+test result: FAILED. 1 passed; 9 failed; 0 ignored; 0 measured; 46 filtered out; finished in 4.12s
+
+error: test failed, to rerun pass `-p rustwright-bidi --lib`

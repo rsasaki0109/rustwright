@@ -4,13 +4,13 @@
 //! diagnostics: it collects `network.beforeRequestSent`, `responseCompleted`
 //! and `fetchError` events for a page.
 
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, HashSet};
 use std::sync::{Arc, Mutex};
 
 use rustwright_common::{Route, RouteAction};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use tokio::sync::broadcast;
+use tokio::sync::{broadcast, mpsc, oneshot, watch};
 use tokio::task::JoinHandle;
 
 use crate::session::BidiSession;
@@ -93,7 +93,6 @@ struct FetchErrorParams {
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
 struct ResponseStartedParams {
-    context: String,
     #[serde(default)]
     is_blocked: bool,
     #[serde(default)]
@@ -105,6 +104,13 @@ struct ResponseStartedParams {
 /// Stops the network pump when the last page clone is dropped.
 pub(crate) struct NetworkPumpGuard {
     handle: JoinHandle<()>,
+}
+
+#[cfg(test)]
+impl NetworkPumpGuard {
+    pub(crate) fn task_id(&self) -> tokio::task::Id {
+        self.handle.id()
+    }
 }
 
 impl Drop for NetworkPumpGuard {
@@ -132,8 +138,10 @@ pub(crate) fn spawn_network_pump(
     context: String,
     sink: Arc<Mutex<Vec<BidiNetworkRequest>>>,
 ) -> NetworkPumpGuard {
+    // Register the receiver before returning readiness to the page. Events can
+    // arrive before the spawned pump receives its first scheduling turn.
+    let mut events = session.events();
     let handle = tokio::spawn(async move {
-        let mut events = session.events();
         loop {
             match events.recv().await {
                 Ok(event) => dispatch(&context, &sink, &event.method, &event.params),
@@ -276,30 +284,177 @@ pub(crate) struct ProvideResponseParams {
 
 /// Drives interception: answers every blocked `beforeRequestSent` event using
 /// the registered routes, continuing anything that does not match.
+// Separate from the transport's broadcast capacity: awaiting an allocation
+// must not drain unlimited unknown events into a second unbounded buffer.
+const MAX_DEFERRED_INTERCEPT_EVENTS: usize = 2048;
+fn defer_intercept(
+    events: &mut Vec<crate::BidiEvent>,
+    event: crate::BidiEvent,
+    overflowed: &mut bool,
+) {
+    if events.len() < MAX_DEFERRED_INTERCEPT_EVENTS {
+        events.push(event)
+    } else if !*overflowed {
+        *overflowed = true;
+        tracing::warn!("BiDi pending interception event queue overflowed; a blocked request may require caller recovery");
+    }
+}
+pub(crate) struct InterceptRegistry {
+    pub(crate) ids: Mutex<HashSet<String>>,
+    allocating: watch::Sender<bool>,
+}
+impl Default for InterceptRegistry {
+    fn default() -> Self {
+        let (allocating, _) = watch::channel(false);
+        Self {
+            ids: Mutex::new(HashSet::new()),
+            allocating,
+        }
+    }
+}
+impl InterceptRegistry {
+    pub(crate) fn begin_allocation(&self) {
+        self.allocating.send_replace(true);
+    }
+    pub(crate) fn finish_allocation(&self) {
+        self.allocating.send_replace(false);
+    }
+}
+enum PumpControl {
+    Retire(String, oneshot::Sender<()>),
+    Stop,
+}
+pub(crate) struct InterceptPump {
+    handle: JoinHandle<()>,
+    control: mpsc::UnboundedSender<PumpControl>,
+}
+impl InterceptPump {
+    pub(crate) async fn retire(&self, id: &str) {
+        let (tx, rx) = oneshot::channel();
+        if self
+            .control
+            .send(PumpControl::Retire(id.to_owned(), tx))
+            .is_ok()
+        {
+            let _ = tokio::time::timeout(crate::session::SHUTDOWN_TIMEOUT, rx).await;
+        }
+    }
+    pub(crate) async fn stop(mut self) {
+        let _ = self.control.send(PumpControl::Stop);
+        let _ = tokio::time::timeout(crate::session::SHUTDOWN_TIMEOUT, &mut self.handle).await;
+    }
+}
+impl Drop for InterceptPump {
+    fn drop(&mut self) {
+        self.handle.abort();
+    }
+}
+
 pub(crate) fn spawn_intercept_pump(
     session: BidiSession,
-    context: String,
     routes: Arc<Mutex<Vec<Route>>>,
-) -> NetworkPumpGuard {
+    owned: Arc<InterceptRegistry>,
+) -> InterceptPump {
+    let mut events = session.events();
+    let mut shutdown = session.connection().shutdown_receiver();
+    let mut allocating = owned.allocating.subscribe();
+    let (control, mut commands) = mpsc::unbounded_channel();
     let handle = tokio::spawn(async move {
-        let mut events = session.events();
+        let mut deferred = Vec::new();
+        let mut overflowed = false;
         loop {
-            match events.recv().await {
-                Ok(event) => match event.method.as_str() {
-                    "network.beforeRequestSent" => {
-                        handle_request_stage(&session, &context, &routes, &event.params).await;
+            if *shutdown.borrow() {
+                break;
+            }
+            tokio::select! {
+                biased;
+                _=shutdown.changed()=>break,
+                command=commands.recv()=>{
+                    // Drain the finite prefix received before removal's reply.
+                    // Unknown IDs during allocation stay deferred; known old
+                    // routes continue without waiting for the new ID's reply.
+                    let queued=events.len();
+                    for _ in 0..queued {match events.try_recv(){
+                        Ok(event)=>{if let Some(event)=dispatch_intercept(&session,&routes,&owned,event).await{defer_intercept(&mut deferred,event,&mut overflowed)}},
+                        Err(broadcast::error::TryRecvError::Lagged(_))=>continue,
+                        Err(_)=>break,
+                    }}
+                    deferred=replay_intercepts(&session,&routes,&owned,deferred).await;
+                    match command {
+                        Some(PumpControl::Retire(id,done))=>{owned.ids.lock().expect("bidi intercept IDs mutex poisoned").remove(&id);let _=done.send(());},
+                        Some(PumpControl::Stop)|None=>break,
                     }
-                    "network.responseStarted" => {
-                        handle_response_stage(&session, &context, &routes, &event.params).await;
-                    }
-                    _ => {}
+                }
+                _=allocating.changed()=>{
+                    deferred=replay_intercepts(&session,&routes,&owned,deferred).await;
+                }
+                event=events.recv()=>match event {
+                    Ok(event)=>{if let Some(event)=dispatch_intercept(&session,&routes,&owned,event).await{defer_intercept(&mut deferred,event,&mut overflowed)}},
+                    Err(broadcast::error::RecvError::Lagged(_))=>continue,
+                    Err(broadcast::error::RecvError::Closed)=>break,
                 },
-                Err(broadcast::error::RecvError::Lagged(_)) => continue,
-                Err(broadcast::error::RecvError::Closed) => break,
             }
         }
     });
-    NetworkPumpGuard { handle }
+    InterceptPump { handle, control }
+}
+async fn replay_intercepts(
+    session: &BidiSession,
+    routes: &Arc<Mutex<Vec<Route>>>,
+    owned: &InterceptRegistry,
+    events: Vec<crate::BidiEvent>,
+) -> Vec<crate::BidiEvent> {
+    let mut deferred = Vec::new();
+    let mut overflowed = false;
+    for event in events {
+        if let Some(event) = dispatch_intercept(session, routes, owned, event).await {
+            defer_intercept(&mut deferred, event, &mut overflowed)
+        }
+    }
+    deferred
+}
+async fn dispatch_intercept(
+    session: &BidiSession,
+    routes: &Arc<Mutex<Vec<Route>>>,
+    owned: &InterceptRegistry,
+    event: crate::BidiEvent,
+) -> Option<crate::BidiEvent> {
+    if !matches!(
+        event.method.as_str(),
+        "network.beforeRequestSent" | "network.responseStarted"
+    ) {
+        return None;
+    }
+    if event.params.get("isBlocked").and_then(Value::as_bool) != Some(true) {
+        return None;
+    }
+    let ids = event.params.get("intercepts").and_then(Value::as_array)?;
+    let (ours, allocating) = {
+        let known = owned.ids.lock().expect("bidi intercept IDs mutex poisoned");
+        let ours = ids
+            .iter()
+            .any(|id| id.as_str().is_some_and(|id| known.contains(id)));
+        // Snapshot the pending flag before unlocking. Otherwise publication of
+        // the new ID followed by pending=false could make an early owned event
+        // appear foreign between these two observations.
+        (ours, *owned.allocating.borrow())
+    };
+    if !ours {
+        return if allocating { Some(event) } else { None };
+    }
+    let operation = async {
+        match event.method.as_str() {
+            "network.beforeRequestSent" => {
+                handle_request_stage(session, routes, &event.params).await
+            }
+            "network.responseStarted" => {
+                handle_response_stage(session, routes, &event.params).await
+            }
+            _ => {}
+        }
+    };
+    let _ = tokio::time::timeout(crate::session::SHUTDOWN_TIMEOUT, operation).await;
+    None
 }
 
 fn route_action(routes: &Arc<Mutex<Vec<Route>>>, url: &str) -> Option<RouteAction> {
@@ -312,14 +467,13 @@ fn route_action(routes: &Arc<Mutex<Vec<Route>>>, url: &str) -> Option<RouteActio
 
 async fn handle_request_stage(
     session: &BidiSession,
-    context: &str,
     routes: &Arc<Mutex<Vec<Route>>>,
     params: &Value,
 ) {
     let Ok(params) = serde_json::from_value::<BeforeRequestSentParams>(params.clone()) else {
         return;
     };
-    if params.context != context || !params.is_blocked {
+    if !params.is_blocked {
         return;
     }
     let request_id = params.request.request.clone();
@@ -353,14 +507,13 @@ async fn handle_request_stage(
 
 async fn handle_response_stage(
     session: &BidiSession,
-    context: &str,
     routes: &Arc<Mutex<Vec<Route>>>,
     params: &Value,
 ) {
     let Ok(params) = serde_json::from_value::<ResponseStartedParams>(params.clone()) else {
         return;
     };
-    if params.context != context || !params.is_blocked {
+    if !params.is_blocked {
         return;
     }
     let request_id = params.request.request.clone();
@@ -411,4 +564,27 @@ fn merge_headers(original: &[HeaderEntry], overrides: &[(String, String)]) -> Ve
         );
     }
     merged.into_values().collect()
+}
+
+#[cfg(test)]
+mod interception_queue_tests {
+    use super::*;
+    #[test]
+    fn deferred_allocation_events_have_a_separate_bounded_queue() {
+        let mut events = Vec::new();
+        let mut overflowed = false;
+        for request in 0..MAX_DEFERRED_INTERCEPT_EVENTS + 100 {
+            defer_intercept(
+                &mut events,
+                crate::BidiEvent {
+                    method: "network.beforeRequestSent".to_owned(),
+                    params: serde_json::json!({"isBlocked":true,"request":{"request":request}}),
+                },
+                &mut overflowed,
+            );
+        }
+        assert_eq!(events.len(), MAX_DEFERRED_INTERCEPT_EVENTS);
+        assert!(overflowed);
+        assert_eq!(events.first().unwrap().params["request"]["request"], 0);
+    }
 }

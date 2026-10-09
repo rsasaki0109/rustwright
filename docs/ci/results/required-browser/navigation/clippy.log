@@ -1,0 +1,24 @@
+    Checking rustwright-bidi v0.1.0 (/workspace/rustwright/crates/rustwright-bidi)
+    Checking rustwright-core v0.1.0 (/workspace/rustwright/crates/rustwright-core)
+    Checking rustwright v0.1.0 (/workspace/rustwright/crates/rustwright)
+    Checking rustwright-integration-tests v0.1.0 (/workspace/rustwright/tests)
+error: items after a test module
+    --> crates/rustwright-bidi/src/session.rs:1014:1
+     |
+1014 |   mod tests {
+     |   ^^^^^^^^^
+...
+1085 | / async fn wait_history(
+1086 | |     mut events: tokio::sync::broadcast::Receiver<BidiEvent>,
+1087 | |     mut shutdown: tokio::sync::watch::Receiver<bool>,
+1088 | |     context: &str,
+1089 | | ) -> BidiResult<()> {
+     | |___________________^
+     |
+     = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.99.0/index.html#items_after_test_module
+     = note: `-D clippy::items-after-test-module` implied by `-D warnings`
+     = help: to override `-D warnings` add `#[allow(clippy::items_after_test_module)]`
+     = help: move the items to before the test module was defined
+
+error: could not compile `rustwright-bidi` (lib test) due to 1 previous error
+warning: build failed, waiting for other jobs to finish...

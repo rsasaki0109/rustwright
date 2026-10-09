@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Network fixture</title>
+<input id="value">
+<script>
+  window.networkResult = Promise.all([
+    fetch('/api/mock').then(async response => [response.status, await response.text()]),
+    new Promise(resolve => {
+      const request = new XMLHttpRequest();
+      request.open('GET', '/api/mock');
+      request.onload = () => resolve([request.status, request.responseText]);
+      request.onerror = request.onabort = () => resolve(['error', '']);
+      request.send();
+    }),
+  ]).then(responses => ({
+    responses,
+    nativeFetch: window.fetch.toString().includes('[native code]'),
+    nativeXHR: XMLHttpRequest.prototype.open.toString().includes('[native code]'),
+  }));
+</script>

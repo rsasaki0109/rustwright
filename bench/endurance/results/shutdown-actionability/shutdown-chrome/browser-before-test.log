@@ -1,0 +1,38 @@
+    Blocking waiting for file lock on build directory
+   Compiling rustwright-core v0.1.0 (/workspace/rustwright/crates/rustwright-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 6.60s
+     Running unittests src/lib.rs (target/debug/deps/rustwright_core-01704876b489003a)
+
+running 4 tests
+test browser::shutdown_tests::cancelled_owned_shutdown_has_bounded_forced_process_and_socket_cleanup ... FAILED
+test browser::shutdown_tests::cancelled_owned_shutdown_keeps_worker_alive_until_acknowledgement ... FAILED
+test browser::shutdown_tests::concurrent_owned_shutdown_does_not_interrupt_graceful_command ... FAILED
+test browser::shutdown_tests::externally_owned_process_survives_repeated_disconnect ... ok
+
+failures:
+
+---- browser::shutdown_tests::cancelled_owned_shutdown_has_bounded_forced_process_and_socket_cleanup stdout ----
+
+thread 'browser::shutdown_tests::cancelled_owned_shutdown_has_bounded_forced_process_and_socket_cleanup' (853701) panicked at crates/rustwright-core/src/browser_shutdown_tests.rs:169:5:
+assertion failed: running(pid)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- browser::shutdown_tests::cancelled_owned_shutdown_keeps_worker_alive_until_acknowledgement stdout ----
+
+thread 'browser::shutdown_tests::cancelled_owned_shutdown_keeps_worker_alive_until_acknowledgement' (853703) panicked at crates/rustwright-core/src/browser_shutdown_tests.rs:122:5:
+cancelled waiter must not prematurely kill owned process
+
+---- browser::shutdown_tests::concurrent_owned_shutdown_does_not_interrupt_graceful_command stdout ----
+
+thread 'browser::shutdown_tests::concurrent_owned_shutdown_does_not_interrupt_graceful_command' (853705) panicked at crates/rustwright-core/src/browser_shutdown_tests.rs:147:5:
+assertion failed: tokio::time::timeout(Duration::from_millis(40), &mut second).await.is_err()
+
+
+failures:
+    browser::shutdown_tests::cancelled_owned_shutdown_has_bounded_forced_process_and_socket_cleanup
+    browser::shutdown_tests::cancelled_owned_shutdown_keeps_worker_alive_until_acknowledgement
+    browser::shutdown_tests::concurrent_owned_shutdown_does_not_interrupt_graceful_command
+
+test result: FAILED. 1 passed; 3 failed; 0 ignored; 0 measured; 48 filtered out; finished in 0.05s
+
+error: test failed, to rerun pass `-p rustwright-core --lib`

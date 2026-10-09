@@ -18,11 +18,17 @@
 mod api;
 mod browser;
 mod context;
+mod creation;
+#[cfg(test)]
+mod creation_tests;
 mod diagnostics;
 mod error;
 mod frame;
+mod geometry;
 mod locator;
+mod network_idle;
 mod page;
+mod shutdown;
 
 pub use browser::Browser;
 pub use context::BrowserContext;

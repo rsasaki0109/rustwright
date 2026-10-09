@@ -1,0 +1,66 @@
+[
+  {
+    "target": "bidi",
+    "test": "firefox_bidi_network_monitoring",
+    "exit_code": 0,
+    "passed_without_skipping": true,
+    "fixture": "HTTP",
+    "log": "target/ci-rollout/strict-browser-policy/bidi-firefox_bidi_network_monitoring-positive.log",
+    "command": [
+      "/workspace/rustwright/target/debug/deps/bidi-10cd2d9d177fb026",
+      "firefox_bidi_network_monitoring",
+      "--exact",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "required_flag": true
+  },
+  {
+    "target": "advanced",
+    "test": "fulfills_mocked_requests",
+    "exit_code": 0,
+    "passed_without_skipping": true,
+    "fixture": "HTTP",
+    "log": "target/ci-rollout/strict-browser-policy/advanced-fulfills_mocked_requests-positive.log",
+    "command": [
+      "/workspace/rustwright/target/debug/deps/advanced-acd348d275a58c80",
+      "fulfills_mocked_requests",
+      "--exact",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "required_flag": true
+  },
+  {
+    "target": "diagnostics",
+    "test": "expose_cookies_navigations_and_network",
+    "exit_code": 0,
+    "passed_without_skipping": true,
+    "fixture": "HTTP",
+    "log": "target/ci-rollout/strict-browser-policy/diagnostics-expose_cookies_navigations_and_network-positive.log",
+    "command": [
+      "/workspace/rustwright/target/debug/deps/diagnostics-ab4b856784875437",
+      "expose_cookies_navigations_and_network",
+      "--exact",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "required_flag": true
+  },
+  {
+    "target": "diagnostics",
+    "test": "expose_launch_diagnostics",
+    "exit_code": 0,
+    "passed_without_skipping": true,
+    "fixture": "browser launch only",
+    "log": "target/ci-rollout/strict-browser-policy/diagnostics-expose_launch_diagnostics-positive.log",
+    "command": [
+      "/workspace/rustwright/target/debug/deps/diagnostics-ab4b856784875437",
+      "expose_launch_diagnostics",
+      "--exact",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "required_flag": true
+  }
+]

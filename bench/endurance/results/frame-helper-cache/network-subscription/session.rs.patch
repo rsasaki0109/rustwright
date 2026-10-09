@@ -1,0 +1,90 @@
+--- a/crates/rustwright-bidi/src/session.rs
++++ b/crates/rustwright-bidi/src/session.rs
+@@ -1,11 +1,12 @@
+ //! Typed helpers over the WebDriver BiDi protocol.
+ 
+ use std::collections::HashMap;
+-use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
++use std::sync::atomic::{AtomicUsize, Ordering};
+ use std::sync::{Arc, Mutex, Weak};
+ use std::time::Duration;
+ 
+ pub(crate) const SHUTDOWN_TIMEOUT: Duration = Duration::from_secs(5);
++pub(crate) const NETWORK_SETUP_TIMEOUT: Duration = Duration::from_secs(5);
+ 
+ use crate::browser::PageHelper;
+ 
+@@ -106,7 +107,7 @@
+     connection: BidiConnection,
+     session_id: String,
+     capabilities: Value,
+-    network_subscribed: Arc<AtomicBool>,
++    network_subscribed: Arc<tokio::sync::Mutex<bool>>,
+     helpers: Arc<Mutex<HashMap<String, HelperEntry>>>,
+     registered_helpers: Arc<AtomicUsize>,
+     closing: Arc<CloseLocks>,
+@@ -137,7 +138,7 @@
+             connection,
+             session_id,
+             capabilities,
+-            network_subscribed: Arc::new(AtomicBool::new(false)),
++            network_subscribed: Arc::new(tokio::sync::Mutex::new(false)),
+             helpers: Arc::new(Mutex::new(HashMap::new())),
+             registered_helpers: Arc::new(AtomicUsize::new(0)),
+             closing: Arc::new(Mutex::new(HashMap::new())),
+@@ -218,22 +219,40 @@
+     }
+ 
+     /// Subscribe to network events once, for diagnostics.
++    ///
++    /// Concurrent callers wait for acknowledged readiness. Setup continues after
++    /// caller cancellation, bounded to five seconds including lock contention.
++    /// A failed setup can be retried; lost acknowledgments leave remote
++    /// subscription state uncertain even after the local waiter is released.
+     pub async fn ensure_network_subscription(&self) -> BidiResult<()> {
+-        if self.network_subscribed.swap(true, Ordering::SeqCst) {
+-            return Ok(());
+-        }
+-        let result = self
+-            .subscribe(&[
+-                "network.beforeRequestSent",
+-                "network.responseStarted",
+-                "network.responseCompleted",
+-                "network.fetchError",
+-            ])
+-            .await;
+-        if result.is_err() {
+-            self.network_subscribed.store(false, Ordering::SeqCst);
+-        }
+-        result
++        let session = self.clone();
++        tokio::spawn(async move {
++            tokio::time::timeout(NETWORK_SETUP_TIMEOUT, async {
++                let mut ready = session.network_subscribed.lock().await;
++                if *ready {
++                    return Ok(());
++                }
++                session
++                    .subscribe(&[
++                        "network.beforeRequestSent",
++                        "network.responseStarted",
++                        "network.responseCompleted",
++                        "network.fetchError",
++                    ])
++                    .await?;
++                *ready = true;
++                Ok(())
++            })
++            .await
++            .map_err(|_| BidiError::Timeout {
++                method: "session.subscribe".to_owned(),
++                timeout: NETWORK_SETUP_TIMEOUT,
++            })?
++        })
++        .await
++        .map_err(|error| {
++            BidiError::Unexpected(format!("network subscription task failed: {error}"))
++        })?
+     }
+ 
+     /// List browsing contexts (tabs and frames).

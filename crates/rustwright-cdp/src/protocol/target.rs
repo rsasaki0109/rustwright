@@ -124,6 +124,14 @@ pub struct CreateBrowserContextResult {
     pub browser_context_id: String,
 }
 
+/// Response of `Target.getBrowserContexts`. The default context is excluded.
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct GetBrowserContextsResult {
+    /// All isolated browser context ids, including those created by other clients.
+    pub browser_context_ids: Vec<String>,
+}
+
 /// Parameters of `Target.disposeBrowserContext`.
 #[derive(Debug, Clone, Serialize)]
 #[serde(rename_all = "camelCase")]

@@ -1,0 +1,24 @@
+   Compiling rustwright-integration-tests v0.1.0 (/workspace/rustwright/tests)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.41s
+     Running http_bidi_navigation.rs (target/debug/deps/http_bidi_navigation-5fb55f4b1a8f8cf0)
+
+running 1 test
+action=0 BidiEvent { method: "browsingContext.navigationStarted", params: Object {"context": String("fb915845-76b5-4e74-bf09-0687c381ea7a"), "navigation": String("90c30c2b-a9c6-43a0-8e05-81c4012e333f"), "timestamp": Number(1791554190732), "url": String("http://127.0.0.1:38513/"), "userContext": String("default")} }
+action=0 BidiEvent { method: "browsingContext.load", params: Object {"context": String("fb915845-76b5-4e74-bf09-0687c381ea7a"), "navigation": String("90c30c2b-a9c6-43a0-8e05-81c4012e333f"), "timestamp": Number(1791554190779), "url": String("http://127.0.0.1:38513/"), "userContext": String("default")} }
+action=0 url=http://127.0.0.1:38513/
+action=1 BidiEvent { method: "browsingContext.historyUpdated", params: Object {"context": String("fb915845-76b5-4e74-bf09-0687c381ea7a"), "timestamp": Number(1791554190991), "url": String("http://127.0.0.1:38513/push"), "userContext": String("default")} }
+action=1 url=http://127.0.0.1:38513/push
+action=2 BidiEvent { method: "browsingContext.historyUpdated", params: Object {"context": String("fb915845-76b5-4e74-bf09-0687c381ea7a"), "timestamp": Number(1791554191235), "url": String("http://127.0.0.1:38513/"), "userContext": String("default")} }
+action=2 url=http://127.0.0.1:38513/
+action=3 BidiEvent { method: "browsingContext.historyUpdated", params: Object {"context": String("fb915845-76b5-4e74-bf09-0687c381ea7a"), "timestamp": Number(1791554191484), "url": String("http://127.0.0.1:38513/push"), "userContext": String("default")} }
+action=3 url=http://127.0.0.1:38513/push
+action=4 BidiEvent { method: "browsingContext.navigationStarted", params: Object {"context": String("fb915845-76b5-4e74-bf09-0687c381ea7a"), "navigation": String("6c4d41d5-4182-42cf-b333-4a819ab416f5"), "timestamp": Number(1791554191727), "url": String("http://127.0.0.1:38513/second"), "userContext": String("default")} }
+action=4 BidiEvent { method: "browsingContext.load", params: Object {"context": String("fb915845-76b5-4e74-bf09-0687c381ea7a"), "navigation": String("6c4d41d5-4182-42cf-b333-4a819ab416f5"), "timestamp": Number(1791554191739), "url": String("http://127.0.0.1:38513/second"), "userContext": String("default")} }
+action=4 url=http://127.0.0.1:38513/second
+action=5 BidiEvent { method: "browsingContext.navigationStarted", params: Object {"context": String("fb915845-76b5-4e74-bf09-0687c381ea7a"), "navigation": String("32489774-5ae7-48c0-9bc9-ea82c0a5e28c"), "timestamp": Number(1791554191971), "url": String("http://127.0.0.1:38513/push"), "userContext": String("default")} }
+action=5 BidiEvent { method: "browsingContext.load", params: Object {"context": String("fb915845-76b5-4e74-bf09-0687c381ea7a"), "navigation": String("32489774-5ae7-48c0-9bc9-ea82c0a5e28c"), "timestamp": Number(1791554191980), "url": String("http://127.0.0.1:38513/push"), "userContext": String("default")} }
+action=5 url=http://127.0.0.1:38513/push
+test raw_event_probe ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.27s
+

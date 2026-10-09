@@ -19,7 +19,9 @@
 //! Each test gets a fresh browser, an isolated context and a page, all torn
 //! down afterwards. Tests run against Chrome (CDP) by default; set
 //! `RUSTWRIGHT_BROWSER=firefox` to run the same tests against Firefox over
-//! WebDriver BiDi. Tests skip (with a message) when no browser is installed.
+//! WebDriver BiDi. Tests skip (with a message) when automatic discovery finds no
+//! browser. Invalid explicit paths and startup or connection failures fail the
+//! test and use the normal retry policy.
 //!
 //! Environment variables:
 //!
@@ -172,20 +174,34 @@ where
         .unwrap_or(true);
     let backend = std::env::var("RUSTWRIGHT_BROWSER").unwrap_or_default();
 
-    let context = match backend.as_str() {
-        "firefox" | "bidi" => match launch_firefox(headless).await {
-            Ok(context) => context,
-            Err(error) => return Outcome::Skipped(format!("firefox unavailable: {error}")),
-        },
-        _ => match launch_chrome(headless).await {
-            Ok(context) => context,
-            Err(error) => return Outcome::Skipped(format!("chrome unavailable: {error}")),
-        },
+    let (browser_name, launched) = match backend.as_str() {
+        "firefox" | "bidi" => ("firefox", launch_firefox(headless).await),
+        _ => ("chrome", launch_chrome(headless).await),
+    };
+    let context = match launched {
+        Ok(context) => context,
+        Err(error) => return setup_failure(browser_name, error),
     };
 
     match test(context).await {
         Ok(()) => Outcome::Passed,
         Err(error) => Outcome::Failed(error.to_string()),
+    }
+}
+
+fn setup_failure(browser_name: &str, error: AnyError) -> Outcome {
+    let not_installed = matches!(
+        &error,
+        AnyError::Chrome(rustwright::Error::Browser(
+            rustwright::BrowserError::NotFound { .. }
+        )) | AnyError::Firefox(rustwright::BidiError::Browser(
+            rustwright::BrowserError::NotFound { .. }
+        ))
+    );
+    if not_installed {
+        Outcome::Skipped(format!("{browser_name} unavailable: {error}"))
+    } else {
+        Outcome::Failed(format!("{browser_name} setup failed: {error}"))
     }
 }
 
@@ -254,7 +270,11 @@ fn runtime() -> &'static Runtime {
 }
 
 fn chrome_from_env(headless: bool) -> Chrome {
-    let mut chrome = Chrome::installed().headless(headless);
+    let mut chrome = match std::env::var_os("RUSTWRIGHT_CHROME") {
+        Some(path) => Chrome::at(path),
+        None => Chrome::installed(),
+    }
+    .headless(headless);
     if let Ok(profile) = std::env::var("RUSTWRIGHT_PROFILE") {
         chrome = chrome.profile(profile);
     }
@@ -262,7 +282,11 @@ fn chrome_from_env(headless: bool) -> Chrome {
 }
 
 fn firefox_from_env(headless: bool) -> Firefox {
-    let mut firefox = Firefox::installed().headless(headless);
+    let mut firefox = match std::env::var_os("RUSTWRIGHT_FIREFOX") {
+        Some(path) => Firefox::at(path),
+        None => Firefox::installed(),
+    }
+    .headless(headless);
     if let Ok(profile) = std::env::var("RUSTWRIGHT_PROFILE") {
         firefox = firefox.profile(profile);
     }
@@ -271,7 +295,87 @@ fn firefox_from_env(headless: bool) -> Firefox {
 
 #[cfg(test)]
 mod tests {
-    use super::in_shard;
+    use super::{in_shard, setup_failure, AnyError, Outcome};
+    use rustwright::{BidiError, BrowserError, CdpError, Error};
+
+    fn wrap_browser_error(browser: &str, error: BrowserError) -> AnyError {
+        match browser {
+            "chrome" => Error::Browser(error).into(),
+            "firefox" => BidiError::Browser(error).into(),
+            _ => unreachable!(),
+        }
+    }
+
+    #[test]
+    fn automatic_discovery_absence_skips_both_backends() {
+        for browser in ["chrome", "firefox"] {
+            let error = wrap_browser_error(
+                browser,
+                BrowserError::NotFound {
+                    search_paths: vec!["missing-browser".into()],
+                },
+            );
+            assert!(
+                matches!(setup_failure(browser, error), Outcome::Skipped(message)
+                if message.starts_with(&format!("{browser} unavailable:")))
+            );
+        }
+    }
+
+    #[test]
+    fn other_browser_setup_errors_fail_both_backends() {
+        for browser in ["chrome", "firefox"] {
+            let errors = [
+                BrowserError::ExecutableNotFound("missing-browser".into()),
+                BrowserError::Launch {
+                    executable: "browser".into(),
+                    source: std::io::ErrorKind::PermissionDenied.into(),
+                },
+                BrowserError::StartupTimeout {
+                    timeout: std::time::Duration::from_secs(1),
+                    log_path: "browser.log".into(),
+                },
+                BrowserError::EarlyExit {
+                    status: "exit status: 1".into(),
+                    log_path: "browser.log".into(),
+                },
+                BrowserError::ProfileDir {
+                    path: "profile".into(),
+                    source: std::io::ErrorKind::PermissionDenied.into(),
+                },
+                BrowserError::InvalidActivePort {
+                    path: "DevToolsActivePort".into(),
+                    contents: "invalid".into(),
+                },
+                BrowserError::Io(std::io::ErrorKind::ConnectionRefused.into()),
+                BrowserError::Cdp(CdpError::Closed),
+            ];
+            for error in errors {
+                let expected = error.to_string();
+                let outcome = setup_failure(browser, wrap_browser_error(browser, error));
+                assert!(matches!(outcome, Outcome::Failed(message)
+                    if message.starts_with(&format!("{browser} setup failed:")) && message.contains(&expected)));
+            }
+        }
+    }
+
+    #[test]
+    fn connection_and_context_setup_errors_fail() {
+        for (browser, error) in [
+            ("chrome", AnyError::Chrome(Error::Cdp(CdpError::Closed))),
+            ("chrome", AnyError::Chrome(Error::ContextClosed)),
+            (
+                "firefox",
+                AnyError::Firefox(BidiError::Unexpected("session creation failed".into())),
+            ),
+        ] {
+            let expected = error.to_string();
+            assert!(
+                matches!(setup_failure(browser, error), Outcome::Failed(message)
+                if message.contains(&expected))
+            );
+        }
+    }
 
     #[test]
     fn shards_partition_tests() {

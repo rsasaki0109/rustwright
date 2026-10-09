@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Frame swap fixture</title>
+<script>
+setTimeout(() => {
+  const input = document.createElement('input');
+  input.id = 'swap-value';
+  const button = document.createElement('button');
+  button.id = 'submit';
+  button.textContent = 'Submit';
+  button.onclick = () => parent.postMessage({kind: 'submitted', value: input.value},
+    new URL(location.href).searchParams.get('parentOrigin'));
+  document.body.append(input, button);
+}, 120);
+</script>

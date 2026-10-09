@@ -1,0 +1,107 @@
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.26
+   Compiling quote v1.0.47
+   Compiling libc v0.2.189
+   Compiling typenum v1.20.1
+   Compiling cfg-if v1.0.5
+   Compiling cpufeatures v0.3.1
+   Compiling itoa v1.0.18
+   Compiling getrandom v0.4.3
+   Compiling serde_core v1.0.229
+   Compiling rand_core v0.10.1
+   Compiling syn v3.0.6
+   Compiling bytes v1.12.1
+   Compiling hybrid-array v0.4.15
+   Compiling zmij v1.0.23
+   Compiling httparse v1.10.1
+   Compiling crypto-common v0.2.2
+   Compiling block-buffer v0.12.1
+   Compiling const-oid v0.10.2
+   Compiling pin-project-lite v0.2.17
+   Compiling thiserror v2.0.20
+   Compiling errno v0.3.14
+   Compiling chacha20 v0.10.2
+   Compiling digest v0.11.3
+   Compiling serde_json v1.0.151
+   Compiling sha1 v0.11.0
+   Compiling rand v0.10.2
+   Compiling signal-hook-registry v1.4.8
+   Compiling mio v1.2.3
+   Compiling socket2 v0.6.5
+   Compiling http v1.5.0
+   Compiling syn v2.0.119
+   Compiling memchr v2.8.3
+   Compiling thiserror-impl v2.0.20
+   Compiling tokio-macros v2.7.2
+   Compiling futures-macro v0.3.34
+   Compiling log v0.4.34
+   Compiling futures-core v0.3.34
+   Compiling once_cell v1.21.4
+   Compiling serde v1.0.229
+   Compiling slab v0.4.12
+   Compiling futures-task v0.3.34
+   Compiling futures-sink v0.3.34
+   Compiling data-encoding v2.11.1
+   Compiling futures-util v0.3.34
+   Compiling tracing-core v0.1.36
+   Compiling tungstenite v0.30.0
+   Compiling tokio v1.53.1
+   Compiling serde_derive v1.0.229
+   Compiling tracing-attributes v0.1.31
+   Compiling tracing v0.1.44
+   Compiling rustwright-common v0.1.0 (/workspace/rustwright/target/network-subscription/baseline-workspace/crates/rustwright-common)
+   Compiling base64 v0.22.1
+   Compiling tokio-tungstenite v0.30.0
+   Compiling rustwright-cdp v0.1.0 (/workspace/rustwright/target/network-subscription/baseline-workspace/crates/rustwright-cdp)
+   Compiling rustwright-browser v0.1.0 (/workspace/rustwright/target/network-subscription/baseline-workspace/crates/rustwright-browser)
+   Compiling rustwright-bidi v0.1.0 (/workspace/rustwright/target/network-subscription/baseline-workspace/crates/rustwright-bidi)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 27.01s
+     Running unittests src/lib.rs (/workspace/rustwright/target/network-subscription/baseline-target/debug/deps/rustwright_bidi-cedd5209c7d1f7e2)
+
+running 6 tests
+test browser::network_subscription_tests::cancelled_monitoring_setup_finishes_with_one_reused_pump ... FAILED
+test browser::network_subscription_tests::cancelling_subscription_waiter_keeps_acknowledgment_owned ... FAILED
+test browser::network_subscription_tests::rejected_subscription_preserves_error_and_queued_caller_retries ... FAILED
+test browser::network_subscription_tests::silent_subscription_has_a_bounded_local_waiter ... FAILED
+test browser::network_subscription_tests::concurrent_session_subscription_waits_for_the_same_successful_handshake ... FAILED
+test browser::network_subscription_tests::rejected_monitoring_setup_can_retry_without_installing_a_failed_pump ... ok
+
+failures:
+
+---- browser::network_subscription_tests::cancelled_monitoring_setup_finishes_with_one_reused_pump stdout ----
+
+thread 'browser::network_subscription_tests::cancelled_monitoring_setup_finishes_with_one_reused_pump' (1129377) panicked at crates/rustwright-bidi/src/network_subscription_tests.rs:113:5:
+readiness must wait for subscription acknowledgment
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- browser::network_subscription_tests::cancelling_subscription_waiter_keeps_acknowledgment_owned stdout ----
+
+thread 'browser::network_subscription_tests::cancelling_subscription_waiter_keeps_acknowledgment_owned' (1129378) panicked at crates/rustwright-bidi/src/network_subscription_tests.rs:113:5:
+readiness must wait for subscription acknowledgment
+
+---- browser::network_subscription_tests::rejected_subscription_preserves_error_and_queued_caller_retries stdout ----
+
+thread 'browser::network_subscription_tests::rejected_subscription_preserves_error_and_queued_caller_retries' (1129383) panicked at crates/rustwright-bidi/src/network_subscription_tests.rs:113:5:
+readiness must wait for subscription acknowledgment
+
+---- browser::network_subscription_tests::silent_subscription_has_a_bounded_local_waiter stdout ----
+
+thread 'browser::network_subscription_tests::silent_subscription_has_a_bounded_local_waiter' (1129384) panicked at crates/rustwright-bidi/src/network_subscription_tests.rs:262:10:
+subscription setup must finish within its five-second local bound: Elapsed(())
+
+---- browser::network_subscription_tests::concurrent_session_subscription_waits_for_the_same_successful_handshake stdout ----
+
+thread 'browser::network_subscription_tests::concurrent_session_subscription_waits_for_the_same_successful_handshake' (1129379) panicked at crates/rustwright-bidi/src/network_subscription_tests.rs:113:5:
+readiness must wait for subscription acknowledgment
+
+
+failures:
+    browser::network_subscription_tests::cancelled_monitoring_setup_finishes_with_one_reused_pump
+    browser::network_subscription_tests::cancelling_subscription_waiter_keeps_acknowledgment_owned
+    browser::network_subscription_tests::concurrent_session_subscription_waits_for_the_same_successful_handshake
+    browser::network_subscription_tests::rejected_subscription_preserves_error_and_queued_caller_retries
+    browser::network_subscription_tests::silent_subscription_has_a_bounded_local_waiter
+
+test result: FAILED. 1 passed; 5 failed; 0 ignored; 0 measured; 40 filtered out; finished in 0.05s
+
+error: test failed, to rerun pass `-p rustwright-bidi --lib`

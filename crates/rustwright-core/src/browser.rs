@@ -2,10 +2,9 @@
 
 use std::path::Path;
 use std::sync::{Arc, Mutex};
-use std::time::Duration;
 
 use rustwright_browser::{Chrome, LaunchedBrowser};
-use rustwright_cdp::protocol::target::{CreateBrowserContextResult, GetVersionResult};
+use rustwright_cdp::protocol::target::GetVersionResult;
 use rustwright_cdp::protocol::version::BrowserVersion;
 use rustwright_cdp::{discover_ws_url, CdpConnection};
 use serde_json::json;
@@ -15,7 +14,7 @@ use crate::diagnostics::BrowserDiagnostics;
 use crate::error::{Error, Result};
 use crate::page::Page;
 
-const SHUTDOWN_TIMEOUT: Duration = Duration::from_secs(5);
+use crate::shutdown::{Shutdown, SHUTDOWN_TIMEOUT};
 
 /// A running browser, either launched by Rustwright or connected to over CDP.
 ///
@@ -28,6 +27,7 @@ pub struct Browser {
     version: BrowserVersion,
     process: Arc<Mutex<Option<LaunchedBrowser>>>,
     default_context: BrowserContext,
+    shutdown: Arc<Shutdown>,
 }
 
 impl std::fmt::Debug for Browser {
@@ -69,6 +69,7 @@ impl Browser {
             version,
             process: Arc::new(Mutex::new(Some(launched))),
             default_context,
+            shutdown: Arc::new(Shutdown::default()),
         })
     }
 
@@ -95,6 +96,7 @@ impl Browser {
             version,
             process: Arc::new(Mutex::new(None)),
             default_context,
+            shutdown: Arc::new(Shutdown::default()),
         })
     }
 
@@ -123,20 +125,31 @@ impl Browser {
         if !self.is_connected() {
             return Err(Error::BrowserClosed);
         }
-        let created: CreateBrowserContextResult = serde_json::from_value(
-            self.connection
-                .send_raw(None, "Target.createBrowserContext", json!({}))
-                .await?,
-        )?;
+        let created = crate::creation::allocate(
+            self.connection.clone(),
+            "Target.createBrowserContext",
+            json!({}),
+            "browserContextId",
+            "Target.disposeBrowserContext",
+            "browserContextId",
+        )
+        .await?;
         Ok(BrowserContext::new(
             self.connection.clone(),
-            Some(created.browser_context_id),
+            Some(created.take()),
         ))
     }
 
     /// Pages in the default context, discovering existing tabs on first call.
     pub async fn pages(&self) -> Result<Vec<Page>> {
         self.default_context.refresh_pages().await
+    }
+
+    /// Number of commands awaiting responses on this browser's CDP connection.
+    ///
+    /// Concurrent page activity can change this point-in-time diagnostic.
+    pub fn pending_command_count(&self) -> usize {
+        self.connection.pending_command_count()
     }
 
     /// A snapshot of how the browser was launched and what it is running.
@@ -175,18 +188,33 @@ impl Browser {
     /// For a browser launched by Rustwright this closes it gracefully (allowing
     /// the profile to flush) and then terminates the process. For a connected
     /// browser it only disconnects, leaving the user's browser running.
+    /// Cleanup continues when a waiter is cancelled; clones await the same
+    /// completion. Graceful owned-process shutdown is bounded to five seconds.
     pub async fn close(&self) -> Result<()> {
-        let launched = self.process.lock().expect("process mutex poisoned").take();
-        if let Some(mut launched) = launched {
-            let _ = tokio::time::timeout(
-                SHUTDOWN_TIMEOUT,
-                self.connection.send_raw(None, "Browser.close", json!({})),
-            )
-            .await;
-            launched.kill();
-        }
-        self.connection.close();
-        Ok(())
+        self.shutdown
+            .run(|| {
+                let browser = self.clone();
+                async move {
+                    let launched = browser
+                        .process
+                        .lock()
+                        .expect("process mutex poisoned")
+                        .take();
+                    if let Some(mut launched) = launched {
+                        let _ = tokio::time::timeout(
+                            SHUTDOWN_TIMEOUT,
+                            browser
+                                .connection
+                                .send_raw(None, "Browser.close", json!({})),
+                        )
+                        .await;
+                        launched.kill();
+                    }
+                    browser.connection.close();
+                    Ok(())
+                }
+            })
+            .await
     }
 }
 
@@ -205,3 +233,7 @@ async fn fetch_version(connection: &CdpConnection, ws_url: &str) -> Result<Brows
         web_socket_debugger_url: ws_url.to_string(),
     })
 }
+
+#[cfg(all(test, target_os = "linux"))]
+#[path = "browser_shutdown_tests.rs"]
+mod shutdown_tests;

@@ -33,6 +33,13 @@ pub enum Error {
     #[error("javascript error: {0}")]
     JavaScript(String),
 
+    /// A frame has not acquired an execution context, or is navigating.
+    #[error("execution context for frame {frame_id} is not available yet")]
+    FrameNotReady {
+        /// The frame awaiting an execution context.
+        frame_id: String,
+    },
+
     /// Navigation failed.
     #[error("navigation failed: {0}")]
     Navigation(String),
@@ -64,7 +71,12 @@ impl Error {
         matches!(
             self,
             Error::PageClosed | Error::ContextClosed | Error::BrowserClosed
-        ) || matches!(self, Error::Cdp(rustwright_cdp::CdpError::Closed))
+        ) || matches!(
+            self,
+            Error::Cdp(
+                rustwright_cdp::CdpError::Closed | rustwright_cdp::CdpError::SessionDetached { .. }
+            )
+        )
     }
 
     /// Whether this error represents an exceeded deadline.

@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="#quick-start"><img alt="Rust 1.75+" src="https://img.shields.io/badge/rust-1.75%2B-orange.svg"></a>
+  <a href="#quick-start"><img alt="Rust 1.85+" src="https://img.shields.io/badge/rust-1.85%2B-orange.svg"></a>
   <img alt="License" src="https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg">
   <img alt="unsafe forbidden" src="https://img.shields.io/badge/unsafe-forbidden-success.svg">
   <img alt="Chrome CDP" src="https://img.shields.io/badge/Chrome-CDP-4285F4.svg">
@@ -30,10 +30,11 @@ use rustwright::prelude::*;
 #[tokio::main]
 async fn main() -> Result<()> {
     let browser = Browser::launch(
-        Chrome::installed().headless(false)
+        Chrome::installed().headless(true)
     ).await?;
     let page = browser.new_page().await?;
-    page.goto("example.com").await?;
+    let url = std::env::args().nth(1).unwrap_or_else(|| "https://example.com".into());
+    page.goto(&url).await?;
     println!("{}", page.title().await?);
     browser.close().await?;
     Ok(())
@@ -80,25 +81,41 @@ same `PageApi` / `LocatorApi` traits.
 
 ## Quick start
 
-Add the dependency:
+Rust 1.85 or newer is required, including by the WebSocket transport dependencies.
+CI checks the locked workspace and all targets on Rust 1.85.0 as well as stable.
+
+This repository currently uses path/git distribution. The intended crates.io
+names have historical conflicts; see [publishing status](docs/PUBLISHING.md).
+For a project alongside a local checkout, add:
 
 ```toml
 [dependencies]
-rustwright = { path = "crates/rustwright" }
+rustwright = { path = "../rustwright/crates/rustwright" }
 tokio = { version = "1", features = ["full"] }
 ```
 
-Then run one of the examples:
+Adjust the path to your checkout. With a Git dependency, use
+`rustwright = { git = "https://github.com/rsasaki0109/rustwright" }` and pin a
+reviewed revision for repeatable builds. To run the repository's examples,
+clone it, enter its directory and use:
 
 ```sh
 cargo run -p rustwright-examples --example quickstart
-cargo run -p rustwright-examples --example offline_smoke      # no network needed
+cargo run -p rustwright-examples --example offline_smoke      # no internet needed
+cargo run -p rustwright-examples --example quickstart -- --headless https://example.com
 cargo run -p rustwright-examples --example persistent_profile
 cargo run -p rustwright-examples --example connect_existing
 cargo run -p rustwright-examples --example bidi_firefox       # Firefox / BiDi
 cargo run -p rustwright-examples --example extract_items -- \
     "https://jp.mercari.com/search?keyword=iphone" "a[href*='/item/']"
 ```
+
+`quickstart` and `bidi_firefox` open a visible window by default. On a machine
+without a display, pass `--headless`. Both accept `--profile PATH`,
+`--screenshot PATH` and a URL; `--help` lists the options. `offline_smoke` starts
+its own temporary loopback HTTP fixture, works without internet access and checks
+Unicode input, a trusted click and screenshot output. It accepts
+`--screenshot PATH` to choose the output file.
 
 `extract_items` is a small *user-code* example: it loads a listing page and
 reads titles, prices and links via locators/evaluate. Site-specific logic stays
@@ -134,7 +151,7 @@ page.screenshot("page.png").await?;
 // Locators (lazy + auto-waiting).
 let q = page.locator("input[name=q]");
 q.fill("hello").await?;
-q.click().await?;
+q.click_with_timeout(Duration::from_secs(2)).await?;
 println!("{}", q.text().await?);
 println!("{}", q.is_visible().await?);
 
@@ -202,6 +219,65 @@ let diag = browser.diagnostics();
 println!("{:?}", diag.launch_args);
 ```
 
+Chrome contexts discover only their own pages, including when connecting to a
+browser with isolated contexts created by another client. The default context
+excludes isolated pages. Closed pages are removed when listing tracked pages;
+concurrent discovery shares one page session. `wait_for_page` subscribes before
+discovery and its timeout covers discovery, attachment and event waiting.
+Context closure and browser disconnection wake pending popup waits. Failed,
+timed-out or cancelled page initialization detaches its temporary CDP session;
+initialization failures remain visible to callers.
+
+Chrome `network_requests()`, `har()` and `har_with_bodies()` include nested and
+out-of-process iframe traffic. HAR response bodies come from the session that
+observed the request. Entries remain after a frame detaches, but bodies from
+detached sessions or evicted by the browser are omitted. CDP request ids can
+repeat across sessions; they are not unique keys for the whole page's log.
+
+Chrome navigation waits track each main document's loader id. `goto_with_timeout`
+uses one budget for the navigation command and the load wait. Fragment navigation
+and same-document history keep their existing load states; `wait_for_url` observes
+hash changes and `pushState`/`replaceState`, including a matching URL that changes
+again immediately. Reload and history navigation wait for their new commit.
+Page closure or browser disconnection ends pending waits with a closed error.
+`wait_for_load_state` checks the current document; after a click that navigates,
+wait for the destination URL before checking its load state. A timeout or cancelled
+future ends the driver wait; the browser may continue loading until another navigation.
+
+Chrome `LoadState::NetworkIdle` waits for 500 ms with no unfinished observed HTTP
+requests in the page or its frames, including separate iframe renderers. New
+requests restart the quiet window; receiving headers alone does not finish a
+request. Streaming HTTP responses remain pending until completion or abort, so a
+never-ending response reaches the wait timeout. Frame removal and a new document
+clear obsolete pending requests. This condition concerns observed page/frame HTTP
+traffic; WebSocket message traffic and independent worker requests are outside it.
+
+Chrome locator clicks wait for visibility, enabled state, two stable animation
+frames and a click point that receives pointer events, and recheck after mouse
+movement. `click_with_timeout` bounds frame resolution, preparation and dispatch
+together; timeouts report the last reason for waiting. Checkbox actions use the
+same click checks. Click points come from viewport-clipped content quads, with
+verified alternatives when a centre is occluded; the bounded search considers
+up to 16 fragments and 256 points. These checks are currently implemented by the
+Chrome/CDP locator; the Firefox/BiDi click implementation retains its existing behavior.
+
+Chrome frame locators also operate in cross-site iframes that Chromium isolates
+into separate renderer processes. Evaluation and DOM actions use the frame's
+own CDP session; clicks account for nested iframe transforms and parent overlays.
+Waiting locators re-resolve after reloads and renderer changes, using the same
+action deadline. Site isolation remains enabled.
+
+Chrome page routes (`route`, `mock`, `block`, `clear_routes`) also reach existing
+and newly attached iframe renderers, including nested frames. HTTP caching is
+disabled while routes are active and restored when they are cleared. Active
+routes use a CDP debugger gate at document startup to restore interception before
+inline scripts run, including when an iframe returns to its parent's renderer.
+The driver resumes debugger pauses automatically while routes are active;
+clearing routes removes the startup gates and disables its debugger. Started
+configuration completes if its caller is cancelled, allowing later cleanup to
+remove every gate. See the [renderer-return regression results](bench/reliability/RESULTS.md#renderer-return-route-gate-follow-up-2026-10-08)
+for the validated cases. JavaScript `fetch` and XHR remain native.
+
 ## One API, two backends
 
 `PageApi` and `LocatorApi` in `rustwright-common` are implemented by both the CDP
@@ -211,12 +287,12 @@ generic code runs against either browser:
 ```rust
 use rustwright::prelude::*;
 
-async fn fill_and_read<P>(page: &P, text: &str) -> std::result::Result<String, P::Error>
+pub async fn fill_and_read<P>(page: &P, url: &str, text: &str) -> std::result::Result<String, P::Error>
 where
     P: PageApi,
     P::Locator: LocatorApi<Error = P::Error>,
 {
-    page.goto("https://example.com").await?;
+    page.goto(url).await?;
     page.locator(Selector::css("input[name=q]")).fill(text).await?;
     let value = page
         .evaluate("document.querySelector('input[name=q]').value")
@@ -224,6 +300,10 @@ where
     Ok(value.as_str().unwrap_or_default().to_string())
 }
 ```
+
+Pass the URL of a page containing `input[name=q]`; the public example.com page
+has no search input. `offline_smoke` demonstrates the same interaction with an
+embedded local fixture.
 
 The traits are generic over an associated `Error`, so each backend keeps its own
 precise error type and causal chain; dispatch is static (use them as bounds).
@@ -254,15 +334,18 @@ use rustwright::prelude::*;
 
 #[tokio::main]
 async fn main() -> rustwright::BidiResult<()> {
-    let browser = BidiBrowser::launch(Firefox::installed().headless(false)).await?;
+    let mut firefox = Firefox::installed().headless(true);
+    if let Some(profile) = std::env::var_os("RUSTWRIGHT_PROFILE") {
+        firefox = firefox.profile(profile);
+    }
+    let browser = BidiBrowser::launch(firefox).await?;
     let page = browser.new_page().await?;
-    page.goto("example.com").await?;
+    let url = std::env::args().nth(1).unwrap_or_else(|| "https://example.com".into());
+    page.goto(&url).await?;
     println!("{}", page.title().await?);
 
-    // The same Playwright-like locators, backed by BiDi.
-    page.get_by_placeholder("Search").fill("rust").await?;
-    page.get_by_role(Role::Button, Some("Go")).click().await?;
-    page.get_by_text("Results").wait_for(WaitState::Visible).await?;
+    // example.com has a heading; form interaction is shown by offline_smoke.
+    println!("{}", page.locator("h1").text().await?);
     page.screenshot("firefox.png").await?;
 
     browser.close().await?;
@@ -312,8 +395,41 @@ Notes from real machines:
 
 ## Testing
 
+A reproducible [Linux endurance check](bench/endurance/README.md) exercises
+1,000 measured context/page cycles per browser after warmup, including cancelled
+evaluations, routing changes and iframe renderer swaps. It records driver and browser
+memory separately, residual targets/contexts and pending response counts.
+
+`tests/http_compat.rs` runs the same local HTTP scenarios on installed Chrome
+and Firefox through `AnyPage` and the frame/context APIs. The verified cases and
+remaining gaps are recorded in the [compatibility matrix](docs/COMPATIBILITY_MATRIX.md).
+It covers fragment and
+history URLs, form values, JavaScript errors, delayed elements, wait deadlines,
+cancelled waits, cross-origin frame input, frame reloads, isolated cookies/storage,
+popup ownership, page closure and disconnection. Both browsers are required;
+missing binaries or startup failures fail this target. CI installs Firefox and
+runs browser tests serially:
+
+```sh
+cargo test --locked -p rustwright-integration-tests --test http_compat -- --test-threads=1
+```
+
+Firefox evaluations return `BidiError::JavaScript` for thrown exceptions and
+rejected promises; successful JavaScript `null` and `undefined` map to JSON null.
+Frame pointer and keyboard actions use the frame's own browsing context. Locator
+wait timeouts in both backends include the protocol response, so an unresolved
+page-side promise cannot extend a requested wait. Timing out or cancelling stops
+the driver wait; it does not cancel JavaScript already running in the browser.
+
 `rustwright-test` turns an annotated async function into a normal `#[test]`,
 with a fresh browser, isolated context and page per test:
+
+Add the runner alongside the earlier dependencies (adjust the checkout path):
+
+```toml
+[dev-dependencies]
+rustwright-test = { path = "../rustwright/crates/rustwright-test" }
+```
 
 ```rust
 use rustwright_test::prelude::*;
@@ -332,7 +448,10 @@ body is backend-agnostic. `RUSTWRIGHT_HEADLESS=0` shows the browser,
 `RUSTWRIGHT_PROFILE=/path` uses a persistent profile, `RUSTWRIGHT_RETRIES=N`
 retries a failing test (with a fresh browser per attempt), and
 `RUSTWRIGHT_SHARD=i/N` runs only one shard of the suite. Tests skip cleanly when
-the selected browser is unavailable.
+automatic discovery finds no selected browser. Explicit `RUSTWRIGHT_CHROME` and
+`RUSTWRIGHT_FIREFOX` paths must exist; invalid paths, startup errors and failures
+to initialize the browser connection or test context fail the test and follow
+the configured retry policy.
 
 `expect(locator)` provides Playwright-style assertions:
 
@@ -342,7 +461,24 @@ expect(page.get_by_role(Role::Button, Some("Submit"))).to_be_visible().await?;
 expect(page.locator("li.item")).to_have_count(3).await?;
 ```
 
+Matchers retry until the condition matches, with a default timeout of five
+seconds. Override the deadline for an assertion target when needed:
+
+```rust
+expect(page.locator("li.item"))
+    .with_timeout(std::time::Duration::from_secs(2))
+    .to_have_count(3)
+    .await?;
+```
+
+The deadline includes locator reads. An unmet condition panics with the locator,
+expected condition, timeout and last observation; transport and JavaScript errors
+are returned immediately when observed.
+
 ## Performance
+
+For reproducible success-rate and p95 measurements of delayed DOM/frame actions
+and disconnection handling, see the [reliability comparison](bench/README.md#reliability-and-tail-latency).
 
 Driver-overhead comparison against Playwright, driving the **same installed
 Chrome 150** on Linux (8 vCPU, Node 22), headless, single page. Values are the
@@ -434,6 +570,9 @@ uploads, dialogs, frames (including cross-origin), tabs/windows, tracing,
 WebDriver BiDi, Firefox, and an independent test runner — plus a shared
 `PageApi` / `LocatorApi` and dynamic `AnyPage` dispatch.
 
+Further reliability milestones, validation limits and the next compatibility
+checks are tracked in the [reliability roadmap](docs/RELIABILITY_ROADMAP.md).
+
 Capabilities:
 
 - locator collections (`first` / `last` / `nth` / `all`) and semantic locators
@@ -465,6 +604,17 @@ CAPTCHA solving, bot-protection bypass, fingerprint spoofing, hiding
 bypasses. Site-specific behaviour belongs in your code, not in the core.
 
 ## Development
+
+The current development target is the [95% reliability checkpoint](docs/RELIABILITY_ROADMAP.md),
+followed by broader reproducible comparisons. Required browser CI and its
+execution limits are documented in [CI verification](docs/CI_VERIFICATION.md).
+
+`python3 scripts/release_check.py` verifies the eight distributable archives and
+an external version-only consumer on stable and Rust 1.85.0, including all Rust
+snippets in this README. Add `--run-browser-tests` with both browser executable
+paths configured to exercise the packaged consumer over local HTTP. See
+[packaging instructions](docs/PUBLISHING.md) and
+[the release verification record](docs/RELEASE_VERIFICATION.md).
 
 ```sh
 cargo fmt --all

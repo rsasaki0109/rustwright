@@ -1,0 +1,66 @@
+   Compiling rustwright-bidi v0.1.0 (/workspace/rustwright/crates/rustwright-bidi)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.45s
+     Running unittests src/lib.rs (target/debug/deps/rustwright_bidi-cedd5209c7d1f7e2)
+
+running 9 tests
+test browser::shutdown_tests::browser_close_bounds_silent_end_and_closes_retained_connection ... FAILED
+test browser::shutdown_tests::cancelled_context_close_bounds_silent_remote_waiter ... ok
+test browser::shutdown_tests::cancelled_browser_close_closes_retained_connection ... FAILED
+test browser::shutdown_tests::cancelled_context_close_before_reply_removes_retained_helper ... FAILED
+test browser::shutdown_tests::cancelled_context_close_during_helper_removal_finishes ... FAILED
+test browser::shutdown_tests::cancelled_page_close_during_helper_removal_closes_page ... FAILED
+test browser::shutdown_tests::concurrent_and_repeated_context_close_remove_helper_once ... FAILED
+test browser::shutdown_tests::failed_helper_removal_is_retried_after_context_is_gone ... FAILED
+test browser::shutdown_tests::remote_context_error_is_returned_and_retry_cleans_helper ... ok
+
+failures:
+
+---- browser::shutdown_tests::browser_close_bounds_silent_end_and_closes_retained_connection stdout ----
+
+thread 'browser::shutdown_tests::browser_close_bounds_silent_end_and_closes_retained_connection' (837932) panicked at crates/rustwright-bidi/src/shutdown_tests.rs:164:5:
+silent graceful end needs bounded local shutdown
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- browser::shutdown_tests::cancelled_browser_close_closes_retained_connection stdout ----
+
+thread 'browser::shutdown_tests::cancelled_browser_close_closes_retained_connection' (837933) panicked at crates/rustwright-bidi/src/shutdown_tests.rs:153:14:
+cancelled browser close must signal retained connection: Elapsed(())
+
+---- browser::shutdown_tests::cancelled_context_close_before_reply_removes_retained_helper stdout ----
+
+thread 'browser::shutdown_tests::cancelled_context_close_before_reply_removes_retained_helper' (837934) panicked at crates/rustwright-bidi/src/shutdown_tests.rs:109:14:
+close worker must finish with retained page handles: Elapsed(())
+
+---- browser::shutdown_tests::cancelled_context_close_during_helper_removal_finishes stdout ----
+
+thread 'browser::shutdown_tests::cancelled_context_close_during_helper_removal_finishes' (837936) panicked at crates/rustwright-bidi/src/shutdown_tests.rs:109:14:
+close worker must finish with retained page handles: Elapsed(())
+
+---- browser::shutdown_tests::cancelled_page_close_during_helper_removal_closes_page stdout ----
+
+thread 'browser::shutdown_tests::cancelled_page_close_during_helper_removal_closes_page' (837937) panicked at crates/rustwright-bidi/src/shutdown_tests.rs:109:14:
+close worker must finish with retained page handles: Elapsed(())
+
+---- browser::shutdown_tests::concurrent_and_repeated_context_close_remove_helper_once stdout ----
+
+thread 'browser::shutdown_tests::concurrent_and_repeated_context_close_remove_helper_once' (837938) panicked at crates/rustwright-bidi/src/shutdown_tests.rs:200:87:
+called `Result::unwrap()` on an `Err` value: Protocol { method: "browser.removeUserContext", error: "no such user context", message: "test refusal" }
+
+---- browser::shutdown_tests::failed_helper_removal_is_retried_after_context_is_gone stdout ----
+
+thread 'browser::shutdown_tests::failed_helper_removal_is_retried_after_context_is_gone' (837939) panicked at crates/rustwright-bidi/src/shutdown_tests.rs:212:27:
+called `Result::unwrap()` on an `Err` value: Protocol { method: "browser.removeUserContext", error: "no such user context", message: "test refusal" }
+
+
+failures:
+    browser::shutdown_tests::browser_close_bounds_silent_end_and_closes_retained_connection
+    browser::shutdown_tests::cancelled_browser_close_closes_retained_connection
+    browser::shutdown_tests::cancelled_context_close_before_reply_removes_retained_helper
+    browser::shutdown_tests::cancelled_context_close_during_helper_removal_finishes
+    browser::shutdown_tests::cancelled_page_close_during_helper_removal_closes_page
+    browser::shutdown_tests::concurrent_and_repeated_context_close_remove_helper_once
+    browser::shutdown_tests::failed_helper_removal_is_retried_after_context_is_gone
+
+test result: FAILED. 2 passed; 7 failed; 0 ignored; 0 measured; 25 filtered out; finished in 1.01s
+
+error: test failed, to rerun pass `-p rustwright-bidi --lib`

@@ -49,6 +49,10 @@ pub enum BidiError {
     #[error("unexpected bidi response: {0}")]
     Unexpected(String),
 
+    /// JavaScript evaluation threw or returned a rejected promise.
+    #[error("javascript error: {0}")]
+    JavaScript(String),
+
     /// No element matched a locator.
     #[error("no element found for {0}")]
     ElementNotFound(String),

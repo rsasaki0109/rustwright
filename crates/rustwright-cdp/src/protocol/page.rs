@@ -118,9 +118,12 @@ pub struct Frame {
     /// The loader id for the current document.
     #[serde(default)]
     pub loader_id: Option<String>,
-    /// Current URL.
+    /// Current URL without its separately reported fragment.
     #[serde(default)]
     pub url: String,
+    /// URL fragment, including the leading `#`; CDP reports it separately.
+    #[serde(default)]
+    pub url_fragment: Option<String>,
     /// Frame name.
     #[serde(default)]
     pub name: String,
@@ -130,6 +133,17 @@ pub struct Frame {
     /// Frame mime type.
     #[serde(default)]
     pub mime_type: String,
+}
+
+impl Frame {
+    /// Full frame URL, including a separately reported fragment.
+    pub fn full_url(&self) -> String {
+        format!(
+            "{}{}",
+            self.url,
+            self.url_fragment.as_deref().unwrap_or_default()
+        )
+    }
 }
 
 /// A frame tree as returned by `Page.getFrameTree`.
@@ -258,4 +272,24 @@ pub struct GetNavigationHistoryResult {
 pub struct NavigateToHistoryEntryParams {
     /// The entry id to navigate to.
     pub entry_id: i64,
+}
+
+#[cfg(test)]
+mod tests {
+    use super::Frame;
+    use serde_json::json;
+
+    #[test]
+    fn frame_urls_include_separately_reported_fragments() {
+        for (fragment, expected) in [
+            (Some("#anchor"), "https://example.test/?query#anchor"),
+            (None, "https://example.test/?query"),
+        ] {
+            let frame: Frame = serde_json::from_value(json!({"id": "frame", "url": "https://example.test/?query", "urlFragment": fragment})).unwrap();
+            assert_eq!(frame.full_url(), expected);
+        }
+        let legacy: Frame =
+            serde_json::from_value(json!({"id": "frame", "url": "https://example.test/"})).unwrap();
+        assert_eq!(legacy.full_url(), "https://example.test/");
+    }
 }

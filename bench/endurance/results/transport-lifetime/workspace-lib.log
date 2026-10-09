@@ -1,0 +1,134 @@
+   Compiling rustwright-cdp v0.1.0 (/workspace/rustwright/crates/rustwright-cdp)
+   Compiling rustwright-browser v0.1.0 (/workspace/rustwright/crates/rustwright-browser)
+   Compiling rustwright-bidi v0.1.0 (/workspace/rustwright/crates/rustwright-bidi)
+   Compiling rustwright-core v0.1.0 (/workspace/rustwright/crates/rustwright-core)
+   Compiling rustwright v0.1.0 (/workspace/rustwright/crates/rustwright)
+   Compiling rustwright-test v0.1.0 (/workspace/rustwright/crates/rustwright-test)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 7.89s
+     Running unittests src/lib.rs (target/debug/deps/rustwright-aa76e6315a84f68b)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/rustwright_bidi-2018a5b1ecd60b49)
+
+running 17 tests
+test connection::tests::cancelled_request_is_removed ... ok
+test connection::tests::protocol_error_preserves_command_details ... ok
+test connection::tests::timed_out_request_is_removed ... ok
+test connection::transport_lifetime_tests::explicit_close_interrupts_blocked_write_and_close ... ok
+test connection::transport_lifetime_tests::last_clone_drop_releases_inner_and_socket ... ok
+test connection::transport_lifetime_tests::peer_loss_releases_waiters_and_inner ... ok
+test connection::transport_lifetime_tests::reader_failure_interrupts_blocked_write_and_close ... ok
+test connection::transport_lifetime_tests::writer_failure_releases_idle_reader_and_socket ... ok
+test lifecycle_tests::cancelling_helper_registration_still_releases_the_remote_script ... ok
+test lifecycle_tests::closing_one_context_preserves_other_context_helpers ... ok
+test lifecycle_tests::context_close_releases_helpers_even_while_page_handles_are_retained ... ok
+test lifecycle_tests::dropping_the_last_page_handle_releases_its_helper_registration ... ok
+test lifecycle_tests::repeated_discovery_reuses_the_page_helper_registration ... ok
+test session::tests::converts_arrays_and_objects ... ok
+test session::tests::converts_scalars ... ok
+test session::tests::evaluation_exceptions_preserve_the_browser_message ... ok
+test session::tests::successful_null_and_undefined_are_distinct_from_exceptions ... ok
+
+test result: ok. 17 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.59s
+
+     Running unittests src/lib.rs (target/debug/deps/rustwright_browser-8ad9e87f276bd8b4)
+
+running 4 tests
+test firefox::tests::detects_snap_wrapper_scripts ... ok
+test launch::tests::build_args_includes_profile_and_headless_flags ... ok
+test launch::tests::parses_devtools_active_port_file ... ok
+test launch::tests::rejects_malformed_active_port_file ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/rustwright_cdp-10c4adccf55a7ec9)
+
+running 17 tests
+test connection::tests::cancelled_request_is_removed ... ok
+test connection::tests::context_destruction_is_scoped_to_both_session_and_context ... ok
+test connection::tests::detachment_fails_only_its_sessions_pending_requests ... ok
+test connection::tests::protocol_error_preserves_command_details ... ok
+test connection::tests::timed_out_request_is_removed ... ok
+test connection::transport_lifetime_tests::explicit_close_interrupts_blocked_write_and_close ... ok
+test connection::transport_lifetime_tests::last_clone_drop_releases_inner_and_socket ... ok
+test connection::transport_lifetime_tests::peer_loss_releases_waiters_and_inner ... ok
+test connection::transport_lifetime_tests::reader_failure_interrupts_blocked_write_and_close ... ok
+test connection::transport_lifetime_tests::repeated_close_emits_one_disconnection_marker ... ok
+test connection::transport_lifetime_tests::writer_failure_releases_idle_reader_and_socket ... ok
+test http::tests::decodes_chunked_bodies ... ok
+test http::tests::detects_complete_chunked_bodies ... ok
+test http::tests::endpoint_parses_default_port ... ok
+test http::tests::missing_content_length_is_none ... ok
+test http::tests::parses_content_length_case_insensitively ... ok
+test protocol::page::tests::frame_urls_include_separately_reported_fragments ... ok
+
+test result: ok. 17 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.54s
+
+     Running unittests src/lib.rs (target/debug/deps/rustwright_common-248035973218982d)
+
+running 7 tests
+test route::tests::glob_matches_wildcards ... ok
+test route::tests::route_uses_glob_when_wildcards_present ... ok
+test route::tests::substring_matches_when_no_wildcards ... ok
+test selectors::tests::describes_selectors_for_errors ... ok
+test selectors::tests::serializes_css_specs ... ok
+test selectors::tests::serializes_role_specs ... ok
+test selectors::tests::serializes_text_specs ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/rustwright_core-01e57fed330869cf)
+
+running 30 tests
+test context::tests::cancelled_page_wait_detaches_partial_initialization ... ok
+test context::tests::disconnect_releases_registry_with_retained_handles ... ok
+test context::tests::discovery_returns_initialization_errors_and_detaches_the_session ... ok
+test context::tests::explicit_close_releases_registry_without_discovery ... ok
+test context::tests::external_detach_releases_registry_with_retained_handles ... ok
+test context::tests::page_wait_deadline_includes_stalled_discovery ... ok
+test context::tests::page_wait_timeout_detaches_partial_initialization ... ok
+test context::tests::popup_created_during_discovery_is_not_lost ... ok
+test diagnostics::tests::formats_epoch_timestamps ... ok
+test geometry::tests::clips_both_axes_before_selecting_the_center ... ok
+test geometry::tests::limits_search_for_many_inline_fragments ... ok
+test geometry::tests::prioritizes_distinct_fragments_and_accepts_reversed_winding ... ok
+test geometry::tests::projection_round_trips_affine_and_perspective_quads ... ok
+test geometry::tests::rejects_nonfinite_degenerate_and_offscreen_quads ... ok
+test geometry::tests::rotated_clipping_keeps_candidates_in_the_visible_triangle ... ok
+test geometry::tests::searches_edges_when_a_central_band_is_covered ... ok
+test locator::tests::detached_pre_input_probes_can_retry_but_input_never_retries ... ok
+test network_idle::tests::colliding_ids_and_duplicate_terminal_events_preserve_the_last_request_window ... ok
+test network_idle::tests::new_main_document_discards_old_requests_but_preserves_its_pending_navigation ... ok
+test network_idle::tests::redirects_and_document_transfers_do_not_create_phantom_requests ... ok
+test network_idle::tests::removing_frames_and_sessions_preserves_other_pending_frames ... ok
+test page::tests::detaching_a_session_removes_descendants_and_preserves_siblings ... ok
+test page::tests::document_completion_transfers_to_its_new_session_without_duplicates ... ok
+test page::tests::empty_input_becomes_about_blank ... ok
+test page::tests::leaves_explicit_schemes_alone ... ok
+test page::tests::maps_common_keys ... ok
+test page::tests::network_ids_and_har_bodies_are_isolated_between_sessions ... ok
+test page::tests::new_documents_discard_old_load_states_and_ignore_late_old_events ... ok
+test page::tests::prefixes_bare_hosts_with_https ... ok
+test page::tests::same_document_and_bfcache_commits_do_not_wait_for_nonexistent_load_events ... ok
+
+test result: ok. 30 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.46s
+
+     Running unittests src/lib.rs (target/debug/deps/rustwright_test-f9e3319fd6dc2194)
+
+running 4 tests
+test tests::automatic_discovery_absence_skips_both_backends ... ok
+test tests::connection_and_context_setup_errors_fail ... ok
+test tests::other_browser_setup_errors_fail_both_backends ... ok
+test tests::shards_partition_tests ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/rustwright_test_macros-3c6131cb2c16ca6c)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

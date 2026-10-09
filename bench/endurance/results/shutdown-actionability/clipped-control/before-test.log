@@ -1,0 +1,59 @@
+   Compiling rustwright-bidi v0.1.0 (/workspace/rustwright/crates/rustwright-bidi)
+   Compiling rustwright-core v0.1.0 (/workspace/rustwright/crates/rustwright-core)
+   Compiling rustwright v0.1.0 (/workspace/rustwright/crates/rustwright)
+   Compiling rustwright-integration-tests v0.1.0 (/workspace/rustwright/tests)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.79s
+     Running http_clipped_control.rs (target/debug/deps/http_clipped_control-ff90287c6e7ffd1d)
+
+running 6 tests
+test chrome_narrow_overflow_control ... Chrome version: Chrome/151.0.7922.173
+width=3 nested=false click=Err("timed out after 3s waiting for element css=#go to be clickable; another element intercepts pointer events at candidate points") observed=[0,false,0] geometry={"clip":{"bottom":160,"height":60,"left":100,"right":103,"top":100,"width":3,"x":100,"y":100},"hit":"go","rect":{"bottom":150,"height":50,"left":-99,"right":301,"top":100,"width":400,"x":-99,"y":100},"scroll":199}
+
+thread 'chrome_narrow_overflow_control' (854939) panicked at tests/http_clipped_control.rs:170:5:
+clipped click failed: Err("timed out after 3s waiting for element css=#go to be clickable; another element intercepts pointer events at candidate points"); {"clip":{"bottom":160,"height":60,"left":100,"right":103,"top":100,"width":3,"x":100,"y":100},"hit":"go","rect":{"bottom":150,"height":50,"left":-99,"right":301,"top":100,"width":400,"x":-99,"y":100},"scroll":199}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+test chrome_nested_overflow_control ... Chrome version: Chrome/151.0.7922.173
+width=60 nested=true click=Err("timed out after 3s waiting for element css=#go to be clickable; another element intercepts pointer events") observed=[0,false,0] geometry={"clip":{"bottom":160,"height":60,"left":80,"right":140,"top":100,"width":60,"x":80,"y":100},"hit":"go","rect":{"bottom":150,"height":50,"left":-90,"right":310,"top":100,"width":400,"x":-90,"y":100},"scroll":170}
+
+thread 'chrome_nested_overflow_control' (855071) panicked at tests/http_clipped_control.rs:170:5:
+clipped click failed: Err("timed out after 3s waiting for element css=#go to be clickable; another element intercepts pointer events"); {"clip":{"bottom":160,"height":60,"left":80,"right":140,"top":100,"width":60,"x":80,"y":100},"hit":"go","rect":{"bottom":150,"height":50,"left":-90,"right":310,"top":100,"width":400,"x":-90,"y":100},"scroll":170}
+FAILED
+test chrome_overflow_hidden_control ... Chrome version: Chrome/151.0.7922.173
+width=60 nested=false click=Err("timed out after 3s waiting for element css=#go to be clickable; another element intercepts pointer events at candidate points") observed=[0,false,0] geometry={"clip":{"bottom":160,"height":60,"left":100,"right":160,"top":100,"width":60,"x":100,"y":100},"hit":"go","rect":{"bottom":150,"height":50,"left":-70,"right":330,"top":100,"width":400,"x":-70,"y":100},"scroll":170}
+
+thread 'chrome_overflow_hidden_control' (855218) panicked at tests/http_clipped_control.rs:170:5:
+clipped click failed: Err("timed out after 3s waiting for element css=#go to be clickable; another element intercepts pointer events at candidate points"); {"clip":{"bottom":160,"height":60,"left":100,"right":160,"top":100,"width":60,"x":100,"y":100},"hit":"go","rect":{"bottom":150,"height":50,"left":-70,"right":330,"top":100,"width":400,"x":-70,"y":100},"scroll":170}
+FAILED
+test firefox_narrow_overflow_control ... Firefox version: Some("157.0.1")
+width=3 nested=false click=Err("timed out waiting for element css=#go to be clickable; another element intercepts pointer events at candidate points") observed=[0,false,0] geometry={"clip":{"bottom":160,"height":60,"left":100,"right":103,"top":100,"width":3,"x":100,"y":100},"hit":"go","rect":{"bottom":150,"height":50,"left":-98.5,"right":301.5,"top":100,"width":400,"x":-98.5,"y":100},"scroll":198.5}
+
+thread 'firefox_narrow_overflow_control' (855365) panicked at tests/http_clipped_control.rs:170:5:
+clipped click failed: Err("timed out waiting for element css=#go to be clickable; another element intercepts pointer events at candidate points"); {"clip":{"bottom":160,"height":60,"left":100,"right":103,"top":100,"width":3,"x":100,"y":100},"hit":"go","rect":{"bottom":150,"height":50,"left":-98.5,"right":301.5,"top":100,"width":400,"x":-98.5,"y":100},"scroll":198.5}
+FAILED
+test firefox_nested_overflow_control ... Firefox version: Some("157.0.1")
+width=60 nested=true click=Err("timed out waiting for element css=#go to be clickable; another element intercepts pointer events at candidate points") observed=[0,false,0] geometry={"clip":{"bottom":160,"height":60,"left":80,"right":140,"top":100,"width":60,"x":80,"y":100},"hit":"go","rect":{"bottom":150,"height":50,"left":-90,"right":310,"top":100,"width":400,"x":-90,"y":100},"scroll":170}
+
+thread 'firefox_nested_overflow_control' (855683) panicked at tests/http_clipped_control.rs:170:5:
+clipped click failed: Err("timed out waiting for element css=#go to be clickable; another element intercepts pointer events at candidate points"); {"clip":{"bottom":160,"height":60,"left":80,"right":140,"top":100,"width":60,"x":80,"y":100},"hit":"go","rect":{"bottom":150,"height":50,"left":-90,"right":310,"top":100,"width":400,"x":-90,"y":100},"scroll":170}
+FAILED
+test firefox_overflow_hidden_control ... Firefox version: Some("157.0.1")
+width=60 nested=false click=Err("timed out waiting for element css=#go to be clickable; another element intercepts pointer events at candidate points") observed=[0,false,0] geometry={"clip":{"bottom":160,"height":60,"left":100,"right":160,"top":100,"width":60,"x":100,"y":100},"hit":"go","rect":{"bottom":150,"height":50,"left":-70,"right":330,"top":100,"width":400,"x":-70,"y":100},"scroll":170}
+
+thread 'firefox_overflow_hidden_control' (856061) panicked at tests/http_clipped_control.rs:170:5:
+clipped click failed: Err("timed out waiting for element css=#go to be clickable; another element intercepts pointer events at candidate points"); {"clip":{"bottom":160,"height":60,"left":100,"right":160,"top":100,"width":60,"x":100,"y":100},"hit":"go","rect":{"bottom":150,"height":50,"left":-70,"right":330,"top":100,"width":400,"x":-70,"y":100},"scroll":170}
+FAILED
+
+failures:
+
+failures:
+    chrome_narrow_overflow_control
+    chrome_nested_overflow_control
+    chrome_overflow_hidden_control
+    firefox_narrow_overflow_control
+    firefox_nested_overflow_control
+    firefox_overflow_hidden_control
+
+test result: FAILED. 0 passed; 6 failed; 0 ignored; 0 measured; 0 filtered out; finished in 27.50s
+
+error: test failed, to rerun pass `-p rustwright-integration-tests --test http_clipped_control`

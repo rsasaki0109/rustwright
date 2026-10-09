@@ -1,7 +1,8 @@
 //! Frames and frame locators.
 //!
-//! Cross-origin iframes are handled through CDP execution contexts: every frame
-//! gets its own context, and locators scoped to a frame evaluate inside it.
+//! Frames use their default execution context in the owning CDP session.
+//! Cross-site iframes can have separate renderer targets; frame locators resolve
+//! those sessions again across navigation and process swaps.
 
 use serde_json::Value;
 

@@ -1,0 +1,164 @@
+--- a/crates/rustwright-core/src/page.rs
++++ b/crates/rustwright-core/src/page.rs
+@@ -54,7 +54,7 @@
+ };
+ use crate::error::{Error, Result};
+ use crate::frame::{Frame, FrameLocator};
+-use crate::geometry::{click_candidates, Point, Projection};
++use crate::geometry::{click_candidates, click_candidates_in_rect, Point, Projection};
+ use crate::locator::Locator;
+ use crate::network_idle::{NetworkActivity, RequestOwner};
+ 
+@@ -67,6 +67,8 @@
+ #[derive(Deserialize)]
+ struct ClickGeometry {
+     rect: [f64; 4],
++    #[serde(default)]
++    clip: Option<[f64; 4]>,
+ }
+ 
+ #[derive(Deserialize)]
+@@ -2013,7 +2015,27 @@
+             .iter()
+             .filter_map(|quad| map_quad(quad, &boundaries))
+             .collect();
+-        let candidates = click_candidates(&root_quads, viewport[0], viewport[1]);
++        // The main document's helper and native quads share viewport coordinates.
++        // An oversized control may be clipped to an interior strip by an overflow
++        // ancestor; clipping only to the viewport can miss that strip entirely.
++        // Frame quads retain their existing renderer/projective coordinate path.
++        let candidates = if frame_id.is_none() {
++            if let Some([left, top, right, bottom]) = geometry.clip {
++                click_candidates_in_rect(
++                    &root_quads,
++                    [
++                        left.max(0.0),
++                        top.max(0.0),
++                        right.min(viewport[0]),
++                        bottom.min(viewport[1]),
++                    ],
++                )
++            } else {
++                click_candidates(&root_quads, viewport[0], viewport[1])
++            }
++        } else {
++            click_candidates(&root_quads, viewport[0], viewport[1])
++        };
+         if candidates.is_empty() {
+             return Ok(Some("element has no visible clickable area".to_string()));
+         }
+--- a/crates/rustwright-core/src/geometry.rs
++++ b/crates/rustwright-core/src/geometry.rs
+@@ -100,7 +100,14 @@
+ }
+ 
+ pub(crate) fn click_candidates(quads: &[[f64; 8]], width: f64, height: f64) -> Vec<Point> {
+-    if !width.is_finite() || !height.is_finite() || width <= 0.0 || height <= 0.0 {
++    click_candidates_in_rect(quads, [0.0, 0.0, width, height])
++}
++
++/// Clip painted polygons to a conservative visible ancestor/viewport rectangle.
++/// Native hit testing still decides whether every proposed point receives input.
++pub(crate) fn click_candidates_in_rect(quads: &[[f64; 8]], rect: [f64; 4]) -> Vec<Point> {
++    let [left, top, right, bottom] = rect;
++    if !rect.iter().all(|value| value.is_finite()) || right <= left || bottom <= top {
+         return Vec::new();
+     }
+     let polygons: Vec<_> = quads
+@@ -115,10 +122,10 @@
+                 .map(|p| Point { x: p[0], y: p[1] })
+                 .collect();
+             for (axis, limit, minimum) in [
+-                (0, 0.0, true),
+-                (0, width, false),
+-                (1, 0.0, true),
+-                (1, height, false),
++                (0, left, true),
++                (0, right, false),
++                (1, top, true),
++                (1, bottom, false),
+             ] {
+                 polygon = clip(&polygon, axis, limit, minimum);
+             }
+@@ -247,6 +254,21 @@
+     }
+ 
+     #[test]
++    fn searches_the_actual_overflow_strip_after_scrolling_an_oversized_control() {
++        let quad = [-70.0, 100.0, 330.0, 100.0, 330.0, 150.0, -70.0, 150.0];
++        for (right, expected) in [(160.0, 130.0), (103.0, 101.5)] {
++            let points = click_candidates_in_rect(&[quad], [100.0, 100.0, right, 160.0]);
++            assert!((points[0].x - expected).abs() < 1e-9);
++            assert!((points[0].y - 125.0).abs() < 1e-9);
++            assert!(points
++                .iter()
++                .all(|p| p.x >= 100.0 && p.x <= right && p.y >= 100.0 && p.y <= 150.0));
++        }
++        assert!(click_candidates_in_rect(&[quad], [100.0, 0.0, 100.0, 160.0]).is_empty());
++        assert!(click_candidates_in_rect(&[quad], [f64::NAN, 0.0, 160.0, 160.0]).is_empty());
++    }
++
++    #[test]
+     fn clips_both_axes_before_selecting_the_center() {
+         let points = click_candidates(
+             &[[-10.0, -20.0, 30.0, -20.0, 30.0, 40.0, -10.0, 40.0]],
+--- a/crates/rustwright-common/src/injected.js
++++ b/crates/rustwright-common/src/injected.js
+@@ -58,6 +58,38 @@
+   function rectValues(el) {
+     var rect = el.getBoundingClientRect();
+     return [rect.left, rect.top, rect.width, rect.height];
++  }
++
++  function clickClipRect(el) {
++    var bounds = [0, 0, innerWidth, innerHeight];
++    for (var node = el; node; node = composedParent(node)) {
++      var style = getComputedStyle(node);
++      if (node !== el && node !== document.body && node !== document.documentElement &&
++          style.display !== "contents" &&
++          /^(hidden|clip|scroll|auto)$/.test(style.overflowX) &&
++          /^(hidden|clip|scroll|auto)$/.test(style.overflowY)) {
++        // The outer box is conservative: borders, rounded corners and rotated
++        // ancestors may reduce the actual area. Native hit testing still checks
++        // every candidate. Requiring both axes avoids excluding painted overflow
++        // projected into the other axis by an ancestor transform.
++        var margin = 0;
++        if (style.overflowX === "clip" || style.overflowY === "clip") {
++          margin = parseFloat((style.overflowClipMargin || "0px").split(/\s+/).pop());
++        }
++        if (Number.isFinite(margin)) {
++          var rect = node.getBoundingClientRect();
++          margin = Math.max(0, margin);
++          bounds[0] = Math.max(bounds[0], rect.left - margin);
++          bounds[1] = Math.max(bounds[1], rect.top - margin);
++          bounds[2] = Math.min(bounds[2], rect.right + margin);
++          bounds[3] = Math.min(bounds[3], rect.bottom + margin);
++        }
++      }
++      // Out-of-flow descendants can escape intervening overflow ancestors.
++      // Stop here instead of treating every DOM ancestor as a paint clip.
++      if (style.position === "absolute" || style.position === "fixed") break;
++    }
++    return bounds;
+   }
+ 
+   function clickGeometry(el) {
+@@ -70,14 +102,15 @@
+       transforms.push([style.transform, style.transform === "none" ? "" : style.transformOrigin,
+         style.perspective, style.perspective === "none" ? "" : style.perspectiveOrigin]);
+     }
+-    return {rect: rectValues(el), fragments: fragments, transforms: transforms};
++    return {rect: rectValues(el), fragments: fragments, transforms: transforms,
++      clip: clickClipRect(el)};
+   }
+ 
+   function sameGeometry(a, b) {
+     // CDP round-trips can reorder object keys. Compare the geometry fields in
+     // a fixed order so serialization cannot make a stationary target move.
+-    return JSON.stringify([a.rect, a.fragments, a.transforms]) ===
+-      JSON.stringify([b.rect, b.fragments, b.transforms]);
++    return JSON.stringify([a.rect, a.fragments, a.transforms, a.clip]) ===
++      JSON.stringify([b.rect, b.fragments, b.transforms, b.clip]);
+   }
+ 
+   function clickReason(el) {

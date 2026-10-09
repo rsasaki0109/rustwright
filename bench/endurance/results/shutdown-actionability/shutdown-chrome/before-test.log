@@ -1,0 +1,43 @@
+   Compiling rustwright-core v0.1.0 (/workspace/rustwright/crates/rustwright-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.57s
+     Running unittests src/lib.rs (target/debug/deps/rustwright_core-01704876b489003a)
+
+running 4 tests
+test context::shutdown_tests::cancelled_attachment_wait_still_disposes ... FAILED
+test context::shutdown_tests::cancelled_disposal_wait_still_waits_for_acknowledgement ... FAILED
+test context::shutdown_tests::concurrent_close_waits_for_disposal_acknowledgement ... FAILED
+test context::shutdown_tests::disposal_failure_is_visible_and_replayed_without_duplicate_command ... FAILED
+
+failures:
+
+---- context::shutdown_tests::cancelled_attachment_wait_still_disposes stdout ----
+
+thread 'context::shutdown_tests::cancelled_attachment_wait_still_disposes' (837637) panicked at crates/rustwright-core/src/context_shutdown_tests.rs:42:80:
+called `Result::unwrap()` on an `Err` value: Elapsed(())
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- context::shutdown_tests::cancelled_disposal_wait_still_waits_for_acknowledgement stdout ----
+
+thread 'context::shutdown_tests::cancelled_disposal_wait_still_waits_for_acknowledgement' (837638) panicked at crates/rustwright-core/src/context_shutdown_tests.rs:49:5:
+close must await the original cleanup
+
+---- context::shutdown_tests::concurrent_close_waits_for_disposal_acknowledgement stdout ----
+
+thread 'context::shutdown_tests::concurrent_close_waits_for_disposal_acknowledgement' (837639) panicked at crates/rustwright-core/src/context_shutdown_tests.rs:49:5:
+close must await the original cleanup
+
+---- context::shutdown_tests::disposal_failure_is_visible_and_replayed_without_duplicate_command stdout ----
+
+thread 'context::shutdown_tests::disposal_failure_is_visible_and_replayed_without_duplicate_command' (837640) panicked at crates/rustwright-core/src/context_shutdown_tests.rs:108:9:
+Ok(())
+
+
+failures:
+    context::shutdown_tests::cancelled_attachment_wait_still_disposes
+    context::shutdown_tests::cancelled_disposal_wait_still_waits_for_acknowledgement
+    context::shutdown_tests::concurrent_close_waits_for_disposal_acknowledgement
+    context::shutdown_tests::disposal_failure_is_visible_and_replayed_without_duplicate_command
+
+test result: FAILED. 0 passed; 4 failed; 0 ignored; 0 measured; 39 filtered out; finished in 1.01s
+
+error: test failed, to rerun pass `-p rustwright-core --lib`
