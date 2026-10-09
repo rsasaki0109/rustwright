@@ -3,23 +3,32 @@
 from __future__ import annotations
 
 import argparse
+import base64
 import hashlib
+import hmac
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 import os
 from pathlib import Path
 import platform
 import re
+import secrets
 import signal
 import shutil
 import stat
+import socket
+import struct
 import subprocess
 import sys
 import tempfile
 import threading
+import time
 
-CAPTURE_TIMEOUT_MS = 10000
 PROBE_TIMEOUT_SECONDS = 25
+MAX_MESSAGE_BYTES = 1024 * 1024
+MAX_EVENTS = 4096
+MAX_EVENT_BYTES = 2 * 1024 * 1024
+MAX_LOG_BYTES = 4 * 1024 * 1024
 FIXTURE_TITLE = '<title>Rustwright Linux sandbox preflight</title>'
 FIXTURE_CONTENT = '<h1>ready</h1>'
 
@@ -47,59 +56,300 @@ class FixtureHandler(BaseHTTPRequestHandler):
         self.send_header('Content-Length', str(len(body)))
         self.end_headers()
         self.wfile.write(body)
+        self.server.fixture_records.append({'path': self.path, 'status': 200, 'bytes_written': len(body)})
 
     def log_message(self, *args) -> None:
         pass
 
 
-def probe(chrome: Path, output: Path, phase: str, env: dict[str, str]) -> dict:
-    server = ThreadingHTTPServer(('127.0.0.1', 0), FixtureHandler)
-    thread = threading.Thread(target=server.serve_forever, daemon=True)
-    thread.start()
-    profile = Path(tempfile.mkdtemp(prefix=f'{phase}-profile-', dir=output))
-    command = [str(chrome), '--no-first-run', '--no-default-browser-check',
-               f'--user-data-dir={profile}', '--headless=new', '--disable-gpu',
-               '--hide-scrollbars', '--mute-audio', '--dump-dom',
-               # Supported by this Chrome version's headless command handler.
-               # Bound DOM capture independently of waiting for a load event;
-               # still require normal exit and the actual fixture DOM below.
-               f'--timeout={CAPTURE_TIMEOUT_MS}',
-               f'http://127.0.0.1:{server.server_port}/']
-    stdout = output / f'{phase}-stdout.log'
-    stderr = output / f'{phase}-stderr.log'
-    timed_out = False
-    try:
-        with stdout.open('wb') as out, stderr.open('wb') as err:
-            process = subprocess.Popen(command, env=env, stdin=subprocess.DEVNULL,
-                                       stdout=out, stderr=err, start_new_session=True)
+def remaining(deadline: float) -> float:
+    duration = deadline - time.monotonic()
+    if duration <= 0:
+        raise TimeoutError('Shared Chrome CDP preflight deadline expired')
+    return duration
+
+
+class CdpSocket:
+    """Bounded localhost RFC6455 text transport, without third-party dependencies."""
+
+    def __init__(self, port: int, path: str, deadline: float, log):
+        self.deadline, self.log = deadline, log
+        self.buffer = b''
+        self.events = []
+        self.event_bytes = 0
+        self.logged_bytes = 0
+        self.next_id = 0
+        self.sock = socket.create_connection(('127.0.0.1', port), timeout=remaining(deadline))
+        try:
+            key = base64.b64encode(secrets.token_bytes(16)).decode()
+            request = (f'GET {path} HTTP/1.1\r\nHost: 127.0.0.1:{port}\r\n'
+                       f'Upgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Key: {key}\r\n'
+                       'Sec-WebSocket-Version: 13\r\n\r\n')
+            self.sock.sendall(request.encode('ascii'))
+            while b'\r\n\r\n' not in self.buffer:
+                self.sock.settimeout(remaining(self.deadline))
+                data = self.sock.recv(4096)
+                if not data:
+                    raise RuntimeError('CDP socket closed during WebSocket handshake')
+                self.buffer += data
+                if len(self.buffer) > 16384:
+                    raise RuntimeError('WebSocket handshake exceeded bounded header size')
+            header, self.buffer = self.buffer.split(b'\r\n\r\n', 1)
+            lines = header.decode('ascii').split('\r\n')
+            headers = {}
+            for line in lines[1:]:
+                name, value = line.split(':', 1)
+                name = name.lower()
+                if name in headers:
+                    raise RuntimeError('Duplicate WebSocket handshake header')
+                headers[name] = value.strip()
+            expected = base64.b64encode(hashlib.sha1((key + '258EAFA5-E914-47DA-95CA-C5AB0DC85B11').encode()).digest()).decode()
+            if (not re.fullmatch(r'HTTP/1\.1 101(?: .*)?', lines[0])
+                    or headers.get('upgrade', '').lower() != 'websocket'
+                    or 'upgrade' not in [token.strip() for token in headers.get('connection', '').lower().split(',')]
+                    or not hmac.compare_digest(headers.get('sec-websocket-accept', ''), expected)):
+                raise RuntimeError('Invalid WebSocket upgrade/accept response')
+        except BaseException:
+            self.sock.close()
+            raise
+
+    def close(self) -> None:
+        self.sock.close()
+
+    def log_message(self, direction: str, value: dict) -> None:
+        line = json.dumps({'direction': direction, 'message': value}) + '\n'
+        self.logged_bytes += len(line.encode('utf-8'))
+        if self.logged_bytes > MAX_LOG_BYTES:
+            raise RuntimeError('CDP raw protocol log exceeded bound')
+        self.log.write(line)
+        self.log.flush()
+
+    def read(self, size: int) -> bytes:
+        while len(self.buffer) < size:
+            self.sock.settimeout(remaining(self.deadline))
+            data = self.sock.recv(min(65536, size - len(self.buffer)))
+            if not data:
+                raise RuntimeError('CDP WebSocket closed before requested response')
+            self.buffer += data
+        result, self.buffer = self.buffer[:size], self.buffer[size:]
+        return result
+
+    def send(self, opcode: int, data: bytes) -> None:
+        if len(data) > MAX_MESSAGE_BYTES:
+            raise RuntimeError('Outgoing CDP message exceeded bound')
+        length = len(data)
+        header = bytes([0x80 | opcode])
+        header += bytes([0x80 | length]) if length < 126 else bytes([0x80 | 126]) + struct.pack('!H', length) if length < 65536 else bytes([0x80 | 127]) + struct.pack('!Q', length)
+        mask = secrets.token_bytes(4)
+        masked = bytes(value ^ mask[index % 4] for index, value in enumerate(data))
+        self.sock.settimeout(remaining(self.deadline))
+        self.sock.sendall(header + mask + masked)
+
+    def receive(self) -> dict:
+        message = bytearray()
+        fragmented = False
+        while True:
+            first, second = self.read(2)
+            final, opcode = bool(first & 0x80), first & 0x0f
+            if first & 0x70 or second & 0x80:
+                raise RuntimeError('Unsupported reserved bits or masked server frame')
+            length = second & 0x7f
+            if length == 126:
+                length = struct.unpack('!H', self.read(2))[0]
+                if length < 126:
+                    raise RuntimeError('Noncanonical WebSocket frame length')
+            elif length == 127:
+                length = struct.unpack('!Q', self.read(8))[0]
+                if length < 65536:
+                    raise RuntimeError('Noncanonical WebSocket frame length')
+            if length > MAX_MESSAGE_BYTES or len(message) + length > MAX_MESSAGE_BYTES:
+                raise RuntimeError('Incoming CDP message exceeded bound')
+            if opcode >= 8 and (not final or length > 125):
+                raise RuntimeError('Invalid WebSocket control frame')
+            payload = self.read(length)
+            if opcode == 8:
+                raise RuntimeError('CDP WebSocket sent close before requested response')
+            if opcode == 9:
+                self.send(10, payload)
+                continue
+            if opcode == 10:
+                continue
+            if opcode not in (0, 1) or (opcode == 0) != fragmented:
+                raise RuntimeError('Invalid CDP text/continuation frame sequence')
+            message.extend(payload)
+            if final:
+                value = json.loads(message.decode('utf-8'))
+                if not isinstance(value, dict):
+                    raise RuntimeError('CDP message is not an object')
+                self.log_message('received', value)
+                return value
+            fragmented = True
+
+    def event(self, message: dict) -> None:
+        if not isinstance(message.get('method'), str) or not isinstance(message.get('params', {}), dict):
+            raise RuntimeError('Invalid unsolicited CDP event')
+        self.event_bytes += len(json.dumps(message).encode('utf-8'))
+        if len(self.events) >= MAX_EVENTS or self.event_bytes > MAX_EVENT_BYTES:
+            raise RuntimeError('CDP event buffer exceeded bound')
+        self.events.append(message)
+
+    def command(self, method: str, params=None, session=None) -> dict:
+        self.next_id += 1
+        message = {'id': self.next_id, 'method': method, 'params': params or {}}
+        if session is not None:
+            message['sessionId'] = session
+        self.log_message('sent', message)
+        self.send(1, json.dumps(message).encode())
+        while True:
+            response = self.receive()
+            if 'id' not in response:
+                self.event(response)
+                continue
+            if type(response['id']) is not int or response['id'] != message['id'] or response.get('sessionId') != session:
+                raise RuntimeError(f'Unexpected CDP response id/session for {method}: {response}')
+            if 'error' in response or not isinstance(response.get('result'), dict):
+                raise RuntimeError(f'CDP {method} failed: {response}')
+            return response['result']
+
+    def wait_event(self, method: str, session: str, predicate) -> dict:
+        while True:
+            for index, event in enumerate(self.events):
+                if event.get('sessionId') == session and event['method'] == method and predicate(event.get('params', {})):
+                    self.event_bytes -= len(json.dumps(event).encode('utf-8'))
+                    return self.events.pop(index)['params']
+            response = self.receive()
+            if 'id' in response:
+                raise RuntimeError('Unsolicited CDP command response while awaiting event')
+            self.event(response)
+
+
+def terminate_owned(process: subprocess.Popen) -> dict:
+    result = {'termination_requested': False, 'errors': []}
+    if process.poll() is None:
+        result['termination_requested'] = True
+        for sig in (signal.SIGTERM, signal.SIGKILL):
             try:
-                status = process.wait(timeout=PROBE_TIMEOUT_SECONDS)
-            except subprocess.TimeoutExpired:
-                timed_out = True
-                os.killpg(process.pid, signal.SIGTERM)
-                try:
-                    status = process.wait(timeout=2)
-                except subprocess.TimeoutExpired:
-                    os.killpg(process.pid, signal.SIGKILL)
-                    status = process.wait(timeout=2)
+                os.killpg(process.pid, sig)
+            except ProcessLookupError:
+                pass
+            except OSError as error:
+                result['errors'].append(str(error))
+            try:
+                process.wait(timeout=2)
+                break
+            except (OSError, subprocess.TimeoutExpired) as error:
+                if sig == signal.SIGKILL:
+                    result['errors'].append(str(error))
+    result.update(direct_child_reaped=process.poll() is not None, exit_code=process.returncode)
+    return result
+
+
+def probe(chrome: Path, output: Path, phase: str, env: dict[str, str]) -> dict:
+    deadline = time.monotonic() + PROBE_TIMEOUT_SECONDS
+    stdout, stderr = output / f'{phase}-stdout.log', output / f'{phase}-stderr.log'
+    protocol = output / f'{phase}-cdp.jsonl'
+    record = {'phase': phase, 'method': 'CDP HTTP renderer preflight', 'outer_timeout_seconds': PROBE_TIMEOUT_SECONDS,
+              'stdout': str(stdout), 'stderr': str(stderr), 'protocol': str(protocol), 'timed_out': False,
+              'document_rendered': False, 'exit_code': None, 'passed': False}
+    server = thread = profile = process = cdp = failure = None
+    try:
+        # A retained profile must never upload its private cache through artifacts.
+        profile = Path(tempfile.mkdtemp(prefix=f'rustwright-{phase}-', dir=env.get('RUNNER_TEMP') or None))
+        if profile.resolve().is_relative_to(output.resolve()):
+            raise ValueError('Owned profile must remain outside uploaded artifact output')
+        record['profile_path'] = str(profile)
+        server = ThreadingHTTPServer(('127.0.0.1', 0), FixtureHandler)
+        server.daemon_threads = True
+        server.fixture_records = []
+        thread = threading.Thread(target=lambda: server.serve_forever(poll_interval=0.05), daemon=True)
+        thread.start()
+        fixture_path = '/preflight-' + secrets.token_hex(8)
+        url = f'http://127.0.0.1:{server.server_port}{fixture_path}'
+        command = [str(chrome), '--no-first-run', '--no-default-browser-check', f'--user-data-dir={profile}',
+                   '--headless=new', '--disable-gpu', '--hide-scrollbars', '--mute-audio',
+                   '--remote-debugging-address=127.0.0.1', '--remote-debugging-port=0', 'about:blank']
+        record.update(command=command, fixture_url=url, fixture_path=fixture_path)
+        with stdout.open('wb') as out, stderr.open('wb') as err, protocol.open('w') as log:
+            process = subprocess.Popen(command, env=env, stdin=subprocess.DEVNULL, stdout=out, stderr=err, start_new_session=True)
+            port_file = profile / 'DevToolsActivePort'
+            while True:
+                remaining(deadline)
+                if process.poll() is not None:
+                    raise RuntimeError(f'Chrome exited before its debugging endpoint: {process.returncode}')
+                if port_file.is_file():
+                    lines = port_file.read_text().splitlines()
+                    if len(lines) >= 2:
+                        port = int(lines[0])
+                        if not 0 < port < 65536 or not re.fullmatch(r'/devtools/browser/[A-Za-z0-9-]+', lines[1]):
+                            raise RuntimeError('Invalid local DevToolsActivePort endpoint')
+                        break
+                time.sleep(min(0.02, remaining(deadline)))
+            cdp = CdpSocket(port, lines[1], deadline, log)
+            target = cdp.command('Target.createTarget', {'url': 'about:blank'})['targetId']
+            session = cdp.command('Target.attachToTarget', {'targetId': target, 'flatten': True})['sessionId']
+            if not isinstance(target, str) or not target or not isinstance(session, str) or not session:
+                raise RuntimeError('CDP did not create/attach a valid target/session')
+            cdp.command('Page.enable', session=session)
+            cdp.command('Page.setLifecycleEventsEnabled', {'enabled': True}, session)
+            cdp.command('Network.enable', session=session)
+            navigation = cdp.command('Page.navigate', {'url': url}, session)
+            frame, loader = navigation.get('frameId'), navigation.get('loaderId')
+            if navigation.get('errorText') or navigation.get('isDownload') or not isinstance(frame, str) or not frame or not isinstance(loader, str) or not loader:
+                raise RuntimeError(f'HTTP fixture navigation failed: {navigation}')
+            record['navigation'] = navigation
+            lifecycle = cdp.wait_event('Page.lifecycleEvent', session, lambda event: event.get('frameId') == frame and event.get('loaderId') == loader and event.get('name') == 'DOMContentLoaded')
+            response = cdp.wait_event('Network.responseReceived', session, lambda event: event.get('frameId') == frame and event.get('loaderId') == loader and event.get('type') == 'Document' and event.get('response', {}).get('url') == url)
+            if response['response'].get('status') != 200 or response['response'].get('mimeType') != 'text/html':
+                raise RuntimeError(f'Fixture document did not return expected HTTP200 HTML: {response}')
+            if not isinstance(response.get('requestId'), str) or not response['requestId']:
+                raise RuntimeError('Fixture document response omitted its request identifier')
+            finished = cdp.wait_event('Network.loadingFinished', session, lambda event: event.get('requestId') == response.get('requestId'))
+            evaluation = cdp.command('Runtime.evaluate', {'expression': '({url:location.href,title:document.title,body:document.body.innerHTML,readyState:document.readyState})', 'returnByValue': True}, session)
+            value = evaluation.get('result', {}).get('value')
+            if (evaluation.get('exceptionDetails') or not isinstance(value, dict) or value.get('url') != url
+                    or value.get('title') != 'Rustwright Linux sandbox preflight' or value.get('body') != FIXTURE_CONTENT
+                    or value.get('readyState') not in ('interactive', 'complete')):
+                raise RuntimeError(f'Renderer fixture DOM did not match: {evaluation}')
+            record.update(document_rendered=True, document=value, lifecycle=lifecycle, document_response=response, loading_finished=finished)
+            cdp.command('Browser.close')
+            record['browser_close_acknowledged'] = True
+            process.wait(timeout=remaining(deadline))
+            if process.returncode != 0:
+                raise RuntimeError(f'Chrome exited abnormally after Browser.close: {process.returncode}')
+    except BaseException as error:
+        failure = error
+        record.update(error=f'{type(error).__name__}: {error}', timed_out=isinstance(error, (TimeoutError, subprocess.TimeoutExpired)))
     finally:
-        server.shutdown()
-        server.server_close()
-        thread.join(timeout=2)
-        # Retain command/stdout/stderr, not browser cache/profile contents.
-        shutil.rmtree(profile, ignore_errors=True)
-    text = stdout.read_text(errors='replace')
-    error = stderr.read_text(errors='replace')
-    record = {'phase': phase, 'command': command, 'exit_code': status,
-              'timed_out': timed_out, 'stdout': str(stdout), 'stderr': str(stderr),
-              'capture_timeout_ms': CAPTURE_TIMEOUT_MS,
-              'outer_timeout_seconds': PROBE_TIMEOUT_SECONDS,
-              'capture_scope': 'fixture DOM/title observed; internal capture can stop loading and does not prove full load-event completion',
-              'document_rendered': FIXTURE_TITLE in text and FIXTURE_CONTENT in text}
-    record['passed'] = status == 0 and not timed_out and record['document_rendered']
-    # Preserve complete raw stderr in the artifact and a bounded console excerpt.
-    print(f'Chrome {phase}: {json.dumps(record)}', flush=True)
-    print(error[:12000], flush=True)
+        if cdp is not None:
+            cdp.close()
+        if process is not None:
+            record['cleanup'] = terminate_owned(process)
+            record['exit_code'] = process.returncode
+        if server is not None:
+            if thread is not None and thread.ident is not None:
+                server.shutdown()
+                thread.join(timeout=2)
+            server.server_close()
+            record['fixture_requests'] = server.fixture_records
+        confirmed_exit = process is None or process.returncode is not None
+        if profile is not None and confirmed_exit:
+            try:
+                shutil.rmtree(profile)
+                record['profile_removed'] = True
+            except OSError as error:
+                record['profile_cleanup_error'] = str(error)
+        elif profile is not None:
+            record['profile_retained_after_unconfirmed_exit'] = str(profile)
+        cleanup = record.get('cleanup', {})
+        record['passed'] = (failure is None and record['document_rendered'] and record['exit_code'] == 0
+                            and record.get('browser_close_acknowledged') is True and record.get('profile_removed') is True
+                            and not cleanup.get('termination_requested') and not cleanup.get('errors')
+                            and any(item['path'] == record.get('fixture_path') and item['status'] == 200 and item['bytes_written'] > 0 for item in record.get('fixture_requests', [])))
+        (output / f'{phase}-probe.json').write_text(json.dumps(record, indent=2) + '\n')
+        print(f'Chrome {phase}: {json.dumps(record)}', flush=True)
+        print(stderr.read_text(errors='replace')[:12000] if stderr.is_file() else '', flush=True)
+    if failure is not None and not isinstance(failure, Exception):
+        raise failure
     return record
 
 
@@ -180,6 +430,10 @@ def main() -> int:
         report['probes'].append(before)
         save()
         if not before['passed']:
+            cleanup = before.get('cleanup', {})
+            if (not cleanup.get('direct_child_reaped') or cleanup.get('errors')
+                    or before.get('profile_retained_after_unconfirmed_exit') or before.get('profile_cleanup_error')):
+                raise RuntimeError('Failed Chrome preflight did not confirm owned-child/profile cleanup; refusing a second launch')
             stderr = (output / 'before-stderr.log').read_text(errors='replace')
             diagnosed = ('No usable sandbox!' in stderr or
                          'The SUID sandbox helper binary was found, but is not configured correctly' in stderr)
