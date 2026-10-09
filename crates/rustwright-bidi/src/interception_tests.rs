@@ -121,7 +121,7 @@ async fn remote() -> (Remote, BidiBrowser) {
                 "network.removeIntercept"=>{if remote.lock().unwrap().ids.remove(p["intercept"].as_str().unwrap()){json!({})}else{json!({"fixtureMissing":true})}},
                 "browsingContext.close"=>{pages.remove(p["context"].as_str().unwrap());json!({})},
                 "browser.removeUserContext"=>{pages.retain(|_,owner|Some(owner.as_str())!=p["userContext"].as_str());json!({})},
-                "session.subscribe"|"script.removePreloadScript"|"session.end"|"network.continueRequest"|"network.continueResponse"|"network.failRequest"=>json!({}),
+                "browsingContext.activate" | "session.subscribe"|"script.removePreloadScript"|"session.end"|"network.continueRequest"|"network.continueResponse"|"network.failRequest"=>json!({}),
                 other=>panic!("unexpected method {other}")
                };if result["fixtureMissing"]==true{json!({"id":command["id"],"type":"error","error":"no such intercept","message":"already removed"})}else{json!({"id":command["id"],"type":"success","result":result})}
               }.to_string();

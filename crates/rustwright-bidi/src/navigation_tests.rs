@@ -57,6 +57,7 @@ async fn remote(
                 "browsingContext.create" => json!({"context":"page"}),
                 "script.addPreloadScript" => json!({"script":"helper"}),
                 "script.evaluate" => json!({"type":"success","result":{"type":"undefined"}}),
+                "browsingContext.activate" => json!({}),
                 "session.subscribe" => {
                     subscribed.fetch_add(1, Ordering::Relaxed);
                     json!({"subscription":"nav"})

@@ -94,7 +94,7 @@ async fn remote(hold: &'static str, fail: bool) -> (Remote, BidiBrowser) {
                         json!({})
                     }
                     "script.evaluate" => json!({"type":"success","result":{"type":"undefined"}}),
-                    "session.subscribe" | "session.end" => json!({}),
+                    "browsingContext.activate" | "session.subscribe" | "session.end" => json!({}),
                     method => panic!("unexpected command {method}"),
                 }
             };
@@ -328,6 +328,54 @@ async fn cancelled_initialization_outside_runtime_thread_cleans_up() {
     // The origin runtime is still alive, but this thread has no runtime entry.
     std::thread::scope(|scope| scope.spawn(move || drop(future)).join().unwrap());
     remote.release.notify_one();
+    restored(&remote, 1, &browser).await;
+    browser.close().await.unwrap();
+}
+
+#[tokio::test]
+async fn cancelled_activation_retires_allocated_page_before_initialization() {
+    let (remote, browser) = remote("browsingContext.activate", false).await;
+    let task = {
+        let session = browser.session().clone();
+        tokio::spawn(async move {
+            let browser = BidiBrowser {
+                session,
+                process: None,
+            };
+            browser.new_page().await
+        })
+    };
+    entered(&remote).await;
+    assert_eq!(remote.state.lock().unwrap().pages.len(), 2);
+    assert!(remote.state.lock().unwrap().scripts.is_empty());
+    task.abort();
+    assert!(task.await.unwrap_err().is_cancelled());
+    remote.release.notify_one();
+    restored(&remote, 1, &browser).await;
+    browser.close().await.unwrap();
+}
+
+#[tokio::test]
+async fn failed_activation_retires_allocated_page_before_initialization() {
+    let (remote, browser) = remote("browsingContext.activate", true).await;
+    let task = {
+        let session = browser.session().clone();
+        tokio::spawn(async move {
+            let browser = BidiBrowser {
+                session,
+                process: None,
+            };
+            browser.new_page().await
+        })
+    };
+    entered(&remote).await;
+    assert_eq!(remote.state.lock().unwrap().pages.len(), 2);
+    assert!(remote.state.lock().unwrap().scripts.is_empty());
+    remote.release.notify_one();
+    let error = task.await.unwrap().unwrap_err();
+    assert!(
+        matches!(error, crate::BidiError::Protocol { method, .. } if method == "browsingContext.activate")
+    );
     restored(&remote, 1, &browser).await;
     browser.close().await.unwrap();
 }

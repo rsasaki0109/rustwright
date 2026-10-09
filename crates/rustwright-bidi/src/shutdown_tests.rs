@@ -114,7 +114,7 @@ async fn remote(hold: &'static str, fail_first: bool) -> (Remote, BidiBrowser) {
                         json!({})
                     }
                     "script.evaluate" => json!({"type":"success","result":{"type":"undefined"}}),
-                    "session.subscribe" | "session.end" => json!({}),
+                    "browsingContext.activate" | "session.subscribe" | "session.end" => json!({}),
                     method => panic!("unexpected command {method}"),
                 };
                 (result, error)

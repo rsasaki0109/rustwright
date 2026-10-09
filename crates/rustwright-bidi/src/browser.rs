@@ -10,6 +10,9 @@ use rustwright_browser::{Firefox, LaunchedFirefox};
 #[path = "creation_tests.rs"]
 mod creation_tests;
 #[cfg(test)]
+#[path = "creation_visibility_tests.rs"]
+mod creation_visibility_tests;
+#[cfg(test)]
 #[path = "frame_helper_cache_tests.rs"]
 mod frame_helper_cache_tests;
 #[cfg(test)]

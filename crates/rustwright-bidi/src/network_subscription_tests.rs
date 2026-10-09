@@ -65,6 +65,7 @@ async fn remote(hold: bool, reject: bool) -> (Remote, BidiBrowser) {
                 "browsingContext.close" | "script.removePreloadScript" | "session.end" => json!({}),
                 "script.addPreloadScript" => json!({"script":"helper"}),
                 "script.evaluate" => json!({"type":"success","result":{"type":"undefined"}}),
+                "browsingContext.activate" => json!({}),
                 "session.subscribe" => {
                     let attempt = {
                         let mut count = subscribed.lock().unwrap();

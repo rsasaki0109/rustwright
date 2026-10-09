@@ -98,7 +98,7 @@ async fn remote_with_pause(pause: Option<(Arc<Notify>, Arc<Notify>)>) -> (Remote
                     pages.remove(params["context"].as_str().unwrap());
                     json!({})
                 }
-                "session.subscribe" | "session.end" => json!({}),
+                "browsingContext.activate" | "session.subscribe" | "session.end" => json!({}),
                 method => panic!("unexpected command {method}"),
             };
             if ws

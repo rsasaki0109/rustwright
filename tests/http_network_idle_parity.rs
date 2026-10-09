@@ -446,17 +446,32 @@ fn assert_closed(result: std::result::Result<(), AnyError>) {
 }
 
 async fn page_closure(firefox: bool) {
-    let (fixture, browser, page) = open(firefox).await;
-    start_fetch(&page, "/stream?close-page").await;
-    fixture.headers("stream?close-page").await;
-    let waiting = {
-        let page = page.clone();
-        tokio::spawn(async move { page.wait_for_network_idle_with_timeout(LIMIT).await })
-    };
-    page.close().await.unwrap();
-    assert_closed(tokio::time::timeout(LIMIT, waiting).await.unwrap().unwrap());
-    assert_closed(page.wait_for_network_idle().await);
-    browser.close().await;
+    // Each Firefox cycle starts a fresh process/profile and immediately creates
+    // its first page. This exercises startup context replacement, not a retry:
+    // the first creation/closure failure still fails the whole scenario.
+    let cycles = if firefox { 5 } else { 1 };
+    for cycle in 1..=cycles {
+        let (fixture, browser, page) = open(firefox).await;
+        assert_eq!(
+            page.evaluate("document.visibilityState").await.unwrap(),
+            "visible",
+            "newly created pages retain foreground visibility"
+        );
+        start_fetch(&page, "/stream?close-page").await;
+        fixture.headers("stream?close-page").await;
+        let waiting = {
+            let page = page.clone();
+            tokio::spawn(async move { page.wait_for_network_idle_with_timeout(LIMIT).await })
+        };
+        page.close().await.unwrap();
+        assert_closed(tokio::time::timeout(LIMIT, waiting).await.unwrap().unwrap());
+        assert_closed(page.wait_for_network_idle().await);
+        browser.close().await;
+        println!(
+            "page_closure startup cycle={cycle}/{cycles} backend={}",
+            if firefox { "firefox" } else { "chrome" }
+        );
+    }
 }
 
 async fn browser_closure(firefox: bool) {

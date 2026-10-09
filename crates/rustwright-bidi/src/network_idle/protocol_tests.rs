@@ -92,7 +92,10 @@ async fn remote(hold: Option<&'static str>, reject: bool, child: bool) -> (Remot
                     pages.remove(p["context"].as_str().unwrap());
                     json!({})
                 }
-                "session.subscribe" | "script.removePreloadScript" | "session.end" => json!({}),
+                "browsingContext.activate"
+                | "session.subscribe"
+                | "script.removePreloadScript"
+                | "session.end" => json!({}),
                 m => panic!("unexpected command {m}"),
             };
             let should_hold = hold == Some(method) && !held;

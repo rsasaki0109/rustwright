@@ -410,11 +410,16 @@ impl BidiSession {
 
     /// Create a new tab, optionally in an isolated user context.
     pub async fn create_context_in(&self, user_context: Option<&str>) -> BidiResult<String> {
-        let mut params = json!({ "type": "tab" });
+        // Firefox's foreground create captures the previous tab's context
+        // before addTab and awaits its visibility. Startup can replace that
+        // context during addTab, failing creation after a tab was allocated.
+        // Separate allocation from activation, which reads the selected tab
+        // after the new document is ready and addresses our known identifier.
+        let mut params = json!({ "type": "tab", "background": true });
         if let Some(user_context) = user_context {
             params["userContext"] = json!(user_context);
         }
-        Ok(crate::creation::allocate(
+        let created = crate::creation::allocate(
             self.connection.clone(),
             "browsingContext.create",
             params,
@@ -422,8 +427,16 @@ impl BidiSession {
             "browsingContext.close",
             "context",
         )
-        .await?
-        .take())
+        .await?;
+        // Retain the allocation guard across activation: errors and caller
+        // cancellation must close this tab even before page initialization.
+        self.connection
+            .send(
+                "browsingContext.activate",
+                json!({ "context": created.id() }),
+            )
+            .await?;
+        Ok(created.take())
     }
 
     /// Create an isolated user context (its own cookies, storage and cache).

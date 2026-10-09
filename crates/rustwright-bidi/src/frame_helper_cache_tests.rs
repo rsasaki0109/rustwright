@@ -92,9 +92,10 @@ async fn remote() -> (Remote, BidiBrowser) {
                         (json!({"context":"page"}), None)
                     }
                     "script.addPreloadScript" => (json!({"script":"helper"}), None),
-                    "session.subscribe" | "script.removePreloadScript" | "session.end" => {
-                        (json!({}), None)
-                    }
+                    "browsingContext.activate"
+                    | "session.subscribe"
+                    | "script.removePreloadScript"
+                    | "session.end" => (json!({}), None),
                     "browsingContext.close" => {
                         state.documents.remove(params["context"].as_str().unwrap());
                         (json!({}), None)
