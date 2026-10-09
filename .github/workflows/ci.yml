@@ -70,6 +70,12 @@ jobs:
       - name: Firefox version
         run: '"${{ steps.firefox.outputs.firefox-path }}" --version'
 
+      - name: Diagnose and configure Linux Chrome sandbox
+        timeout-minutes: 3
+        env:
+          RUSTWRIGHT_CHROME: ${{ steps.chrome.outputs.chrome-path }}
+        run: python3 scripts/ci/chrome_linux_sandbox.py
+
       - name: Test
         env:
           RUSTWRIGHT_CHROME: ${{ steps.chrome.outputs.chrome-path }}
@@ -78,6 +84,14 @@ jobs:
           RUSTWRIGHT_HEADLESS: '1'
           RUSTWRIGHT_REQUIRE_BROWSERS: '1'
         run: cargo test --locked --workspace -- --test-threads=1
+
+      - name: Retain Linux Chrome setup diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: workspace-chrome-sandbox
+          path: target/ci/linux-sandbox/
+          if-no-files-found: error
 
   browser-compat:
     name: Required Chrome + Firefox / ${{ matrix.os }}
@@ -105,6 +119,12 @@ jobs:
         uses: browser-actions/setup-firefox@v1
         with:
           firefox-version: '157.0.1'
+      - name: Diagnose and configure Linux Chrome sandbox
+        if: runner.os == 'Linux'
+        timeout-minutes: 3
+        env:
+          RUSTWRIGHT_CHROME: ${{ steps.chrome.outputs.chrome-path }}
+        run: python3 scripts/ci/chrome_linux_sandbox.py
       - name: Configure Windows Chrome sandbox permissions
         if: runner.os == 'Windows'
         timeout-minutes: 2
@@ -215,6 +235,11 @@ jobs:
         uses: browser-actions/setup-firefox@v1
         with:
           firefox-version: '157.0.1'
+      - name: Diagnose and configure Linux Chrome sandbox
+        timeout-minutes: 3
+        env:
+          RUSTWRIGHT_CHROME: ${{ steps.chrome.outputs.chrome-path }}
+        run: python3 scripts/ci/chrome_linux_sandbox.py --output target/release-check/linux-sandbox
       - name: Cache exact locked dependency archives
         run: cargo +stable fetch --locked
       - name: Check real packages and native consumers
@@ -240,4 +265,5 @@ jobs:
             target/release-check/consumer/readme-snippets.json
             target/release-check/consumer/firefox.png
             target/release-check/native-screenshots/
+            target/release-check/linux-sandbox/
           if-no-files-found: error
