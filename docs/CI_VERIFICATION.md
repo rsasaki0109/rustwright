@@ -15,6 +15,55 @@ Firefox setup, required multi-OS browser matrix and package-consumer jobs.
 It is historical CI evidence for that commit, rather than verification of these
 changes. Read-only API responses are retained with the rollout results.
 
+## First execution of the new workflow
+
+Draft [PR #1](https://github.com/rsasaki0109/rustwright/pull/1) contains the
+accumulated reliability changes. [Run 37944830831](https://github.com/rsasaki0109/rustwright/actions/runs/37944830831)
+executed commit `a8098f2707b70dec44b133d4eb54a99b7a12650f` on 2026-10-09:
+
+- Windows installed Chrome for Testing 155.0.8059.39 and Firefox 157.0.1.
+  `http_compat` completed with 13 passing and 11 failing cases, no ignored or
+  filtered cases. All twelve Firefox cases passed. Eleven Chrome cases failed
+  at their initial HTTP navigation with `net::ERR_ABORTED`; the Chrome
+  disconnect case passed. Later portable targets did not execute.
+- macOS compiled the first target and printed the Chrome version in its first
+  case, but did not complete that case before this run was canceled for a newer
+  commit. The last output does not identify the stopped operation.
+- Four Linux jobs remained queued without assigned runners and were canceled
+  by the newer run. They are unexecuted, rather than passing checks.
+
+The original logs, API snapshots, native artifacts and exact relevant source
+archive are retained in [the remote record](ci/results/remote-20261009/).
+Linux Chrome for Testing 155 independently passes 23 distinct portable Chrome
+cases; that does not establish Windows or macOS behavior.
+
+Failure-only diagnostics were added in commit
+`8e94519a62c8fa58ccc334c0cc618f5030e59a4f` and submitted as
+[run 37946708417](https://github.com/rsasaki0109/rustwright/actions/runs/37946708417).
+The diagnostic keeps the original failure fatal, bounds its extra work to five
+seconds, and records the original network state, raw navigation response,
+HTTP fixture activity and browser stderr. Its later raw navigation is an
+observation, not a retry that can turn a failed test into success.
+The Windows diagnostic run completed with 15 passing and nine failing cases.
+Each of its nine original navigation failures has a matching browser stderr
+error: the sandbox cannot read/execute the downloaded Chrome executable
+(`Access is denied`, Windows error 0x5), followed by a network-service restart.
+The original request has no HTTP response; after that restart the diagnostic
+navigation reaches the fixture and loads successfully with `isDownload=false`.
+Those later observations do not erase the original failures.
+
+The workflow now invokes the downloaded Chrome's own `setup.exe` with
+`--configure-browser-in-directory` and checks its documented success status,
+78. That helper grants Chrome installation capability SIDs read/execute access
+to the downloaded tree. It preserves the sandbox and does not add navigation
+retries or suppress errors.
+Native rerunning is needed to establish whether this corrects the failure.
+Creation/cancellation stage diagnostics also add fatal 30-second test bounds so
+an incomplete macOS operation produces usable evidence instead of an indefinite
+first test. The staged test code passes all 24 compatibility cases locally with
+Chrome 155 and Firefox 157. These are Linux results, not macOS verification.
+Successful three-OS CI remains unestablished.
+
 ## Workflow behavior
 
 `browser-compat` installs both browsers explicitly and runs `http_compat`,
@@ -104,5 +153,5 @@ HTTP success must not be described as every integration target passing.
 Local results and frozen source identifiers are retained in
 [the CI rollout evidence](ci/results/required-browser/). The earlier package
 evidence in [RELEASE_VERIFICATION.md](RELEASE_VERIFICATION.md) remains unchanged.
-New workflow execution, other operating systems, headed sessions, representative
-real sites, broader browser versions and memory attribution remain outstanding.
+Successful three-OS workflow execution, headed sessions, representative real
+sites, broader browser versions and memory attribution remain outstanding.

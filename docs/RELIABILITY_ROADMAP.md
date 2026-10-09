@@ -132,13 +132,21 @@ Locally verified additions include eleven BiDi navigation protocol cases and
 seven native Chrome/Firefox reload/history checks. Required browser policy also
 turns explicitly configured legacy discovery/startup errors into failures.
 The [CI verification record](CI_VERIFICATION.md) distinguishes configured OS jobs
-from executed results and preserves the historical HEAD run separately.
+from executed results and preserves the historical HEAD run separately. The first
+new Windows run exposes Chrome HTTP navigation failures; macOS has an incomplete
+first test, and the Linux jobs were canceled while queued. These remain open
+validation gaps, not completed platform checkpoints.
+
+The [Firefox network-idle investigation](FIREFOX_NETWORK_IDLE.md) preserves raw
+protocol evidence for delayed response bodies, child contexts and an incomplete
+late-subscription event sequence. Firefox network-idle parity remains unimplemented;
+the document specifies acceptance criteria rather than a passing API.
 
 1. **Execute required CI:** test the reviewed changes on Linux, macOS and Windows
    with explicitly installed Chrome and Firefox. Reject missing browsers,
    initialization failure, zero tests, ignored tests and filtered suites. Retain
-   logs and actual browser versions; distinguish existing HEAD runs from a future
-   run containing the working-tree changes.
+   logs and actual browser versions; distinguish the old main-branch run from
+   runs containing the reviewed feature-branch changes.
 2. **Expand backend parity:** cover driver reload/back/forward, nested frame
    transforms and clipping, ancestor overlays, interception during renderer
    changes, and response-body completion during network-idle waits. Document

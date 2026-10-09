@@ -105,6 +105,26 @@ jobs:
         uses: browser-actions/setup-firefox@v1
         with:
           firefox-version: '157.0.1'
+      - name: Configure Windows Chrome sandbox permissions
+        if: runner.os == 'Windows'
+        timeout-minutes: 2
+        shell: pwsh
+        env:
+          CHROME_EXECUTABLE: ${{ steps.chrome.outputs.chrome-path }}
+        run: |
+          $chromeDirectory = Split-Path -Parent $env:CHROME_EXECUTABLE
+          $setupExecutable = Join-Path $chromeDirectory 'setup.exe'
+          if (-not (Test-Path -LiteralPath $setupExecutable -PathType Leaf)) {
+            throw "Chrome for Testing sandbox setup executable is missing"
+          }
+          # The Chrome-provided helper grants its installation capabilities
+          # read/execute access. It returns installer status 78 on success.
+          $setupArgument = '--configure-browser-in-directory="{0}"' -f $chromeDirectory
+          $setupProcess = Start-Process -FilePath $setupExecutable -ArgumentList $setupArgument -Wait -PassThru
+          Write-Host "Chrome sandbox setup exit code: $($setupProcess.ExitCode)"
+          if ($setupProcess.ExitCode -ne 78) { throw "Chrome sandbox permission configuration failed" }
+          & icacls.exe $env:CHROME_EXECUTABLE
+          if ($LASTEXITCODE -ne 0) { throw "Unable to inspect Chrome executable permissions" }
       - name: Record installed browser versions
         shell: bash
         env:

@@ -1,0 +1,34 @@
+{
+  "suite": "portable",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "status": "running",
+  "targets": [
+    "http_compat",
+    "http_actionability",
+    "http_clipped_control",
+    "http_bidi_navigation"
+  ],
+  "cases": [
+    {
+      "target": "http_compat",
+      "command": [
+        "/Users/runner/.cargo/bin/cargo",
+        "test",
+        "--locked",
+        "-p",
+        "rustwright-integration-tests",
+        "--test",
+        "http_compat",
+        "--",
+        "--test-threads=1",
+        "--nocapture"
+      ],
+      "log": "/Users/runner/work/rustwright/rustwright/target/ci/portable/http_compat.log"
+    }
+  ],
+  "browsers": {
+    "RUSTWRIGHT_CHROME": "/Users/runner/hostedtoolcache/setup-chrome/chrome/stable/arm64/Contents/MacOS/Google Chrome for Testing",
+    "RUSTWRIGHT_FIREFOX": "/Users/runner/hostedtoolcache/firefox/157.0.1/arm64/Contents/MacOS/firefox"
+  },
+  "cargo_version": "cargo 1.99.0 (5f94df478 2026-08-27)"
+}

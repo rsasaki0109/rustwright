@@ -1,0 +1,164 @@
+   Compiling rustwright-integration-tests v0.1.0 (/workspace/rustwright/tests)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.91s
+     Running http_compat.rs (target/debug/deps/http_compat-13835e7b87cc4bc8)
+
+running 12 tests
+test chrome_cancelled_wait_recovers ... Chrome version: Chrome/155.0.8059.39
+HTTP compat fixture accepted: 127.0.0.1:60040
+HTTP compat fixture request: peer=127.0.0.1:60040, bytes=655, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:60040, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:60048
+HTTP compat fixture request: peer=127.0.0.1:60048, bytes=582, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:60048, bytes=506, content_type=text/html, write=Ok(())
+ok
+test chrome_closing_page_wakes_wait ... Chrome version: Chrome/155.0.8059.39
+HTTP compat fixture accepted: 127.0.0.1:38010
+HTTP compat fixture request: peer=127.0.0.1:38010, bytes=655, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:38010, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:38024
+HTTP compat fixture accepted: 127.0.0.1:38040
+HTTP compat fixture request: peer=127.0.0.1:38024, bytes=582, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:38024, bytes=506, content_type=text/html, write=Ok(())
+ok
+test chrome_delayed_and_absent_elements ... Chrome version: Chrome/155.0.8059.39
+HTTP compat fixture accepted: 127.0.0.1:51542
+HTTP compat fixture request: peer=127.0.0.1:51542, bytes=655, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:51542, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:51546
+HTTP compat fixture accepted: 127.0.0.1:51556
+HTTP compat fixture accepted: 127.0.0.1:51564
+HTTP compat fixture request: peer=127.0.0.1:51564, bytes=582, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:51564, bytes=506, content_type=text/html, write=Ok(())
+ok
+test chrome_disconnect_wakes_wait ... Chrome version: Chrome/155.0.8059.39
+HTTP compat fixture accepted: 127.0.0.1:41098
+HTTP compat fixture request: peer=127.0.0.1:41098, bytes=655, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:41098, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:41112
+HTTP compat fixture accepted: 127.0.0.1:41120
+HTTP compat fixture request: peer=127.0.0.1:41120, bytes=582, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:41120, bytes=506, content_type=text/html, write=Ok(())
+ok
+test chrome_frame_click ... Chrome version: Chrome/155.0.8059.39
+HTTP compat fixture accepted: 127.0.0.1:34156
+HTTP compat fixture request: peer=127.0.0.1:34156, bytes=655, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:34156, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:34164
+HTTP compat fixture accepted: 127.0.0.1:34172
+HTTP compat fixture accepted: 127.0.0.1:34178
+HTTP compat fixture request: peer=127.0.0.1:34164, bytes=582, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:34164, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture request: peer=127.0.0.1:34178, bytes=728, line=Some("GET /frame.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:34178, bytes=346, content_type=text/html, write=Ok(())
+ok
+test chrome_frame_hover_and_keyboard ... Chrome version: Chrome/155.0.8059.39
+HTTP compat fixture accepted: 127.0.0.1:44568
+HTTP compat fixture request: peer=127.0.0.1:44568, bytes=655, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:44568, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:44570
+HTTP compat fixture accepted: 127.0.0.1:44572
+HTTP compat fixture request: peer=127.0.0.1:44572, bytes=582, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:44572, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:44578
+HTTP compat fixture request: peer=127.0.0.1:44578, bytes=728, line=Some("GET /frame.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:44578, bytes=346, content_type=text/html, write=Ok(())
+ok
+test chrome_frame_reload ... Chrome version: Chrome/155.0.8059.39
+HTTP compat fixture accepted: 127.0.0.1:55086
+HTTP compat fixture request: peer=127.0.0.1:55086, bytes=655, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:55086, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:55102
+HTTP compat fixture accepted: 127.0.0.1:55104
+HTTP compat fixture accepted: 127.0.0.1:55120
+HTTP compat fixture request: peer=127.0.0.1:55120, bytes=582, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:55120, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:55126
+HTTP compat fixture request: peer=127.0.0.1:55126, bytes=704, line=Some("GET /frame.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:55126, bytes=346, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:55128
+HTTP compat fixture request: peer=127.0.0.1:55128, bytes=731, line=Some("GET /frame.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:55128, bytes=346, content_type=text/html, write=Ok(())
+ok
+test chrome_isolated_popup_ownership ... Chrome version: Chrome/155.0.8059.39
+HTTP compat fixture accepted: 127.0.0.1:57560
+HTTP compat fixture request: peer=127.0.0.1:57560, bytes=655, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:57560, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:57568
+HTTP compat fixture request: peer=127.0.0.1:57568, bytes=582, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:57568, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:57580
+HTTP compat fixture request: peer=127.0.0.1:57580, bytes=655, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:57580, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:57586
+HTTP compat fixture request: peer=127.0.0.1:57586, bytes=655, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:57586, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:57596
+HTTP compat fixture request: peer=127.0.0.1:57596, bytes=582, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:57596, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:57610
+HTTP compat fixture request: peer=127.0.0.1:57610, bytes=582, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:57610, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:57618
+HTTP compat fixture request: peer=127.0.0.1:57618, bytes=705, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:57618, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:57632
+HTTP compat fixture request: peer=127.0.0.1:57632, bytes=582, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:57632, bytes=506, content_type=text/html, write=Ok(())
+ok
+test chrome_isolated_storage ... Chrome version: Chrome/155.0.8059.39
+HTTP compat fixture accepted: 127.0.0.1:58694
+HTTP compat fixture accepted: 127.0.0.1:58710
+HTTP compat fixture request: peer=127.0.0.1:58710, bytes=655, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:58710, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:58720
+HTTP compat fixture accepted: 127.0.0.1:58732
+HTTP compat fixture request: peer=127.0.0.1:58720, bytes=582, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:58720, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:58736
+HTTP compat fixture request: peer=127.0.0.1:58736, bytes=655, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:58736, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:58748
+HTTP compat fixture request: peer=127.0.0.1:58748, bytes=655, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:58748, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:58752
+HTTP compat fixture request: peer=127.0.0.1:58752, bytes=582, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:58752, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:58756
+HTTP compat fixture request: peer=127.0.0.1:58756, bytes=582, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:58756, bytes=506, content_type=text/html, write=Ok(())
+ok
+test chrome_javascript_exceptions ... Chrome version: Chrome/155.0.8059.39
+HTTP compat fixture accepted: 127.0.0.1:56886
+HTTP compat fixture request: peer=127.0.0.1:56886, bytes=655, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:56886, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:56890
+HTTP compat fixture accepted: 127.0.0.1:56894
+HTTP compat fixture request: peer=127.0.0.1:56890, bytes=582, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:56890, bytes=506, content_type=text/html, write=Ok(())
+ok
+test chrome_navigation_and_forms ... Chrome version: Chrome/155.0.8059.39
+HTTP compat fixture accepted: 127.0.0.1:43728
+HTTP compat fixture request: peer=127.0.0.1:43728, bytes=655, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:43728, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:43738
+HTTP compat fixture accepted: 127.0.0.1:43746
+HTTP compat fixture request: peer=127.0.0.1:43738, bytes=582, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:43738, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture request: peer=127.0.0.1:43746, bytes=582, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:43746, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:43760
+HTTP compat fixture request: peer=127.0.0.1:43760, bytes=582, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:43760, bytes=506, content_type=text/html, write=Ok(())
+ok
+test chrome_wait_deadline ... Chrome version: Chrome/155.0.8059.39
+HTTP compat fixture accepted: 127.0.0.1:39204
+HTTP compat fixture request: peer=127.0.0.1:39204, bytes=655, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:39204, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:39212
+HTTP compat fixture accepted: 127.0.0.1:39214
+HTTP compat fixture request: peer=127.0.0.1:39212, bytes=582, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:39212, bytes=506, content_type=text/html, write=Ok(())
+ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 12 filtered out; finished in 7.64s
+

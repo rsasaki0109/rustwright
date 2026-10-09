@@ -152,29 +152,17 @@ async fn open(firefox: bool) -> (Fixture, Engine, AnyPage) {
         .await
         .expect("Firefox must start; no skip");
         eprintln!("Firefox version: {:?}", browser.browser_version());
-        eprintln!("HTTP compat Firefox stage: new_page start");
         let page = browser.new_page().await.unwrap().into();
-        eprintln!("HTTP compat Firefox stage: new_page complete");
         (Engine::Firefox(browser), page)
     } else {
         let browser = Browser::launch(Chrome::installed().headless(true))
             .await
             .expect("Chrome must start; no skip");
         eprintln!("Chrome version: {}", browser.version().browser);
-        eprintln!("HTTP compat Chrome stage: new_page start");
-        let page = match tokio::time::timeout(Duration::from_secs(30), browser.new_page()).await {
-            Ok(result) => result.unwrap().into(),
-            Err(error) => {
-                eprintln!("HTTP compat Chrome new_page timed out: {error:?}");
-                chrome_navigation_probe::diagnose_creation(&browser).await;
-                panic!("Initial Chrome page creation exceeded 30 seconds: {error:?}");
-            }
-        };
-        eprintln!("HTTP compat Chrome stage: new_page complete");
+        let page = browser.new_page().await.unwrap().into();
         (Engine::Chrome(browser), page)
     };
     let url = format!("{}/page.html", fixture.base);
-    eprintln!("HTTP compat stage: goto start backend_firefox={firefox}, url={url}");
     if let Err(error) = page.goto(&url).await {
         eprintln!("Original HTTP compat navigation failure: {error:?}");
         if let (Engine::Chrome(browser), AnyPage::Chrome(page)) = (&browser, &page) {
@@ -182,7 +170,6 @@ async fn open(firefox: bool) -> (Fixture, Engine, AnyPage) {
         }
         panic!("Initial HTTP compat navigation failed: {error:?}");
     }
-    eprintln!("HTTP compat stage: goto complete backend_firefox={firefox}");
     (fixture, browser, page)
 }
 
@@ -405,58 +392,27 @@ both!(
 );
 
 async fn cancelled_wait_recovers(firefox: bool) {
-    let (fixture, browser, page) = open(firefox).await;
-    let diagnostic_browser = match &browser {
-        Engine::Chrome(browser) => Some(browser.clone()),
-        Engine::Firefox(_) => None,
-    };
-    let scenario = async {
-        eprintln!("Cancellation stage: replace wait helper start backend_firefox={firefox}");
-        page.evaluate("window.savedWaitFor=window.__rustwright.waitFor;window.__rustwright.waitFor=()=>new Promise(()=>{})").await.unwrap();
-        eprintln!("Cancellation stage: replace wait helper complete backend_firefox={firefox}");
-        let locator = page.locator("#missing");
-        let task = tokio::spawn(async move {
-            locator
-                .wait_for_with_timeout(WaitState::Visible, Duration::from_secs(5))
-                .await
-        });
-        tokio::time::sleep(Duration::from_millis(100)).await;
-        eprintln!("Cancellation stage: wait abort start backend_firefox={firefox}");
-        task.abort();
-        assert!(task.await.unwrap_err().is_cancelled());
-        eprintln!("Cancellation stage: wait abort complete backend_firefox={firefox}");
-        eprintln!("Cancellation stage: restore helper start backend_firefox={firefox}");
-        page.evaluate("window.__rustwright.waitFor=window.savedWaitFor")
+    let (_fixture, browser, page) = open(firefox).await;
+    page.evaluate("window.savedWaitFor=window.__rustwright.waitFor;window.__rustwright.waitFor=()=>new Promise(()=>{})").await.unwrap();
+    let locator = page.locator("#missing");
+    let task = tokio::spawn(async move {
+        locator
+            .wait_for_with_timeout(WaitState::Visible, Duration::from_secs(5))
             .await
-            .unwrap();
-        eprintln!("Cancellation stage: restore helper complete backend_firefox={firefox}");
-        eprintln!("Cancellation stage: visible wait start backend_firefox={firefox}");
-        page.locator("#go")
-            .wait_for_with_timeout(WaitState::Visible, Duration::from_secs(1))
-            .await
-            .unwrap();
-        eprintln!("Cancellation stage: visible wait complete backend_firefox={firefox}");
-        eprintln!("Cancellation stage: title start backend_firefox={firefox}");
-        assert_eq!(page.title().await.unwrap(), "compat");
-        eprintln!("Cancellation stage: title complete backend_firefox={firefox}");
-        eprintln!("Cancellation stage: close start backend_firefox={firefox}");
-        browser.close().await;
-        eprintln!("Cancellation stage: close complete backend_firefox={firefox}");
-    };
-    if let Err(error) = tokio::time::timeout(Duration::from_secs(30), scenario).await {
-        eprintln!("Cancellation scenario after open timed out: {error:?}");
-        if let (Some(browser), AnyPage::Chrome(page)) = (&diagnostic_browser, &page) {
-            chrome_navigation_probe::diagnose(
-                browser,
-                page,
-                &format!("{}/page.html", fixture.base),
-            )
-            .await;
-        }
-        panic!("Cancellation scenario after open exceeded 30 seconds: {error:?}");
-    }
+    });
+    tokio::time::sleep(Duration::from_millis(100)).await;
+    task.abort();
+    assert!(task.await.unwrap_err().is_cancelled());
+    page.evaluate("window.__rustwright.waitFor=window.savedWaitFor")
+        .await
+        .unwrap();
+    page.locator("#go")
+        .wait_for_with_timeout(WaitState::Visible, Duration::from_secs(1))
+        .await
+        .unwrap();
+    assert_eq!(page.title().await.unwrap(), "compat");
+    browser.close().await;
 }
-
 both!(
     chrome_cancelled_wait_recovers,
     firefox_cancelled_wait_recovers,

@@ -1,0 +1,186 @@
+[
+  {
+    "run": "run1",
+    "firefox_version": "157.0.1",
+    "metadata": {
+      "t": 0.420987,
+      "kind": "metadata",
+      "command": [
+        "/workspace/.rustwright-env/firefox-browser",
+        "--headless",
+        "--no-remote",
+        "--profile",
+        "/workspace/rustwright/target/firefox-network-probe/profile-vel951em",
+        "--remote-debugging-port=0",
+        "about:blank"
+      ],
+      "binary": "/workspace/.rustwright-env/firefox/firefox-bin",
+      "binary_sha256": "b3089612093d427f3912dead43f377e65c709e8da4496c2912a84b447a368779",
+      "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]"
+    },
+    "checks": [
+      {
+        "observation": "response completion follows delayed body, not headers",
+        "validated": true,
+        "header_to_completion_seconds": 0.9713779999999999
+      },
+      {
+        "observation": "redirect hops reuse request ID, each hop completes",
+        "validated": true,
+        "redirectCounts": [
+          0,
+          1,
+          2
+        ],
+        "statuses": [
+          302,
+          307,
+          200
+        ]
+      },
+      {
+        "observation": "abort uses fetchError with no responseCompleted",
+        "validated": true
+      },
+      {
+        "observation": "same and cross-origin iframe requests belong to child IDs",
+        "validated": true,
+        "origins": [
+          "127.0.0.1:33181",
+          "127.0.0.1:35755"
+        ]
+      },
+      {
+        "observation": "late subscription emits delayed beforeRequestSent only",
+        "validated": true,
+        "subscription_ack_t": 8.810805,
+        "server_body_end_t": 9.708119,
+        "late_start_t": 9.711171,
+        "no_terminal_observation_seconds": 0.223802
+      }
+    ]
+  },
+  {
+    "run": "run2",
+    "firefox_version": "157.0.1",
+    "metadata": {
+      "t": 0.327917,
+      "kind": "metadata",
+      "command": [
+        "/workspace/.rustwright-env/firefox-browser",
+        "--headless",
+        "--no-remote",
+        "--profile",
+        "/workspace/rustwright/target/firefox-network-probe/run2/profile-us74lnp8",
+        "--remote-debugging-port=0",
+        "about:blank"
+      ],
+      "binary": "/workspace/.rustwright-env/firefox/firefox-bin",
+      "binary_sha256": "b3089612093d427f3912dead43f377e65c709e8da4496c2912a84b447a368779",
+      "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]"
+    },
+    "checks": [
+      {
+        "observation": "response completion follows delayed body, not headers",
+        "validated": true,
+        "header_to_completion_seconds": 0.9627030000000001
+      },
+      {
+        "observation": "redirect hops reuse request ID, each hop completes",
+        "validated": true,
+        "redirectCounts": [
+          0,
+          1,
+          2
+        ],
+        "statuses": [
+          302,
+          307,
+          200
+        ]
+      },
+      {
+        "observation": "abort uses fetchError with no responseCompleted",
+        "validated": true
+      },
+      {
+        "observation": "same and cross-origin iframe requests belong to child IDs",
+        "validated": true,
+        "origins": [
+          "127.0.0.1:36387",
+          "127.0.0.1:39203"
+        ]
+      },
+      {
+        "observation": "late subscription emits delayed beforeRequestSent only",
+        "validated": true,
+        "subscription_ack_t": 8.70698,
+        "server_body_end_t": 9.604193,
+        "late_start_t": 9.607879,
+        "no_terminal_observation_seconds": 2.102431
+      },
+      {
+        "observation": "requests begun after subscription have normal terminal events",
+        "validated": true
+      },
+      {
+        "observation": "short body uses fetchError NS_ERROR_NET_PARTIAL_TRANSFER",
+        "validated": true
+      },
+      {
+        "observation": "removing active iframe aborts request before contextDestroyed",
+        "validated": true
+      },
+      {
+        "observation": "new navigation starts before old document fetch aborts",
+        "validated": true
+      }
+    ]
+  },
+  {
+    "run": "run3",
+    "firefox_version": "157.0.1",
+    "metadata": {
+      "t": 0.355635,
+      "kind": "metadata",
+      "command": [
+        "/workspace/.rustwright-env/firefox-browser",
+        "--headless",
+        "--no-remote",
+        "--profile",
+        "/workspace/rustwright/target/firefox-network-probe/run3/profile-ujinxhpe",
+        "--remote-debugging-port=0",
+        "about:blank"
+      ],
+      "binary": "/workspace/.rustwright-env/firefox/firefox-bin",
+      "binary_sha256": "b3089612093d427f3912dead43f377e65c709e8da4496c2912a84b447a368779",
+      "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]"
+    },
+    "checks": [
+      {
+        "observation": "late subscription emits delayed beforeRequestSent only",
+        "validated": true,
+        "subscription_ack_t": 1.832578,
+        "server_body_end_t": 2.7289,
+        "late_start_t": 2.734845,
+        "no_terminal_observation_seconds": 2.100541
+      },
+      {
+        "observation": "requests begun after subscription have normal terminal events",
+        "validated": true
+      },
+      {
+        "observation": "short body uses fetchError NS_ERROR_NET_PARTIAL_TRANSFER",
+        "validated": true
+      },
+      {
+        "observation": "removing active iframe aborts request before contextDestroyed",
+        "validated": true
+      },
+      {
+        "observation": "new navigation starts before old document fetch aborts",
+        "validated": true
+      }
+    ]
+  }
+]
