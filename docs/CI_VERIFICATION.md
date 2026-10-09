@@ -1,11 +1,113 @@
 # Required browser CI and navigation verification
 
 The current goal is the [95% reliability checkpoint](RELIABILITY_ROADMAP.md)
-before making a broader SOTA claim. The required workflow has now succeeded on
-Linux, macOS and Windows, including the Firefox network-idle implementation.
-Earlier failures and incomplete attempts remain preserved below.
+before making a broader SOTA claim. The completed baseline passed on Linux,
+macOS and Windows with the repaired browser lifecycle and target discovery
+source. Earlier successful stages, failures and incomplete attempts remain
+preserved below. The completed six-job baseline covers the specified headless
+scenarios; the added seventh-job scope has not completed successfully.
+
+## Extended verification: failed setup, local correction, authentication block
+
+[Run 37987315249](https://github.com/rsasaki0109/rustwright/actions/runs/37987315249)
+uses head `be1b065aeff87e5c19e53492a19f4465ba4436f4` and synthetic merge
+`81864cc233628753cc97cdbb19a70cc30a1d4128`. Its added headed/version/site job
+fails during alternate Chrome `151.0.7922.138` sandbox preflight. Installation
+records show the selected bundled helper copied byte-identically as root:root
+mode4755, but the subsequent `--dump-dom` probe produces no fixture DOM before
+the 25-second outer deadline. Cleanup produces exit0; the recorded timeout still
+correctly fails the check. DBus/GCM messages do not establish the hang's cause.
+Both portable phases and public-site observations remain unrun in this attempt.
+
+The last obtainable state has successful Windows, MSRV and package jobs, the
+failed extended job, and workspace/Ubuntu/macOS jobs still running. Later final
+conclusions and remaining artifacts could not be retrieved after GitHub API
+requests began returning HTTP401 `Bad credentials`; native Git access also
+failed authentication. [The partial frozen attempt](ci/results/reliability-95/remote-final-before/README.md)
+retains only downloaded logs, original artifacts, actual conclusions and source
+equality. It is not a completed seven-job run or an inferred final result.
+
+Local correction `3d447e72dfedadfd7c8f4e947a348091a6c8b88d` adds the exact
+Chrome151-tag-supported `--timeout=10000` capture deadline. It retains the
+25-second outer deadline, normal exit0, no outer timeout and required fixture
+title/body checks. Internal capture can stop loading: this proves captured
+fixture DOM when successful, not full load-event delivery. Four controlled owned
+Python-process checks pass, including rejection of timeout despite exit0 and
+full DOM; they launch no actual browser. [Source and controls](ci/results/reliability-95/sandbox-capture-deadline/ARCHIVE_README.md)
+preserve official implementation provenance and the original failure.
+
+The correction is committed locally and has not been pushed or verified by
+native CI. Restored GitHub authentication is required to push it, run the full
+seven-job workflow, retrieve artifacts and finish the 95% assessment. No registry
+publication or SOTA claim follows from these partial observations.
 
 ## Current verified source
+
+[Run 37983300059](https://github.com/rsasaki0109/rustwright/actions/runs/37983300059)
+completes all six jobs successfully for PR head
+`4cdec571a26c64e123a4dde66d4d9b47e8c64f63`. All six checkout logs and all eight
+package VCS records identify the actual tested synthetic merge
+`58ac49fda4fd9c85cf7711b9dc99aef32acd1f82`. Its 152 relevant source, test,
+helper, example, workflow and package-README inputs have identical Git blob IDs
+and file modes to the exact head source archive. The archive embeds head4c;
+the actual merge checkout identity is preserved separately.
+
+Chrome for Testing 155.0.8059.39 and Firefox 157.0.1 execute the required
+headless HTTP scenarios on Ubuntu, Windows and macOS arm64 with their native CI
+sandbox setup.
+
+| Check | Executed result |
+| --- | --- |
+| Portable native HTTP, each of three OSes | 79 passed; zero failed, ignored or filtered |
+| Additional Ubuntu HTTP | 114 passed; zero failed, ignored or filtered |
+| Full Ubuntu workspace | 475 passed; zero failed or filtered; one existing intentionally ignored macro doctest |
+| Library subset of workspace | 211 passed: BiDi 111, core 61, browser 11 and other libraries 28 |
+| `compat_report` example | Four focused tests passed in the workspace command |
+| Build checks | Rust 1.85 locked all-target compilation, stable Clippy and formatting passed |
+| Distribution | Eight actual archives audited, 57 dependency checksums verified, version-only consumers and nine README fences compiled on stable/MSRV |
+| Native distribution entry points | Four consumer cases and both verbatim README programs passed; five PNGs retained |
+
+The full workspace count separates 211 library, four example, 37 legacy
+integration, 193 HTTP integration, 20 runner integration and ten passed doctest
+cases. Only the existing macro doctest is ignored; native, library, integration
+and example suites have zero ignores. The Ubuntu native job repeats the same
+193 HTTP cases, and portable jobs repeat 79 cases on each platform. Do not add
+these overlapping executions as distinct coverage. The 26 shared network-idle
+cases are included in 79. See the
+[Firefox implementation and limits](FIREFOX_NETWORK_IDLE_IMPLEMENTATION.md).
+
+[The repaired remote record](ci/results/reliability-95/remote/) retains the
+completed run/jobs APIs, all six raw job logs, native reports, all five original
+artifact ZIPs with matching official GitHub digests, eight actual package
+archives and the exact comparison of 152 source inputs between head and merge.
+Every package archive retains actual merge58ac in its VCS metadata; its source
+bytes and package fingerprint calculated from 106 inputs are independently
+verified against the head archive. These results are a registry simulation and native consumer check;
+they do not claim registry publication, native headed windows, public-site
+access or comparative SOTA superiority.
+
+Subsequent documentation-only commits can preserve this record without changing
+its tested inputs. The verified head/merge identities above remain explicit,
+rather than asserting that every later documentation HEAD ran CI.
+
+## Earlier stale-target failure
+
+[Run 37979801258](https://github.com/rsasaki0109/rustwright/actions/runs/37979801258)
+for head `908323d38ba036960c41347ecbe2a5dfa8c24271`, actual merge
+`92b05f2057d319cfc0ad2bad1f408e43597fca7c`, completes with five successful jobs
+and one failed workspace job. Its completed summaries contain **294 passed and
+one failed case**: 199 library, four example, 29 legacy and 62 HTTP passes, with
+the HTTP failure at `closed_pages_are_removed_from_the_context_list` returning
+`SessionDetached` during `Page.enable`. Later workspace suites and all doctests
+were unrun; this is a partial result rather than a full workspace pass. The
+[frozen failed record](ci/results/reliability-95/remote-before/) preserves that
+failure, its independently passing native/package/MSRV jobs and the original
+equality of 151 source inputs between head and merge. The repaired current run
+above completes
+the same context-list scenario successfully.
+
+## Earlier Firefox network-idle success
+
 
 [Run 37974358667](https://github.com/rsasaki0109/rustwright/actions/runs/37974358667)
 tests commit `e3bc08e7ce0a117d173bdcde2924165806e8e854` and completes all six

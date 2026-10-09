@@ -1,0 +1,463 @@
+{
+  "completed_local_checks": {
+    "source_commit": "4cdec571a26c64e123a4dde66d4d9b47e8c64f63",
+    "library_totals": {
+      "passed": 211,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0
+    },
+    "seven_check_log_hashes_verified": true
+  },
+  "distribution": {
+    "status": "passed",
+    "actual_project_archives": 8,
+    "third_party_verified_archives": 57,
+    "README_Rust_blocks_compiled": 9,
+    "native_consumer_cases_passed": 4,
+    "README_native_entry_points_passed": 2,
+    "preserved_PNGs": 5,
+    "scope": "verified archives/local registry simulation with stable and Rust1.85 consumers, not registry publication"
+  },
+  "native_attempts": [
+    {
+      "name": "headed-155-157",
+      "report_status": "failed",
+      "completed_suite_results": [
+        {
+          "log": "native/headed-155-157/http_compat.log",
+          "status": "FAILED",
+          "passed": 23,
+          "failed": 1,
+          "ignored": 0,
+          "filtered": 0
+        }
+      ],
+      "native_matrix_success": false,
+      "outer_run_record_present": true,
+      "complete_run_missing": false
+    },
+    {
+      "name": "headed-155-157-fixed",
+      "report_status": "failed",
+      "completed_suite_results": [
+        {
+          "log": "native/headed-155-157-fixed/http_compat.log",
+          "status": "FAILED",
+          "passed": 14,
+          "failed": 10,
+          "ignored": 0,
+          "filtered": 0
+        }
+      ],
+      "native_matrix_success": false,
+      "outer_run_record_present": true,
+      "complete_run_missing": false
+    },
+    {
+      "name": "headed-155-157-serial",
+      "report_status": "failed",
+      "completed_suite_results": [],
+      "native_matrix_success": false,
+      "outer_run_record_present": true,
+      "complete_run_missing": false
+    },
+    {
+      "name": "headless-151-153",
+      "report_status": "failed",
+      "completed_suite_results": [
+        {
+          "log": "native/headless-151-153/http_actionability.log",
+          "status": "ok",
+          "passed": 12,
+          "failed": 0,
+          "ignored": 0,
+          "filtered": 0
+        },
+        {
+          "log": "native/headless-151-153/http_clipped_control.log",
+          "status": "FAILED",
+          "passed": 6,
+          "failed": 4,
+          "ignored": 0,
+          "filtered": 0
+        },
+        {
+          "log": "native/headless-151-153/http_compat.log",
+          "status": "ok",
+          "passed": 24,
+          "failed": 0,
+          "ignored": 0,
+          "filtered": 0
+        }
+      ],
+      "native_matrix_success": false,
+      "outer_run_record_present": true,
+      "complete_run_missing": false
+    },
+    {
+      "name": "container-headed-155-157",
+      "report_status": "running",
+      "completed_suite_results": [],
+      "native_matrix_success": false,
+      "outer_run_record_present": false,
+      "complete_run_missing": true
+    }
+  ],
+  "container_partial_completed_Chrome_cases": 7,
+  "container_final_suite_result_present": false,
+  "container_final_run_json_present": false,
+  "granular_Docker_probe": {
+    "selected_passed": 1,
+    "filtered": 23,
+    "matrix_completed": false
+  },
+  "public_sites": [
+    {
+      "backend": "chrome",
+      "browser_version": "Chrome/155.0.8059.39",
+      "aggregate_status": "operation_failed",
+      "aggregate_exit_code": 1,
+      "sites_observed": 9,
+      "all_operations_succeeded_sites": 6,
+      "observation_counts": {
+        "http_document_observed": 7,
+        "http_access_denied": 1,
+        "browser_error_page": 1
+      },
+      "browser_close_operations": [
+        {
+          "deadline_ms": 25000,
+          "elapsed_ms": 1249,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "browser_launch",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 25000,
+          "elapsed_ms": 185,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "browser_close",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 25000,
+          "elapsed_ms": 0,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "profile_cleanup",
+          "status": "passed"
+        }
+      ],
+      "sites": [
+        {
+          "requested_url": "https://example.com/",
+          "final_url": "https://example.com/",
+          "document_statuses": [
+            200
+          ],
+          "observation": "http_document_observed",
+          "operations_succeeded": true,
+          "page_close_status": "passed",
+          "failed_operations": []
+        },
+        {
+          "requested_url": "https://developer.mozilla.org/en-US/docs/Web",
+          "final_url": "https://developer.mozilla.org/en-US/docs/Web",
+          "document_statuses": [
+            200
+          ],
+          "observation": "http_document_observed",
+          "operations_succeeded": true,
+          "page_close_status": "passed",
+          "failed_operations": []
+        },
+        {
+          "requested_url": "https://docs.rs/",
+          "final_url": "https://docs.rs/",
+          "document_statuses": [
+            200
+          ],
+          "observation": "http_document_observed",
+          "operations_succeeded": true,
+          "page_close_status": "passed",
+          "failed_operations": []
+        },
+        {
+          "requested_url": "https://jp.mercari.com/",
+          "final_url": "https://jp.mercari.com/",
+          "document_statuses": [
+            200
+          ],
+          "observation": "http_document_observed",
+          "operations_succeeded": true,
+          "page_close_status": "passed",
+          "failed_operations": []
+        },
+        {
+          "requested_url": "https://fril.jp/",
+          "final_url": "https://fril.jp/",
+          "document_statuses": [
+            200
+          ],
+          "observation": "http_document_observed",
+          "operations_succeeded": true,
+          "page_close_status": "passed",
+          "failed_operations": []
+        },
+        {
+          "requested_url": "https://x.com/",
+          "final_url": "chrome-error://chromewebdata/",
+          "document_statuses": [
+            403
+          ],
+          "observation": "http_access_denied",
+          "operations_succeeded": false,
+          "page_close_status": "passed",
+          "failed_operations": [
+            {
+              "operation": "navigation",
+              "status": "failed",
+              "error": "navigation failed: net::ERR_HTTP_RESPONSE_CODE_FAILURE"
+            }
+          ]
+        },
+        {
+          "requested_url": "https://www.youtube.com/",
+          "final_url": "chrome-error://chromewebdata/",
+          "document_statuses": [],
+          "observation": "browser_error_page",
+          "operations_succeeded": false,
+          "page_close_status": "passed",
+          "failed_operations": [
+            {
+              "operation": "navigation",
+              "status": "failed",
+              "error": "navigation failed: net::ERR_TUNNEL_CONNECTION_FAILED"
+            }
+          ]
+        },
+        {
+          "requested_url": "https://www.tiktok.com/",
+          "final_url": "https://www.tiktok.com/",
+          "document_statuses": [
+            200
+          ],
+          "observation": "http_document_observed",
+          "operations_succeeded": false,
+          "page_close_status": "passed",
+          "failed_operations": [
+            {
+              "operation": "network_idle",
+              "status": "failed",
+              "error": "timed out after 5s waiting for load state `networkidle`"
+            }
+          ]
+        },
+        {
+          "requested_url": "https://www.instagram.com/",
+          "final_url": "https://www.instagram.com/",
+          "document_statuses": [
+            200
+          ],
+          "observation": "http_document_observed",
+          "operations_succeeded": true,
+          "page_close_status": "passed",
+          "failed_operations": []
+        }
+      ],
+      "scope": "headless recorded public-site observations under explicit environment proxy; natural operation failures retained without reinterpretation as driver defects"
+    },
+    {
+      "backend": "firefox",
+      "browser_version": "157.0.1",
+      "aggregate_status": "operation_failed",
+      "aggregate_exit_code": 1,
+      "sites_observed": 9,
+      "all_operations_succeeded_sites": 6,
+      "observation_counts": {
+        "http_document_observed": 8,
+        "document_status_unknown": 1
+      },
+      "browser_close_operations": [
+        {
+          "deadline_ms": 25000,
+          "elapsed_ms": 0,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "profile_prepare",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 25000,
+          "elapsed_ms": 2455,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "browser_launch",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 25000,
+          "elapsed_ms": 46,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "browser_close",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 25000,
+          "elapsed_ms": 31,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "profile_cleanup",
+          "status": "passed"
+        }
+      ],
+      "sites": [
+        {
+          "requested_url": "https://example.com/",
+          "final_url": "https://example.com/",
+          "document_statuses": [
+            200,
+            200
+          ],
+          "observation": "http_document_observed",
+          "operations_succeeded": true,
+          "page_close_status": "passed",
+          "failed_operations": []
+        },
+        {
+          "requested_url": "https://developer.mozilla.org/en-US/docs/Web",
+          "final_url": "https://developer.mozilla.org/en-US/docs/Web",
+          "document_statuses": [
+            200,
+            200
+          ],
+          "observation": "http_document_observed",
+          "operations_succeeded": true,
+          "page_close_status": "passed",
+          "failed_operations": []
+        },
+        {
+          "requested_url": "https://docs.rs/",
+          "final_url": "https://docs.rs/",
+          "document_statuses": [
+            200,
+            200
+          ],
+          "observation": "http_document_observed",
+          "operations_succeeded": true,
+          "page_close_status": "passed",
+          "failed_operations": []
+        },
+        {
+          "requested_url": "https://jp.mercari.com/",
+          "final_url": "https://jp.mercari.com/",
+          "document_statuses": [
+            200,
+            200
+          ],
+          "observation": "http_document_observed",
+          "operations_succeeded": false,
+          "page_close_status": "passed",
+          "failed_operations": [
+            {
+              "operation": "network_idle",
+              "status": "failed",
+              "error": "bidi command `network idle` timed out after 5s"
+            }
+          ]
+        },
+        {
+          "requested_url": "https://fril.jp/",
+          "final_url": "https://fril.jp/",
+          "document_statuses": [
+            200,
+            200
+          ],
+          "observation": "http_document_observed",
+          "operations_succeeded": true,
+          "page_close_status": "passed",
+          "failed_operations": []
+        },
+        {
+          "requested_url": "https://x.com/",
+          "final_url": "https://x.com/",
+          "document_statuses": [
+            200,
+            200
+          ],
+          "observation": "http_document_observed",
+          "operations_succeeded": true,
+          "page_close_status": "passed",
+          "failed_operations": []
+        },
+        {
+          "requested_url": "https://www.youtube.com/",
+          "final_url": "https://www.youtube.com/",
+          "document_statuses": [],
+          "observation": "document_status_unknown",
+          "operations_succeeded": false,
+          "page_close_status": "passed",
+          "failed_operations": [
+            {
+              "operation": "navigation",
+              "status": "failed",
+              "error": "bidi command `browsingContext.navigate` failed: unknown error: Error: NS_ERROR_PROXY_FORBIDDEN"
+            }
+          ]
+        },
+        {
+          "requested_url": "https://www.tiktok.com/",
+          "final_url": "https://www.tiktok.com/",
+          "document_statuses": [
+            200,
+            200
+          ],
+          "observation": "http_document_observed",
+          "operations_succeeded": false,
+          "page_close_status": "passed",
+          "failed_operations": [
+            {
+              "operation": "network_idle",
+              "status": "failed",
+              "error": "bidi command `network idle` timed out after 5s"
+            }
+          ]
+        },
+        {
+          "requested_url": "https://www.instagram.com/",
+          "final_url": "https://www.instagram.com/",
+          "document_statuses": [
+            200,
+            200
+          ],
+          "observation": "http_document_observed",
+          "operations_succeeded": true,
+          "page_close_status": "passed",
+          "failed_operations": []
+        }
+      ],
+      "scope": "headless recorded public-site observations under explicit environment proxy; natural operation failures retained without reinterpretation as driver defects"
+    }
+  ],
+  "resource_pressure": {
+    "observed_zombies": 27449,
+    "observed_zombie_parent_pid": 1,
+    "initial_census_available": false,
+    "attribution": "No initial census; all accumulated zombies cannot be attributed to this change or this run. pthread/thread failures are observed; ancestor quota is a hypothesis, not independently proven."
+  },
+  "provenance": {
+    "Docker_commands": "commands.json is an exact post-execution transcription by root from tool calls, not a pre-execution snapshot.",
+    "initial_external_helper": "runner-sources/runner-initial.py is a reconstructed earlier version obtained by reversing only the known --mode option delta, not an automatic pre-execution snapshot.",
+    "environment_trust_probes": "These happened before the final compat_report binary build; no final-source full-site success is inferred."
+  },
+  "limits": [
+    "Local headed155/157 and headless151/153 portable matrices failed or were interrupted; not final-matrix proof.",
+    "Recorded Xvfb browser windows do not turn incomplete native tests into passes or prove physical-display visibility.",
+    "No completed run.json is fabricated for the interrupted container; running-state metadata is historical.",
+    "No broad SOTA, leak-freedom, descendant-process cleanup, registry publication, public-site universality, or latency claim."
+  ]
+}

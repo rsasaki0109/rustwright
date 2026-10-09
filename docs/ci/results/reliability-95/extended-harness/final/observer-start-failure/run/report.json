@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "started_utc": "2026-10-09T20:28:04.667291+00:00",
+  "status": "failed",
+  "commands": [
+    {
+      "name": "version-chrome_current",
+      "command": [
+        "/workspace/rustwright/target/reliability95/hosted-extended-setup/checks/observer-start-failure/chrome_current",
+        "--version"
+      ],
+      "started_utc": "2026-10-09T20:28:04.667608+00:00",
+      "environment": {
+        "DISPLAY": ":synthetic",
+        "RUSTWRIGHT_CHROME": null,
+        "RUSTWRIGHT_FIREFOX": null,
+        "CHROME_DEVEL_SANDBOX": null,
+        "RUSTWRIGHT_HEADLESS": null,
+        "RUSTWRIGHT_RETRIES": null
+      },
+      "log": "/workspace/rustwright/target/reliability95/hosted-extended-setup/checks/observer-start-failure/run/version-chrome_current.log",
+      "status": "passed",
+      "exit_code": 0,
+      "finished_utc": "2026-10-09T20:28:04.671818+00:00",
+      "duration_seconds": 0.004087619003257714
+    },
+    {
+      "name": "version-firefox_current",
+      "command": [
+        "/workspace/rustwright/target/reliability95/hosted-extended-setup/checks/observer-start-failure/firefox_current",
+        "--version"
+      ],
+      "started_utc": "2026-10-09T20:28:04.672230+00:00",
+      "environment": {
+        "DISPLAY": ":synthetic",
+        "RUSTWRIGHT_CHROME": null,
+        "RUSTWRIGHT_FIREFOX": null,
+        "CHROME_DEVEL_SANDBOX": null,
+        "RUSTWRIGHT_HEADLESS": null,
+        "RUSTWRIGHT_RETRIES": null
+      },
+      "log": "/workspace/rustwright/target/reliability95/hosted-extended-setup/checks/observer-start-failure/run/version-firefox_current.log",
+      "status": "passed",
+      "exit_code": 0,
+      "finished_utc": "2026-10-09T20:28:04.674252+00:00",
+      "duration_seconds": 0.0016331440056092106
+    },
+    {
+      "name": "version-chrome_previous",
+      "command": [
+        "/workspace/rustwright/target/reliability95/hosted-extended-setup/checks/observer-start-failure/chrome_previous",
+        "--version"
+      ],
+      "started_utc": "2026-10-09T20:28:04.674760+00:00",
+      "environment": {
+        "DISPLAY": ":synthetic",
+        "RUSTWRIGHT_CHROME": null,
+        "RUSTWRIGHT_FIREFOX": null,
+        "CHROME_DEVEL_SANDBOX": null,
+        "RUSTWRIGHT_HEADLESS": null,
+        "RUSTWRIGHT_RETRIES": null
+      },
+      "log": "/workspace/rustwright/target/reliability95/hosted-extended-setup/checks/observer-start-failure/run/version-chrome_previous.log",
+      "status": "passed",
+      "exit_code": 0,
+      "finished_utc": "2026-10-09T20:28:04.676660+00:00",
+      "duration_seconds": 0.001626345001568552
+    },
+    {
+      "name": "version-firefox_esr",
+      "command": [
+        "/workspace/rustwright/target/reliability95/hosted-extended-setup/checks/observer-start-failure/firefox_esr",
+        "--version"
+      ],
+      "started_utc": "2026-10-09T20:28:04.677273+00:00",
+      "environment": {
+        "DISPLAY": ":synthetic",
+        "RUSTWRIGHT_CHROME": null,
+        "RUSTWRIGHT_FIREFOX": null,
+        "CHROME_DEVEL_SANDBOX": null,
+        "RUSTWRIGHT_HEADLESS": null,
+        "RUSTWRIGHT_RETRIES": null
+      },
+      "log": "/workspace/rustwright/target/reliability95/hosted-extended-setup/checks/observer-start-failure/run/version-firefox_esr.log",
+      "status": "passed",
+      "exit_code": 0,
+      "finished_utc": "2026-10-09T20:28:04.679214+00:00",
+      "duration_seconds": 0.0016099779968499206
+    },
+    {
+      "name": "headed-current",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/workspace/rustwright/scripts/ci/browser_checks.py",
+        "--suite",
+        "portable",
+        "--output",
+        "/workspace/rustwright/target/reliability95/hosted-extended-setup/checks/observer-start-failure/run/headed-current",
+        "--headed"
+      ],
+      "started_utc": "2026-10-09T20:28:04.679941+00:00",
+      "environment": {
+        "DISPLAY": ":synthetic",
+        "RUSTWRIGHT_CHROME": "/workspace/rustwright/target/reliability95/hosted-extended-setup/checks/observer-start-failure/chrome_current",
+        "RUSTWRIGHT_FIREFOX": "/workspace/rustwright/target/reliability95/hosted-extended-setup/checks/observer-start-failure/firefox_current",
+        "CHROME_DEVEL_SANDBOX": null,
+        "RUSTWRIGHT_HEADLESS": "0",
+        "RUSTWRIGHT_RETRIES": "0"
+      },
+      "log": "/workspace/rustwright/target/reliability95/hosted-extended-setup/checks/observer-start-failure/run/headed-current.log",
+      "status": "failed",
+      "parent_error": "RuntimeError: controlled observer startup failure",
+      "cleanup": {
+        "process_group": 1918529,
+        "direct_child_reaped": true,
+        "deadline_seconds": 5,
+        "errors": []
+      },
+      "exit_code": -9,
+      "mapped_windows": {},
+      "window_observer_error": null,
+      "finished_utc": "2026-10-09T20:28:04.682009+00:00",
+      "duration_seconds": 0.0017432450040359981
+    }
+  ],
+  "expected_versions": {
+    "chrome_current": "155.0.8059.39",
+    "firefox_current": "157.0.1",
+    "chrome_previous": "151.0.7922.138",
+    "firefox_esr": "153.4.0esr"
+  },
+  "expected_protocol_versions": {
+    "chrome_current": "155.0.8059.39",
+    "firefox_current": "157.0.1",
+    "chrome_previous": "151.0.7922.138",
+    "firefox_esr": "153.4.0"
+  },
+  "sites": [
+    "https://example.com/",
+    "https://developer.mozilla.org/en-US/docs/Web",
+    "https://docs.rs/"
+  ],
+  "http_status_policy": "HTTP denial/error observations remain separate from mandatory successful browser operations",
+  "window_proof_scope": "X11 IsViewable WM_CLASS and live PID descendant observed during each headed command",
+  "proxy_policy": "compat_report has no proxy argument; browser default TLS verification",
+  "browsers": {
+    "chrome_current": {
+      "path": "/workspace/rustwright/target/reliability95/hosted-extended-setup/checks/observer-start-failure/chrome_current",
+      "version_output": "155.0.8059.39"
+    },
+    "firefox_current": {
+      "path": "/workspace/rustwright/target/reliability95/hosted-extended-setup/checks/observer-start-failure/firefox_current",
+      "version_output": "157.0.1"
+    },
+    "chrome_previous": {
+      "path": "/workspace/rustwright/target/reliability95/hosted-extended-setup/checks/observer-start-failure/chrome_previous",
+      "version_output": "151.0.7922.138"
+    },
+    "firefox_esr": {
+      "path": "/workspace/rustwright/target/reliability95/hosted-extended-setup/checks/observer-start-failure/firefox_esr",
+      "version_output": "153.4.0esr"
+    }
+  },
+  "error": "controlled observer startup failure",
+  "finished_utc": "2026-10-09T20:28:04.682408+00:00"
+}

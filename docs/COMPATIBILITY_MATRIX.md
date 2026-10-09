@@ -32,13 +32,22 @@ Run with both browsers installed, or select their executables through
 cargo test --locked -p rustwright-integration-tests --test http_compat -- --test-threads=1
 ```
 
-[GitHub Actions run 37974358667](https://github.com/rsasaki0109/rustwright/actions/runs/37974358667)
-at source `e3bc08e7ce0a117d173bdcde2924165806e8e854` passes all six jobs.
+[GitHub Actions run 37983300059](https://github.com/rsasaki0109/rustwright/actions/runs/37983300059)
+for source `4cdec571a26c64e123a4dde66d4d9b47e8c64f63` passes all six jobs.
+The actual PR checkout is merge `58ac49fda4fd9c85cf7711b9dc99aef32acd1f82`;
+all 152 relevant source blobs and modes match that head commit.
 Its five required portable targets execute 79 cases per OS on native Ubuntu,
 Windows and macOS arm64 with Chrome 155.0.8059.39 and Firefox 157.0.1.
-The 24 compatibility cases above are included in 79, rather than added to it.
-[Exact-source CI evidence](CI_VERIFICATION.md) records the full workspace,
-114 additional Ubuntu HTTP cases and verified native sandbox setup.
+These headless native suites have zero failed, ignored or filtered cases.
+The 24 compatibility cases above are included in 79. Ubuntu executes 114
+additional HTTP cases, for 193; those same HTTP cases also execute in the
+workspace job and are not counted twice as distinct coverage. The full workspace
+passes 475 cases, including 211 library tests, with one existing ignored macro
+doctest and zero failures or filters.
+[Frozen CI evidence](ci/results/reliability-95/remote/README.md) preserves the
+checkout identity, raw counts, browser versions, native sandbox setup and
+verified eight-archive distribution. [CI verification](CI_VERIFICATION.md)
+records the historical failed attempts separately.
 
 The separate `http_disconnect` target force-terminates a browser root process
 after an unresolved evaluation and a locator wait have entered its document.
@@ -68,6 +77,30 @@ cleanup or runtime shutdown cannot establish remote reclamation.
 ```sh
 cargo test --locked -p rustwright-integration-tests --test http_creation -- --test-threads=1
 ```
+
+Browser startup now owns the child immediately after spawn and Chrome's temporary
+profile before readiness can suspend or fail. Startup timeout, cancellation and
+early-exit regressions that failed before the correction now verify child
+termination and reaping before owned-profile removal. Caller-owned Firefox and
+persistent Chrome profiles remain intact; Chrome startup failure logs remain
+readable outside the temporary profile. A successful temporary Chrome owner
+removes its log on Drop. [Startup ownership evidence](ci/results/reliability-95/startup-ownership/EVIDENCE.md)
+also verifies successful readiness transfers ownership to the returned handle.
+[Twenty native cancellations](ci/results/reliability-95/native-startup/README.md)
+observe ten Chrome 155 and ten Firefox 157 processes executing their actual
+browser binary before API handoff, then verify direct-child reaping and profile
+ownership. These checks cover early startup and the direct owned child;
+descendant trees, later startup stages, OS kill refusal and a hard deadline for
+synchronous kill/wait or filesystem cleanup remain outside that guarantee.
+
+Chrome target discovery also handles a tab disappearing after a target snapshot
+and successful attachment, while `Page.enable` is still pending. A typed detached
+session is skipped only after browser-level `Target.getTargetInfo` returns the
+exact missing-target error. A live target's initialization error, other protocol
+errors, context closure and socket loss remain errors. [Discovery closure evidence](ci/results/reliability-95/discovery-closure/EVIDENCE.md)
+preserves eight controlled cases, the original CI failure and ten passing native
+Chrome 155 context cases; the repaired source also passes the full CI workspace
+recorded above. This verification adds no retry or blanket error suppression.
 
 Separate `http_actionability` and `http_clipped_control` targets add twelve and
 ten passing native tests, respectively. Both backends cover disabled fieldset/ARIA
@@ -123,8 +156,13 @@ missing historical activity reconstruction are outside that guarantee.
 Firefox's `BidiContext::pages` is async discovery, whereas Chrome also exposes
 `BrowserContext::wait_for_page`; the shared popup case checks context-scoped
 discovery and ownership. Downloads remain documented as CDP-only; a Firefox
-download implementation is outside this matrix. Headed browsers, real-site
-compatibility and broader browser versions need further evidence. The required
+download implementation is outside this matrix. Additional headed sessions,
+representative public-site observations and broader version checks are still in
+progress; their outcomes are not included here. The added hosted job failed
+alternate Chrome151's sandbox preflight before those phases; the local
+DOM-capture correction awaits push and native verification after GitHub
+authentication is restored. [The blocked checkpoint](RELIABILITY_95_CHECKPOINT.md)
+retains the partial attempt and failures. The required
 portable targets have native Windows/macOS evidence, and Ubuntu CI passes the
 full workspace including legacy file/data fixtures. Local cloud HTTP results
 alone do not establish that full suite. The [Linux endurance observations](../bench/endurance/RESULTS.md)

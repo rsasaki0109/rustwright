@@ -1,0 +1,306 @@
+{
+  "scope": "Real owned controlled Unix processes without browser endpoints; startup timeout/cancellation/early exit and successful readiness ownership transfer. Not native browser compatibility or descendant-process proof.",
+  "before_source": "before-source/",
+  "after_source": "after-source/",
+  "same_six_regression_test_bodies_verified": true,
+  "stages": {
+    "before": {
+      "status": "FAILED",
+      "passed": 4,
+      "failed": 6,
+      "ignored": 0,
+      "filtered": 0,
+      "observations": [
+        {
+          "caller_sentinel_preserved": true,
+          "case": "firefox_cancellation",
+          "error_log": null,
+          "error_log_preserved": null,
+          "launcher_owned_profile": false,
+          "owned_process_still_present": true,
+          "pid": 1753455,
+          "profile": "/tmp/rw-startup-owner-1753452-1791573386623815191-1/caller-profile",
+          "profile_exists": true
+        },
+        {
+          "caller_sentinel_preserved": true,
+          "case": "firefox_timeout",
+          "error_log": "/tmp/rustwright-firefox-1753452-1791573386652822186-4.log",
+          "error_log_preserved": true,
+          "launcher_owned_profile": false,
+          "owned_process_still_present": true,
+          "pid": 1753461,
+          "profile": "/tmp/rw-startup-owner-1753452-1791573386652724987-3/caller-profile",
+          "profile_exists": true
+        },
+        {
+          "caller_sentinel_preserved": false,
+          "case": "chrome_early_exit",
+          "error_log": "/tmp/rustwright-1753452-1791573386917444589-6/rustwright-chrome.log",
+          "error_log_preserved": true,
+          "launcher_owned_profile": true,
+          "owned_process_still_present": false,
+          "pid": 1753467,
+          "profile": "/tmp/rustwright-1753452-1791573386917444589-6",
+          "profile_exists": true
+        },
+        {
+          "caller_sentinel_preserved": false,
+          "case": "chrome_cancellation",
+          "error_log": null,
+          "error_log_preserved": null,
+          "launcher_owned_profile": true,
+          "owned_process_still_present": true,
+          "pid": 1753471,
+          "profile": "/tmp/rustwright-1753452-1791573386931727388-8",
+          "profile_exists": true
+        },
+        {
+          "caller_sentinel_preserved": true,
+          "case": "chrome_persistent_timeout",
+          "error_log": "/tmp/rw-startup-owner-1753452-1791573386943478243-9/caller-profile/rustwright-chrome.log",
+          "error_log_preserved": true,
+          "launcher_owned_profile": false,
+          "owned_process_still_present": true,
+          "pid": 1753477,
+          "profile": "/tmp/rw-startup-owner-1753452-1791573386943478243-9/caller-profile",
+          "profile_exists": true
+        },
+        {
+          "caller_sentinel_preserved": false,
+          "case": "chrome_timeout",
+          "error_log": "/tmp/rustwright-1753452-1791573387204944651-11/rustwright-chrome.log",
+          "error_log_preserved": true,
+          "launcher_owned_profile": true,
+          "owned_process_still_present": true,
+          "pid": 1753483,
+          "profile": "/tmp/rustwright-1753452-1791573387204944651-11",
+          "profile_exists": true
+        }
+      ]
+    },
+    "after": {
+      "status": "ok",
+      "passed": 10,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0,
+      "observations": [
+        {
+          "caller_sentinel_preserved": true,
+          "case": "firefox_cancellation",
+          "error_log": null,
+          "error_log_preserved": null,
+          "launcher_owned_profile": false,
+          "owned_process_still_present": false,
+          "pid": 1754166,
+          "profile": "/tmp/rw-startup-owner-1754163-1791573485987802533-1/caller-profile",
+          "profile_exists": true
+        },
+        {
+          "caller_sentinel_preserved": true,
+          "case": "firefox_timeout",
+          "error_log": "/tmp/rustwright-firefox-1754163-1791573485997003915-4.log",
+          "error_log_preserved": true,
+          "launcher_owned_profile": false,
+          "owned_process_still_present": false,
+          "pid": 1754170,
+          "profile": "/tmp/rw-startup-owner-1754163-1791573485996847758-3/caller-profile",
+          "profile_exists": true
+        },
+        {
+          "caller_sentinel_preserved": false,
+          "case": "chrome_early_exit",
+          "error_log": "/tmp/rustwright-chrome-1754163-1791573486259554118-7.log",
+          "error_log_preserved": true,
+          "launcher_owned_profile": true,
+          "owned_process_still_present": false,
+          "pid": 1754180,
+          "profile": "/tmp/rustwright-1754163-1791573486259547406-6",
+          "profile_exists": false
+        },
+        {
+          "caller_sentinel_preserved": false,
+          "case": "chrome_cancellation",
+          "error_log": null,
+          "error_log_preserved": null,
+          "launcher_owned_profile": true,
+          "owned_process_still_present": false,
+          "pid": 1754186,
+          "profile": "/tmp/rustwright-1754163-1791573486274250108-9",
+          "profile_exists": false
+        },
+        {
+          "caller_sentinel_preserved": true,
+          "case": "chrome_persistent_timeout",
+          "error_log": "/tmp/rw-startup-owner-1754163-1791573486283549291-11/caller-profile/rustwright-chrome.log",
+          "error_log_preserved": true,
+          "launcher_owned_profile": false,
+          "owned_process_still_present": false,
+          "pid": 1754190,
+          "profile": "/tmp/rw-startup-owner-1754163-1791573486283549291-11/caller-profile",
+          "profile_exists": true
+        },
+        {
+          "caller_sentinel_preserved": false,
+          "case": "chrome_timeout",
+          "error_log": "/tmp/rustwright-chrome-1754163-1791573486544699857-14.log",
+          "error_log_preserved": true,
+          "launcher_owned_profile": true,
+          "owned_process_still_present": false,
+          "pid": 1754195,
+          "profile": "/tmp/rustwright-1754163-1791573486544692726-13",
+          "profile_exists": false
+        }
+      ]
+    },
+    "after-transfer-control": {
+      "status": "ok",
+      "passed": 11,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0,
+      "observations": [
+        {
+          "caller_sentinel_preserved": true,
+          "case": "firefox_cancellation",
+          "error_log": null,
+          "error_log_preserved": null,
+          "launcher_owned_profile": false,
+          "owned_process_still_present": false,
+          "pid": 1754457,
+          "profile": "/tmp/rw-startup-owner-1754454-1791573550880929208-1/caller-profile",
+          "profile_exists": true
+        },
+        {
+          "caller_sentinel_preserved": true,
+          "case": "firefox_timeout",
+          "error_log": "/tmp/rustwright-firefox-1754454-1791573550892133845-4.log",
+          "error_log_preserved": true,
+          "launcher_owned_profile": false,
+          "owned_process_still_present": false,
+          "pid": 1754461,
+          "profile": "/tmp/rw-startup-owner-1754454-1791573550892006521-3/caller-profile",
+          "profile_exists": true
+        },
+        {
+          "caller_sentinel_preserved": false,
+          "case": "chrome_early_exit",
+          "error_log": "/tmp/rustwright-chrome-1754454-1791573551154130923-7.log",
+          "error_log_preserved": true,
+          "launcher_owned_profile": true,
+          "owned_process_still_present": false,
+          "pid": 1754466,
+          "profile": "/tmp/rustwright-1754454-1791573551154124570-6",
+          "profile_exists": false
+        },
+        {
+          "caller_sentinel_preserved": false,
+          "case": "chrome_ready_owner_drop",
+          "error_log": null,
+          "error_log_preserved": null,
+          "launcher_owned_profile": true,
+          "owned_process_still_present": false,
+          "pid": 1754473,
+          "profile": "/tmp/rustwright-1754454-1791573551173058349-9",
+          "profile_exists": false
+        },
+        {
+          "caller_sentinel_preserved": false,
+          "case": "chrome_cancellation",
+          "error_log": null,
+          "error_log_preserved": null,
+          "launcher_owned_profile": true,
+          "owned_process_still_present": false,
+          "pid": 1754480,
+          "profile": "/tmp/rustwright-1754454-1791573551191498452-12",
+          "profile_exists": false
+        },
+        {
+          "caller_sentinel_preserved": true,
+          "case": "chrome_persistent_timeout",
+          "error_log": "/tmp/rw-startup-owner-1754454-1791573551204177447-14/caller-profile/rustwright-chrome.log",
+          "error_log_preserved": true,
+          "launcher_owned_profile": false,
+          "owned_process_still_present": false,
+          "pid": 1754485,
+          "profile": "/tmp/rw-startup-owner-1754454-1791573551204177447-14/caller-profile",
+          "profile_exists": true
+        },
+        {
+          "caller_sentinel_preserved": false,
+          "case": "chrome_timeout",
+          "error_log": "/tmp/rustwright-chrome-1754454-1791573551465897359-17.log",
+          "error_log_preserved": true,
+          "launcher_owned_profile": true,
+          "owned_process_still_present": false,
+          "pid": 1754489,
+          "profile": "/tmp/rustwright-1754454-1791573551465888524-16",
+          "profile_exists": false
+        }
+      ]
+    }
+  },
+  "commands": [
+    {
+      "command": "cargo test --locked -p rustwright-browser --lib -- --test-threads=1 --nocapture",
+      "log": "before.log",
+      "exit_code": 101
+    },
+    {
+      "command": "cargo test --locked -p rustwright-browser --lib -- --test-threads=1 --nocapture",
+      "log": "after.log",
+      "exit_code": 0
+    },
+    {
+      "command": "cargo test --locked -p rustwright-browser --lib -- --test-threads=1 --nocapture",
+      "log": "after-transfer-control.log",
+      "exit_code": 0
+    },
+    {
+      "command": "cargo clippy --locked -p rustwright-browser --all-targets -- -D warnings",
+      "log": "clippy.log",
+      "completed": true
+    },
+    {
+      "command": "cargo +1.85.0 check --locked -p rustwright-browser --all-targets",
+      "log": "msrv.log",
+      "completed": true
+    }
+  ],
+  "checks": [
+    {
+      "command": [
+        "rustfmt",
+        "--edition",
+        "2021",
+        "--check",
+        "crates/rustwright-browser/src/launch.rs",
+        "crates/rustwright-browser/src/firefox.rs"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check",
+        "--",
+        "crates/rustwright-browser/src/launch.rs",
+        "crates/rustwright-browser/src/firefox.rs"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "limits": [
+    "Only directly owned Child is terminated/reaped; descendant trees are not covered.",
+    "Synchronous OS kill/wait and filesystem removal are not given a hard wall-clock deadline.",
+    "OS kill/reap failure is warned and an ephemeral profile is retained if exit is unconfirmed; no guarantee against OS refusal.",
+    "Persistent Chrome and explicitly provided Firefox profiles belong to the caller and are not removed.",
+    "Startup-failure/cancellation Chrome logs remain outside cleaned ephemeral profiles; successful ephemeral owners remove their logs on Drop."
+  ]
+}

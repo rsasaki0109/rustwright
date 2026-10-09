@@ -1,0 +1,4 @@
+#!/bin/sh
+# Keep heaptrack instrumentation in the Rust driver, not its browser child.
+unset LD_PRELOAD DUMP_HEAPTRACK_OUTPUT
+exec /workspace/.rustwright-env/firefox-browser "$@"

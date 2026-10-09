@@ -1,0 +1,62 @@
+[
+  {
+    "name": "headed-no-display",
+    "command": [
+      "python3",
+      "scripts/ci/browser_checks.py",
+      "--headed",
+      "--output",
+      "target/reliability95/headed/headed-no-display"
+    ],
+    "exit_code": 1,
+    "report": "target/reliability95/headed/headed-no-display/report.json",
+    "error": "Headed Linux browsers require DISPLAY or WAYLAND_DISPLAY"
+  },
+  {
+    "name": "headed-linux-extra",
+    "command": [
+      "python3",
+      "scripts/ci/browser_checks.py",
+      "--headed",
+      "--suite",
+      "linux-extra",
+      "--output",
+      "target/reliability95/headed/headed-linux-extra"
+    ],
+    "exit_code": 1,
+    "report": "target/reliability95/headed/headed-linux-extra/report.json",
+    "error": "--headed is supported only for the portable suite"
+  },
+  {
+    "name": "unchanged-portable-selection",
+    "command": [
+      "python3",
+      "scripts/ci/browser_checks.py",
+      "--list"
+    ],
+    "exit_code": 0,
+    "targets": [
+      "http_compat",
+      "http_actionability",
+      "http_clipped_control",
+      "http_bidi_navigation",
+      "http_network_idle_parity"
+    ]
+  },
+  {
+    "name": "scoped-whitespace",
+    "command": [
+      "git",
+      "diff",
+      "--check",
+      "--",
+      "scripts/ci/browser_checks.py",
+      "tests/http_compat.rs",
+      "tests/http_actionability.rs",
+      "tests/http_clipped_control.rs",
+      "tests/http_bidi_navigation.rs",
+      "tests/http_network_idle_parity.rs"
+    ],
+    "exit_code": 0
+  }
+]

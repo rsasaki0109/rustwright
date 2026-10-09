@@ -1,0 +1,478 @@
+{
+  "backend": "firefox",
+  "browser": {
+    "backend": "firefox",
+    "capabilities": {
+      "acceptInsecureCerts": false,
+      "browserName": "firefox",
+      "browserVersion": "157.0.1",
+      "moz:buildID": "20261005135250",
+      "moz:headless": true,
+      "moz:platformVersion": "6.18.44",
+      "moz:processID": 1754646,
+      "moz:profile": "/workspace/rustwright/target/reliability95/sites/trusted-proxy-probe-firefox/firefox-profile",
+      "moz:shutdownTimeout": 60000,
+      "platformName": "linux",
+      "setWindowRect": true,
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:157.0) Gecko/20100101 Firefox/157.0"
+    },
+    "session_id": "0f3e569b-38b1-442f-b2ff-91967c7a9394",
+    "version": "157.0.1"
+  },
+  "certificate_policy": "Firefox enterprise system CA roots; certificate verification enabled",
+  "diagnostic_limits": "event snapshots end before page close; Chrome backend has no public lost-event counter; Firefox cap/lag is explicit; a timed-out subscription can remain active until page/browser close",
+  "firefox_profile": "target/reliability95/sites/trusted-proxy-probe-firefox/firefox-profile",
+  "headed_requested": false,
+  "idle_timeout_seconds": 5,
+  "mode_verification": "requested launch flags and environment preflight; native window visibility is not probed",
+  "operations": [
+    {
+      "deadline_ms": 20000,
+      "elapsed_ms": 0,
+      "error": null,
+      "failure_attribution": null,
+      "operation": "profile_prepare",
+      "status": "passed"
+    },
+    {
+      "deadline_ms": 20000,
+      "elapsed_ms": 1349,
+      "error": null,
+      "failure_attribution": null,
+      "operation": "browser_launch",
+      "status": "passed"
+    },
+    {
+      "deadline_ms": 20000,
+      "elapsed_ms": 78,
+      "error": null,
+      "failure_attribution": null,
+      "operation": "browser_close",
+      "status": "passed"
+    },
+    {
+      "deadline_ms": 20000,
+      "elapsed_ms": 14,
+      "error": null,
+      "failure_attribution": null,
+      "operation": "profile_cleanup",
+      "status": "passed"
+    }
+  ],
+  "persistent_profile_requested": false,
+  "platform": {
+    "arch": "x86_64",
+    "os": "linux"
+  },
+  "proxy": "http://proxy:8080",
+  "proxy_policy": "explicit proxy only; localhost/loopback bypass; no credentials stored",
+  "purpose": "read-only site observations; HTTP denial is not a driver-defect attribution",
+  "requested_profile": null,
+  "schema_version": 1,
+  "sites": [
+    {
+      "diagnostics": {
+        "capture": {
+          "complete": true,
+          "drain_truncated": false,
+          "dropped_events": 0,
+          "events": [
+            {
+              "method": "browsingContext.navigationStarted",
+              "params": {
+                "context": "be760dd7-1e4c-4fc7-a12f-39e247d1b277",
+                "navigation": "7d0d3af7-f3a0-4e00-ac07-ddfe7ccb8b90",
+                "timestamp": 1791573617285,
+                "url": "https://example.com/",
+                "userContext": "default"
+              }
+            },
+            {
+              "method": "network.beforeRequestSent",
+              "params": {
+                "context": "be760dd7-1e4c-4fc7-a12f-39e247d1b277",
+                "errorText": null,
+                "navigation": "7d0d3af7-f3a0-4e00-ac07-ddfe7ccb8b90",
+                "request": {
+                  "destination": "document",
+                  "method": "GET",
+                  "request": "5-edeb94e9-486d-41d9-8d1c-137396b8c344",
+                  "url": "https://example.com/"
+                },
+                "response": {
+                  "mimeType": null,
+                  "status": null,
+                  "statusText": null
+                },
+                "timestamp": 1791573617286
+              }
+            },
+            {
+              "method": "network.responseStarted",
+              "params": {
+                "context": "be760dd7-1e4c-4fc7-a12f-39e247d1b277",
+                "errorText": null,
+                "navigation": "7d0d3af7-f3a0-4e00-ac07-ddfe7ccb8b90",
+                "request": {
+                  "destination": "document",
+                  "method": "GET",
+                  "request": "5-edeb94e9-486d-41d9-8d1c-137396b8c344",
+                  "url": "https://example.com/"
+                },
+                "response": {
+                  "mimeType": "text/html;charset=utf-8",
+                  "status": 200,
+                  "statusText": ""
+                },
+                "timestamp": 1791573617478
+              }
+            },
+            {
+              "method": "network.responseCompleted",
+              "params": {
+                "context": "be760dd7-1e4c-4fc7-a12f-39e247d1b277",
+                "errorText": null,
+                "navigation": "7d0d3af7-f3a0-4e00-ac07-ddfe7ccb8b90",
+                "request": {
+                  "destination": "document",
+                  "method": "GET",
+                  "request": "5-edeb94e9-486d-41d9-8d1c-137396b8c344",
+                  "url": "https://example.com/"
+                },
+                "response": {
+                  "mimeType": "text/html;charset=utf-8",
+                  "status": 200,
+                  "statusText": ""
+                },
+                "timestamp": 1791573617535
+              }
+            },
+            {
+              "method": "network.beforeRequestSent",
+              "params": {
+                "context": "be760dd7-1e4c-4fc7-a12f-39e247d1b277",
+                "errorText": null,
+                "navigation": null,
+                "request": {
+                  "destination": "script",
+                  "method": "GET",
+                  "request": "10-edeb94e9-486d-41d9-8d1c-137396b8c344",
+                  "url": "https://example.com/s.js"
+                },
+                "response": {
+                  "mimeType": null,
+                  "status": null,
+                  "statusText": null
+                },
+                "timestamp": 1791573617558
+              }
+            },
+            {
+              "method": "network.beforeRequestSent",
+              "params": {
+                "context": "be760dd7-1e4c-4fc7-a12f-39e247d1b277",
+                "errorText": null,
+                "navigation": null,
+                "request": {
+                  "destination": "image",
+                  "method": "GET",
+                  "request": "2-7a98074c-5299-410a-a0e3-206a18ec92b6",
+                  "url": "data:,"
+                },
+                "response": {
+                  "mimeType": null,
+                  "status": null,
+                  "statusText": null
+                },
+                "timestamp": 1791573617560
+              }
+            },
+            {
+              "method": "network.responseStarted",
+              "params": {
+                "context": "be760dd7-1e4c-4fc7-a12f-39e247d1b277",
+                "errorText": null,
+                "navigation": null,
+                "request": {
+                  "destination": "image",
+                  "method": "GET",
+                  "request": "2-7a98074c-5299-410a-a0e3-206a18ec92b6",
+                  "url": "data:,"
+                },
+                "response": {
+                  "mimeType": "text/plain;charset=US-ASCII",
+                  "status": 200,
+                  "statusText": "OK"
+                },
+                "timestamp": 1791573617561
+              }
+            },
+            {
+              "method": "network.responseCompleted",
+              "params": {
+                "context": "be760dd7-1e4c-4fc7-a12f-39e247d1b277",
+                "errorText": null,
+                "navigation": null,
+                "request": {
+                  "destination": "image",
+                  "method": "GET",
+                  "request": "2-7a98074c-5299-410a-a0e3-206a18ec92b6",
+                  "url": "data:,"
+                },
+                "response": {
+                  "mimeType": "text/plain;charset=US-ASCII",
+                  "status": 200,
+                  "statusText": "OK"
+                },
+                "timestamp": 1791573617561
+              }
+            },
+            {
+              "method": "network.responseStarted",
+              "params": {
+                "context": "be760dd7-1e4c-4fc7-a12f-39e247d1b277",
+                "errorText": null,
+                "navigation": null,
+                "request": {
+                  "destination": "script",
+                  "method": "GET",
+                  "request": "10-edeb94e9-486d-41d9-8d1c-137396b8c344",
+                  "url": "https://example.com/s.js"
+                },
+                "response": {
+                  "mimeType": "text/javascript;charset=utf-8",
+                  "status": 200,
+                  "statusText": ""
+                },
+                "timestamp": 1791573617602
+              }
+            },
+            {
+              "method": "network.responseCompleted",
+              "params": {
+                "context": "be760dd7-1e4c-4fc7-a12f-39e247d1b277",
+                "errorText": null,
+                "navigation": null,
+                "request": {
+                  "destination": "script",
+                  "method": "GET",
+                  "request": "10-edeb94e9-486d-41d9-8d1c-137396b8c344",
+                  "url": "https://example.com/s.js"
+                },
+                "response": {
+                  "mimeType": "text/javascript;charset=utf-8",
+                  "status": 200,
+                  "statusText": ""
+                },
+                "timestamp": 1791573617604
+              }
+            },
+            {
+              "method": "browsingContext.domContentLoaded",
+              "params": {
+                "context": "be760dd7-1e4c-4fc7-a12f-39e247d1b277",
+                "navigation": "7d0d3af7-f3a0-4e00-ac07-ddfe7ccb8b90",
+                "timestamp": 1791573617610,
+                "url": "https://example.com/",
+                "userContext": "default"
+              }
+            },
+            {
+              "method": "browsingContext.load",
+              "params": {
+                "context": "be760dd7-1e4c-4fc7-a12f-39e247d1b277",
+                "navigation": "7d0d3af7-f3a0-4e00-ac07-ddfe7ccb8b90",
+                "timestamp": 1791573617645,
+                "url": "https://example.com/",
+                "userContext": "default"
+              }
+            }
+          ],
+          "scope": "page and observed descendant contexts; diagnostic fields exclude HTTP headers"
+        },
+        "console": [],
+        "javascript_errors": [],
+        "navigations": [
+          {
+            "method": "browsingContext.navigationStarted",
+            "params": {
+              "context": "be760dd7-1e4c-4fc7-a12f-39e247d1b277",
+              "navigation": "7d0d3af7-f3a0-4e00-ac07-ddfe7ccb8b90",
+              "timestamp": 1791573617285,
+              "url": "https://example.com/",
+              "userContext": "default"
+            }
+          },
+          {
+            "method": "browsingContext.domContentLoaded",
+            "params": {
+              "context": "be760dd7-1e4c-4fc7-a12f-39e247d1b277",
+              "navigation": "7d0d3af7-f3a0-4e00-ac07-ddfe7ccb8b90",
+              "timestamp": 1791573617610,
+              "url": "https://example.com/",
+              "userContext": "default"
+            }
+          },
+          {
+            "method": "browsingContext.load",
+            "params": {
+              "context": "be760dd7-1e4c-4fc7-a12f-39e247d1b277",
+              "navigation": "7d0d3af7-f3a0-4e00-ac07-ddfe7ccb8b90",
+              "timestamp": 1791573617645,
+              "url": "https://example.com/",
+              "userContext": "default"
+            }
+          }
+        ],
+        "network": [
+          {
+            "failure": null,
+            "method": "GET",
+            "mime_type": "text/html;charset=utf-8",
+            "request_id": "5-edeb94e9-486d-41d9-8d1c-137396b8c344",
+            "status": 200,
+            "status_text": "",
+            "url": "https://example.com/"
+          },
+          {
+            "failure": null,
+            "method": "GET",
+            "mime_type": "text/javascript;charset=utf-8",
+            "request_id": "10-edeb94e9-486d-41d9-8d1c-137396b8c344",
+            "status": 200,
+            "status_text": "",
+            "url": "https://example.com/s.js"
+          },
+          {
+            "failure": null,
+            "method": "GET",
+            "mime_type": "text/plain;charset=US-ASCII",
+            "request_id": "2-7a98074c-5299-410a-a0e3-206a18ec92b6",
+            "status": 200,
+            "status_text": "OK",
+            "url": "data:,"
+          }
+        ],
+        "network_snapshot_scope": "root context only; scoped raw events also include descendants"
+      },
+      "document_status_attribution": "root browsing context with navigation ID",
+      "document_status_selection": "scoped network response events with root context and a navigation ID; repeated lifecycle events can repeat a status",
+      "final_url": "https://example.com/",
+      "observation": "http_document_observed",
+      "observed_document_statuses": [
+        200,
+        200
+      ],
+      "operations": [
+        {
+          "deadline_ms": 20000,
+          "elapsed_ms": 366,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "new_page",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 20000,
+          "elapsed_ms": 16,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "viewport",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 20000,
+          "elapsed_ms": 6,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "diagnostic_subscription",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 20000,
+          "elapsed_ms": 0,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "network_monitoring",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 20000,
+          "elapsed_ms": 387,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "navigation",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 5000,
+          "elapsed_ms": 500,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "network_idle",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 20000,
+          "elapsed_ms": 3,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "final_url",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 20000,
+          "elapsed_ms": 14,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "title",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 20000,
+          "elapsed_ms": 112,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "screenshot",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 20000,
+          "elapsed_ms": 3,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "diagnostic_capture",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 20000,
+          "elapsed_ms": 6,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "diagnostic_unsubscribe",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 20000,
+          "elapsed_ms": 44,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "page_close",
+          "status": "passed"
+        }
+      ],
+      "operations_succeeded": true,
+      "requested_url": "https://example.com/",
+      "screenshot": "target/reliability95/sites/trusted-proxy-probe-firefox/000.png",
+      "screenshot_requested_path": "target/reliability95/sites/trusted-proxy-probe-firefox/000.png",
+      "title": "Example Domain"
+    }
+  ],
+  "started_unix_ms": 1791573615533,
+  "status": "completed",
+  "timeout_seconds": 20,
+  "viewport": {
+    "height": 800,
+    "width": 1280
+  }
+}

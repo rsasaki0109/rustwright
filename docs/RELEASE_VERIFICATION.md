@@ -1,12 +1,19 @@
 # Local release verification — 2026-10-09
 
+This is the historical first local release-preparation record. Later source-specific
+distribution and native three-OS CI results are recorded in
+[CI_VERIFICATION.md](CI_VERIFICATION.md) and the
+[reliability checkpoint](RELIABILITY_95_CHECKPOINT.md). The original results below
+retain their recorded scope and source identity.
+
 The eight distributable crates now contain their package README and both license
 texts. Real Cargo archives build successfully and work in an external consumer
 on stable Rust and Rust 1.85.0. Chrome and Firefox execute the packaged facade,
 test runner and README entry points against local HTTP fixtures.
 
-This is local release preparation. Registry publication, current crate-name
-ownership, remote CI and other operating systems remain unverified. See
+At this recorded stage, registry publication, current crate-name ownership,
+remote CI and other operating systems were unverified. Registry publication and
+name ownership remain separate from later CI evidence. See
 [PUBLISHING.md](PUBLISHING.md) before planning an actual release.
 
 ## Executed checks

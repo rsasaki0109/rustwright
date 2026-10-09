@@ -1,0 +1,29 @@
+{
+  "python-compile": {
+    "command": [
+      "python3",
+      "-m",
+      "py_compile",
+      "scripts/ci/headed_sites.py"
+    ],
+    "exit_code": 0
+  },
+  "actionlint": {
+    "command": [
+      "/workspace/.rustwright-env/actionlint/actionlint",
+      ".github/workflows/ci.yml"
+    ],
+    "exit_code": 0
+  },
+  "whitespace": {
+    "command": [
+      "git",
+      "diff",
+      "--check",
+      "--",
+      ".github/workflows/ci.yml",
+      "scripts/ci/headed_sites.py"
+    ],
+    "exit_code": 0
+  }
+}

@@ -111,8 +111,9 @@ attribute the remaining browser RSS/PSS growth with longer runs and heap analysi
 (the independent WebSocket baseline reproduces growth and observes idle declines),
 measure attached sessions/intercepts, and cover remote allocations whose
 identifiers never arrive or arrive after the cleanup grace. Controlled interrupted
-shutdown is verified; native owned-browser cancellation, remote cleanup refusal
-and runtime loss remain separate limits.
+shutdown and twenty early native owned-browser cancellations are verified;
+later startup stages, all-stage cancellation, remote cleanup refusal and runtime
+loss remain separate limits.
 Known page-owned BiDi intercept retirement is verified under acknowledged
 removal. Unknown IDs after lost allocation replies, event overflow, overlapping
 caller-managed interception and persistent cleanup refusal remain outside that
@@ -140,14 +141,17 @@ first test, and the Linux jobs were canceled while queued. The record preserves
 those initial failures separately from the corrected results below.
 
 The Windows installation, macOS bundle and Linux bundled-sandbox corrections
-now have actual before/after records. The latest
-[run 37974358667](https://github.com/rsasaki0109/rustwright/actions/runs/37974358667)
-at `e3bc08e7ce0a117d173bdcde2924165806e8e854` succeeds in all six jobs:
+have actual before/after records. The repaired lifecycle/discovery source
+`4cdec571a26c64e123a4dde66d4d9b47e8c64f63` passes all six jobs in
+[run 37983300059](https://github.com/rsasaki0109/rustwright/actions/runs/37983300059):
 79 portable cases per OS on Chrome 155/Firefox 157, plus 114 Ubuntu HTTP cases.
-The full Ubuntu workspace passes 453 cases with one existing ignored macro
-doctest. Its library subset is 193, including 108 BiDi cases; overlapping job
+The full Ubuntu workspace passes 475 cases with one existing ignored macro
+doctest. Its library subset is 211, including 111 BiDi cases; overlapping job
 counts are not additional distinct coverage. Actual eight-archive distribution,
 version-only consumers on stable/MSRV and both native README programs also pass.
+CI checks out a synthetic merge; the record verifies the equality of all 152
+relevant input blobs and modes with the source head. The prior stale-target
+failure remains preserved separately rather than being counted as a pass.
 
 [Firefox network-idle waits](FIREFOX_NETWORK_IDLE_IMPLEMENTATION.md) are now
 implemented for `BidiPage` and `AnyPage`, with body-completion, redirect-hop,
@@ -160,14 +164,44 @@ typed incomplete-observation error, and every Firefox wait starts a fresh
 The earlier [investigation](FIREFOX_NETWORK_IDLE.md) remains a frozen
 pre-implementation record rather than a current missing-API statement.
 
-The provisional development estimate is **92% toward the 95% checkpoint**.
-Three-OS CI and the new network-idle scope are verified; memory attribution,
-lost remote allocations/cleanup refusal, representative sites, headed sessions
-and broader version coverage still prevent claiming 95% or general SOTA.
+Owned browser startup now reaps the direct child before removing its temporary
+profile after cancellation, timeout or early exit. Twenty actual early-startup
+cancellations, ten per browser, verify binary identity, direct-child reaping and
+profile ownership. Closed Firefox pages/browsers also finish idle and diagnostic
+observers when callers retain page handles. Chrome discovery verifies actual
+target disappearance before skipping a detached initialization; unexpected
+errors still propagate. [The checkpoint draft](RELIABILITY_95_CHECKPOINT.md)
+links the frozen before/after tests and native evidence.
+
+Requested Rust-driver heap at exit is 26,020 B in both the 100- and 1,000-cycle
+profiled Firefox runs, with complete allocation stacks recorded. An independent
+3,000-cycle Firefox run restores page/context counts and pending commands but
+retains some resident memory and reporter categories after its 90-second tail.
+These finite measurements distinguish driver allocations from browser memory;
+they do not establish reachability, a long-run plateau or universal leak freedom.
+
+The provisional development estimate remains **92% toward the 95% checkpoint**
+while final headed, alternate-version and public-site verification is pending.
+The required seven-job attempt at `be1b065` failed alternate Chrome's sandbox
+preflight before the new native phases ran. Its
+[partial frozen record](ci/results/reliability-95/remote-final-before/README.md)
+retains three successful jobs, one failed job and the last observed running
+state of three others. GitHub authentication subsequently returned HTTP401,
+preventing later result retrieval, push and a new run. The supported finite
+DOM-capture correction is committed locally as `3d447e72` but remains
+native-unverified. Restore GitHub authentication, push the correction and
+complete all seven jobs before changing this estimate.
+Local incomplete and failed attempts
+remain in [the frozen local record](ci/results/reliability-95/local/README.md),
+including native thread/fork exhaustion and public-site operation failures.
+Lost remote allocations, cleanup refusal, descendant processes and unexplained
+browser memory retention remain explicit limits even after this finite
+checkpoint. A general SOTA claim still requires broader comparative evidence.
 
 1. **Maintain verified required CI:** test the reviewed changes on Linux, macOS and Windows
    with explicitly installed Chrome and Firefox. Reject missing browsers,
-   initialization failure, zero tests, ignored tests and filtered suites. Retain
+   initialization failure, zero tests, ignored native tests and filtered suites.
+   Keep the workspace's existing ignored macro doctest explicit. Retain
    logs and actual browser versions; distinguish the old main-branch run from
    runs containing the reviewed feature-branch changes.
 2. **Expand backend parity:** preserve verified reload/history and response-body

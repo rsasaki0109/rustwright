@@ -1,0 +1,39 @@
+{
+  "suite": "portable",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "status": "failed",
+  "targets": [
+    "http_compat",
+    "http_actionability",
+    "http_clipped_control",
+    "http_bidi_navigation",
+    "http_network_idle_parity"
+  ],
+  "headless": false,
+  "mode": "headed",
+  "cases": [
+    {
+      "target": "http_compat",
+      "command": [
+        "/workspace/.rustwright-env/cargo/bin/cargo",
+        "test",
+        "--locked",
+        "-p",
+        "rustwright-integration-tests",
+        "--test",
+        "http_compat",
+        "--",
+        "--test-threads=1",
+        "--nocapture"
+      ],
+      "log": "/workspace/rustwright/target/reliability95/native/headed-155-157-fixed/http_compat.log",
+      "exit_code": 101
+    }
+  ],
+  "browsers": {
+    "RUSTWRIGHT_CHROME": "/workspace/.rustwright-env/chrome155/chromium",
+    "RUSTWRIGHT_FIREFOX": "/workspace/.rustwright-env/firefox-browser"
+  },
+  "cargo_version": "cargo 1.99.0 (5f94df478 2026-08-27)",
+  "error": "http_compat failed or did not finish one native suite; see /workspace/rustwright/target/reliability95/native/headed-155-157-fixed/http_compat.log"
+}

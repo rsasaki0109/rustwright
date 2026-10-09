@@ -1,0 +1,864 @@
+{
+  "runs": [
+    {
+      "directory": "valid/driver-heap-100-fixed",
+      "measured_cycles": 100,
+      "warmup_cycles": 100,
+      "run_git_head": "908323d38ba036960c41347ecbe2a5dfa8c24271",
+      "driver_binary_sha256": "13704627072122ae0ac70f2587904fdc98f21c4d2a23df928f6802b506877721",
+      "firefox_version": "157.0.1",
+      "trace_bytes": 165764,
+      "trace_sha256": "3e083b4416459e4357af26e8df130a0f06a377d7c51727d58bfef0acc4b46f47",
+      "allocation_calls": 1616387,
+      "exact_instantaneous_peak_bytes": 648786,
+      "sampled_massif_peak_bytes": 638588,
+      "massif_sample_count": 5274,
+      "end_outstanding_bytes": 26020,
+      "native_count_baseline": {
+        "acknowledged_helper_preloads": 0,
+        "isolated_contexts": 4,
+        "page_targets": 1
+      },
+      "all_sample_counts_restored": true,
+      "all_sample_pending_commands_zero": true,
+      "outstanding_allocations": [
+        {
+          "allocation_info_index": 8,
+          "allocation_size_bytes": 4,
+          "outstanding_allocations": 1,
+          "outstanding_bytes": 4,
+          "stack": [
+            {
+              "ip": "0x5564a4142057",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvNtNtNtNtNtCsgHYyB3hU8Ec_3std3sys3pal4unix14stack_overflow11thread_info16set_current_info",
+              "demangled_symbol": "std[c29fa2d9dbea2b0e]::sys::pal::unix::stack_overflow::thread_info::set_current_info"
+            },
+            {
+              "ip": "0x5564a413b068",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvNtCsgHYyB3hU8Ec_3std2rt19lang_start_internal",
+              "demangled_symbol": "std[c29fa2d9dbea2b0e]::rt::lang_start_internal"
+            },
+            {
+              "ip": "0x5564a3fbf574",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "main",
+              "demangled_symbol": "main"
+            },
+            {
+              "ip": "0x7f3b2d9c3ca7",
+              "module": "/lib/x86_64-linux-gnu/libc.so.6",
+              "symbol": "0x7f3b2d9c3ca7",
+              "demangled_symbol": "0x7f3b2d9c3ca7"
+            },
+            {
+              "ip": "0x7f3b2d9c3d64",
+              "module": "/lib/x86_64-linux-gnu/libc.so.6",
+              "symbol": "__libc_start_main",
+              "demangled_symbol": "__libc_start_main"
+            },
+            {
+              "ip": "0x5564a3e37890",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_start",
+              "demangled_symbol": "_start"
+            }
+          ]
+        },
+        {
+          "allocation_info_index": 9,
+          "allocation_size_bytes": 544,
+          "outstanding_allocations": 1,
+          "outstanding_bytes": 544,
+          "stack": [
+            {
+              "ip": "0x5564a414227d",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvNtNtNtNtNtCsgHYyB3hU8Ec_3std3sys3pal4unix14stack_overflow11thread_info16set_current_info",
+              "demangled_symbol": "std[c29fa2d9dbea2b0e]::sys::pal::unix::stack_overflow::thread_info::set_current_info"
+            },
+            {
+              "ip": "0x5564a413b068",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvNtCsgHYyB3hU8Ec_3std2rt19lang_start_internal",
+              "demangled_symbol": "std[c29fa2d9dbea2b0e]::rt::lang_start_internal"
+            },
+            {
+              "ip": "0x5564a3fbf574",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "main",
+              "demangled_symbol": "main"
+            },
+            {
+              "ip": "0x7f3b2d9c3ca7",
+              "module": "/lib/x86_64-linux-gnu/libc.so.6",
+              "symbol": "0x7f3b2d9c3ca7",
+              "demangled_symbol": "0x7f3b2d9c3ca7"
+            },
+            {
+              "ip": "0x7f3b2d9c3d64",
+              "module": "/lib/x86_64-linux-gnu/libc.so.6",
+              "symbol": "__libc_start_main",
+              "demangled_symbol": "__libc_start_main"
+            },
+            {
+              "ip": "0x5564a3e37890",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_start",
+              "demangled_symbol": "_start"
+            }
+          ]
+        },
+        {
+          "allocation_info_index": 16,
+          "allocation_size_bytes": 2048,
+          "outstanding_allocations": 1,
+          "outstanding_bytes": 2048,
+          "stack": [
+            {
+              "ip": "0x5564a40f467c",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvXNtNtCs1C1lLj4PWSY_5alloc3vec14spec_from_iterINtB4_3VecNtNtNtCs8WmgydlVzd8_5tokio6signal4unix10SignalInfoEINtB2_12SpecFromIterBU_INtNtNtNtCsevLNFiNqfJP_4core4iter8adapters4take4TakeINtNtNtB2d_7sources11repeat_with10RepeatWithNvYBU_NtNtB2f_7default7Default7defaultEEE9from_iterB10_",
+              "demangled_symbol": "<alloc[12ca63220423dfc2]::vec::Vec<tokio[6825030f46b31824]::signal::unix::SignalInfo> as alloc[12ca63220423dfc2]::vec::spec_from_iter::SpecFromIter<tokio[6825030f46b31824]::signal::unix::SignalInfo, core[a9090a07a7fa7517]::iter::adapters::take::Take<core[a9090a07a7fa7517]::iter::sources::repeat_with::RepeatWith<<tokio[6825030f46b31824]::signal::unix::SignalInfo as core[a9090a07a7fa7517]::default::Default>::default>>>>::from_iter"
+            },
+            {
+              "ip": "0x5564a40f457a",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvNtNtCs8WmgydlVzd8_5tokio6signal8registry12globals_init",
+              "demangled_symbol": "tokio[6825030f46b31824]::signal::registry::globals_init"
+            },
+            {
+              "ip": "0x5564a40e0110",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNCINvMs0_NtNtCsgHYyB3hU8Ec_3std4sync4onceNtB8_4Once15call_once_forceNCINvMNtBa_9once_lockINtB1b_8OnceLockNtNtNtCs8WmgydlVzd8_5tokio6signal8registry7GlobalsE10initializeNCINvB1a_11get_or_initNvB1I_12globals_initE0zE0E0B1M_.llvm.6187662700018363126",
+              "demangled_symbol": "<std[c29fa2d9dbea2b0e]::sync::once::Once>::call_once_force::<<std[c29fa2d9dbea2b0e]::sync::once_lock::OnceLock<tokio[6825030f46b31824]::signal::registry::Globals>>::initialize<<std[c29fa2d9dbea2b0e]::sync::once_lock::OnceLock<tokio[6825030f46b31824]::signal::registry::Globals>>::get_or_init<tokio[6825030f46b31824]::signal::registry::globals_init>::{closure#0}, !>::{closure#0}>::{closure#0}"
+            },
+            {
+              "ip": "0x5564a4124ff8",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvMs0_NtNtNtNtCsgHYyB3hU8Ec_3std3sys4sync4once5futexNtB5_4Once4call",
+              "demangled_symbol": "<std[c29fa2d9dbea2b0e]::sys::sync::once::futex::Once>::call"
+            },
+            {
+              "ip": "0x5564a40dfd48",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RINvMNtNtCsgHYyB3hU8Ec_3std4sync9once_lockINtB3_8OnceLockNtNtNtCs8WmgydlVzd8_5tokio6signal8registry7GlobalsE10initializeNCINvB2_11get_or_initNvBV_12globals_initE0zEBZ_",
+              "demangled_symbol": "<std[c29fa2d9dbea2b0e]::sync::once_lock::OnceLock<tokio[6825030f46b31824]::signal::registry::Globals>>::initialize::<<std[c29fa2d9dbea2b0e]::sync::once_lock::OnceLock<tokio[6825030f46b31824]::signal::registry::Globals>>::get_or_init<tokio[6825030f46b31824]::signal::registry::globals_init>::{closure#0}, !>"
+            },
+            {
+              "ip": "0x5564a40f5bf1",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvMNtNtCs8WmgydlVzd8_5tokio7runtime6signalNtB2_6Driver3new",
+              "demangled_symbol": "<tokio[6825030f46b31824]::runtime::signal::Driver>::new"
+            },
+            {
+              "ip": "0x5564a40f0f0f",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvMNtNtCs8WmgydlVzd8_5tokio7runtime6driverNtB2_6Driver3new",
+              "demangled_symbol": "<tokio[6825030f46b31824]::runtime::driver::Driver>::new"
+            },
+            {
+              "ip": "0x5564a40f1eb4",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvMNtNtCs8WmgydlVzd8_5tokio7runtime7builderNtB2_7Builder5build",
+              "demangled_symbol": "<tokio[6825030f46b31824]::runtime::builder::Builder>::build"
+            },
+            {
+              "ip": "0x5564a3fbe13e",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvCs8wsYStnYcyu_9endurance4main",
+              "demangled_symbol": "endurance[6347cae33ad403fc]::main"
+            },
+            {
+              "ip": "0x5564a3f94e9a",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RINvNtNtCsgHYyB3hU8Ec_3std3sys9backtrace28___rust_begin_short_backtraceFEINtNtCsevLNFiNqfJP_4core6result6ResultuINtNtCs1C1lLj4PWSY_5alloc5boxed3BoxDNtNtB1e_5error5ErrorNtNtB1e_6marker4SendNtB2I_4SyncEL_EEB19_ECs8wsYStnYcyu_9endurance",
+              "demangled_symbol": "std[c29fa2d9dbea2b0e]::sys::backtrace::__rust_begin_short_backtrace::<fn() -> core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::boxed::Box<dyn core[a9090a07a7fa7517]::error::Error + core[a9090a07a7fa7517]::marker::Send + core[a9090a07a7fa7517]::marker::Sync>>, core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::boxed::Box<dyn core[a9090a07a7fa7517]::error::Error + core[a9090a07a7fa7517]::marker::Send + core[a9090a07a7fa7517]::marker::Sync>>>"
+            },
+            {
+              "ip": "0x5564a3fbc738",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNCINvNtCsgHYyB3hU8Ec_3std2rt10lang_startINtNtCsevLNFiNqfJP_4core6result6ResultuINtNtCs1C1lLj4PWSY_5alloc5boxed3BoxDNtNtBI_5error5ErrorNtNtBI_6marker4SendNtB2b_4SyncEL_EEE0Cs8wsYStnYcyu_9endurance",
+              "demangled_symbol": "std[c29fa2d9dbea2b0e]::rt::lang_start::<core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::boxed::Box<dyn core[a9090a07a7fa7517]::error::Error + core[a9090a07a7fa7517]::marker::Send + core[a9090a07a7fa7517]::marker::Sync>>>::{closure#0}"
+            },
+            {
+              "ip": "0x5564a413b128",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvNtCsgHYyB3hU8Ec_3std2rt19lang_start_internal",
+              "demangled_symbol": "std[c29fa2d9dbea2b0e]::rt::lang_start_internal"
+            },
+            {
+              "ip": "0x5564a3fbf574",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "main",
+              "demangled_symbol": "main"
+            },
+            {
+              "ip": "0x7f3b2d9c3ca7",
+              "module": "/lib/x86_64-linux-gnu/libc.so.6",
+              "symbol": "0x7f3b2d9c3ca7",
+              "demangled_symbol": "0x7f3b2d9c3ca7"
+            },
+            {
+              "ip": "0x7f3b2d9c3d64",
+              "module": "/lib/x86_64-linux-gnu/libc.so.6",
+              "symbol": "__libc_start_main",
+              "demangled_symbol": "__libc_start_main"
+            },
+            {
+              "ip": "0x5564a3e37890",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_start",
+              "demangled_symbol": "_start"
+            }
+          ]
+        },
+        {
+          "allocation_info_index": 17,
+          "allocation_size_bytes": 344,
+          "outstanding_allocations": 64,
+          "outstanding_bytes": 22016,
+          "stack": [
+            {
+              "ip": "0x5564a40f46fe",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvXNtNtCs1C1lLj4PWSY_5alloc3vec14spec_from_iterINtB4_3VecNtNtNtCs8WmgydlVzd8_5tokio6signal4unix10SignalInfoEINtB2_12SpecFromIterBU_INtNtNtNtCsevLNFiNqfJP_4core4iter8adapters4take4TakeINtNtNtB2d_7sources11repeat_with10RepeatWithNvYBU_NtNtB2f_7default7Default7defaultEEE9from_iterB10_",
+              "demangled_symbol": "<alloc[12ca63220423dfc2]::vec::Vec<tokio[6825030f46b31824]::signal::unix::SignalInfo> as alloc[12ca63220423dfc2]::vec::spec_from_iter::SpecFromIter<tokio[6825030f46b31824]::signal::unix::SignalInfo, core[a9090a07a7fa7517]::iter::adapters::take::Take<core[a9090a07a7fa7517]::iter::sources::repeat_with::RepeatWith<<tokio[6825030f46b31824]::signal::unix::SignalInfo as core[a9090a07a7fa7517]::default::Default>::default>>>>::from_iter"
+            },
+            {
+              "ip": "0x5564a40f457a",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvNtNtCs8WmgydlVzd8_5tokio6signal8registry12globals_init",
+              "demangled_symbol": "tokio[6825030f46b31824]::signal::registry::globals_init"
+            },
+            {
+              "ip": "0x5564a40e0110",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNCINvMs0_NtNtCsgHYyB3hU8Ec_3std4sync4onceNtB8_4Once15call_once_forceNCINvMNtBa_9once_lockINtB1b_8OnceLockNtNtNtCs8WmgydlVzd8_5tokio6signal8registry7GlobalsE10initializeNCINvB1a_11get_or_initNvB1I_12globals_initE0zE0E0B1M_.llvm.6187662700018363126",
+              "demangled_symbol": "<std[c29fa2d9dbea2b0e]::sync::once::Once>::call_once_force::<<std[c29fa2d9dbea2b0e]::sync::once_lock::OnceLock<tokio[6825030f46b31824]::signal::registry::Globals>>::initialize<<std[c29fa2d9dbea2b0e]::sync::once_lock::OnceLock<tokio[6825030f46b31824]::signal::registry::Globals>>::get_or_init<tokio[6825030f46b31824]::signal::registry::globals_init>::{closure#0}, !>::{closure#0}>::{closure#0}"
+            },
+            {
+              "ip": "0x5564a4124ff8",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvMs0_NtNtNtNtCsgHYyB3hU8Ec_3std3sys4sync4once5futexNtB5_4Once4call",
+              "demangled_symbol": "<std[c29fa2d9dbea2b0e]::sys::sync::once::futex::Once>::call"
+            },
+            {
+              "ip": "0x5564a40dfd48",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RINvMNtNtCsgHYyB3hU8Ec_3std4sync9once_lockINtB3_8OnceLockNtNtNtCs8WmgydlVzd8_5tokio6signal8registry7GlobalsE10initializeNCINvB2_11get_or_initNvBV_12globals_initE0zEBZ_",
+              "demangled_symbol": "<std[c29fa2d9dbea2b0e]::sync::once_lock::OnceLock<tokio[6825030f46b31824]::signal::registry::Globals>>::initialize::<<std[c29fa2d9dbea2b0e]::sync::once_lock::OnceLock<tokio[6825030f46b31824]::signal::registry::Globals>>::get_or_init<tokio[6825030f46b31824]::signal::registry::globals_init>::{closure#0}, !>"
+            },
+            {
+              "ip": "0x5564a40f5bf1",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvMNtNtCs8WmgydlVzd8_5tokio7runtime6signalNtB2_6Driver3new",
+              "demangled_symbol": "<tokio[6825030f46b31824]::runtime::signal::Driver>::new"
+            },
+            {
+              "ip": "0x5564a40f0f0f",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvMNtNtCs8WmgydlVzd8_5tokio7runtime6driverNtB2_6Driver3new",
+              "demangled_symbol": "<tokio[6825030f46b31824]::runtime::driver::Driver>::new"
+            },
+            {
+              "ip": "0x5564a40f1eb4",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvMNtNtCs8WmgydlVzd8_5tokio7runtime7builderNtB2_7Builder5build",
+              "demangled_symbol": "<tokio[6825030f46b31824]::runtime::builder::Builder>::build"
+            },
+            {
+              "ip": "0x5564a3fbe13e",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvCs8wsYStnYcyu_9endurance4main",
+              "demangled_symbol": "endurance[6347cae33ad403fc]::main"
+            },
+            {
+              "ip": "0x5564a3f94e9a",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RINvNtNtCsgHYyB3hU8Ec_3std3sys9backtrace28___rust_begin_short_backtraceFEINtNtCsevLNFiNqfJP_4core6result6ResultuINtNtCs1C1lLj4PWSY_5alloc5boxed3BoxDNtNtB1e_5error5ErrorNtNtB1e_6marker4SendNtB2I_4SyncEL_EEB19_ECs8wsYStnYcyu_9endurance",
+              "demangled_symbol": "std[c29fa2d9dbea2b0e]::sys::backtrace::__rust_begin_short_backtrace::<fn() -> core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::boxed::Box<dyn core[a9090a07a7fa7517]::error::Error + core[a9090a07a7fa7517]::marker::Send + core[a9090a07a7fa7517]::marker::Sync>>, core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::boxed::Box<dyn core[a9090a07a7fa7517]::error::Error + core[a9090a07a7fa7517]::marker::Send + core[a9090a07a7fa7517]::marker::Sync>>>"
+            },
+            {
+              "ip": "0x5564a3fbc738",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNCINvNtCsgHYyB3hU8Ec_3std2rt10lang_startINtNtCsevLNFiNqfJP_4core6result6ResultuINtNtCs1C1lLj4PWSY_5alloc5boxed3BoxDNtNtBI_5error5ErrorNtNtBI_6marker4SendNtB2b_4SyncEL_EEE0Cs8wsYStnYcyu_9endurance",
+              "demangled_symbol": "std[c29fa2d9dbea2b0e]::rt::lang_start::<core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::boxed::Box<dyn core[a9090a07a7fa7517]::error::Error + core[a9090a07a7fa7517]::marker::Send + core[a9090a07a7fa7517]::marker::Sync>>>::{closure#0}"
+            },
+            {
+              "ip": "0x5564a413b128",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvNtCsgHYyB3hU8Ec_3std2rt19lang_start_internal",
+              "demangled_symbol": "std[c29fa2d9dbea2b0e]::rt::lang_start_internal"
+            },
+            {
+              "ip": "0x5564a3fbf574",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "main",
+              "demangled_symbol": "main"
+            },
+            {
+              "ip": "0x7f3b2d9c3ca7",
+              "module": "/lib/x86_64-linux-gnu/libc.so.6",
+              "symbol": "0x7f3b2d9c3ca7",
+              "demangled_symbol": "0x7f3b2d9c3ca7"
+            },
+            {
+              "ip": "0x7f3b2d9c3d64",
+              "module": "/lib/x86_64-linux-gnu/libc.so.6",
+              "symbol": "__libc_start_main",
+              "demangled_symbol": "__libc_start_main"
+            },
+            {
+              "ip": "0x5564a3e37890",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_start",
+              "demangled_symbol": "_start"
+            }
+          ]
+        },
+        {
+          "allocation_info_index": 47,
+          "allocation_size_bytes": 352,
+          "outstanding_allocations": 4,
+          "outstanding_bytes": 1408,
+          "stack": [
+            {
+              "ip": "0x7f3b2dcf6f62",
+              "module": "/lib64/ld-linux-x86-64.so.2",
+              "symbol": "0x7f3b2dcf6f62",
+              "demangled_symbol": "0x7f3b2dcf6f62"
+            },
+            {
+              "ip": "0x7f3b2dcf797d",
+              "module": "/lib64/ld-linux-x86-64.so.2",
+              "symbol": "_dl_allocate_tls",
+              "demangled_symbol": "_dl_allocate_tls"
+            },
+            {
+              "ip": "0x7f3b2da2d781",
+              "module": "/lib/x86_64-linux-gnu/libc.so.6",
+              "symbol": "pthread_create",
+              "demangled_symbol": "pthread_create"
+            },
+            {
+              "ip": "0x5564a4124d00",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvMs0_NtNtNtCsgHYyB3hU8Ec_3std3sys6thread4unixNtB5_6Thread3new",
+              "demangled_symbol": "<std[c29fa2d9dbea2b0e]::sys::thread::unix::Thread>::new"
+            },
+            {
+              "ip": "0x5564a40e215a",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RINvNtNtCsgHYyB3hU8Ec_3std6thread9lifecycle15spawn_uncheckedNCNvMs4_NtNtNtCs8WmgydlVzd8_5tokio7runtime8blocking4poolNtB14_7Spawner12spawn_thread0uEB1a_",
+              "demangled_symbol": "std[c29fa2d9dbea2b0e]::thread::lifecycle::spawn_unchecked::<<tokio[6825030f46b31824]::runtime::blocking::pool::Spawner>::spawn_thread::{closure#0}, ()>"
+            },
+            {
+              "ip": "0x5564a40e8a33",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvMs4_NtNtNtCs8WmgydlVzd8_5tokio7runtime8blocking4poolNtB5_7Spawner10spawn_task",
+              "demangled_symbol": "<tokio[6825030f46b31824]::runtime::blocking::pool::Spawner>::spawn_task"
+            },
+            {
+              "ip": "0x5564a40e6e70",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RINvNtNtNtCs8WmgydlVzd8_5tokio7runtime8blocking4pool14spawn_blockingNCNvMNtNtNtB6_9scheduler12multi_thread6workerNtB19_6Launch6launch0uEB8_",
+              "demangled_symbol": "tokio[6825030f46b31824]::runtime::blocking::pool::spawn_blocking::<<tokio[6825030f46b31824]::runtime::scheduler::multi_thread::worker::Launch>::launch::{closure#0}, ()>"
+            },
+            {
+              "ip": "0x5564a40d97af",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvMNtNtNtNtCs8WmgydlVzd8_5tokio7runtime9scheduler12multi_thread6workerNtB2_6Launch6launch",
+              "demangled_symbol": "<tokio[6825030f46b31824]::runtime::scheduler::multi_thread::worker::Launch>::launch"
+            },
+            {
+              "ip": "0x5564a40f2298",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvMNtNtCs8WmgydlVzd8_5tokio7runtime7builderNtB2_7Builder5build",
+              "demangled_symbol": "<tokio[6825030f46b31824]::runtime::builder::Builder>::build"
+            },
+            {
+              "ip": "0x5564a3fbe13e",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvCs8wsYStnYcyu_9endurance4main",
+              "demangled_symbol": "endurance[6347cae33ad403fc]::main"
+            },
+            {
+              "ip": "0x5564a3f94e9a",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RINvNtNtCsgHYyB3hU8Ec_3std3sys9backtrace28___rust_begin_short_backtraceFEINtNtCsevLNFiNqfJP_4core6result6ResultuINtNtCs1C1lLj4PWSY_5alloc5boxed3BoxDNtNtB1e_5error5ErrorNtNtB1e_6marker4SendNtB2I_4SyncEL_EEB19_ECs8wsYStnYcyu_9endurance",
+              "demangled_symbol": "std[c29fa2d9dbea2b0e]::sys::backtrace::__rust_begin_short_backtrace::<fn() -> core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::boxed::Box<dyn core[a9090a07a7fa7517]::error::Error + core[a9090a07a7fa7517]::marker::Send + core[a9090a07a7fa7517]::marker::Sync>>, core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::boxed::Box<dyn core[a9090a07a7fa7517]::error::Error + core[a9090a07a7fa7517]::marker::Send + core[a9090a07a7fa7517]::marker::Sync>>>"
+            },
+            {
+              "ip": "0x5564a3fbc738",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNCINvNtCsgHYyB3hU8Ec_3std2rt10lang_startINtNtCsevLNFiNqfJP_4core6result6ResultuINtNtCs1C1lLj4PWSY_5alloc5boxed3BoxDNtNtBI_5error5ErrorNtNtBI_6marker4SendNtB2b_4SyncEL_EEE0Cs8wsYStnYcyu_9endurance",
+              "demangled_symbol": "std[c29fa2d9dbea2b0e]::rt::lang_start::<core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::boxed::Box<dyn core[a9090a07a7fa7517]::error::Error + core[a9090a07a7fa7517]::marker::Send + core[a9090a07a7fa7517]::marker::Sync>>>::{closure#0}"
+            },
+            {
+              "ip": "0x5564a413b128",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvNtCsgHYyB3hU8Ec_3std2rt19lang_start_internal",
+              "demangled_symbol": "std[c29fa2d9dbea2b0e]::rt::lang_start_internal"
+            },
+            {
+              "ip": "0x5564a3fbf574",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "main",
+              "demangled_symbol": "main"
+            },
+            {
+              "ip": "0x7f3b2d9c3ca7",
+              "module": "/lib/x86_64-linux-gnu/libc.so.6",
+              "symbol": "0x7f3b2d9c3ca7",
+              "demangled_symbol": "0x7f3b2d9c3ca7"
+            },
+            {
+              "ip": "0x7f3b2d9c3d64",
+              "module": "/lib/x86_64-linux-gnu/libc.so.6",
+              "symbol": "__libc_start_main",
+              "demangled_symbol": "__libc_start_main"
+            },
+            {
+              "ip": "0x5564a3e37890",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_start",
+              "demangled_symbol": "_start"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "directory": "valid/driver-heap-1000-fixed",
+      "measured_cycles": 1000,
+      "warmup_cycles": 100,
+      "run_git_head": "908323d38ba036960c41347ecbe2a5dfa8c24271",
+      "driver_binary_sha256": "13704627072122ae0ac70f2587904fdc98f21c4d2a23df928f6802b506877721",
+      "firefox_version": "157.0.1",
+      "trace_bytes": 676564,
+      "trace_sha256": "57ec2e873999218edc8a0415889442a0f5769c2cc0a695d746207661be1d7c4b",
+      "allocation_calls": 7357224,
+      "exact_instantaneous_peak_bytes": 649883,
+      "sampled_massif_peak_bytes": 644793,
+      "massif_sample_count": 26153,
+      "end_outstanding_bytes": 26020,
+      "native_count_baseline": {
+        "acknowledged_helper_preloads": 0,
+        "isolated_contexts": 4,
+        "page_targets": 1
+      },
+      "all_sample_counts_restored": true,
+      "all_sample_pending_commands_zero": true,
+      "outstanding_allocations": [
+        {
+          "allocation_info_index": 8,
+          "allocation_size_bytes": 4,
+          "outstanding_allocations": 1,
+          "outstanding_bytes": 4,
+          "stack": [
+            {
+              "ip": "0x560307c39057",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvNtNtNtNtNtCsgHYyB3hU8Ec_3std3sys3pal4unix14stack_overflow11thread_info16set_current_info",
+              "demangled_symbol": "std[c29fa2d9dbea2b0e]::sys::pal::unix::stack_overflow::thread_info::set_current_info"
+            },
+            {
+              "ip": "0x560307c32068",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvNtCsgHYyB3hU8Ec_3std2rt19lang_start_internal",
+              "demangled_symbol": "std[c29fa2d9dbea2b0e]::rt::lang_start_internal"
+            },
+            {
+              "ip": "0x560307ab6574",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "main",
+              "demangled_symbol": "main"
+            },
+            {
+              "ip": "0x7fc3912d3ca7",
+              "module": "/lib/x86_64-linux-gnu/libc.so.6",
+              "symbol": "0x7fc3912d3ca7",
+              "demangled_symbol": "0x7fc3912d3ca7"
+            },
+            {
+              "ip": "0x7fc3912d3d64",
+              "module": "/lib/x86_64-linux-gnu/libc.so.6",
+              "symbol": "__libc_start_main",
+              "demangled_symbol": "__libc_start_main"
+            },
+            {
+              "ip": "0x56030792e890",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_start",
+              "demangled_symbol": "_start"
+            }
+          ]
+        },
+        {
+          "allocation_info_index": 9,
+          "allocation_size_bytes": 544,
+          "outstanding_allocations": 1,
+          "outstanding_bytes": 544,
+          "stack": [
+            {
+              "ip": "0x560307c3927d",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvNtNtNtNtNtCsgHYyB3hU8Ec_3std3sys3pal4unix14stack_overflow11thread_info16set_current_info",
+              "demangled_symbol": "std[c29fa2d9dbea2b0e]::sys::pal::unix::stack_overflow::thread_info::set_current_info"
+            },
+            {
+              "ip": "0x560307c32068",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvNtCsgHYyB3hU8Ec_3std2rt19lang_start_internal",
+              "demangled_symbol": "std[c29fa2d9dbea2b0e]::rt::lang_start_internal"
+            },
+            {
+              "ip": "0x560307ab6574",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "main",
+              "demangled_symbol": "main"
+            },
+            {
+              "ip": "0x7fc3912d3ca7",
+              "module": "/lib/x86_64-linux-gnu/libc.so.6",
+              "symbol": "0x7fc3912d3ca7",
+              "demangled_symbol": "0x7fc3912d3ca7"
+            },
+            {
+              "ip": "0x7fc3912d3d64",
+              "module": "/lib/x86_64-linux-gnu/libc.so.6",
+              "symbol": "__libc_start_main",
+              "demangled_symbol": "__libc_start_main"
+            },
+            {
+              "ip": "0x56030792e890",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_start",
+              "demangled_symbol": "_start"
+            }
+          ]
+        },
+        {
+          "allocation_info_index": 16,
+          "allocation_size_bytes": 2048,
+          "outstanding_allocations": 1,
+          "outstanding_bytes": 2048,
+          "stack": [
+            {
+              "ip": "0x560307beb67c",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvXNtNtCs1C1lLj4PWSY_5alloc3vec14spec_from_iterINtB4_3VecNtNtNtCs8WmgydlVzd8_5tokio6signal4unix10SignalInfoEINtB2_12SpecFromIterBU_INtNtNtNtCsevLNFiNqfJP_4core4iter8adapters4take4TakeINtNtNtB2d_7sources11repeat_with10RepeatWithNvYBU_NtNtB2f_7default7Default7defaultEEE9from_iterB10_",
+              "demangled_symbol": "<alloc[12ca63220423dfc2]::vec::Vec<tokio[6825030f46b31824]::signal::unix::SignalInfo> as alloc[12ca63220423dfc2]::vec::spec_from_iter::SpecFromIter<tokio[6825030f46b31824]::signal::unix::SignalInfo, core[a9090a07a7fa7517]::iter::adapters::take::Take<core[a9090a07a7fa7517]::iter::sources::repeat_with::RepeatWith<<tokio[6825030f46b31824]::signal::unix::SignalInfo as core[a9090a07a7fa7517]::default::Default>::default>>>>::from_iter"
+            },
+            {
+              "ip": "0x560307beb57a",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvNtNtCs8WmgydlVzd8_5tokio6signal8registry12globals_init",
+              "demangled_symbol": "tokio[6825030f46b31824]::signal::registry::globals_init"
+            },
+            {
+              "ip": "0x560307bd7110",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNCINvMs0_NtNtCsgHYyB3hU8Ec_3std4sync4onceNtB8_4Once15call_once_forceNCINvMNtBa_9once_lockINtB1b_8OnceLockNtNtNtCs8WmgydlVzd8_5tokio6signal8registry7GlobalsE10initializeNCINvB1a_11get_or_initNvB1I_12globals_initE0zE0E0B1M_.llvm.6187662700018363126",
+              "demangled_symbol": "<std[c29fa2d9dbea2b0e]::sync::once::Once>::call_once_force::<<std[c29fa2d9dbea2b0e]::sync::once_lock::OnceLock<tokio[6825030f46b31824]::signal::registry::Globals>>::initialize<<std[c29fa2d9dbea2b0e]::sync::once_lock::OnceLock<tokio[6825030f46b31824]::signal::registry::Globals>>::get_or_init<tokio[6825030f46b31824]::signal::registry::globals_init>::{closure#0}, !>::{closure#0}>::{closure#0}"
+            },
+            {
+              "ip": "0x560307c1bff8",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvMs0_NtNtNtNtCsgHYyB3hU8Ec_3std3sys4sync4once5futexNtB5_4Once4call",
+              "demangled_symbol": "<std[c29fa2d9dbea2b0e]::sys::sync::once::futex::Once>::call"
+            },
+            {
+              "ip": "0x560307bd6d48",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RINvMNtNtCsgHYyB3hU8Ec_3std4sync9once_lockINtB3_8OnceLockNtNtNtCs8WmgydlVzd8_5tokio6signal8registry7GlobalsE10initializeNCINvB2_11get_or_initNvBV_12globals_initE0zEBZ_",
+              "demangled_symbol": "<std[c29fa2d9dbea2b0e]::sync::once_lock::OnceLock<tokio[6825030f46b31824]::signal::registry::Globals>>::initialize::<<std[c29fa2d9dbea2b0e]::sync::once_lock::OnceLock<tokio[6825030f46b31824]::signal::registry::Globals>>::get_or_init<tokio[6825030f46b31824]::signal::registry::globals_init>::{closure#0}, !>"
+            },
+            {
+              "ip": "0x560307becbf1",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvMNtNtCs8WmgydlVzd8_5tokio7runtime6signalNtB2_6Driver3new",
+              "demangled_symbol": "<tokio[6825030f46b31824]::runtime::signal::Driver>::new"
+            },
+            {
+              "ip": "0x560307be7f0f",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvMNtNtCs8WmgydlVzd8_5tokio7runtime6driverNtB2_6Driver3new",
+              "demangled_symbol": "<tokio[6825030f46b31824]::runtime::driver::Driver>::new"
+            },
+            {
+              "ip": "0x560307be8eb4",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvMNtNtCs8WmgydlVzd8_5tokio7runtime7builderNtB2_7Builder5build",
+              "demangled_symbol": "<tokio[6825030f46b31824]::runtime::builder::Builder>::build"
+            },
+            {
+              "ip": "0x560307ab513e",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvCs8wsYStnYcyu_9endurance4main",
+              "demangled_symbol": "endurance[6347cae33ad403fc]::main"
+            },
+            {
+              "ip": "0x560307a8be9a",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RINvNtNtCsgHYyB3hU8Ec_3std3sys9backtrace28___rust_begin_short_backtraceFEINtNtCsevLNFiNqfJP_4core6result6ResultuINtNtCs1C1lLj4PWSY_5alloc5boxed3BoxDNtNtB1e_5error5ErrorNtNtB1e_6marker4SendNtB2I_4SyncEL_EEB19_ECs8wsYStnYcyu_9endurance",
+              "demangled_symbol": "std[c29fa2d9dbea2b0e]::sys::backtrace::__rust_begin_short_backtrace::<fn() -> core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::boxed::Box<dyn core[a9090a07a7fa7517]::error::Error + core[a9090a07a7fa7517]::marker::Send + core[a9090a07a7fa7517]::marker::Sync>>, core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::boxed::Box<dyn core[a9090a07a7fa7517]::error::Error + core[a9090a07a7fa7517]::marker::Send + core[a9090a07a7fa7517]::marker::Sync>>>"
+            },
+            {
+              "ip": "0x560307ab3738",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNCINvNtCsgHYyB3hU8Ec_3std2rt10lang_startINtNtCsevLNFiNqfJP_4core6result6ResultuINtNtCs1C1lLj4PWSY_5alloc5boxed3BoxDNtNtBI_5error5ErrorNtNtBI_6marker4SendNtB2b_4SyncEL_EEE0Cs8wsYStnYcyu_9endurance",
+              "demangled_symbol": "std[c29fa2d9dbea2b0e]::rt::lang_start::<core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::boxed::Box<dyn core[a9090a07a7fa7517]::error::Error + core[a9090a07a7fa7517]::marker::Send + core[a9090a07a7fa7517]::marker::Sync>>>::{closure#0}"
+            },
+            {
+              "ip": "0x560307c32128",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvNtCsgHYyB3hU8Ec_3std2rt19lang_start_internal",
+              "demangled_symbol": "std[c29fa2d9dbea2b0e]::rt::lang_start_internal"
+            },
+            {
+              "ip": "0x560307ab6574",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "main",
+              "demangled_symbol": "main"
+            },
+            {
+              "ip": "0x7fc3912d3ca7",
+              "module": "/lib/x86_64-linux-gnu/libc.so.6",
+              "symbol": "0x7fc3912d3ca7",
+              "demangled_symbol": "0x7fc3912d3ca7"
+            },
+            {
+              "ip": "0x7fc3912d3d64",
+              "module": "/lib/x86_64-linux-gnu/libc.so.6",
+              "symbol": "__libc_start_main",
+              "demangled_symbol": "__libc_start_main"
+            },
+            {
+              "ip": "0x56030792e890",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_start",
+              "demangled_symbol": "_start"
+            }
+          ]
+        },
+        {
+          "allocation_info_index": 17,
+          "allocation_size_bytes": 344,
+          "outstanding_allocations": 64,
+          "outstanding_bytes": 22016,
+          "stack": [
+            {
+              "ip": "0x560307beb6fe",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvXNtNtCs1C1lLj4PWSY_5alloc3vec14spec_from_iterINtB4_3VecNtNtNtCs8WmgydlVzd8_5tokio6signal4unix10SignalInfoEINtB2_12SpecFromIterBU_INtNtNtNtCsevLNFiNqfJP_4core4iter8adapters4take4TakeINtNtNtB2d_7sources11repeat_with10RepeatWithNvYBU_NtNtB2f_7default7Default7defaultEEE9from_iterB10_",
+              "demangled_symbol": "<alloc[12ca63220423dfc2]::vec::Vec<tokio[6825030f46b31824]::signal::unix::SignalInfo> as alloc[12ca63220423dfc2]::vec::spec_from_iter::SpecFromIter<tokio[6825030f46b31824]::signal::unix::SignalInfo, core[a9090a07a7fa7517]::iter::adapters::take::Take<core[a9090a07a7fa7517]::iter::sources::repeat_with::RepeatWith<<tokio[6825030f46b31824]::signal::unix::SignalInfo as core[a9090a07a7fa7517]::default::Default>::default>>>>::from_iter"
+            },
+            {
+              "ip": "0x560307beb57a",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvNtNtCs8WmgydlVzd8_5tokio6signal8registry12globals_init",
+              "demangled_symbol": "tokio[6825030f46b31824]::signal::registry::globals_init"
+            },
+            {
+              "ip": "0x560307bd7110",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNCINvMs0_NtNtCsgHYyB3hU8Ec_3std4sync4onceNtB8_4Once15call_once_forceNCINvMNtBa_9once_lockINtB1b_8OnceLockNtNtNtCs8WmgydlVzd8_5tokio6signal8registry7GlobalsE10initializeNCINvB1a_11get_or_initNvB1I_12globals_initE0zE0E0B1M_.llvm.6187662700018363126",
+              "demangled_symbol": "<std[c29fa2d9dbea2b0e]::sync::once::Once>::call_once_force::<<std[c29fa2d9dbea2b0e]::sync::once_lock::OnceLock<tokio[6825030f46b31824]::signal::registry::Globals>>::initialize<<std[c29fa2d9dbea2b0e]::sync::once_lock::OnceLock<tokio[6825030f46b31824]::signal::registry::Globals>>::get_or_init<tokio[6825030f46b31824]::signal::registry::globals_init>::{closure#0}, !>::{closure#0}>::{closure#0}"
+            },
+            {
+              "ip": "0x560307c1bff8",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvMs0_NtNtNtNtCsgHYyB3hU8Ec_3std3sys4sync4once5futexNtB5_4Once4call",
+              "demangled_symbol": "<std[c29fa2d9dbea2b0e]::sys::sync::once::futex::Once>::call"
+            },
+            {
+              "ip": "0x560307bd6d48",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RINvMNtNtCsgHYyB3hU8Ec_3std4sync9once_lockINtB3_8OnceLockNtNtNtCs8WmgydlVzd8_5tokio6signal8registry7GlobalsE10initializeNCINvB2_11get_or_initNvBV_12globals_initE0zEBZ_",
+              "demangled_symbol": "<std[c29fa2d9dbea2b0e]::sync::once_lock::OnceLock<tokio[6825030f46b31824]::signal::registry::Globals>>::initialize::<<std[c29fa2d9dbea2b0e]::sync::once_lock::OnceLock<tokio[6825030f46b31824]::signal::registry::Globals>>::get_or_init<tokio[6825030f46b31824]::signal::registry::globals_init>::{closure#0}, !>"
+            },
+            {
+              "ip": "0x560307becbf1",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvMNtNtCs8WmgydlVzd8_5tokio7runtime6signalNtB2_6Driver3new",
+              "demangled_symbol": "<tokio[6825030f46b31824]::runtime::signal::Driver>::new"
+            },
+            {
+              "ip": "0x560307be7f0f",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvMNtNtCs8WmgydlVzd8_5tokio7runtime6driverNtB2_6Driver3new",
+              "demangled_symbol": "<tokio[6825030f46b31824]::runtime::driver::Driver>::new"
+            },
+            {
+              "ip": "0x560307be8eb4",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvMNtNtCs8WmgydlVzd8_5tokio7runtime7builderNtB2_7Builder5build",
+              "demangled_symbol": "<tokio[6825030f46b31824]::runtime::builder::Builder>::build"
+            },
+            {
+              "ip": "0x560307ab513e",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvCs8wsYStnYcyu_9endurance4main",
+              "demangled_symbol": "endurance[6347cae33ad403fc]::main"
+            },
+            {
+              "ip": "0x560307a8be9a",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RINvNtNtCsgHYyB3hU8Ec_3std3sys9backtrace28___rust_begin_short_backtraceFEINtNtCsevLNFiNqfJP_4core6result6ResultuINtNtCs1C1lLj4PWSY_5alloc5boxed3BoxDNtNtB1e_5error5ErrorNtNtB1e_6marker4SendNtB2I_4SyncEL_EEB19_ECs8wsYStnYcyu_9endurance",
+              "demangled_symbol": "std[c29fa2d9dbea2b0e]::sys::backtrace::__rust_begin_short_backtrace::<fn() -> core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::boxed::Box<dyn core[a9090a07a7fa7517]::error::Error + core[a9090a07a7fa7517]::marker::Send + core[a9090a07a7fa7517]::marker::Sync>>, core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::boxed::Box<dyn core[a9090a07a7fa7517]::error::Error + core[a9090a07a7fa7517]::marker::Send + core[a9090a07a7fa7517]::marker::Sync>>>"
+            },
+            {
+              "ip": "0x560307ab3738",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNCINvNtCsgHYyB3hU8Ec_3std2rt10lang_startINtNtCsevLNFiNqfJP_4core6result6ResultuINtNtCs1C1lLj4PWSY_5alloc5boxed3BoxDNtNtBI_5error5ErrorNtNtBI_6marker4SendNtB2b_4SyncEL_EEE0Cs8wsYStnYcyu_9endurance",
+              "demangled_symbol": "std[c29fa2d9dbea2b0e]::rt::lang_start::<core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::boxed::Box<dyn core[a9090a07a7fa7517]::error::Error + core[a9090a07a7fa7517]::marker::Send + core[a9090a07a7fa7517]::marker::Sync>>>::{closure#0}"
+            },
+            {
+              "ip": "0x560307c32128",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvNtCsgHYyB3hU8Ec_3std2rt19lang_start_internal",
+              "demangled_symbol": "std[c29fa2d9dbea2b0e]::rt::lang_start_internal"
+            },
+            {
+              "ip": "0x560307ab6574",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "main",
+              "demangled_symbol": "main"
+            },
+            {
+              "ip": "0x7fc3912d3ca7",
+              "module": "/lib/x86_64-linux-gnu/libc.so.6",
+              "symbol": "0x7fc3912d3ca7",
+              "demangled_symbol": "0x7fc3912d3ca7"
+            },
+            {
+              "ip": "0x7fc3912d3d64",
+              "module": "/lib/x86_64-linux-gnu/libc.so.6",
+              "symbol": "__libc_start_main",
+              "demangled_symbol": "__libc_start_main"
+            },
+            {
+              "ip": "0x56030792e890",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_start",
+              "demangled_symbol": "_start"
+            }
+          ]
+        },
+        {
+          "allocation_info_index": 47,
+          "allocation_size_bytes": 352,
+          "outstanding_allocations": 4,
+          "outstanding_bytes": 1408,
+          "stack": [
+            {
+              "ip": "0x7fc391606f62",
+              "module": "/lib64/ld-linux-x86-64.so.2",
+              "symbol": "0x7fc391606f62",
+              "demangled_symbol": "0x7fc391606f62"
+            },
+            {
+              "ip": "0x7fc39160797d",
+              "module": "/lib64/ld-linux-x86-64.so.2",
+              "symbol": "_dl_allocate_tls",
+              "demangled_symbol": "_dl_allocate_tls"
+            },
+            {
+              "ip": "0x7fc39133d781",
+              "module": "/lib/x86_64-linux-gnu/libc.so.6",
+              "symbol": "pthread_create",
+              "demangled_symbol": "pthread_create"
+            },
+            {
+              "ip": "0x560307c1bd00",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvMs0_NtNtNtCsgHYyB3hU8Ec_3std3sys6thread4unixNtB5_6Thread3new",
+              "demangled_symbol": "<std[c29fa2d9dbea2b0e]::sys::thread::unix::Thread>::new"
+            },
+            {
+              "ip": "0x560307bd915a",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RINvNtNtCsgHYyB3hU8Ec_3std6thread9lifecycle15spawn_uncheckedNCNvMs4_NtNtNtCs8WmgydlVzd8_5tokio7runtime8blocking4poolNtB14_7Spawner12spawn_thread0uEB1a_",
+              "demangled_symbol": "std[c29fa2d9dbea2b0e]::thread::lifecycle::spawn_unchecked::<<tokio[6825030f46b31824]::runtime::blocking::pool::Spawner>::spawn_thread::{closure#0}, ()>"
+            },
+            {
+              "ip": "0x560307bdfa33",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvMs4_NtNtNtCs8WmgydlVzd8_5tokio7runtime8blocking4poolNtB5_7Spawner10spawn_task",
+              "demangled_symbol": "<tokio[6825030f46b31824]::runtime::blocking::pool::Spawner>::spawn_task"
+            },
+            {
+              "ip": "0x560307bdde70",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RINvNtNtNtCs8WmgydlVzd8_5tokio7runtime8blocking4pool14spawn_blockingNCNvMNtNtNtB6_9scheduler12multi_thread6workerNtB19_6Launch6launch0uEB8_",
+              "demangled_symbol": "tokio[6825030f46b31824]::runtime::blocking::pool::spawn_blocking::<<tokio[6825030f46b31824]::runtime::scheduler::multi_thread::worker::Launch>::launch::{closure#0}, ()>"
+            },
+            {
+              "ip": "0x560307bd07af",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvMNtNtNtNtCs8WmgydlVzd8_5tokio7runtime9scheduler12multi_thread6workerNtB2_6Launch6launch",
+              "demangled_symbol": "<tokio[6825030f46b31824]::runtime::scheduler::multi_thread::worker::Launch>::launch"
+            },
+            {
+              "ip": "0x560307be9298",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvMNtNtCs8WmgydlVzd8_5tokio7runtime7builderNtB2_7Builder5build",
+              "demangled_symbol": "<tokio[6825030f46b31824]::runtime::builder::Builder>::build"
+            },
+            {
+              "ip": "0x560307ab513e",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvCs8wsYStnYcyu_9endurance4main",
+              "demangled_symbol": "endurance[6347cae33ad403fc]::main"
+            },
+            {
+              "ip": "0x560307a8be9a",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RINvNtNtCsgHYyB3hU8Ec_3std3sys9backtrace28___rust_begin_short_backtraceFEINtNtCsevLNFiNqfJP_4core6result6ResultuINtNtCs1C1lLj4PWSY_5alloc5boxed3BoxDNtNtB1e_5error5ErrorNtNtB1e_6marker4SendNtB2I_4SyncEL_EEB19_ECs8wsYStnYcyu_9endurance",
+              "demangled_symbol": "std[c29fa2d9dbea2b0e]::sys::backtrace::__rust_begin_short_backtrace::<fn() -> core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::boxed::Box<dyn core[a9090a07a7fa7517]::error::Error + core[a9090a07a7fa7517]::marker::Send + core[a9090a07a7fa7517]::marker::Sync>>, core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::boxed::Box<dyn core[a9090a07a7fa7517]::error::Error + core[a9090a07a7fa7517]::marker::Send + core[a9090a07a7fa7517]::marker::Sync>>>"
+            },
+            {
+              "ip": "0x560307ab3738",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNCINvNtCsgHYyB3hU8Ec_3std2rt10lang_startINtNtCsevLNFiNqfJP_4core6result6ResultuINtNtCs1C1lLj4PWSY_5alloc5boxed3BoxDNtNtBI_5error5ErrorNtNtBI_6marker4SendNtB2b_4SyncEL_EEE0Cs8wsYStnYcyu_9endurance",
+              "demangled_symbol": "std[c29fa2d9dbea2b0e]::rt::lang_start::<core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::boxed::Box<dyn core[a9090a07a7fa7517]::error::Error + core[a9090a07a7fa7517]::marker::Send + core[a9090a07a7fa7517]::marker::Sync>>>::{closure#0}"
+            },
+            {
+              "ip": "0x560307c32128",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_RNvNtCsgHYyB3hU8Ec_3std2rt19lang_start_internal",
+              "demangled_symbol": "std[c29fa2d9dbea2b0e]::rt::lang_start_internal"
+            },
+            {
+              "ip": "0x560307ab6574",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "main",
+              "demangled_symbol": "main"
+            },
+            {
+              "ip": "0x7fc3912d3ca7",
+              "module": "/lib/x86_64-linux-gnu/libc.so.6",
+              "symbol": "0x7fc3912d3ca7",
+              "demangled_symbol": "0x7fc3912d3ca7"
+            },
+            {
+              "ip": "0x7fc3912d3d64",
+              "module": "/lib/x86_64-linux-gnu/libc.so.6",
+              "symbol": "__libc_start_main",
+              "demangled_symbol": "__libc_start_main"
+            },
+            {
+              "ip": "0x56030792e890",
+              "module": "/workspace/rustwright/target/release/examples/endurance",
+              "symbol": "_start",
+              "demangled_symbol": "_start"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

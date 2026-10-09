@@ -1,0 +1,28 @@
+uid=0(root) gid=0(root) groups=0(root)
+Python 3.13.5
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.06s
+     Running http_compat.rs (target/debug/deps/http_compat-a77bcbe15319c0dc)
+
+running 1 test
+Requested browser mode: headless=false
+Firefox version: Some("157.0.1")
+HTTP compat Firefox stage: new_page start
+HTTP compat Firefox stage: new_page complete
+HTTP compat stage: goto start backend_firefox=true, url=http://127.0.0.1:33587/page.html
+HTTP compat fixture accepted: 127.0.0.1:59418
+HTTP compat fixture request: peer=127.0.0.1:59418, bytes=448, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:59418, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat stage: goto complete backend_firefox=true
+HTTP compat fixture accepted: 127.0.0.1:59420
+HTTP compat fixture request: peer=127.0.0.1:59420, bytes=449, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:59420, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:59432
+HTTP compat fixture request: peer=127.0.0.1:59432, bytes=474, line=Some("GET /frame.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:59432, bytes=346, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:59434
+HTTP compat fixture request: peer=127.0.0.1:59434, bytes=474, line=Some("GET /frame.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:59434, bytes=346, content_type=text/html, write=Ok(())
+test firefox_frame_reload ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 23 filtered out; finished in 2.62s
+

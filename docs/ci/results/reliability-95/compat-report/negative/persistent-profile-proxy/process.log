@@ -1,0 +1,11 @@
+Firefox --proxy requires a fresh profile; omit --profile to preserve user preferences
+Usage: compat_report [--browser chrome|firefox] [--headed|--headless]
+[--output DIR] [--profile DIR] [--proxy http://HOST:PORT] [--viewport WIDTHxHEIGHT]
+[--timeout-secs 1..300] [--idle-timeout-secs 1..300] [HTTP(S)_URL ...]
+Defaults: headless Chrome, 1280x800, 30s per operation, 5s idle wait.
+Browser shutdown allows at least 6s for its bounded graceful cleanup.
+Without URLs observes Mercari, Rakuma, X, YouTube, TikTok and Instagram.
+Exit0: requested operations completed (HTTP denial can still be observed).
+Exit1: an operation/report failed; attribution to driver/site is undetermined.
+Exit2: invalid arguments. Output directory must be new or empty.
+--proxy accepts an explicit HTTP proxy without credentials; Firefox requires a fresh profile.

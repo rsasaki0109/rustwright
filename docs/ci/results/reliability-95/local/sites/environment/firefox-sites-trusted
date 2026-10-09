@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+"""Trust the configured public proxy CA only in this task's disposable site profiles."""
+import os, pathlib, subprocess, sys
+args=sys.argv[1:]
+if '--profile' not in args:
+    raise SystemExit('This launcher requires an explicit disposable site profile')
+profile=pathlib.Path(args[args.index('--profile')+1]).resolve()
+root=pathlib.Path('/workspace/rustwright/target/reliability95/sites').resolve()
+if not profile.is_relative_to(root) or profile==root:
+    raise SystemExit('Refusing to modify a profile outside this task site directory')
+profile.mkdir(parents=True,exist_ok=True)
+certutil='/workspace/.rustwright-env/site-nss/root/usr/bin/certutil'
+if not (profile/'cert9.db').exists():
+    subprocess.run([certutil,'-N','--empty-password','-d','sql:'+str(profile)],check=True,timeout=10)
+subprocess.run([certutil,'-A','-n','Codex configured proxy CA','-t','C,,','-d','sql:'+str(profile),'-i','/usr/local/share/ca-certificates/environment-proxy-ca.crt'],check=True,timeout=10)
+os.environ['MOZ_DISABLE_CONTENT_SANDBOX']='1'
+binary=os.environ.get('RUSTWRIGHT_SITE_FIREFOX_BINARY','/workspace/.rustwright-env/firefox/firefox')
+allowed={'/workspace/.rustwright-env/firefox/firefox','/workspace/.rustwright-env/firefox-esr/firefox/firefox'}
+if binary not in allowed:raise SystemExit('Firefox site binary must be one of the task installations')
+os.execv(binary,[binary,*args])

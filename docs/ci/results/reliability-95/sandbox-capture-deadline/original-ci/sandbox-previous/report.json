@@ -1,0 +1,84 @@
+{
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "status": "failed",
+  "probes": [
+    {
+      "phase": "before",
+      "command": [
+        "/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome",
+        "--no-first-run",
+        "--no-default-browser-check",
+        "--user-data-dir=/home/runner/work/rustwright/rustwright/target/ci/extended/sandbox-previous/before-profile-tjulnbdr",
+        "--headless=new",
+        "--disable-gpu",
+        "--hide-scrollbars",
+        "--mute-audio",
+        "--dump-dom",
+        "http://127.0.0.1:46327/"
+      ],
+      "exit_code": -6,
+      "timed_out": false,
+      "stdout": "/home/runner/work/rustwright/rustwright/target/ci/extended/sandbox-previous/before-stdout.log",
+      "stderr": "/home/runner/work/rustwright/rustwright/target/ci/extended/sandbox-previous/before-stderr.log",
+      "document_rendered": false,
+      "passed": false
+    },
+    {
+      "phase": "after-configuration",
+      "command": [
+        "/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome",
+        "--no-first-run",
+        "--no-default-browser-check",
+        "--user-data-dir=/home/runner/work/rustwright/rustwright/target/ci/extended/sandbox-previous/after-configuration-profile-0d4baer0",
+        "--headless=new",
+        "--disable-gpu",
+        "--hide-scrollbars",
+        "--mute-audio",
+        "--dump-dom",
+        "http://127.0.0.1:46411/"
+      ],
+      "exit_code": 0,
+      "timed_out": true,
+      "stdout": "/home/runner/work/rustwright/rustwright/target/ci/extended/sandbox-previous/after-configuration-stdout.log",
+      "stderr": "/home/runner/work/rustwright/rustwright/target/ci/extended/sandbox-previous/after-configuration-stderr.log",
+      "document_rendered": false,
+      "passed": false
+    }
+  ],
+  "sandbox_disabled": false,
+  "global_policy_modified": false,
+  "uid": 1001,
+  "chrome": {
+    "path": "/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome",
+    "uid": 1001,
+    "gid": 1001,
+    "mode": "0o755",
+    "bytes": 291020104,
+    "sha256": "22f1017b80d5744b3ece65a585fcdd462fcbc487df57d211db39b44a4e9f948f"
+  },
+  "version": "Google Chrome for Testing 151.0.7922.138",
+  "host_policy_observation": {
+    "/proc/sys/kernel/apparmor_restrict_unprivileged_userns": "1",
+    "/proc/sys/kernel/unprivileged_userns_clone": "1",
+    "/sys/module/apparmor/parameters/enabled": "Y"
+  },
+  "bundled_helper": {
+    "path": "/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome_sandbox",
+    "uid": 1001,
+    "gid": 1001,
+    "mode": "0o755",
+    "bytes": 15232,
+    "sha256": "18391bf9d217ddbde9956347cbb1346d2808a73ade4baa3f88a610447cf946b4"
+  },
+  "initial_CHROME_DEVEL_SANDBOX": "",
+  "diagnosis": "Chrome explicitly reported no usable or misconfigured sandbox; host policy is observed separately",
+  "installed_helper": {
+    "path": "/usr/local/lib/rustwright-ci/151.0.7922.138/chrome-sandbox",
+    "uid": 0,
+    "gid": 0,
+    "mode": "0o4755",
+    "bytes": 15232,
+    "sha256": "18391bf9d217ddbde9956347cbb1346d2808a73ade4baa3f88a610447cf946b4"
+  },
+  "error": "Configured sandbox preflight failed; see preserved stderr"
+}

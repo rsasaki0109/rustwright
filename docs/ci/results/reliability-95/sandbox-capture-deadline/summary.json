@@ -1,0 +1,42 @@
+{
+  "status": "source-and-controls-ready-native-pending",
+  "before_ci": {
+    "run": 37987315249,
+    "source": "be1b065aeff87e5c19e53492a19f4465ba4436f4",
+    "chrome": "151.0.7922.138",
+    "helper_installation": "root:root4755 bytes match bundled helper",
+    "probe": {
+      "exit_code": 0,
+      "timed_out": true,
+      "document_rendered": false,
+      "passed": false
+    }
+  },
+  "source_before_sha256": "5447800725ebabc6504deb0a0789787b946dab83955b953d1cade444b0ce98ce",
+  "source_after_sha256": "3c8481734ffb1389c0fa03148e4490b249e37ef90b99821dbe5cd3ce1427da90",
+  "checks": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "py_compile",
+        "scripts/ci/chrome_linux_sandbox.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check",
+        "--",
+        "scripts/ci/chrome_linux_sandbox.py"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "synthetic_controls": 4,
+  "actual_browser_or_build_commands_executed_locally": 0,
+  "capture_scope": "supported 10s internal DOM capture bound; 25s outer timeout; strict normal exit0, no outer timeout, exact fixture title+h1; not full-load event or universal sandbox proof",
+  "root_cause": "prior dump-dom hang not attributed; DBus/GCM log messages alone do not prove its cause"
+}

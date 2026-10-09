@@ -1,0 +1,18 @@
+All commands run from /workspace/rustwright; activate each cargo invocation.
+
+BEFORE reproduction (restore only BiDi original production snapshots + before/with-regressions test snapshots in a separate checkout, not the shared checkout):
+. /workspace/.rustwright-env/activate.sh
+cargo test -p rustwright-bidi --lib without_
+Expected: 7 tests selected, 4 pass, 3 fail; exit 101.
+
+AFTER unit validation:
+. /workspace/.rustwright-env/activate.sh
+cargo test -p rustwright-bidi --lib
+Expected: 111 tests pass; exit 0.
+
+AFTER scoped lint:
+. /workspace/.rustwright-env/activate.sh
+cargo clippy -p rustwright-bidi --all-targets -- -D warnings
+Expected: exit 0.
+
+The existing before/test-binary.sha256 identifies the baseline local executable. No executable, rlib, cache, or browser binary is copied into this evidence directory.

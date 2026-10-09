@@ -1,0 +1,655 @@
+﻿2026-10-09T19:22:58.8307899Z Current runner version: '2.337.0'
+2026-10-09T19:22:58.8330336Z ##[group]Runner Image Provisioner
+2026-10-09T19:22:58.8330990Z Hosted Compute Agent
+2026-10-09T19:22:58.8331548Z Version: 20260901.588
+2026-10-09T19:22:58.8332258Z Commit: f88ec8081b781fac6c440065ac7ff9e710ce3d0b
+2026-10-09T19:22:58.8333129Z Build Date: 2026-09-01T19:56:44Z
+2026-10-09T19:22:58.8333932Z Worker ID: {e7ce2932-843c-4aa8-a46a-3385ccfe5c36}
+2026-10-09T19:22:58.8334754Z Azure Region: eastus
+2026-10-09T19:22:58.8335448Z ##[endgroup]
+2026-10-09T19:22:58.8336872Z ##[group]Operating System
+2026-10-09T19:22:58.8337691Z Microsoft Windows Server 2025
+2026-10-09T19:22:58.8338361Z 10.0.26100
+2026-10-09T19:22:58.8338876Z Datacenter
+2026-10-09T19:22:58.8339460Z ##[endgroup]
+2026-10-09T19:22:58.8340072Z ##[group]Runner Image
+2026-10-09T19:22:58.8340702Z Image: windows-2025-vs2026
+2026-10-09T19:22:58.8341687Z Version: 20260925.250.1
+2026-10-09T19:22:58.8343898Z Included Software: https://github.com/actions/runner-images/blob/win25-vs2026/20260925.250/images/windows/Windows2025-VS2026-Readme.md
+2026-10-09T19:22:58.8345971Z Image Release: https://github.com/actions/runner-images/releases/tag/win25-vs2026%2F20260925.250
+2026-10-09T19:22:58.8346867Z ##[endgroup]
+2026-10-09T19:22:58.8347937Z ##[group]GITHUB_TOKEN Permissions
+2026-10-09T19:22:58.8349511Z Contents: read
+2026-10-09T19:22:58.8350051Z Metadata: read
+2026-10-09T19:22:58.8350490Z ##[endgroup]
+2026-10-09T19:22:58.8352176Z Secret source: Actions
+2026-10-09T19:22:58.8352848Z Cache mode: write
+2026-10-09T19:22:58.8353405Z Prepare workflow directory
+2026-10-09T19:22:58.8745916Z Prepare all required actions
+2026-10-09T19:22:58.8786627Z Getting action download info
+2026-10-09T19:22:59.0851938Z Download action repository 'actions/checkout@v5' (SHA:fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09)
+2026-10-09T19:22:59.1931821Z Download action repository 'dtolnay/rust-toolchain@stable' (SHA:686976e191b89faba57d3206551f0f330d8cb249)
+2026-10-09T19:22:59.2837547Z Download action repository 'Swatinem/rust-cache@v2' (SHA:6323deb102c322ba6fcbdcafc7e3dddab59af2b6)
+2026-10-09T19:22:59.4649895Z Download action repository 'actions/setup-python@v6' (SHA:ece7cb06caefa5fff74198d8649806c4678c61a1)
+2026-10-09T19:22:59.5791298Z Download action repository 'browser-actions/setup-chrome@v2' (SHA:48ad923757ca74d66703209fe939badbdf80f2f4)
+2026-10-09T19:22:59.6750829Z Download action repository 'browser-actions/setup-firefox@v1' (SHA:0bc507ddf224827e3b1af68e014d5e42ab93e795)
+2026-10-09T19:22:59.8017783Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-09T19:23:00.2550795Z Complete job name: Required Chrome + Firefox / windows-latest
+2026-10-09T19:23:00.4114922Z ##[group]Run actions/checkout@v5
+2026-10-09T19:23:00.4116137Z with:
+2026-10-09T19:23:00.4116716Z   repository: rsasaki0109/rustwright
+2026-10-09T19:23:00.4122126Z   token: ***
+2026-10-09T19:23:00.4122690Z   ssh-strict: true
+2026-10-09T19:23:00.4123263Z   ssh-user: git
+2026-10-09T19:23:00.4123878Z   persist-credentials: true
+2026-10-09T19:23:00.4124506Z   clean: true
+2026-10-09T19:23:00.4125095Z   sparse-checkout-cone-mode: true
+2026-10-09T19:23:00.4125784Z   fetch-depth: 1
+2026-10-09T19:23:00.4126346Z   fetch-tags: false
+2026-10-09T19:23:00.4126983Z   show-progress: true
+2026-10-09T19:23:00.4127581Z   lfs: false
+2026-10-09T19:23:00.4128112Z   submodules: false
+2026-10-09T19:23:00.4128696Z   set-safe-directory: true
+2026-10-09T19:23:00.4129351Z   allow-unsafe-pr-checkout: false
+2026-10-09T19:23:00.4130191Z env:
+2026-10-09T19:23:00.4130728Z   CARGO_TERM_COLOR: always
+2026-10-09T19:23:00.4131349Z   RUST_BACKTRACE: 1
+2026-10-09T19:23:00.4131911Z ##[endgroup]
+2026-10-09T19:23:00.5462252Z Syncing repository: rsasaki0109/rustwright
+2026-10-09T19:23:00.5464228Z ##[group]Getting Git version info
+2026-10-09T19:23:00.5465047Z Working directory is 'D:\a\rustwright\rustwright'
+2026-10-09T19:23:00.6123267Z [command]"C:\Program Files\Git\bin\git.exe" version
+2026-10-09T19:23:00.9480244Z git version 2.55.0.windows.5
+2026-10-09T19:23:00.9524545Z ##[endgroup]
+2026-10-09T19:23:00.9540869Z Temporarily overriding HOME='D:\a\_temp\f352724f-0037-4f52-ab3d-947fd3d28dac' before making global git config changes
+2026-10-09T19:23:00.9549844Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-09T19:23:00.9551638Z [command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\rustwright\rustwright
+2026-10-09T19:23:01.0150811Z Deleting the contents of 'D:\a\rustwright\rustwright'
+2026-10-09T19:23:01.0155762Z ##[group]Initializing the repository
+2026-10-09T19:23:01.0163549Z [command]"C:\Program Files\Git\bin\git.exe" init D:\a\rustwright\rustwright
+2026-10-09T19:23:01.1105530Z Initialized empty Git repository in D:/a/rustwright/rustwright/.git/
+2026-10-09T19:23:01.1150677Z [command]"C:\Program Files\Git\bin\git.exe" remote add origin https://github.com/rsasaki0109/rustwright
+2026-10-09T19:23:01.2284701Z ##[endgroup]
+2026-10-09T19:23:01.2286209Z ##[group]Disabling automatic garbage collection
+2026-10-09T19:23:01.2291985Z [command]"C:\Program Files\Git\bin\git.exe" config --local gc.auto 0
+2026-10-09T19:23:01.2546954Z ##[endgroup]
+2026-10-09T19:23:01.2547909Z ##[group]Setting up auth
+2026-10-09T19:23:01.2558168Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-09T19:23:01.2810978Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-09T19:23:02.7664781Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-09T19:23:02.7927979Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-09T19:23:03.2393121Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-09T19:23:03.2640983Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-10-09T19:23:03.6946576Z [command]"C:\Program Files\Git\bin\git.exe" config --local http.https://github.com/.extraheader "AUTHORIZATION: basic ***"
+2026-10-09T19:23:03.7247831Z ##[endgroup]
+2026-10-09T19:23:03.7248493Z ##[group]Fetching the repository
+2026-10-09T19:23:03.7265996Z [command]"C:\Program Files\Git\bin\git.exe" -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +92b05f2057d319cfc0ad2bad1f408e43597fca7c:refs/remotes/pull/1/merge
+2026-10-09T19:23:05.2913458Z From https://github.com/rsasaki0109/rustwright
+2026-10-09T19:23:05.2914137Z  * [new ref]         92b05f2057d319cfc0ad2bad1f408e43597fca7c -> pull/1/merge
+2026-10-09T19:23:05.2959882Z ##[endgroup]
+2026-10-09T19:23:05.2960335Z ##[group]Determining the checkout info
+2026-10-09T19:23:05.2961977Z ##[endgroup]
+2026-10-09T19:23:05.2974948Z [command]"C:\Program Files\Git\bin\git.exe" sparse-checkout disable
+2026-10-09T19:23:05.3357122Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset-all extensions.worktreeConfig
+2026-10-09T19:23:05.3620512Z ##[group]Checking out the ref
+2026-10-09T19:23:05.3629166Z [command]"C:\Program Files\Git\bin\git.exe" checkout --progress --force refs/remotes/pull/1/merge
+2026-10-09T19:23:05.7917244Z Note: switching to 'refs/remotes/pull/1/merge'.
+2026-10-09T19:23:05.7917644Z 
+2026-10-09T19:23:05.7917912Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-10-09T19:23:05.7918280Z changes and commit them, and you can discard any commits you make in this
+2026-10-09T19:23:05.7918627Z state without impacting any branches by switching back to a branch.
+2026-10-09T19:23:05.7918848Z 
+2026-10-09T19:23:05.7919791Z If you want to create a new branch to retain commits you create, you may
+2026-10-09T19:23:05.7920215Z do so (now or later) by using -c with the switch command. Example:
+2026-10-09T19:23:05.7920408Z 
+2026-10-09T19:23:05.7920516Z   git switch -c <new-branch-name>
+2026-10-09T19:23:05.7920658Z 
+2026-10-09T19:23:05.7920732Z Or undo this operation with:
+2026-10-09T19:23:05.7920896Z 
+2026-10-09T19:23:05.7920988Z   git switch -
+2026-10-09T19:23:05.7921082Z 
+2026-10-09T19:23:05.7921242Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-10-09T19:23:05.7921466Z 
+2026-10-09T19:23:05.7922767Z HEAD is now at 92b05f2 Merge 908323d38ba036960c41347ecbe2a5dfa8c24271 into 91e72af388d000266c9b4e7567a3e1fe4007fc33
+2026-10-09T19:23:05.8060056Z ##[endgroup]
+2026-10-09T19:23:05.8431412Z [command]"C:\Program Files\Git\bin\git.exe" log -1 --format=%H
+2026-10-09T19:23:05.8657084Z 92b05f2057d319cfc0ad2bad1f408e43597fca7c
+2026-10-09T19:23:05.9150724Z ##[group]Run dtolnay/rust-toolchain@stable
+2026-10-09T19:23:05.9151050Z with:
+2026-10-09T19:23:05.9151199Z   toolchain: stable
+2026-10-09T19:23:05.9151361Z env:
+2026-10-09T19:23:05.9151503Z   CARGO_TERM_COLOR: always
+2026-10-09T19:23:05.9151670Z   RUST_BACKTRACE: 1
+2026-10-09T19:23:05.9151814Z ##[endgroup]
+2026-10-09T19:23:05.9210316Z ##[start-action display=Parse toolchain version;id=__dtolnay_rust-toolchain.parse]
+2026-10-09T19:23:05.9391078Z ##[group]Run if [[ -z $toolchain ]]; then
+2026-10-09T19:23:05.9391390Z [36;1mif [[ -z $toolchain ]]; then[0m
+2026-10-09T19:23:05.9391819Z [36;1m  # GitHub does not enforce `required: true` inputs itself. https://github.com/actions/runner/issues/1070[0m
+2026-10-09T19:23:05.9392270Z [36;1m  echo "'toolchain' is a required input" >&2[0m
+2026-10-09T19:23:05.9392509Z [36;1m  exit 1[0m
+2026-10-09T19:23:05.9392768Z [36;1melif [[ $toolchain =~ ^stable' '[0-9]+' '(year|month|week|day)s?' 'ago$ ]]; then[0m
+2026-10-09T19:23:05.9393134Z [36;1m  if [[ Windows == macOS ]]; then[0m
+2026-10-09T19:23:05.9393561Z [36;1m    echo "toolchain=1.$((($(date -v-$(sed 's/stable \([0-9]*\) \(.\).*/\1\2/' <<< $toolchain) +%s)/60/60/24-16569)/7/6))" >> $GITHUB_OUTPUT[0m
+2026-10-09T19:23:05.9393932Z [36;1m  else[0m
+2026-10-09T19:23:05.9394232Z [36;1m    echo "toolchain=1.$((($(date --date "${toolchain#stable }" +%s)/60/60/24-16569)/7/6))" >> $GITHUB_OUTPUT[0m
+2026-10-09T19:23:05.9394566Z [36;1m  fi[0m
+2026-10-09T19:23:05.9394795Z [36;1melif [[ $toolchain =~ ^stable' 'minus' '[0-9]+' 'releases?$ ]]; then[0m
+2026-10-09T19:23:05.9395189Z [36;1m  echo "toolchain=1.$((($(date +%s)/60/60/24-16569)/7/6-${toolchain//[^0-9]/}))" >> $GITHUB_OUTPUT[0m
+2026-10-09T19:23:05.9395535Z [36;1melif [[ $toolchain =~ ^1\.[0-9]+$ ]]; then[0m
+2026-10-09T19:23:05.9395910Z [36;1m  echo "toolchain=1.$((i=${toolchain#1.}, c=($(date +%s)/60/60/24-16569)/7/6, i+9*i*(10*i<=c)+90*i*(100*i<=c)))" >> $GITHUB_OUTPUT[0m
+2026-10-09T19:23:05.9396266Z [36;1melse[0m
+2026-10-09T19:23:05.9396415Z [36;1m  delimiter=EOF[0m
+2026-10-09T19:23:05.9396651Z [36;1m  while [[ $toolchain == *$delimiter* ]]; do delimiter+=_; done[0m
+2026-10-09T19:23:05.9397035Z [36;1m  printf 'toolchain<<%s\n%s\n%s\n' "$delimiter" "$toolchain" "$delimiter" >> $GITHUB_OUTPUT[0m
+2026-10-09T19:23:05.9397347Z [36;1mfi[0m
+2026-10-09T19:23:05.9414630Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-09T19:23:05.9414947Z env:
+2026-10-09T19:23:05.9415116Z   CARGO_TERM_COLOR: always
+2026-10-09T19:23:05.9415306Z   RUST_BACKTRACE: 1
+2026-10-09T19:23:05.9415469Z   toolchain: stable
+2026-10-09T19:23:05.9415692Z ##[endgroup]
+2026-10-09T19:23:06.1033348Z ##[end-action id=__dtolnay_rust-toolchain.parse;outcome=success;conclusion=success;duration_ms=182]
+2026-10-09T19:23:06.1068449Z ##[start-action display=Set $CARGO_HOME;id=__dtolnay_rust-toolchain.__run]
+2026-10-09T19:23:06.1259501Z ##[group]Run echo CARGO_HOME=${CARGO_HOME:-"$USERPROFILE\.cargo"} >> $GITHUB_ENV
+2026-10-09T19:23:06.1259912Z [36;1mecho CARGO_HOME=${CARGO_HOME:-"$USERPROFILE\.cargo"} >> $GITHUB_ENV[0m
+2026-10-09T19:23:06.1271664Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-09T19:23:06.1271969Z env:
+2026-10-09T19:23:06.1272116Z   CARGO_TERM_COLOR: always
+2026-10-09T19:23:06.1272303Z   RUST_BACKTRACE: 1
+2026-10-09T19:23:06.1272459Z ##[endgroup]
+2026-10-09T19:23:06.1639567Z ##[end-action id=__dtolnay_rust-toolchain.__run;outcome=success;conclusion=success;duration_ms=57]
+2026-10-09T19:23:06.1642120Z ##[start-action display=Install rustup if needed;id=__dtolnay_rust-toolchain.__run_2]
+2026-10-09T19:23:06.1652047Z ##[end-action id=__dtolnay_rust-toolchain.__run_2;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-09T19:23:06.1653895Z ##[start-action display=Install rustup if needed on windows;id=__dtolnay_rust-toolchain.__run_3]
+2026-10-09T19:23:06.1773829Z ##[group]Run if ! command -v rustup &>/dev/null; then
+2026-10-09T19:23:06.1775707Z [36;1mif ! command -v rustup &>/dev/null; then[0m
+2026-10-09T19:23:06.1776390Z [36;1m  curl --proto '=https' --tlsv1.2 --retry 10 --retry-connrefused --location --silent --show-error --fail https://win.rustup.rs/x86_64 --output 'D:\a\_temp\rustup-init.exe'[0m
+2026-10-09T19:23:06.1777062Z [36;1m  'D:\a\_temp\rustup-init.exe' --default-toolchain none --no-modify-path -y[0m
+2026-10-09T19:23:06.1777389Z [36;1m  echo "$CARGO_HOME\bin" >> $GITHUB_PATH[0m
+2026-10-09T19:23:06.1777600Z [36;1mfi[0m
+2026-10-09T19:23:06.1788256Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-09T19:23:06.1788551Z env:
+2026-10-09T19:23:06.1788701Z   CARGO_TERM_COLOR: always
+2026-10-09T19:23:06.1788871Z   RUST_BACKTRACE: 1
+2026-10-09T19:23:06.1789043Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-09T19:23:06.1789243Z ##[endgroup]
+2026-10-09T19:23:06.2227518Z ##[end-action id=__dtolnay_rust-toolchain.__run_3;outcome=success;conclusion=success;duration_ms=57]
+2026-10-09T19:23:06.2243956Z ##[start-action display=rustup toolchain install stable;id=__dtolnay_rust-toolchain.__run_4]
+2026-10-09T19:23:06.2362528Z ##[group]Run set -f  # split targets and components on commas and whitespace, without glob expansion
+2026-10-09T19:23:06.2363065Z [36;1mset -f  # split targets and components on commas and whitespace, without glob expansion[0m
+2026-10-09T19:23:06.2363391Z [36;1mflags=()[0m
+2026-10-09T19:23:06.2363605Z [36;1mfor t in ${targets//,/ }; do flags+=(--target "$t"); done[0m
+2026-10-09T19:23:06.2363906Z [36;1mfor c in ${components//,/ }; do flags+=(--component "$c"); done[0m
+2026-10-09T19:23:06.2364273Z [36;1mif [[ $toolchain == nightly && -n $components ]]; then flags+=(--allow-downgrade); fi[0m
+2026-10-09T19:23:06.2364578Z [36;1mlog=$(mktemp)[0m
+2026-10-09T19:23:06.2364763Z [36;1mtrap 'rm -f "$log"' EXIT[0m
+2026-10-09T19:23:06.2364961Z [36;1mfor attempt in 1 2 3 4 5; do[0m
+2026-10-09T19:23:06.2365400Z [36;1m  if rustup toolchain install "$toolchain" "${flags[@]}" --profile minimal --no-self-update --force-non-host 2>&1 | tee "$log"; then[0m
+2026-10-09T19:23:06.2365826Z [36;1m    break[0m
+2026-10-09T19:23:06.2365977Z [36;1m  else[0m
+2026-10-09T19:23:06.2366121Z [36;1m    status=$?[0m
+2026-10-09T19:23:06.2366272Z [36;1m  fi[0m
+2026-10-09T19:23:06.2366490Z [36;1m  if [[ $attempt == 5 ]] || ! grep -Fq 'checksum failed for ' "$log" \[0m
+2026-10-09T19:23:06.2366907Z [36;1m      || ! grep -Fq 'this is likely due to an ongoing update of the official release server' "$log"; then[0m
+2026-10-09T19:23:06.2367247Z [36;1m    exit "$status"[0m
+2026-10-09T19:23:06.2367419Z [36;1m  fi[0m
+2026-10-09T19:23:06.2367697Z [36;1m  echo "Retrying rustup toolchain install in 30 seconds (retry $attempt of 4)" >&2[0m
+2026-10-09T19:23:06.2368000Z [36;1m  sleep 30[0m
+2026-10-09T19:23:06.2368152Z [36;1mdone[0m
+2026-10-09T19:23:06.2379396Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-09T19:23:06.2379713Z env:
+2026-10-09T19:23:06.2379872Z   CARGO_TERM_COLOR: always
+2026-10-09T19:23:06.2380224Z   RUST_BACKTRACE: 1
+2026-10-09T19:23:06.2380396Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-09T19:23:06.2380600Z   toolchain: stable
+2026-10-09T19:23:06.2380966Z   targets: 
+2026-10-09T19:23:06.2381111Z   components: 
+2026-10-09T19:23:06.2381269Z   RUSTUP_PERMIT_COPY_RENAME: 1
+2026-10-09T19:23:06.2381459Z ##[endgroup]
+2026-10-09T19:23:09.6123714Z info: syncing channel updates for stable-x86_64-pc-windows-msvc
+2026-10-09T19:23:10.1053011Z info: latest update on 2026-10-01 for version 1.99.0 (b940084d7 2026-09-28)
+2026-10-09T19:23:10.1346674Z info: removing previous version of component rustfmt
+2026-10-09T19:23:10.1663055Z info: removing previous version of component clippy
+2026-10-09T19:23:10.1823503Z info: removing previous version of component rust-std for target x86_64-pc-windows-gnu
+2026-10-09T19:23:10.2932484Z info: removing previous version of component rust-std for target i686-pc-windows-msvc
+2026-10-09T19:23:10.3885918Z info: removing previous version of component cargo
+2026-10-09T19:23:10.4515513Z info: removing previous version of component rust-std
+2026-10-09T19:23:10.5464636Z info: removing previous version of component rustc
+2026-10-09T19:23:10.6729380Z info: downloading 7 components
+2026-10-09T19:23:22.4907418Z 
+2026-10-09T19:23:22.5224951Z   stable-x86_64-pc-windows-msvc updated - rustc 1.99.0 (b940084d7 2026-09-28) (from rustc 1.98.1 (48a229cea 2026-09-01))
+2026-10-09T19:23:22.5225328Z 
+2026-10-09T19:23:22.5667617Z ##[end-action id=__dtolnay_rust-toolchain.__run_4;outcome=success;conclusion=success;duration_ms=16342]
+2026-10-09T19:23:22.5673935Z ##[start-action display=rustup default stable;id=__dtolnay_rust-toolchain.__run_5]
+2026-10-09T19:23:22.5790857Z ##[group]Run rustup default "$toolchain" --force-non-host
+2026-10-09T19:23:22.5791185Z [36;1mrustup default "$toolchain" --force-non-host[0m
+2026-10-09T19:23:22.5802557Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-09T19:23:22.5802884Z env:
+2026-10-09T19:23:22.5803043Z   CARGO_TERM_COLOR: always
+2026-10-09T19:23:22.5803219Z   RUST_BACKTRACE: 1
+2026-10-09T19:23:22.5803389Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-09T19:23:22.5803589Z   toolchain: stable
+2026-10-09T19:23:22.5803737Z ##[endgroup]
+2026-10-09T19:23:22.6385384Z info: using existing install for stable-x86_64-pc-windows-msvc
+2026-10-09T19:23:22.6494838Z info: default toolchain set to stable-x86_64-pc-windows-msvc
+2026-10-09T19:23:22.6537270Z 
+2026-10-09T19:23:22.6720201Z   stable-x86_64-pc-windows-msvc unchanged - rustc 1.99.0 (b940084d7 2026-09-28)
+2026-10-09T19:23:22.6720489Z 
+2026-10-09T19:23:22.7379558Z ##[end-action id=__dtolnay_rust-toolchain.__run_5;outcome=success;conclusion=success;duration_ms=170]
+2026-10-09T19:23:22.7383092Z ##[start-action display=Create cachekey;id=__dtolnay_rust-toolchain.rustc-version]
+2026-10-09T19:23:22.7491707Z ##[group]Run DATE=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-date: \(20[0-9][0-9]\)-\([01][0-9]\)-\([0-3][0-9]\)$/\1\2\3/p')
+2026-10-09T19:23:22.7492362Z [36;1mDATE=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-date: \(20[0-9][0-9]\)-\([01][0-9]\)-\([0-3][0-9]\)$/\1\2\3/p')[0m
+2026-10-09T19:23:22.7492845Z [36;1mHASH=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-hash: //p')[0m
+2026-10-09T19:23:22.7493228Z [36;1mecho "cachekey=$(echo $DATE$HASH | head -c12)" >> $GITHUB_OUTPUT[0m
+2026-10-09T19:23:22.7502797Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-09T19:23:22.7503100Z env:
+2026-10-09T19:23:22.7503250Z   CARGO_TERM_COLOR: always
+2026-10-09T19:23:22.7503423Z   RUST_BACKTRACE: 1
+2026-10-09T19:23:22.7503593Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-09T19:23:22.7503797Z   toolchain: stable
+2026-10-09T19:23:22.7503947Z ##[endgroup]
+2026-10-09T19:23:23.5264468Z ##[end-action id=__dtolnay_rust-toolchain.rustc-version;outcome=success;conclusion=success;duration_ms=788]
+2026-10-09T19:23:23.5267418Z ##[start-action display=Disable incremental compilation;id=__dtolnay_rust-toolchain.__run_6]
+2026-10-09T19:23:23.5413348Z ##[group]Run if [ -z "${CARGO_INCREMENTAL+set}" ]; then
+2026-10-09T19:23:23.5413815Z [36;1mif [ -z "${CARGO_INCREMENTAL+set}" ]; then[0m
+2026-10-09T19:23:23.5414200Z [36;1m  echo CARGO_INCREMENTAL=0 >> $GITHUB_ENV[0m
+2026-10-09T19:23:23.5414515Z [36;1mfi[0m
+2026-10-09T19:23:23.5431546Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-09T19:23:23.5432106Z env:
+2026-10-09T19:23:23.5432412Z   CARGO_TERM_COLOR: always
+2026-10-09T19:23:23.5432827Z   RUST_BACKTRACE: 1
+2026-10-09T19:23:23.5433171Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-09T19:23:23.5433549Z ##[endgroup]
+2026-10-09T19:23:23.5821900Z ##[end-action id=__dtolnay_rust-toolchain.__run_6;outcome=success;conclusion=success;duration_ms=55]
+2026-10-09T19:23:23.5824842Z ##[start-action display=Enable colors in Cargo output;id=__dtolnay_rust-toolchain.__run_7]
+2026-10-09T19:23:23.5932073Z ##[group]Run if [ -z "${CARGO_TERM_COLOR+set}" ]; then
+2026-10-09T19:23:23.5932363Z [36;1mif [ -z "${CARGO_TERM_COLOR+set}" ]; then[0m
+2026-10-09T19:23:23.5932623Z [36;1m  echo CARGO_TERM_COLOR=always >> $GITHUB_ENV[0m
+2026-10-09T19:23:23.5932839Z [36;1mfi[0m
+2026-10-09T19:23:23.5942708Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-09T19:23:23.5943014Z env:
+2026-10-09T19:23:23.5943164Z   CARGO_TERM_COLOR: always
+2026-10-09T19:23:23.5943343Z   RUST_BACKTRACE: 1
+2026-10-09T19:23:23.5943514Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-09T19:23:23.5943716Z   CARGO_INCREMENTAL: 0
+2026-10-09T19:23:23.5943874Z ##[endgroup]
+2026-10-09T19:23:23.6274990Z ##[end-action id=__dtolnay_rust-toolchain.__run_7;outcome=success;conclusion=success;duration_ms=44]
+2026-10-09T19:23:23.6278900Z ##[start-action display=Enable Cargo sparse registry;id=__dtolnay_rust-toolchain.__run_8]
+2026-10-09T19:23:23.6387742Z ##[group]Run # implemented in 1.66, stabilized in 1.68, made default in 1.70
+2026-10-09T19:23:23.6388165Z [36;1m# implemented in 1.66, stabilized in 1.68, made default in 1.70[0m
+2026-10-09T19:23:23.6388667Z [36;1mif [ -z "${CARGO_REGISTRIES_CRATES_IO_PROTOCOL+set}" -o -f "D:\a\_temp"/.implicit_cargo_registries_crates_io_protocol ]; then[0m
+2026-10-09T19:23:23.6389178Z [36;1m  if rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.6[89]\.'; then[0m
+2026-10-09T19:23:23.6389570Z [36;1m    touch "D:\a\_temp"/.implicit_cargo_registries_crates_io_protocol || true[0m
+2026-10-09T19:23:23.6389927Z [36;1m    echo CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse >> $GITHUB_ENV[0m
+2026-10-09T19:23:23.6390308Z [36;1m  elif rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.6[67]\.'; then[0m
+2026-10-09T19:23:23.6390696Z [36;1m    touch "D:\a\_temp"/.implicit_cargo_registries_crates_io_protocol || true[0m
+2026-10-09T19:23:23.6391049Z [36;1m    echo CARGO_REGISTRIES_CRATES_IO_PROTOCOL=git >> $GITHUB_ENV[0m
+2026-10-09T19:23:23.6391301Z [36;1m  fi[0m
+2026-10-09T19:23:23.6391446Z [36;1mfi[0m
+2026-10-09T19:23:23.6402746Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-09T19:23:23.6403047Z env:
+2026-10-09T19:23:23.6403191Z   CARGO_TERM_COLOR: always
+2026-10-09T19:23:23.6403364Z   RUST_BACKTRACE: 1
+2026-10-09T19:23:23.6403536Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-09T19:23:23.6403736Z   CARGO_INCREMENTAL: 0
+2026-10-09T19:23:23.6403890Z   toolchain: stable
+2026-10-09T19:23:23.6404039Z ##[endgroup]
+2026-10-09T19:23:23.8259045Z ##[end-action id=__dtolnay_rust-toolchain.__run_8;outcome=success;conclusion=success;duration_ms=197]
+2026-10-09T19:23:23.8263444Z ##[start-action display=Work around spurious network errors in curl 8.0;id=__dtolnay_rust-toolchain.__run_9]
+2026-10-09T19:23:23.8391242Z ##[group]Run # https://rust-lang.zulipchat.com/#narrow/stream/246057-t-cargo/topic/timeout.20investigation
+2026-10-09T19:23:23.8391834Z [36;1m# https://rust-lang.zulipchat.com/#narrow/stream/246057-t-cargo/topic/timeout.20investigation[0m
+2026-10-09T19:23:23.8392487Z [36;1mif rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.7[01]\.'; then[0m
+2026-10-09T19:23:23.8392837Z [36;1m  echo CARGO_HTTP_MULTIPLEXING=false >> $GITHUB_ENV[0m
+2026-10-09T19:23:23.8393070Z [36;1mfi[0m
+2026-10-09T19:23:23.8403535Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-09T19:23:23.8403908Z env:
+2026-10-09T19:23:23.8404056Z   CARGO_TERM_COLOR: always
+2026-10-09T19:23:23.8404228Z   RUST_BACKTRACE: 1
+2026-10-09T19:23:23.8404392Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-09T19:23:23.8404633Z   CARGO_INCREMENTAL: 0
+2026-10-09T19:23:23.8404821Z   toolchain: stable
+2026-10-09T19:23:23.8404980Z ##[endgroup]
+2026-10-09T19:23:23.9374538Z ##[end-action id=__dtolnay_rust-toolchain.__run_9;outcome=success;conclusion=success;duration_ms=111]
+2026-10-09T19:23:23.9379966Z ##[start-action display=rustc +stable --version --verbose;id=__dtolnay_rust-toolchain.__run_10]
+2026-10-09T19:23:23.9490512Z ##[group]Run rustc +"$toolchain" --version --verbose
+2026-10-09T19:23:23.9490804Z [36;1mrustc +"$toolchain" --version --verbose[0m
+2026-10-09T19:23:23.9501184Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-09T19:23:23.9501498Z env:
+2026-10-09T19:23:23.9501648Z   CARGO_TERM_COLOR: always
+2026-10-09T19:23:23.9501823Z   RUST_BACKTRACE: 1
+2026-10-09T19:23:23.9501985Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-09T19:23:23.9502180Z   CARGO_INCREMENTAL: 0
+2026-10-09T19:23:23.9502331Z   toolchain: stable
+2026-10-09T19:23:23.9502477Z ##[endgroup]
+2026-10-09T19:23:24.0198567Z rustc 1.99.0 (b940084d7 2026-09-28)
+2026-10-09T19:23:24.0198905Z binary: rustc
+2026-10-09T19:23:24.0199107Z commit-hash: b940084d7eb6a299eb4bfeb8e34901bc051e7ac4
+2026-10-09T19:23:24.0199346Z commit-date: 2026-09-28
+2026-10-09T19:23:24.0199519Z host: x86_64-pc-windows-msvc
+2026-10-09T19:23:24.0199748Z release: 1.99.0
+2026-10-09T19:23:24.0200766Z LLVM version: 23.1.1
+2026-10-09T19:23:24.0315622Z ##[end-action id=__dtolnay_rust-toolchain.__run_10;outcome=success;conclusion=success;duration_ms=93]
+2026-10-09T19:23:24.0499571Z ##[group]Run Swatinem/rust-cache@v2
+2026-10-09T19:23:24.0499833Z with:
+2026-10-09T19:23:24.0499987Z   prefix-key: v0-rust
+2026-10-09T19:23:24.0500159Z   add-job-id-key: true
+2026-10-09T19:23:24.0500344Z   add-rust-environment-hash-key: true
+2026-10-09T19:23:24.0500548Z   cache-targets: true
+2026-10-09T19:23:24.0500717Z   cache-all-crates: false
+2026-10-09T19:23:24.0500893Z   cache-workspace-crates: false
+2026-10-09T19:23:24.0501070Z   save-if: true
+2026-10-09T19:23:24.0501221Z   cache-provider: github
+2026-10-09T19:23:24.0501382Z   cache-bin: true
+2026-10-09T19:23:24.0501523Z   lookup-only: false
+2026-10-09T19:23:24.0501668Z   cmd-format: {0}
+2026-10-09T19:23:24.0501800Z env:
+2026-10-09T19:23:24.0501937Z   CARGO_TERM_COLOR: always
+2026-10-09T19:23:24.0502098Z   RUST_BACKTRACE: 1
+2026-10-09T19:23:24.0502284Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-09T19:23:24.0502485Z   CARGO_INCREMENTAL: 0
+2026-10-09T19:23:24.0502632Z ##[endgroup]
+2026-10-09T19:23:25.5075268Z ##[group]Cache Configuration
+2026-10-09T19:23:25.5075820Z Cache Provider:
+2026-10-09T19:23:25.5076045Z     github
+2026-10-09T19:23:25.5076245Z Workspaces:
+2026-10-09T19:23:25.5076462Z     D:\a\rustwright\rustwright
+2026-10-09T19:23:25.5076758Z Cache Paths:
+2026-10-09T19:23:25.5077004Z     C:\Users\runneradmin\.cargo\bin
+2026-10-09T19:23:25.5077323Z     C:\Users\runneradmin\.cargo\.crates.toml
+2026-10-09T19:23:25.5077664Z     C:\Users\runneradmin\.cargo\.crates2.json
+2026-10-09T19:23:25.5077960Z     C:\Users\runneradmin\.cargo\registry
+2026-10-09T19:23:25.5078262Z     C:\Users\runneradmin\.cargo\git
+2026-10-09T19:23:25.5078581Z     D:\a\rustwright\rustwright\target
+2026-10-09T19:23:25.5078872Z Restore Key:
+2026-10-09T19:23:25.5079374Z     v0-rust-browser-compat-Windows_NT-x64-878c1c10
+2026-10-09T19:23:25.5079737Z Cache Key:
+2026-10-09T19:23:25.5080336Z     v0-rust-browser-compat-Windows_NT-x64-878c1c10-72d37f9d
+2026-10-09T19:23:25.5080689Z .. Prefix:
+2026-10-09T19:23:25.5080946Z   - v0-rust-browser-compat-Windows_NT-x64
+2026-10-09T19:23:25.5081304Z .. Environment considered:
+2026-10-09T19:23:25.5081560Z   - Rust Versions:
+2026-10-09T19:23:25.5081912Z     - 1.99.0 x86_64-pc-windows-msvc b940084d7eb6a299eb4bfeb8e34901bc051e7ac4
+2026-10-09T19:23:25.5082341Z   - CARGO_HOME
+2026-10-09T19:23:25.5082564Z   - CARGO_INCREMENTAL
+2026-10-09T19:23:25.5082789Z   - CARGO_TERM_COLOR
+2026-10-09T19:23:25.5083009Z   - RUST_BACKTRACE
+2026-10-09T19:23:25.5083230Z .. Lockfiles considered:
+2026-10-09T19:23:25.5083503Z   - D:\a\rustwright\rustwright\Cargo.lock
+2026-10-09T19:23:25.5083906Z   - D:\a\rustwright\rustwright\crates\rustwright-bidi\Cargo.toml
+2026-10-09T19:23:25.5084399Z   - D:\a\rustwright\rustwright\crates\rustwright-browser\Cargo.toml
+2026-10-09T19:23:25.5084879Z   - D:\a\rustwright\rustwright\crates\rustwright-cdp\Cargo.toml
+2026-10-09T19:23:25.5085368Z   - D:\a\rustwright\rustwright\crates\rustwright-common\Cargo.toml
+2026-10-09T19:23:25.5085855Z   - D:\a\rustwright\rustwright\crates\rustwright-core\Cargo.toml
+2026-10-09T19:23:25.5086358Z   - D:\a\rustwright\rustwright\crates\rustwright-test-macros\Cargo.toml
+2026-10-09T19:23:25.5086996Z   - D:\a\rustwright\rustwright\crates\rustwright-test\Cargo.toml
+2026-10-09T19:23:25.5087557Z   - D:\a\rustwright\rustwright\crates\rustwright\Cargo.toml
+2026-10-09T19:23:25.5088347Z   - D:\a\rustwright\rustwright\docs\ci\results\firefox-network-idle\local\release\consumer\.cargo\config.toml
+2026-10-09T19:23:25.5089274Z   - D:\a\rustwright\rustwright\docs\ci\results\remote-20261009\followup-local\consumer\.cargo\config.toml
+2026-10-09T19:23:25.5108811Z   - D:\a\rustwright\rustwright\docs\ci\results\required-browser\release\consumer\.cargo\config.toml
+2026-10-09T19:23:25.5110037Z   - D:\a\rustwright\rustwright\docs\release\results\local-package\consumer\.cargo\config.toml
+2026-10-09T19:23:25.5110910Z   - D:\a\rustwright\rustwright\examples\Cargo.toml
+2026-10-09T19:23:25.5111610Z   - D:\a\rustwright\rustwright\tests\Cargo.toml
+2026-10-09T19:23:25.5115152Z ##[endgroup]
+2026-10-09T19:23:25.5115323Z 
+2026-10-09T19:23:25.5115393Z ... Restoring cache ...
+2026-10-09T19:23:25.6651111Z Cache hit for restore-key: v0-rust-browser-compat-Windows_NT-x64-878c1c10-7114a7cb
+2026-10-09T19:23:26.2499754Z Received 67042124 of 67042124 (100.0%), 120.9 MBs/sec
+2026-10-09T19:23:26.2502229Z Cache Size: ~64 MB (67042124 B)
+2026-10-09T19:23:26.2576520Z [command]"C:\Program Files\Git\usr\bin\tar.exe" -xf D:/a/_temp/88e6f05d-e1a8-4b1a-84e9-3d95a7ce0c20/cache.tzst -P -C D:/a/rustwright/rustwright --force-local --use-compress-program "zstd -d"
+2026-10-09T19:23:27.3714797Z Cache restored successfully
+2026-10-09T19:23:27.3749024Z Restored from cache key "v0-rust-browser-compat-Windows_NT-x64-878c1c10-7114a7cb" full match: false.
+2026-10-09T19:23:27.4087688Z ##[group]Run actions/setup-python@v6
+2026-10-09T19:23:27.4088347Z with:
+2026-10-09T19:23:27.4088504Z   python-version: 3.11
+2026-10-09T19:23:27.4088685Z   check-latest: false
+2026-10-09T19:23:27.4090636Z   token: ***
+2026-10-09T19:23:27.4090828Z   update-environment: true
+2026-10-09T19:23:27.4091028Z   allow-prereleases: false
+2026-10-09T19:23:27.4091199Z   freethreaded: false
+2026-10-09T19:23:27.4091353Z env:
+2026-10-09T19:23:27.4091497Z   CARGO_TERM_COLOR: always
+2026-10-09T19:23:27.4091671Z   RUST_BACKTRACE: 1
+2026-10-09T19:23:27.4091841Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-09T19:23:27.4092054Z   CARGO_INCREMENTAL: 0
+2026-10-09T19:23:27.4092222Z   CACHE_ON_FAILURE: false
+2026-10-09T19:23:27.4092395Z ##[endgroup]
+2026-10-09T19:23:27.5449534Z ##[group]Installed versions
+2026-10-09T19:23:27.5652278Z Successfully set up CPython (3.11.9)
+2026-10-09T19:23:27.5652874Z ##[endgroup]
+2026-10-09T19:23:27.5895662Z ##[group]Run browser-actions/setup-chrome@v2
+2026-10-09T19:23:27.5895952Z with:
+2026-10-09T19:23:27.5896113Z   chrome-version: stable
+2026-10-09T19:23:27.5896501Z   install-dependencies: true
+2026-10-09T19:23:27.5896692Z   install-chromedriver: false
+2026-10-09T19:23:27.5896866Z   no-sudo: false
+2026-10-09T19:23:27.5897007Z env:
+2026-10-09T19:23:27.5897155Z   CARGO_TERM_COLOR: always
+2026-10-09T19:23:27.5897323Z   RUST_BACKTRACE: 1
+2026-10-09T19:23:27.5897495Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-09T19:23:27.5897697Z   CARGO_INCREMENTAL: 0
+2026-10-09T19:23:27.5897867Z   CACHE_ON_FAILURE: false
+2026-10-09T19:23:27.5898101Z   pythonLocation: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-10-09T19:23:27.5898467Z   PKG_CONFIG_PATH: C:\hostedtoolcache\windows\Python\3.11.9\x64/lib/pkgconfig
+2026-10-09T19:23:27.5898806Z   Python_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-10-09T19:23:27.5899158Z   Python2_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-10-09T19:23:27.5899477Z   Python3_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-10-09T19:23:27.5899721Z ##[endgroup]
+2026-10-09T19:23:27.6787695Z Installing dependencies
+2026-10-09T19:23:27.6812218Z ##[warning]install-dependencies is only supported on Linux, but current platform is windows
+2026-10-09T19:23:27.6819843Z Setup chrome stable
+2026-10-09T19:23:27.6820371Z Attempting to download chrome stable...
+2026-10-09T19:23:27.7170563Z Acquiring chrome stable from https://storage.googleapis.com/chrome-for-testing-public/155.0.8059.39/win64/chrome-win64.zip
+2026-10-09T19:23:29.0925933Z Installing chrome...
+2026-10-09T19:23:29.1671548Z [command]"C:\Program Files\PowerShell\7\pwsh.exe" -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Unrestricted -Command "$ErrorActionPreference = 'Stop' ; try { Add-Type -AssemblyName System.IO.Compression.ZipFile } catch { } ; try { [System.IO.Compression.ZipFile]::ExtractToDirectory('D:\a\_temp\310aa507-ff8d-42f4-9da0-a9e78723184b', 'D:\a\_temp\1df01444-711a-409b-b706-0299a03b5103', $true) } catch { if (($_.Exception.GetType().FullName -eq 'System.Management.Automation.MethodException') -or ($_.Exception.GetType().FullName -eq 'System.Management.Automation.RuntimeException') ){ Expand-Archive -LiteralPath 'D:\a\_temp\310aa507-ff8d-42f4-9da0-a9e78723184b' -DestinationPath 'D:\a\_temp\1df01444-711a-409b-b706-0299a03b5103' -Force } else { throw $_ } } ;"
+2026-10-09T19:23:31.3077352Z Successfully Installed chrome to C:\hostedtoolcache\windows\setup-chrome\chrome\stable\x64
+2026-10-09T19:23:31.3687207Z [command]C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -Command "(Get-Item (Get-Command 'C:\hostedtoolcache\windows\setup-chrome\chrome\stable\x64\chrome.exe').Source).VersionInfo.ProductVersion"
+2026-10-09T19:23:33.8813506Z 155.0.8059.39
+2026-10-09T19:23:33.9153651Z Successfully setup chrome 155.0.8059.39
+2026-10-09T19:23:33.9402346Z ##[group]Run browser-actions/setup-firefox@v1
+2026-10-09T19:23:33.9402818Z with:
+2026-10-09T19:23:33.9403041Z   firefox-version: 157.0.1
+2026-10-09T19:23:33.9403240Z env:
+2026-10-09T19:23:33.9403396Z   CARGO_TERM_COLOR: always
+2026-10-09T19:23:33.9403667Z   RUST_BACKTRACE: 1
+2026-10-09T19:23:33.9403908Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-09T19:23:33.9404133Z   CARGO_INCREMENTAL: 0
+2026-10-09T19:23:33.9404306Z   CACHE_ON_FAILURE: false
+2026-10-09T19:23:33.9404558Z   pythonLocation: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-10-09T19:23:33.9404913Z   PKG_CONFIG_PATH: C:\hostedtoolcache\windows\Python\3.11.9\x64/lib/pkgconfig
+2026-10-09T19:23:33.9405268Z   Python_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-10-09T19:23:33.9405585Z   Python2_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-10-09T19:23:33.9405900Z   Python3_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-10-09T19:23:33.9406160Z ##[endgroup]
+2026-10-09T19:23:34.0229147Z Setup firefox 157.0.1 (en-US)
+2026-10-09T19:23:34.0239011Z Attempting to download firefox 157.0.1...
+2026-10-09T19:23:34.0240847Z This is the version number:157
+2026-10-09T19:23:34.0241471Z Acquiring 157.0.1 from https://ftp.mozilla.org/pub/firefox/releases/157.0.1/win64/en-US/Firefox%20Setup%20157.0.1.exe
+2026-10-09T19:23:34.6989084Z Extracting Firefox...
+2026-10-09T19:23:34.7005409Z [command]D:\a\_temp\203bab6a-f85c-4ba7-90b4-5271b169117f.exe /S /InstallDirectoryName=Firefox_157.0.1
+2026-10-09T19:23:48.4481346Z Successfully installed firefox 157.0.1 to C:\Program Files\Firefox_157.0.1
+2026-10-09T19:23:48.4493707Z [command]"C:\Program Files\Firefox_157.0.1\firefox.exe" --version
+2026-10-09T19:23:48.4979506Z Mozilla Firefox 157.0.1
+2026-10-09T19:23:48.5001545Z Successfully setup firefox version 157.0.1
+2026-10-09T19:23:48.5259244Z ##[group]Run $chromeDirectory = Split-Path -Parent $env:CHROME_EXECUTABLE
+2026-10-09T19:23:48.5259755Z [36;1m$chromeDirectory = Split-Path -Parent $env:CHROME_EXECUTABLE[0m
+2026-10-09T19:23:48.5260119Z [36;1m$setupExecutable = Join-Path $chromeDirectory 'setup.exe'[0m
+2026-10-09T19:23:48.5260484Z [36;1mif (-not (Test-Path -LiteralPath $setupExecutable -PathType Leaf)) {[0m
+2026-10-09T19:23:48.5260867Z [36;1m  throw "Chrome for Testing sandbox setup executable is missing"[0m
+2026-10-09T19:23:48.5261155Z [36;1m}[0m
+2026-10-09T19:23:48.5261397Z [36;1m# The Chrome-provided helper grants its installation capabilities[0m
+2026-10-09T19:23:48.5261753Z [36;1m# read/execute access. It returns installer status 78 on success.[0m
+2026-10-09T19:23:48.5262143Z [36;1m$setupArgument = '--configure-browser-in-directory="{0}"' -f $chromeDirectory[0m
+2026-10-09T19:23:48.5262677Z [36;1m$setupProcess = Start-Process -FilePath $setupExecutable -ArgumentList $setupArgument -Wait -PassThru[0m
+2026-10-09T19:23:48.5263159Z [36;1mWrite-Host "Chrome sandbox setup exit code: $($setupProcess.ExitCode)"[0m
+2026-10-09T19:23:48.5263600Z [36;1mif ($setupProcess.ExitCode -ne 78) { throw "Chrome sandbox permission configuration failed" }[0m
+2026-10-09T19:23:48.5263972Z [36;1m& icacls.exe $env:CHROME_EXECUTABLE[0m
+2026-10-09T19:23:48.5264323Z [36;1mif ($LASTEXITCODE -ne 0) { throw "Unable to inspect Chrome executable permissions" }[0m
+2026-10-09T19:23:48.5667906Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-09T19:23:48.5668216Z env:
+2026-10-09T19:23:48.5668385Z   CARGO_TERM_COLOR: always
+2026-10-09T19:23:48.5668573Z   RUST_BACKTRACE: 1
+2026-10-09T19:23:48.5668750Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-09T19:23:48.5668970Z   CARGO_INCREMENTAL: 0
+2026-10-09T19:23:48.5669145Z   CACHE_ON_FAILURE: false
+2026-10-09T19:23:48.5669379Z   pythonLocation: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-10-09T19:23:48.5669746Z   PKG_CONFIG_PATH: C:\hostedtoolcache\windows\Python\3.11.9\x64/lib/pkgconfig
+2026-10-09T19:23:48.5670102Z   Python_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-10-09T19:23:48.5670788Z   Python2_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-10-09T19:23:48.5671102Z   Python3_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-10-09T19:23:48.5671472Z   CHROME_EXECUTABLE: C:\hostedtoolcache\windows\setup-chrome\chrome\stable\x64\chrome.exe
+2026-10-09T19:23:48.5671829Z ##[endgroup]
+2026-10-09T19:23:49.0720001Z Chrome sandbox setup exit code: 78
+2026-10-09T19:23:49.0855746Z C:\hostedtoolcache\windows\setup-chrome\chrome\stable\x64\chrome.exe S-1-15-3-1024-3424233489-972189580-2057154623-747635277-1604371224-316187997-3786583170-1043257646:(I)(RX)
+2026-10-09T19:23:49.0857186Z                                                                      S-1-15-3-1024-2302894289-466761758-1166120688-1039016420-2430351297-4240214049-4028510897-3317428798:(I)(RX)
+2026-10-09T19:23:49.0858141Z                                                                      NT AUTHORITY\Authenticated Users:(I)(M)
+2026-10-09T19:23:49.0859280Z                                                                      NT AUTHORITY\SYSTEM:(I)(F)
+2026-10-09T19:23:49.0862326Z                                                                      BUILTIN\Administrators:(I)(F)
+2026-10-09T19:23:49.0865205Z                                                                      BUILTIN\Users:(I)(RX)
+2026-10-09T19:23:49.0866173Z 
+2026-10-09T19:23:49.0867460Z Successfully processed 1 files; Failed processing 0 files
+2026-10-09T19:23:49.1448116Z ##[group]Run echo "Chrome: $CHROME_VERSION"
+2026-10-09T19:23:49.1448509Z [36;1mecho "Chrome: $CHROME_VERSION"[0m
+2026-10-09T19:23:49.1448742Z [36;1mecho "Firefox: $FIREFOX_VERSION"[0m
+2026-10-09T19:23:49.1461739Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-09T19:23:49.1462057Z env:
+2026-10-09T19:23:49.1462223Z   CARGO_TERM_COLOR: always
+2026-10-09T19:23:49.1462405Z   RUST_BACKTRACE: 1
+2026-10-09T19:23:49.1462580Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-09T19:23:49.1462792Z   CARGO_INCREMENTAL: 0
+2026-10-09T19:23:49.1462969Z   CACHE_ON_FAILURE: false
+2026-10-09T19:23:49.1463206Z   pythonLocation: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-10-09T19:23:49.1463566Z   PKG_CONFIG_PATH: C:\hostedtoolcache\windows\Python\3.11.9\x64/lib/pkgconfig
+2026-10-09T19:23:49.1463921Z   Python_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-10-09T19:23:49.1464262Z   Python2_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-10-09T19:23:49.1464587Z   Python3_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-10-09T19:23:49.1464850Z   CHROME_VERSION: 155.0.8059.39
+2026-10-09T19:23:49.1465041Z   FIREFOX_VERSION: 157.0.1
+2026-10-09T19:23:49.1465216Z ##[endgroup]
+2026-10-09T19:23:49.1789170Z Chrome: 155.0.8059.39
+2026-10-09T19:23:49.1789579Z Firefox: 157.0.1
+2026-10-09T19:23:49.1956397Z ##[group]Run python scripts/ci/browser_checks.py --suite portable
+2026-10-09T19:23:49.1956841Z [36;1mpython scripts/ci/browser_checks.py --suite portable[0m
+2026-10-09T19:23:49.2016316Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-09T19:23:49.2016605Z env:
+2026-10-09T19:23:49.2016757Z   CARGO_TERM_COLOR: always
+2026-10-09T19:23:49.2016936Z   RUST_BACKTRACE: 1
+2026-10-09T19:23:49.2017110Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-09T19:23:49.2017343Z   CARGO_INCREMENTAL: 0
+2026-10-09T19:23:49.2017512Z   CACHE_ON_FAILURE: false
+2026-10-09T19:23:49.2017752Z   pythonLocation: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-10-09T19:23:49.2018094Z   PKG_CONFIG_PATH: C:\hostedtoolcache\windows\Python\3.11.9\x64/lib/pkgconfig
+2026-10-09T19:23:49.2018453Z   Python_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-10-09T19:23:49.2018771Z   Python2_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-10-09T19:23:49.2019129Z   Python3_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-10-09T19:23:49.2019505Z   RUSTWRIGHT_CHROME: C:\hostedtoolcache\windows\setup-chrome\chrome\stable\x64\chrome.exe
+2026-10-09T19:23:49.2019891Z   RUSTWRIGHT_FIREFOX: C:\Program Files\Firefox_157.0.1\firefox.exe
+2026-10-09T19:23:49.2020151Z ##[endgroup]
+2026-10-09T19:23:50.8434045Z Running http_compat; log: D:\a\rustwright\rustwright\target\ci\portable\http_compat.log
+2026-10-09T19:25:27.7029295Z Running http_actionability; log: D:\a\rustwright\rustwright\target\ci\portable\http_actionability.log
+2026-10-09T19:26:18.9656978Z Running http_clipped_control; log: D:\a\rustwright\rustwright\target\ci\portable\http_clipped_control.log
+2026-10-09T19:26:52.6127101Z Running http_bidi_navigation; log: D:\a\rustwright\rustwright\target\ci\portable\http_bidi_navigation.log
+2026-10-09T19:27:16.9096428Z Running http_network_idle_parity; log: D:\a\rustwright\rustwright\target\ci\portable\http_network_idle_parity.log
+2026-10-09T19:29:24.5532890Z Native HTTP portable: 79 passed, no skips
+2026-10-09T19:29:24.6688382Z ##[group]Run actions/upload-artifact@v4
+2026-10-09T19:29:24.6688736Z with:
+2026-10-09T19:29:24.6688972Z   name: native-http-windows-latest
+2026-10-09T19:29:24.6689542Z   path: target/ci/
+2026-10-09T19:29:24.6689768Z   if-no-files-found: error
+2026-10-09T19:29:24.6690044Z   compression-level: 6
+2026-10-09T19:29:24.6690271Z   overwrite: false
+2026-10-09T19:29:24.6690491Z   include-hidden-files: false
+2026-10-09T19:29:24.6690960Z env:
+2026-10-09T19:29:24.6691200Z   CARGO_TERM_COLOR: always
+2026-10-09T19:29:24.6691434Z   RUST_BACKTRACE: 1
+2026-10-09T19:29:24.6691666Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-09T19:29:24.6691929Z   CARGO_INCREMENTAL: 0
+2026-10-09T19:29:24.6692184Z   CACHE_ON_FAILURE: false
+2026-10-09T19:29:24.6692483Z   pythonLocation: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-10-09T19:29:24.6692889Z   PKG_CONFIG_PATH: C:\hostedtoolcache\windows\Python\3.11.9\x64/lib/pkgconfig
+2026-10-09T19:29:24.6693368Z   Python_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-10-09T19:29:24.6693752Z   Python2_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-10-09T19:29:24.6694119Z   Python3_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-10-09T19:29:24.6694464Z ##[endgroup]
+2026-10-09T19:29:24.8313274Z (node:508) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-09T19:29:24.8313906Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-09T19:29:24.8379840Z With the provided path, there will be 6 files uploaded
+2026-10-09T19:29:24.8384160Z Artifact name is valid!
+2026-10-09T19:29:24.8385573Z Root directory input is valid!
+2026-10-09T19:29:25.0357258Z Beginning upload of artifact content to blob storage
+2026-10-09T19:29:25.0611279Z (node:508) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-09T19:29:25.1117851Z Uploaded bytes 7420
+2026-10-09T19:29:25.1281615Z Finished uploading artifact content to blob storage!
+2026-10-09T19:29:25.1282401Z SHA256 digest of uploaded artifact zip is d0812484d8e2347e11c4ab245c82b94729c32d81294ab3fb32eba98df027ca7b
+2026-10-09T19:29:25.1284361Z Finalizing artifact upload
+2026-10-09T19:29:25.3228779Z Artifact native-http-windows-latest.zip successfully finalized. Artifact ID 11641071738
+2026-10-09T19:29:25.3229812Z Artifact native-http-windows-latest has been successfully uploaded! Final size is 7420 bytes. Artifact ID is 11641071738
+2026-10-09T19:29:25.3239136Z Artifact download URL: https://github.com/rsasaki0109/rustwright/actions/runs/37979801258/artifacts/11641071738
+2026-10-09T19:29:25.3532720Z Post job cleanup.
+2026-10-09T19:29:25.5094893Z Post job cleanup.
+2026-10-09T19:29:25.6418286Z ##[group]Cache Configuration
+2026-10-09T19:29:25.6418858Z Cache Provider:
+2026-10-09T19:29:25.6419190Z     github
+2026-10-09T19:29:25.6419567Z Workspaces:
+2026-10-09T19:29:25.6419940Z     D:\a\rustwright\rustwright
+2026-10-09T19:29:25.6420363Z Cache Paths:
+2026-10-09T19:29:25.6420757Z     C:\Users\runneradmin\.cargo\bin
+2026-10-09T19:29:25.6421195Z     C:\Users\runneradmin\.cargo\.crates.toml
+2026-10-09T19:29:25.6421736Z     C:\Users\runneradmin\.cargo\.crates2.json
+2026-10-09T19:29:25.6422186Z     C:\Users\runneradmin\.cargo\registry
+2026-10-09T19:29:25.6422648Z     C:\Users\runneradmin\.cargo\git
+2026-10-09T19:29:25.6423121Z     D:\a\rustwright\rustwright\target
+2026-10-09T19:29:25.6423498Z Restore Key:
+2026-10-09T19:29:25.6423959Z     v0-rust-browser-compat-Windows_NT-x64-878c1c10
+2026-10-09T19:29:25.6424392Z Cache Key:
+2026-10-09T19:29:25.6424800Z     v0-rust-browser-compat-Windows_NT-x64-878c1c10-72d37f9d
+2026-10-09T19:29:25.6425219Z .. Prefix:
+2026-10-09T19:29:25.6425493Z   - v0-rust-browser-compat-Windows_NT-x64
+2026-10-09T19:29:25.6425961Z .. Environment considered:
+2026-10-09T19:29:25.6426269Z   - Rust Versions:
+2026-10-09T19:29:25.6426600Z     - 1.99.0 x86_64-pc-windows-msvc b940084d7eb6a299eb4bfeb8e34901bc051e7ac4
+2026-10-09T19:29:25.6426994Z   - CARGO_HOME
+2026-10-09T19:29:25.6427263Z   - CARGO_INCREMENTAL
+2026-10-09T19:29:25.6427508Z   - CARGO_TERM_COLOR
+2026-10-09T19:29:25.6427822Z   - RUST_BACKTRACE
+2026-10-09T19:29:25.6428061Z .. Lockfiles considered:
+2026-10-09T19:29:25.6428374Z   - D:\a\rustwright\rustwright\Cargo.lock
+2026-10-09T19:29:25.6429088Z   - D:\a\rustwright\rustwright\crates\rustwright-bidi\Cargo.toml
+2026-10-09T19:29:25.6429485Z   - D:\a\rustwright\rustwright\crates\rustwright-browser\Cargo.toml
+2026-10-09T19:29:25.6429951Z   - D:\a\rustwright\rustwright\crates\rustwright-cdp\Cargo.toml
+2026-10-09T19:29:25.6430350Z   - D:\a\rustwright\rustwright\crates\rustwright-common\Cargo.toml
+2026-10-09T19:29:25.6430775Z   - D:\a\rustwright\rustwright\crates\rustwright-core\Cargo.toml
+2026-10-09T19:29:25.6431186Z   - D:\a\rustwright\rustwright\crates\rustwright-test-macros\Cargo.toml
+2026-10-09T19:29:25.6431624Z   - D:\a\rustwright\rustwright\crates\rustwright-test\Cargo.toml
+2026-10-09T19:29:25.6431992Z   - D:\a\rustwright\rustwright\crates\rustwright\Cargo.toml
+2026-10-09T19:29:25.6432471Z   - D:\a\rustwright\rustwright\docs\ci\results\firefox-network-idle\local\release\consumer\.cargo\config.toml
+2026-10-09T19:29:25.6433160Z   - D:\a\rustwright\rustwright\docs\ci\results\remote-20261009\followup-local\consumer\.cargo\config.toml
+2026-10-09T19:29:25.6433861Z   - D:\a\rustwright\rustwright\docs\ci\results\required-browser\release\consumer\.cargo\config.toml
+2026-10-09T19:29:25.6434613Z   - D:\a\rustwright\rustwright\docs\release\results\local-package\consumer\.cargo\config.toml
+2026-10-09T19:29:25.6435063Z   - D:\a\rustwright\rustwright\examples\Cargo.toml
+2026-10-09T19:29:25.6435442Z   - D:\a\rustwright\rustwright\tests\Cargo.toml
+2026-10-09T19:29:25.6435950Z ##[endgroup]
+2026-10-09T19:29:25.6436052Z 
+2026-10-09T19:29:26.3334066Z ... Cleaning D:\a\rustwright\rustwright\target ...
+2026-10-09T19:29:26.3907182Z ... Cleaning cargo registry (cache-all-crates: false) ...
+2026-10-09T19:29:27.8470609Z ... Cleaning cargo/bin ...
+2026-10-09T19:29:27.8531865Z ... Cleaning cargo git cache ...
+2026-10-09T19:29:27.8537165Z ... Saving cache ...
+2026-10-09T19:29:27.9182658Z [command]"C:\Program Files\Git\usr\bin\tar.exe" --posix -cf cache.tzst --exclude cache.tzst -P -C D:/a/rustwright/rustwright --files-from manifest.txt --force-local --use-compress-program "zstd -T0"
+2026-10-09T19:29:29.7855198Z Sent 67039532 of 67039532 (100.0%), 63.8 MBs/sec
+2026-10-09T19:29:29.9287796Z Post job cleanup.
+2026-10-09T19:29:30.0991609Z [command]"C:\Program Files\Git\bin\git.exe" version
+2026-10-09T19:29:30.1235896Z git version 2.55.0.windows.5
+2026-10-09T19:29:30.1294481Z Temporarily overriding HOME='D:\a\_temp\218751b9-b768-4165-912b-0dd534f0f18a' before making global git config changes
+2026-10-09T19:29:30.1295425Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-09T19:29:30.1305074Z [command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\rustwright\rustwright
+2026-10-09T19:29:30.1610678Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-09T19:29:30.1869666Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-09T19:29:30.6839126Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-09T19:29:30.7086024Z http.https://github.com/.extraheader
+2026-10-09T19:29:30.7123083Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset-all http.https://github.com/.extraheader
+2026-10-09T19:29:30.7383562Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-09T19:29:31.2025687Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-09T19:29:31.2300097Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-10-09T19:29:31.7214327Z Cleaning up orphan processes
+2026-10-09T19:29:31.7393022Z Terminate orphan process: pid (8604) (vctip)
+2026-10-09T19:29:31.7449360Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

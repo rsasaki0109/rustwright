@@ -1,0 +1,113 @@
+{
+  "Id": "4db26fb7325199de5977b99ce37d666e69921c30b198e6cf415661468ba5f6c4",
+  "Created": "2026-10-09T20:09:46.81285845Z",
+  "Image": "sha256:567e3c17b188e21cd42aa5e1c55e16d8270f880ed8ea321dbd40f993467efc4c",
+  "Name": "/rustwright95-final",
+  "State": {
+    "Status": "running",
+    "Running": true,
+    "Paused": false,
+    "Restarting": false,
+    "OOMKilled": false,
+    "Dead": false,
+    "Pid": 1914271,
+    "ExitCode": 0,
+    "Error": "",
+    "StartedAt": "2026-10-09T20:09:48.278897376Z",
+    "FinishedAt": "0001-01-01T00:00:00Z"
+  },
+  "config": {
+    "Image": "debian@sha256:a29215f6a35e51e22adffa17f89e9d2ef06214e64a2bad10d765c46aea49f11f",
+    "User": "",
+    "WorkingDir": "/workspace/rustwright",
+    "Entrypoint": [],
+    "Cmd": [
+      "/bin/bash",
+      "target/reliability95/container/run.sh"
+    ]
+  },
+  "mounts": [
+    {
+      "Type": "bind",
+      "Source": "/usr/share",
+      "Destination": "/usr/share",
+      "Mode": "",
+      "RW": false,
+      "Propagation": "rprivate"
+    },
+    {
+      "Type": "bind",
+      "Source": "/etc/ld.so.cache",
+      "Destination": "/etc/ld.so.cache",
+      "Mode": "",
+      "RW": false,
+      "Propagation": "rprivate"
+    },
+    {
+      "Type": "bind",
+      "Source": "/etc/fonts",
+      "Destination": "/etc/fonts",
+      "Mode": "",
+      "RW": false,
+      "Propagation": "rprivate"
+    },
+    {
+      "Type": "bind",
+      "Source": "/usr/bin",
+      "Destination": "/usr/bin",
+      "Mode": "",
+      "RW": false,
+      "Propagation": "rprivate"
+    },
+    {
+      "Type": "bind",
+      "Source": "/usr/lib64",
+      "Destination": "/usr/lib64",
+      "Mode": "",
+      "RW": false,
+      "Propagation": "rprivate"
+    },
+    {
+      "Type": "bind",
+      "Source": "/etc/ssl/certs",
+      "Destination": "/etc/ssl/certs",
+      "Mode": "",
+      "RW": false,
+      "Propagation": "rprivate"
+    },
+    {
+      "Type": "bind",
+      "Source": "/tmp/.X11-unix",
+      "Destination": "/tmp/.X11-unix",
+      "Mode": "",
+      "RW": false,
+      "Propagation": "rprivate"
+    },
+    {
+      "Type": "bind",
+      "Source": "/workspace",
+      "Destination": "/workspace",
+      "Mode": "",
+      "RW": true,
+      "Propagation": "rprivate"
+    },
+    {
+      "Type": "bind",
+      "Source": "/usr/lib",
+      "Destination": "/usr/lib",
+      "Mode": "",
+      "RW": false,
+      "Propagation": "rprivate"
+    },
+    {
+      "Type": "bind",
+      "Source": "/usr/local",
+      "Destination": "/usr/local",
+      "Mode": "",
+      "RW": false,
+      "Propagation": "rprivate"
+    }
+  ],
+  "init": true,
+  "scope": "Docker metadata omits all environment/credential values; UID0 in disposable inner container; outer workspace and selected system files mounted as documented"
+}

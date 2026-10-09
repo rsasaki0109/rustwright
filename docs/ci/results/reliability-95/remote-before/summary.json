@@ -1,0 +1,261 @@
+{
+  "frozen_at_utc": "2026-10-09T19:51:46.457804+00:00",
+  "run_id": 37979801258,
+  "run_url": "https://github.com/rsasaki0109/rustwright/actions/runs/37979801258",
+  "event": "pull_request",
+  "head_commit": "908323d38ba036960c41347ecbe2a5dfa8c24271",
+  "actual_checkout_commit": "92b05f2057d319cfc0ad2bad1f408e43597fca7c",
+  "head_and_checkout_relevant_source_equality": "151 Git blob IDs and modes identical; tested-merge-source-equality.json",
+  "source_archive_sha256": "9c3723c3dc8090082cba681a059e4485ce52b2ee08af95938dc7694115016dc6",
+  "run_status": "completed",
+  "run_conclusion": "failure",
+  "completed_jobs": 6,
+  "successful_jobs": 5,
+  "jobs": [
+    {
+      "id": 113987108966,
+      "name": "Rust 1.85.0 / locked workspace",
+      "status": "completed",
+      "conclusion": "success",
+      "completed_at": "2026-10-09T19:23:14Z"
+    },
+    {
+      "id": 113987109171,
+      "name": "fmt / clippy / test",
+      "status": "completed",
+      "conclusion": "failure",
+      "completed_at": "2026-10-09T19:26:16Z"
+    },
+    {
+      "id": 113987109172,
+      "name": "Required Chrome + Firefox / macos-latest",
+      "status": "completed",
+      "conclusion": "success",
+      "completed_at": "2026-10-09T19:29:20Z"
+    },
+    {
+      "id": 113987109427,
+      "name": "Required Chrome + Firefox / windows-latest",
+      "status": "completed",
+      "conclusion": "success",
+      "completed_at": "2026-10-09T19:29:32Z"
+    },
+    {
+      "id": 113987109460,
+      "name": "Verified archives / stable + MSRV / native consumers",
+      "status": "completed",
+      "conclusion": "success",
+      "completed_at": "2026-10-09T19:24:57Z"
+    },
+    {
+      "id": 113987109569,
+      "name": "Required Chrome + Firefox / ubuntu-latest",
+      "status": "completed",
+      "conclusion": "success",
+      "completed_at": "2026-10-09T19:33:23Z"
+    }
+  ],
+  "workspace_partial": {
+    "passed": 294,
+    "failed": 1,
+    "ignored": 0,
+    "filtered": 0
+  },
+  "workspace_partial_scopes": {
+    "example": {
+      "passed": 4,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0,
+      "suite_count": 1
+    },
+    "http": {
+      "passed": 62,
+      "failed": 1,
+      "ignored": 0,
+      "filtered": 0,
+      "suite_count": 5
+    },
+    "legacy-integration": {
+      "passed": 29,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0,
+      "suite_count": 4
+    },
+    "library": {
+      "passed": 199,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0,
+      "suite_count": 6
+    }
+  },
+  "workspace_failure": {
+    "target": "http_contexts",
+    "case": "closed_pages_are_removed_from_the_context_list",
+    "error": "Cdp(SessionDetached {session_id:7E319EBB1F846ECC43317E03576FB2E4,method:Page.enable})",
+    "target_passed": 9,
+    "target_failed": 1,
+    "later_suites_and_doctests": "unrun; no full workspace completion claim"
+  },
+  "native_http": {
+    "windows": {
+      "portable": {
+        "passed": 79,
+        "failed": 0,
+        "ignored": 0,
+        "filtered": 0,
+        "cases_by_target": {
+          "http_compat": 24,
+          "http_actionability": 12,
+          "http_clipped_control": 10,
+          "http_bidi_navigation": 7,
+          "http_network_idle_parity": 26
+        },
+        "platform": "Windows-10-10.0.26100-SP0",
+        "browser_bindings": {
+          "RUSTWRIGHT_CHROME": "C:\\hostedtoolcache\\windows\\setup-chrome\\chrome\\stable\\x64\\chrome.exe",
+          "RUSTWRIGHT_FIREFOX": "C:\\Program Files\\Firefox_157.0.1\\firefox.exe"
+        },
+        "raw_reports_verified": true,
+        "cases_by_backend": {
+          "chrome": 39,
+          "firefox": 40
+        }
+      }
+    },
+    "macos": {
+      "portable": {
+        "passed": 79,
+        "failed": 0,
+        "ignored": 0,
+        "filtered": 0,
+        "cases_by_target": {
+          "http_compat": 24,
+          "http_actionability": 12,
+          "http_clipped_control": 10,
+          "http_bidi_navigation": 7,
+          "http_network_idle_parity": 26
+        },
+        "platform": "macOS-26.6.2-arm64-arm-64bit",
+        "browser_bindings": {
+          "RUSTWRIGHT_CHROME": "/Users/runner/work/_temp/rustwright-chrome-6m9vqn1y/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+          "RUSTWRIGHT_FIREFOX": "/Users/runner/hostedtoolcache/firefox/157.0.1/arm64/Contents/MacOS/firefox"
+        },
+        "raw_reports_verified": true,
+        "cases_by_backend": {
+          "chrome": 39,
+          "firefox": 40
+        }
+      }
+    },
+    "ubuntu": {
+      "portable": {
+        "passed": 79,
+        "failed": 0,
+        "ignored": 0,
+        "filtered": 0,
+        "cases_by_target": {
+          "http_compat": 24,
+          "http_actionability": 12,
+          "http_clipped_control": 10,
+          "http_bidi_navigation": 7,
+          "http_network_idle_parity": 26
+        },
+        "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+        "browser_bindings": {
+          "RUSTWRIGHT_CHROME": "/opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome",
+          "RUSTWRIGHT_FIREFOX": "/opt/hostedtoolcache/firefox/157.0.1/x64/firefox"
+        },
+        "raw_reports_verified": true,
+        "cases_by_backend": {
+          "chrome": 39,
+          "firefox": 40
+        }
+      },
+      "linux-extra": {
+        "passed": 114,
+        "failed": 0,
+        "ignored": 0,
+        "filtered": 0,
+        "cases_by_target": {
+          "http_frames": 67,
+          "http_navigation": 14,
+          "http_network_idle": 10,
+          "http_contexts": 10,
+          "http_disconnect": 2,
+          "http_creation": 2,
+          "http_shutdown": 3,
+          "http_frame_helpers": 2,
+          "http_intercept_lifecycle": 4
+        },
+        "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+        "browser_bindings": {
+          "RUSTWRIGHT_CHROME": "/opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome",
+          "RUSTWRIGHT_FIREFOX": "/opt/hostedtoolcache/firefox/157.0.1/x64/firefox"
+        },
+        "raw_reports_verified": true
+      }
+    }
+  },
+  "browser_versions": {
+    "chrome": "155.0.8059.39",
+    "firefox": "157.0.1"
+  },
+  "distribution": {
+    "status": "passed",
+    "archive_count": 8,
+    "third_party_checksum_count": 57,
+    "package_input_sha256": "1d01a80b995002b5b9ad43bcf9506dfc4252b5b3edf3cfcf40b6a1214aafcef1",
+    "package_fingerprint_independently_matched": true,
+    "archive_vcs_commit": "92b05f2057d319cfc0ad2bad1f408e43597fca7c",
+    "native_consumer_passed": 4,
+    "readme_rust_fences_compiled": 9,
+    "readme_native_entry_points_passed": 2,
+    "PNG_count": 5
+  },
+  "artifact_zip_digest_checks": [
+    {
+      "artifact_id": 11641071738,
+      "artifact_name": "native-http-windows-latest",
+      "zip_file": "native-windows.zip",
+      "github_api_digest": "sha256:d0812484d8e2347e11c4ab245c82b94729c32d81294ab3fb32eba98df027ca7b",
+      "downloaded_digest": "sha256:d0812484d8e2347e11c4ab245c82b94729c32d81294ab3fb32eba98df027ca7b",
+      "matches": true
+    },
+    {
+      "artifact_id": 11641052323,
+      "artifact_name": "native-http-ubuntu-latest",
+      "zip_file": "native-ubuntu.zip",
+      "github_api_digest": "sha256:45e0f8fe659b0b99b5ac3b5019dff2c8c030409449d0e46b9e11d9894e069957",
+      "downloaded_digest": "sha256:45e0f8fe659b0b99b5ac3b5019dff2c8c030409449d0e46b9e11d9894e069957",
+      "matches": true
+    },
+    {
+      "artifact_id": 11640831422,
+      "artifact_name": "release-verification",
+      "zip_file": "packages.zip",
+      "github_api_digest": "sha256:a8f63aca18be137169ec720d2dbface97c19e666938908d82c14d78793528c4c",
+      "downloaded_digest": "sha256:a8f63aca18be137169ec720d2dbface97c19e666938908d82c14d78793528c4c",
+      "matches": true
+    },
+    {
+      "artifact_id": 11640567848,
+      "artifact_name": "native-http-macos-latest",
+      "zip_file": "native-macos.zip",
+      "github_api_digest": "sha256:86fe4a0fc51fdd7a537542e641673f8f64e4ac6af865eaa7be330dcb46da5826",
+      "downloaded_digest": "sha256:86fe4a0fc51fdd7a537542e641673f8f64e4ac6af865eaa7be330dcb46da5826",
+      "matches": true
+    },
+    {
+      "artifact_id": 11640032807,
+      "artifact_name": "workspace-chrome-sandbox",
+      "zip_file": "workspace-chrome-sandbox.zip",
+      "github_api_digest": "sha256:174e9a23a295ba48e1a7af7ea6fbb7894cd876810eb89fe71194eade59e69d6d",
+      "downloaded_digest": "sha256:174e9a23a295ba48e1a7af7ea6fbb7894cd876810eb89fe71194eade59e69d6d",
+      "matches": true
+    }
+  ],
+  "scope": "Failed first reliability95 pull-request CI attempt; passing native/package/MSRV scopes preserved independently. Does not certify the later repair, complete workspace success or SOTA superiority."
+}

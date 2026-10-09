@@ -1,0 +1,11 @@
+# Sandbox DOM-capture deadline: source ready, native confirmation pending
+
+This archive preserves42 original files plus their unchanged SHA256SUMS. Original paths remain rooted under target/reliability95/sandbox-capture-deadline in that manifest; archive.json maps every original path to its byte-identical copy. ARCHIVE-SHA256SUMS independently covers this archive using repository-root-relative paths. Original failed404 lookup provenance remains present in sources.json. No failed observation or original report was rewritten.
+
+source-before.py matches scripts/ci/chrome_linux_sandbox.py at be1b065aeff87e5c19e53492a19f4465ba4436f4. source-after.py matches that single script at local commit3d447e72dfedadfd7c8f4e947a348091a6c8b88d. These are exact single-file byte comparisons, not a claim about a broader source archive or installed-browser identity.
+
+The prior original hosted Chrome151.0.7922.138 setup failure is retained: the matching root-owned4755 helper was installed, but dump-dom reached the outer25s deadline without fixture DOM. Its SIGTERM exit0 remained a failure. Exact-tag Chromium implementation confirms supported --timeout=10000; the new source retains normal exit0, no outer timeout, and exact fixture title+h1 requirements. Captured DOM can finish after the internal deadline stops loading, so it does not prove complete load-event delivery or identify the cause of the historical hang.
+
+Four owned synthetic Python process controls use a real local HTTP fixture. Full DOM with normal exit succeeds; missing content, nonzero exit with DOM, and outer timeout with full DOM followed by SIGTERM exit0 fail. Every direct synthetic child is absent and already reaped. These controls are not native Chrome execution. Python compilation and whitespace checks passed; no local browser/build ran.
+
+At this freeze, parent reported GitHubAPI401 and Git remote authentication failure blocking push and a new CI run. The fix was committed locally but not pushed. Native confirmation remains pending; this archive does not claim that the hosted regression is repaired. EVIDENCE.md, the exact-tag sources and sources.json, original-ci/, controls.py, raw controls and summary.json preserve the actual scope and limitations.

@@ -1,0 +1,24 @@
+   Compiling rustwright-browser v0.1.0 (/workspace/rustwright/crates/rustwright-browser)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.83s
+     Running unittests src/lib.rs (target/debug/deps/rustwright_browser-8f5b99b04dc90327)
+
+running 10 tests
+test firefox::tests::detects_snap_wrapper_scripts ... ok
+test firefox::tests::firefox_startup_cancellation_reaps_child_and_preserves_caller_profile ... {"caller_sentinel_preserved":true,"case":"firefox_cancellation","error_log":null,"error_log_preserved":null,"launcher_owned_profile":false,"owned_process_still_present":false,"pid":1754166,"profile":"/tmp/rw-startup-owner-1754163-1791573485987802533-1/caller-profile","profile_exists":true}
+ok
+test firefox::tests::firefox_startup_timeout_reaps_child_and_preserves_caller_profile ... {"caller_sentinel_preserved":true,"case":"firefox_timeout","error_log":"/tmp/rustwright-firefox-1754163-1791573485997003915-4.log","error_log_preserved":true,"launcher_owned_profile":false,"owned_process_still_present":false,"pid":1754170,"profile":"/tmp/rw-startup-owner-1754163-1791573485996847758-3/caller-profile","profile_exists":true}
+ok
+test launch::startup_tests::chrome_early_exit_removes_ephemeral_profile_but_preserves_error_log ... {"caller_sentinel_preserved":false,"case":"chrome_early_exit","error_log":"/tmp/rustwright-chrome-1754163-1791573486259554118-7.log","error_log_preserved":true,"launcher_owned_profile":true,"owned_process_still_present":false,"pid":1754180,"profile":"/tmp/rustwright-1754163-1791573486259547406-6","profile_exists":false}
+ok
+test launch::startup_tests::chrome_startup_cancellation_reaps_child_and_removes_ephemeral_profile ... {"caller_sentinel_preserved":false,"case":"chrome_cancellation","error_log":null,"error_log_preserved":null,"launcher_owned_profile":true,"owned_process_still_present":false,"pid":1754186,"profile":"/tmp/rustwright-1754163-1791573486274250108-9","profile_exists":false}
+ok
+test launch::startup_tests::chrome_startup_timeout_preserves_caller_profile ... {"caller_sentinel_preserved":true,"case":"chrome_persistent_timeout","error_log":"/tmp/rw-startup-owner-1754163-1791573486283549291-11/caller-profile/rustwright-chrome.log","error_log_preserved":true,"launcher_owned_profile":false,"owned_process_still_present":false,"pid":1754190,"profile":"/tmp/rw-startup-owner-1754163-1791573486283549291-11/caller-profile","profile_exists":true}
+ok
+test launch::startup_tests::chrome_startup_timeout_reaps_child_and_removes_ephemeral_profile ... {"caller_sentinel_preserved":false,"case":"chrome_timeout","error_log":"/tmp/rustwright-chrome-1754163-1791573486544699857-14.log","error_log_preserved":true,"launcher_owned_profile":true,"owned_process_still_present":false,"pid":1754195,"profile":"/tmp/rustwright-1754163-1791573486544692726-13","profile_exists":false}
+ok
+test launch::tests::build_args_includes_profile_and_headless_flags ... ok
+test launch::tests::parses_devtools_active_port_file ... ok
+test launch::tests::rejects_malformed_active_port_file ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.82s
+

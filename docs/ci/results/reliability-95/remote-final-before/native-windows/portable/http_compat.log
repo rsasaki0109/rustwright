@@ -1,0 +1,454 @@
+[1m[92m    Updating[0m crates.io index
+[1m[92m   Compiling[0m rustwright-common v0.1.0 (D:\a\rustwright\rustwright\crates\rustwright-common)
+[1m[92m   Compiling[0m rustwright-cdp v0.1.0 (D:\a\rustwright\rustwright\crates\rustwright-cdp)
+[1m[92m   Compiling[0m rustwright-browser v0.1.0 (D:\a\rustwright\rustwright\crates\rustwright-browser)
+[1m[93mwarning[0m[1m[97m: function `find_on_path` is never used[0m
+   [1m[96m--> [0mcrates\rustwright-browser\src\discovery.rs:179:8
+    [1m[96m|[0m
+[1m[96m179[0m [1m[96m|[0m pub fn find_on_path(name: &str) -> Vec<PathBuf> {
+    [1m[96m|[0m        [1m[93m^^^^^^^^^^^^[0m
+    [1m[96m|[0m
+    [1m[96m= [0m[1m[97mnote[0m: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+[1m[93mwarning[0m[1m[97m: function `executable_name` is never used[0m
+   [1m[96m--> [0mcrates\rustwright-browser\src\discovery.rs:197:4
+    [1m[96m|[0m
+[1m[96m197[0m [1m[96m|[0m fn executable_name(name: &str) -> String {
+    [1m[96m|[0m    [1m[93m^^^^^^^^^^^^^^^[0m
+
+[1m[92m   Compiling[0m rustwright-core v0.1.0 (D:\a\rustwright\rustwright\crates\rustwright-core)
+[1m[92m   Compiling[0m rustwright-bidi v0.1.0 (D:\a\rustwright\rustwright\crates\rustwright-bidi)
+[1m[93mwarning[0m: `rustwright-browser` (lib) generated 2 warnings
+[1m[92m   Compiling[0m rustwright v0.1.0 (D:\a\rustwright\rustwright\crates\rustwright)
+[1m[92m   Compiling[0m rustwright-integration-tests v0.1.0 (D:\a\rustwright\rustwright\tests)
+[1m[92m    Finished[0m `test` profile [unoptimized + debuginfo] target(s) in 19.33s
+[1m[92m     Running[0m http_compat.rs (target\debug\deps\http_compat-17acb0564202cfb7.exe)
+
+running 24 tests
+test chrome_cancelled_wait_recovers ... Requested browser mode: headless=true
+Chrome version: Chrome/155.0.8059.39
+HTTP compat Chrome stage: new_page start
+HTTP compat Chrome stage: new_page complete
+HTTP compat stage: goto start backend_firefox=false, url=http://127.0.0.1:60055/page.html
+HTTP compat fixture accepted: 127.0.0.1:53008
+HTTP compat fixture accepted: 127.0.0.1:49900
+HTTP compat fixture request: peer=127.0.0.1:53008, bytes=667, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:53008, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat stage: goto complete backend_firefox=false
+Cancellation stage: replace wait helper start backend_firefox=false
+HTTP compat fixture request: peer=127.0.0.1:49900, bytes=594, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:49900, bytes=506, content_type=text/html, write=Ok(())
+Cancellation stage: replace wait helper complete backend_firefox=false
+Cancellation stage: wait abort start backend_firefox=false
+Cancellation stage: wait abort complete backend_firefox=false
+Cancellation stage: restore helper start backend_firefox=false
+Cancellation stage: restore helper complete backend_firefox=false
+Cancellation stage: visible wait start backend_firefox=false
+Cancellation stage: visible wait complete backend_firefox=false
+Cancellation stage: title start backend_firefox=false
+Cancellation stage: title complete backend_firefox=false
+Cancellation stage: close start backend_firefox=false
+Cancellation stage: close complete backend_firefox=false
+ok
+test chrome_closing_page_wakes_wait ... Requested browser mode: headless=true
+Chrome version: Chrome/155.0.8059.39
+HTTP compat Chrome stage: new_page start
+HTTP compat Chrome stage: new_page complete
+HTTP compat stage: goto start backend_firefox=false, url=http://127.0.0.1:60657/page.html
+HTTP compat fixture accepted: 127.0.0.1:62887
+HTTP compat fixture accepted: 127.0.0.1:50127
+HTTP compat fixture request: peer=127.0.0.1:62887, bytes=667, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:62887, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat stage: goto complete backend_firefox=false
+HTTP compat fixture request: peer=127.0.0.1:50127, bytes=594, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:50127, bytes=506, content_type=text/html, write=Ok(())
+ok
+test chrome_delayed_and_absent_elements ... Requested browser mode: headless=true
+Chrome version: Chrome/155.0.8059.39
+HTTP compat Chrome stage: new_page start
+HTTP compat Chrome stage: new_page complete
+HTTP compat stage: goto start backend_firefox=false, url=http://127.0.0.1:60564/page.html
+HTTP compat fixture accepted: 127.0.0.1:60362
+HTTP compat fixture accepted: 127.0.0.1:59766
+HTTP compat fixture request: peer=127.0.0.1:60362, bytes=667, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:60362, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat stage: goto complete backend_firefox=false
+HTTP compat fixture request: peer=127.0.0.1:59766, bytes=594, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:59766, bytes=506, content_type=text/html, write=Ok(())
+ok
+test chrome_disconnect_wakes_wait ... Requested browser mode: headless=true
+Chrome version: Chrome/155.0.8059.39
+HTTP compat Chrome stage: new_page start
+HTTP compat Chrome stage: new_page complete
+HTTP compat stage: goto start backend_firefox=false, url=http://127.0.0.1:50033/page.html
+HTTP compat fixture accepted: 127.0.0.1:61547
+HTTP compat fixture accepted: 127.0.0.1:50312
+HTTP compat fixture request: peer=127.0.0.1:61547, bytes=667, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:61547, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat stage: goto complete backend_firefox=false
+HTTP compat fixture request: peer=127.0.0.1:50312, bytes=594, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:50312, bytes=506, content_type=text/html, write=Ok(())
+ok
+test chrome_frame_click ... Requested browser mode: headless=true
+Chrome version: Chrome/155.0.8059.39
+HTTP compat Chrome stage: new_page start
+HTTP compat Chrome stage: new_page complete
+HTTP compat stage: goto start backend_firefox=false, url=http://127.0.0.1:61969/page.html
+HTTP compat fixture accepted: 127.0.0.1:59497
+HTTP compat fixture accepted: 127.0.0.1:55102
+HTTP compat fixture request: peer=127.0.0.1:59497, bytes=667, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:59497, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat stage: goto complete backend_firefox=false
+HTTP compat fixture request: peer=127.0.0.1:55102, bytes=594, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:55102, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:59788
+HTTP compat fixture request: peer=127.0.0.1:59788, bytes=740, line=Some("GET /frame.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:59788, bytes=346, content_type=text/html, write=Ok(())
+ok
+test chrome_frame_hover_and_keyboard ... Requested browser mode: headless=true
+Chrome version: Chrome/155.0.8059.39
+HTTP compat Chrome stage: new_page start
+HTTP compat Chrome stage: new_page complete
+HTTP compat stage: goto start backend_firefox=false, url=http://127.0.0.1:58816/page.html
+HTTP compat fixture accepted: 127.0.0.1:49536
+HTTP compat fixture accepted: 127.0.0.1:61785
+HTTP compat fixture request: peer=127.0.0.1:49536, bytes=667, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:49536, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat stage: goto complete backend_firefox=false
+HTTP compat fixture request: peer=127.0.0.1:61785, bytes=594, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:61785, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:65130
+HTTP compat fixture request: peer=127.0.0.1:65130, bytes=740, line=Some("GET /frame.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:65130, bytes=346, content_type=text/html, write=Ok(())
+ok
+test chrome_frame_reload ... Requested browser mode: headless=true
+Chrome version: Chrome/155.0.8059.39
+HTTP compat Chrome stage: new_page start
+HTTP compat Chrome stage: new_page complete
+HTTP compat stage: goto start backend_firefox=false, url=http://127.0.0.1:57982/page.html
+HTTP compat fixture accepted: 127.0.0.1:55965
+HTTP compat fixture accepted: 127.0.0.1:61257
+HTTP compat fixture request: peer=127.0.0.1:55965, bytes=667, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:55965, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat stage: goto complete backend_firefox=false
+HTTP compat fixture request: peer=127.0.0.1:61257, bytes=594, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:61257, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:53306
+HTTP compat fixture request: peer=127.0.0.1:53306, bytes=716, line=Some("GET /frame.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:53306, bytes=346, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:51457
+HTTP compat fixture request: peer=127.0.0.1:51457, bytes=743, line=Some("GET /frame.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:51457, bytes=346, content_type=text/html, write=Ok(())
+ok
+test chrome_isolated_popup_ownership ... Requested browser mode: headless=true
+Chrome version: Chrome/155.0.8059.39
+HTTP compat Chrome stage: new_page start
+HTTP compat Chrome stage: new_page complete
+HTTP compat stage: goto start backend_firefox=false, url=http://127.0.0.1:51458/page.html
+HTTP compat fixture accepted: 127.0.0.1:56658
+HTTP compat fixture accepted: 127.0.0.1:65285
+HTTP compat fixture request: peer=127.0.0.1:56658, bytes=667, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:56658, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat stage: goto complete backend_firefox=false
+HTTP compat fixture request: peer=127.0.0.1:65285, bytes=594, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:65285, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:64004
+HTTP compat fixture request: peer=127.0.0.1:64004, bytes=667, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:64004, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:52023
+HTTP compat fixture request: peer=127.0.0.1:52023, bytes=667, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:52023, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:60749
+HTTP compat fixture request: peer=127.0.0.1:60749, bytes=594, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:60749, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:60985
+HTTP compat fixture request: peer=127.0.0.1:60985, bytes=594, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:60985, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:52002
+HTTP compat fixture request: peer=127.0.0.1:52002, bytes=717, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:52002, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:51313
+HTTP compat fixture request: peer=127.0.0.1:51313, bytes=594, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:51313, bytes=506, content_type=text/html, write=Ok(())
+ok
+test chrome_isolated_storage ... Requested browser mode: headless=true
+Chrome version: Chrome/155.0.8059.39
+HTTP compat Chrome stage: new_page start
+HTTP compat Chrome stage: new_page complete
+HTTP compat stage: goto start backend_firefox=false, url=http://127.0.0.1:51314/page.html
+HTTP compat fixture accepted: 127.0.0.1:56536
+HTTP compat fixture accepted: 127.0.0.1:50238
+HTTP compat fixture request: peer=127.0.0.1:56536, bytes=667, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:56536, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat stage: goto complete backend_firefox=false
+HTTP compat fixture request: peer=127.0.0.1:50238, bytes=594, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:50238, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:57208
+HTTP compat fixture request: peer=127.0.0.1:57208, bytes=667, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:57208, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:62517
+HTTP compat fixture request: peer=127.0.0.1:62517, bytes=667, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:62517, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:61101
+HTTP compat fixture request: peer=127.0.0.1:61101, bytes=594, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:61101, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:49425
+HTTP compat fixture request: peer=127.0.0.1:49425, bytes=594, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:49425, bytes=506, content_type=text/html, write=Ok(())
+ok
+test chrome_javascript_exceptions ... Requested browser mode: headless=true
+Chrome version: Chrome/155.0.8059.39
+HTTP compat Chrome stage: new_page start
+HTTP compat Chrome stage: new_page complete
+HTTP compat stage: goto start backend_firefox=false, url=http://127.0.0.1:49426/page.html
+HTTP compat fixture accepted: 127.0.0.1:61135
+HTTP compat fixture accepted: 127.0.0.1:62680
+HTTP compat fixture request: peer=127.0.0.1:61135, bytes=667, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:61135, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat stage: goto complete backend_firefox=false
+HTTP compat fixture request: peer=127.0.0.1:62680, bytes=594, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:62680, bytes=506, content_type=text/html, write=Ok(())
+ok
+test chrome_navigation_and_forms ... Requested browser mode: headless=true
+Chrome version: Chrome/155.0.8059.39
+HTTP compat Chrome stage: new_page start
+HTTP compat Chrome stage: new_page complete
+HTTP compat stage: goto start backend_firefox=false, url=http://127.0.0.1:52755/page.html
+HTTP compat fixture accepted: 127.0.0.1:56863
+HTTP compat fixture accepted: 127.0.0.1:54292
+HTTP compat fixture request: peer=127.0.0.1:56863, bytes=667, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:56863, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat stage: goto complete backend_firefox=false
+HTTP compat fixture request: peer=127.0.0.1:54292, bytes=594, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:54292, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:59477
+HTTP compat fixture request: peer=127.0.0.1:59477, bytes=594, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:59477, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:59121
+HTTP compat fixture request: peer=127.0.0.1:59121, bytes=594, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:59121, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:62540
+ok
+test chrome_wait_deadline ... Requested browser mode: headless=true
+Chrome version: Chrome/155.0.8059.39
+HTTP compat Chrome stage: new_page start
+HTTP compat Chrome stage: new_page complete
+HTTP compat stage: goto start backend_firefox=false, url=http://127.0.0.1:62541/page.html
+HTTP compat fixture accepted: 127.0.0.1:57007
+HTTP compat fixture accepted: 127.0.0.1:54920
+HTTP compat fixture request: peer=127.0.0.1:57007, bytes=667, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:57007, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat stage: goto complete backend_firefox=false
+HTTP compat fixture request: peer=127.0.0.1:54920, bytes=594, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:54920, bytes=506, content_type=text/html, write=Ok(())
+ok
+test firefox_cancelled_wait_recovers ... Requested browser mode: headless=true
+Firefox version: Some("157.0.1")
+HTTP compat Firefox stage: new_page start
+HTTP compat Firefox stage: new_page complete
+HTTP compat stage: goto start backend_firefox=true, url=http://127.0.0.1:64319/page.html
+HTTP compat fixture accepted: 127.0.0.1:64332
+HTTP compat fixture request: peer=127.0.0.1:64332, bytes=458, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:64332, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:64333
+HTTP compat stage: goto complete backend_firefox=true
+Cancellation stage: replace wait helper start backend_firefox=true
+HTTP compat fixture request: peer=127.0.0.1:64333, bytes=459, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:64333, bytes=506, content_type=text/html, write=Ok(())
+Cancellation stage: replace wait helper complete backend_firefox=true
+Cancellation stage: wait abort start backend_firefox=true
+Cancellation stage: wait abort complete backend_firefox=true
+Cancellation stage: restore helper start backend_firefox=true
+Cancellation stage: restore helper complete backend_firefox=true
+Cancellation stage: visible wait start backend_firefox=true
+Cancellation stage: visible wait complete backend_firefox=true
+Cancellation stage: title start backend_firefox=true
+Cancellation stage: title complete backend_firefox=true
+Cancellation stage: close start backend_firefox=true
+Cancellation stage: close complete backend_firefox=true
+ok
+test firefox_closing_page_wakes_wait ... Requested browser mode: headless=true
+Firefox version: Some("157.0.1")
+HTTP compat Firefox stage: new_page start
+HTTP compat Firefox stage: new_page complete
+HTTP compat stage: goto start backend_firefox=true, url=http://127.0.0.1:64334/page.html
+HTTP compat fixture accepted: 127.0.0.1:64346
+HTTP compat fixture request: peer=127.0.0.1:64346, bytes=458, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:64346, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:64347
+HTTP compat fixture request: peer=127.0.0.1:64347, bytes=459, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:64347, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat stage: goto complete backend_firefox=true
+ok
+test firefox_delayed_and_absent_elements ... Requested browser mode: headless=true
+Firefox version: Some("157.0.1")
+HTTP compat Firefox stage: new_page start
+HTTP compat Firefox stage: new_page complete
+HTTP compat stage: goto start backend_firefox=true, url=http://127.0.0.1:64348/page.html
+HTTP compat fixture accepted: 127.0.0.1:64364
+HTTP compat fixture request: peer=127.0.0.1:64364, bytes=458, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:64364, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat stage: goto complete backend_firefox=true
+HTTP compat fixture accepted: 127.0.0.1:64365
+HTTP compat fixture request: peer=127.0.0.1:64365, bytes=459, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:64365, bytes=506, content_type=text/html, write=Ok(())
+ok
+test firefox_disconnect_wakes_wait ... Requested browser mode: headless=true
+Firefox version: Some("157.0.1")
+HTTP compat Firefox stage: new_page start
+HTTP compat Firefox stage: new_page complete
+HTTP compat stage: goto start backend_firefox=true, url=http://127.0.0.1:64366/page.html
+HTTP compat fixture accepted: 127.0.0.1:64377
+HTTP compat fixture request: peer=127.0.0.1:64377, bytes=458, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:64377, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat stage: goto complete backend_firefox=true
+HTTP compat fixture accepted: 127.0.0.1:64378
+HTTP compat fixture request: peer=127.0.0.1:64378, bytes=459, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:64378, bytes=506, content_type=text/html, write=Ok(())
+ok
+test firefox_frame_click ... Requested browser mode: headless=true
+Firefox version: Some("157.0.1")
+HTTP compat Firefox stage: new_page start
+HTTP compat Firefox stage: new_page complete
+HTTP compat stage: goto start backend_firefox=true, url=http://127.0.0.1:64379/page.html
+HTTP compat fixture accepted: 127.0.0.1:64391
+HTTP compat fixture request: peer=127.0.0.1:64391, bytes=458, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:64391, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat stage: goto complete backend_firefox=true
+HTTP compat fixture accepted: 127.0.0.1:64392
+HTTP compat fixture request: peer=127.0.0.1:64392, bytes=459, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:64392, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:64393
+HTTP compat fixture request: peer=127.0.0.1:64393, bytes=506, line=Some("GET /frame.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:64393, bytes=346, content_type=text/html, write=Ok(())
+ok
+test firefox_frame_hover_and_keyboard ... Requested browser mode: headless=true
+Firefox version: Some("157.0.1")
+HTTP compat Firefox stage: new_page start
+HTTP compat Firefox stage: new_page complete
+HTTP compat stage: goto start backend_firefox=true, url=http://127.0.0.1:64394/page.html
+HTTP compat fixture accepted: 127.0.0.1:64411
+HTTP compat fixture request: peer=127.0.0.1:64411, bytes=458, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:64411, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat stage: goto complete backend_firefox=true
+HTTP compat fixture accepted: 127.0.0.1:64412
+HTTP compat fixture request: peer=127.0.0.1:64412, bytes=459, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:64412, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:64413
+HTTP compat fixture request: peer=127.0.0.1:64413, bytes=506, line=Some("GET /frame.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:64413, bytes=346, content_type=text/html, write=Ok(())
+ok
+test firefox_frame_reload ... Requested browser mode: headless=true
+Firefox version: Some("157.0.1")
+HTTP compat Firefox stage: new_page start
+HTTP compat Firefox stage: new_page complete
+HTTP compat stage: goto start backend_firefox=true, url=http://127.0.0.1:64414/page.html
+HTTP compat fixture accepted: 127.0.0.1:64426
+HTTP compat fixture request: peer=127.0.0.1:64426, bytes=458, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:64426, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat stage: goto complete backend_firefox=true
+HTTP compat fixture accepted: 127.0.0.1:64427
+HTTP compat fixture request: peer=127.0.0.1:64427, bytes=459, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:64427, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:64428
+HTTP compat fixture request: peer=127.0.0.1:64428, bytes=484, line=Some("GET /frame.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:64428, bytes=346, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:64429
+HTTP compat fixture request: peer=127.0.0.1:64429, bytes=484, line=Some("GET /frame.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:64429, bytes=346, content_type=text/html, write=Ok(())
+ok
+test firefox_isolated_popup_ownership ... Requested browser mode: headless=true
+Firefox version: Some("157.0.1")
+HTTP compat Firefox stage: new_page start
+HTTP compat Firefox stage: new_page complete
+HTTP compat stage: goto start backend_firefox=true, url=http://127.0.0.1:64430/page.html
+HTTP compat fixture accepted: 127.0.0.1:64443
+HTTP compat fixture request: peer=127.0.0.1:64443, bytes=458, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:64443, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat stage: goto complete backend_firefox=true
+HTTP compat fixture accepted: 127.0.0.1:64444
+HTTP compat fixture request: peer=127.0.0.1:64444, bytes=459, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:64444, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:64445
+HTTP compat fixture request: peer=127.0.0.1:64445, bytes=458, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:64445, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:64446
+HTTP compat fixture request: peer=127.0.0.1:64446, bytes=459, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:64446, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:64447
+HTTP compat fixture request: peer=127.0.0.1:64447, bytes=458, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:64447, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:64448
+HTTP compat fixture request: peer=127.0.0.1:64448, bytes=459, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:64448, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:64449
+HTTP compat fixture request: peer=127.0.0.1:64449, bytes=488, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:64449, bytes=506, content_type=text/html, write=Ok(())
+ok
+test firefox_isolated_storage ... Requested browser mode: headless=true
+Firefox version: Some("157.0.1")
+HTTP compat Firefox stage: new_page start
+HTTP compat Firefox stage: new_page complete
+HTTP compat stage: goto start backend_firefox=true, url=http://127.0.0.1:64450/page.html
+HTTP compat fixture accepted: 127.0.0.1:52195
+HTTP compat fixture request: peer=127.0.0.1:52195, bytes=458, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:52195, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:52196
+HTTP compat stage: goto complete backend_firefox=true
+HTTP compat fixture request: peer=127.0.0.1:52196, bytes=459, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:52196, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:52197
+HTTP compat fixture request: peer=127.0.0.1:52197, bytes=458, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:52197, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:52198
+HTTP compat fixture request: peer=127.0.0.1:52198, bytes=459, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:52198, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:52199
+HTTP compat fixture request: peer=127.0.0.1:52199, bytes=458, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:52199, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:52200
+HTTP compat fixture request: peer=127.0.0.1:52200, bytes=459, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:52200, bytes=506, content_type=text/html, write=Ok(())
+ok
+test firefox_javascript_exceptions ... Requested browser mode: headless=true
+Firefox version: Some("157.0.1")
+HTTP compat Firefox stage: new_page start
+HTTP compat Firefox stage: new_page complete
+HTTP compat stage: goto start backend_firefox=true, url=http://127.0.0.1:52201/page.html
+HTTP compat fixture accepted: 127.0.0.1:52218
+HTTP compat fixture request: peer=127.0.0.1:52218, bytes=458, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:52218, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:52219
+HTTP compat fixture request: peer=127.0.0.1:52219, bytes=459, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:52219, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat stage: goto complete backend_firefox=true
+ok
+test firefox_navigation_and_forms ... Requested browser mode: headless=true
+Firefox version: Some("157.0.1")
+HTTP compat Firefox stage: new_page start
+HTTP compat Firefox stage: new_page complete
+HTTP compat stage: goto start backend_firefox=true, url=http://127.0.0.1:52220/page.html
+HTTP compat fixture accepted: 127.0.0.1:52232
+HTTP compat fixture request: peer=127.0.0.1:52232, bytes=458, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:52232, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat stage: goto complete backend_firefox=true
+HTTP compat fixture accepted: 127.0.0.1:52233
+HTTP compat fixture request: peer=127.0.0.1:52233, bytes=459, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:52233, bytes=506, content_type=text/html, write=Ok(())
+ok
+test firefox_wait_deadline ... Requested browser mode: headless=true
+Firefox version: Some("157.0.1")
+HTTP compat Firefox stage: new_page start
+HTTP compat Firefox stage: new_page complete
+HTTP compat stage: goto start backend_firefox=true, url=http://127.0.0.1:52234/page.html
+HTTP compat fixture accepted: 127.0.0.1:52247
+HTTP compat fixture request: peer=127.0.0.1:52247, bytes=458, line=Some("GET /page.html HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:52247, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat fixture accepted: 127.0.0.1:52248
+HTTP compat fixture request: peer=127.0.0.1:52248, bytes=459, line=Some("GET /favicon.ico HTTP/1.1")
+HTTP compat fixture response: peer=127.0.0.1:52248, bytes=506, content_type=text/html, write=Ok(())
+HTTP compat stage: goto complete backend_firefox=true
+ok
+
+test result: ok. 24 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 71.87s
+

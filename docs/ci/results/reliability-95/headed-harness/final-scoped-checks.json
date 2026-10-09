@@ -1,0 +1,46 @@
+[
+  {
+    "command": [
+      "python3",
+      "-m",
+      "py_compile",
+      "scripts/ci/browser_checks.py"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "rustfmt",
+      "--edition",
+      "2021",
+      "--check",
+      "tests/http_compat.rs",
+      "tests/http_actionability.rs",
+      "tests/http_clipped_control.rs",
+      "tests/http_bidi_navigation.rs",
+      "tests/http_network_idle_parity.rs"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--check",
+      "--",
+      "scripts/ci/browser_checks.py",
+      "tests/http_compat.rs",
+      "tests/http_actionability.rs",
+      "tests/http_clipped_control.rs",
+      "tests/http_bidi_navigation.rs",
+      "tests/http_network_idle_parity.rs"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+]

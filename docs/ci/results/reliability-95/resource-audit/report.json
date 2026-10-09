@@ -1,0 +1,65 @@
+{
+  "scope": "BiDi local observer/diagnostic pump lifetime after successful local page or browser closure; no network-idle semantics expansion",
+  "base_commit": "3e52b79707905683da65e2bfbe0ad4b6beb93e50",
+  "head_at_recording": "3e52b79707905683da65e2bfbe0ad4b6beb93e50",
+  "source_state": "Six uncommitted BiDi files; session.rs unchanged. Other agents own other checkout changes.",
+  "regressions": [
+    {
+      "test": "browser::network_subscription_tests::retained_page_diagnostics_stop_on_browser_close_without_remote_events",
+      "before": "FAILED: retained diagnostic task never finished within 1s after browser.close()",
+      "after": "PASS"
+    },
+    {
+      "test": "browser::network_subscription_tests::closing_one_page_alias_stops_all_diagnostics_without_a_destroy_event",
+      "before": "FAILED: both retained diagnostic tasks never finished within 1s after successful page.close()",
+      "after": "PASS"
+    },
+    {
+      "test": "network_idle::tests::protocol_tests::local_page_close_releases_idle_pump_without_a_remote_destroy_event",
+      "before": "FAILED: retained idle task never finished within 1s after successful page.close()",
+      "after": "PASS"
+    }
+  ],
+  "before": {
+    "selected_tests": 7,
+    "passed": 4,
+    "failed": 3,
+    "exit_code": 101,
+    "duration_seconds": 1.07,
+    "log": "before-regressions.log",
+    "test_sources_identical_to_after": {
+      "network_subscription_tests.rs": true,
+      "network_idle/protocol_tests.rs": true
+    }
+  },
+  "after": {
+    "bidi_unit_tests": 111,
+    "passed": 111,
+    "failed": 0,
+    "exit_code": 0,
+    "duration_seconds": 5.09,
+    "log": "after-bidi.log"
+  },
+  "clippy": {
+    "scope": "rustwright-bidi --all-targets, -D warnings",
+    "exit_code": 0,
+    "log": "clippy.log"
+  },
+  "deferred_checks": {
+    "msrv": "Not run for this audit yet: parent independent-memory measurement quiet window; later root exact-commit check can supersede.",
+    "native": "Not run by this agent for this fix."
+  },
+  "guarantees": [
+    "Successful local page closure broadcasts a shared observer close signal to all aliases and finishes their idle/diagnostic pumps, even if the remote peer sends no contextDestroyed event.",
+    "Browser/connection shutdown finishes retained page diagnostic pumps without waiting for the broadcast channel sender to be dropped.",
+    "Diagnostic setup rejects known-closed resources before reusing cached readiness and checks closure again after acknowledged global setup.",
+    "Existing cancellation-safe setup workers and finite 5s setup budgets remain; all 111 BiDi tests include pre-ACK event delivery, cancellation/reuse, and silent-ACK timeout/retry coverage."
+  ],
+  "limitations": [
+    "Lost or timed-out remote subscription acknowledgements with unknown remote subscription IDs cannot be reconciled/reclaimed by this change. Retrying can allocate another unknown remote subscription.",
+    "Weak session observer registry entries are pruned on subsequent lookup, not synchronously on every Drop; a dormant peak set of dead weak keys can remain until another lookup.",
+    "Caller-retained closed page handles still own local diagnostic history and finished task handle metadata; this evidence demonstrates worker/receiver lifetime, not zero retained heap bytes.",
+    "Closure racing immediately before close-receiver creation can still wait for the existing finite setup budget; post-ACK closure checks prevent late pump installation.",
+    "Controlled peers and unit tests do not establish Firefox heap plateau, remote subscription cleanup under lost replies, or SOTA."
+  ]
+}

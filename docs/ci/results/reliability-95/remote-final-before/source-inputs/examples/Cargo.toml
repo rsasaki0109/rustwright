@@ -1,0 +1,59 @@
+[package]
+name = "rustwright-examples"
+description = "Runnable examples for Rustwright"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+publish = false
+
+[dependencies]
+rustwright.workspace = true
+serde_json.workspace = true
+tokio = { workspace = true }
+
+[[example]]
+name = "quickstart"
+path = "quickstart.rs"
+
+[[example]]
+name = "offline_smoke"
+path = "offline_smoke.rs"
+
+[[example]]
+name = "persistent_profile"
+path = "persistent_profile.rs"
+
+[[example]]
+name = "connect_existing"
+path = "connect_existing.rs"
+
+[[example]]
+name = "compat_report"
+path = "compat_report.rs"
+test = true
+
+[[example]]
+name = "browse_session"
+path = "browse_session.rs"
+
+[[example]]
+name = "bidi_firefox"
+path = "bidi_firefox.rs"
+
+[[example]]
+name = "extract_items"
+path = "extract_items.rs"
+
+[[example]]
+name = "bench"
+path = "bench.rs"
+
+[[example]]
+name = "reliability"
+path = "reliability.rs"
+
+[[example]]
+name = "endurance"
+path = "endurance.rs"

@@ -1,0 +1,63 @@
+[1m[33mwarning[0m[1m: function `find_on_path` is never used[0m
+   [1m[94m--> [0mcrates/rustwright-browser/src/discovery.rs:179:8
+    [1m[94m|[0m
+[1m[94m179[0m [1m[94m|[0m pub fn find_on_path(name: &str) -> Vec<PathBuf> {
+    [1m[94m|[0m        [1m[33m^^^^^^^^^^^^[0m
+    [1m[94m|[0m
+    [1m[94m= [0m[1mnote[0m: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+[1m[33mwarning[0m[1m: function `executable_name` is never used[0m
+   [1m[94m--> [0mcrates/rustwright-browser/src/discovery.rs:197:4
+    [1m[94m|[0m
+[1m[94m197[0m [1m[94m|[0m fn executable_name(name: &str) -> String {
+    [1m[94m|[0m    [1m[33m^^^^^^^^^^^^^^^[0m
+
+[1m[33mwarning[0m: `rustwright-browser` (lib) generated 2 warnings
+[1m[92m   Compiling[0m rustwright-integration-tests v0.1.0 (/Users/runner/work/rustwright/rustwright/tests)
+[1m[92m    Finished[0m `test` profile [unoptimized + debuginfo] target(s) in 1.72s
+[1m[92m     Running[0m http_clipped_control.rs (target/debug/deps/http_clipped_control-570ff67e1bc88aa2)
+
+running 10 tests
+test chrome_fixed_control_escapes_clip ... Requested browser mode: headless=true
+Chrome version: Chrome/155.0.8059.39
+width=60 nested=false click=Ok(()) observed=[1,true,0] geometry={"clip":{"bottom":160,"height":60,"left":100,"right":160,"top":100,"width":60,"x":100,"y":100},"hit":"","rect":{"bottom":250,"height":50,"left":300,"right":700,"top":200,"width":400,"x":300,"y":200},"scroll":0}
+ok
+test chrome_narrow_overflow_control ... Requested browser mode: headless=true
+Chrome version: Chrome/155.0.8059.39
+width=3 nested=false click=Ok(()) observed=[1,true,0] geometry={"clip":{"bottom":160,"height":60,"left":100,"right":103,"top":100,"width":3,"x":100,"y":100},"hit":"go","rect":{"bottom":150,"height":50,"left":-99,"right":301,"top":100,"width":400,"x":-99,"y":100},"scroll":199}
+ok
+test chrome_nested_overflow_control ... Requested browser mode: headless=true
+Chrome version: Chrome/155.0.8059.39
+width=60 nested=true click=Ok(()) observed=[1,true,0] geometry={"clip":{"bottom":160,"height":60,"left":80,"right":140,"top":100,"width":60,"x":80,"y":100},"hit":"go","rect":{"bottom":150,"height":50,"left":-90,"right":310,"top":100,"width":400,"x":-90,"y":100},"scroll":170}
+ok
+test chrome_overflow_hidden_control ... Requested browser mode: headless=true
+Chrome version: Chrome/155.0.8059.39
+width=60 nested=false click=Ok(()) observed=[1,true,0] geometry={"clip":{"bottom":160,"height":60,"left":100,"right":160,"top":100,"width":60,"x":100,"y":100},"hit":"go","rect":{"bottom":150,"height":50,"left":-70,"right":330,"top":100,"width":400,"x":-70,"y":100},"scroll":170}
+ok
+test chrome_scrolled_overflow_control ... Requested browser mode: headless=true
+Chrome version: Chrome/155.0.8059.39
+width=60 nested=false click=Ok(()) observed=[1,true,0] geometry={"clip":{"bottom":241,"height":60,"left":348,"right":408,"top":181,"width":60,"x":348,"y":181},"hit":"","rect":{"bottom":231,"height":50,"left":178,"right":578,"top":181,"width":400,"x":178,"y":181},"scroll":170}
+ok
+test firefox_fixed_control_escapes_clip ... Requested browser mode: headless=true
+Firefox version: Some("157.0.1")
+width=60 nested=false click=Ok(()) observed=[1,true,0] geometry={"clip":{"bottom":160,"height":60,"left":100,"right":160,"top":100,"width":60,"x":100,"y":100},"hit":"","rect":{"bottom":250,"height":50,"left":300,"right":700,"top":200,"width":400,"x":300,"y":200},"scroll":0}
+ok
+test firefox_narrow_overflow_control ... Requested browser mode: headless=true
+Firefox version: Some("157.0.1")
+width=3 nested=false click=Ok(()) observed=[1,true,0] geometry={"clip":{"bottom":160,"height":60,"left":100,"right":103,"top":100,"width":3,"x":100,"y":100},"hit":"go","rect":{"bottom":150,"height":50,"left":-98.5,"right":301.5,"top":100,"width":400,"x":-98.5,"y":100},"scroll":198.5}
+ok
+test firefox_nested_overflow_control ... Requested browser mode: headless=true
+Firefox version: Some("157.0.1")
+width=60 nested=true click=Ok(()) observed=[1,true,0] geometry={"clip":{"bottom":160,"height":60,"left":80,"right":140,"top":100,"width":60,"x":80,"y":100},"hit":"go","rect":{"bottom":150,"height":50,"left":-90,"right":310,"top":100,"width":400,"x":-90,"y":100},"scroll":170}
+ok
+test firefox_overflow_hidden_control ... Requested browser mode: headless=true
+Firefox version: Some("157.0.1")
+width=60 nested=false click=Ok(()) observed=[1,true,0] geometry={"clip":{"bottom":160,"height":60,"left":100,"right":160,"top":100,"width":60,"x":100,"y":100},"hit":"go","rect":{"bottom":150,"height":50,"left":-70,"right":330,"top":100,"width":400,"x":-70,"y":100},"scroll":170}
+ok
+test firefox_scrolled_overflow_control ... Requested browser mode: headless=true
+Firefox version: Some("157.0.1")
+width=60 nested=false click=Ok(()) observed=[1,true,0] geometry={"clip":{"bottom":369,"height":60,"left":646,"right":706,"top":309,"width":60,"x":646,"y":309},"hit":"","rect":{"bottom":359,"height":50,"left":476,"right":876,"top":309,"width":400,"x":476,"y":309},"scroll":170}
+ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 15.70s
+

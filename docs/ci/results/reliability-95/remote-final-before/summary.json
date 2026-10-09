@@ -1,0 +1,182 @@
+{
+  "frozen_at_utc": "2026-10-09T20:53:29.934962+00:00",
+  "run_id": 37987315249,
+  "run_url": "https://github.com/rsasaki0109/rustwright/actions/runs/37987315249",
+  "head_commit": "be1b065aeff87e5c19e53492a19f4465ba4436f4",
+  "actual_checkout_commit_confirmed_by_four_downloaded_jobs": "81864cc233628753cc97cdbb19a70cc30a1d4128",
+  "source_archive_sha256": "a92edb43169fc11922f979d2536c0caf6b3128133963a635c4b0e37794b99bf8",
+  "relevant_source_inputs": 153,
+  "final_run_status": "unobserved after GitHub API401",
+  "final_run_conclusion": "unobserved; one completed job failure is preserved, no passing conclusion inferred",
+  "last_successful_jobs_api_snapshot": "snapshots/jobs-20261009T205009Z.json",
+  "jobs": [
+    {
+      "id": 114012425312,
+      "name": "Required Chrome + Firefox / windows-latest",
+      "status": "completed",
+      "conclusion": "success",
+      "completed_at": "2026-10-09T20:45:51Z"
+    },
+    {
+      "id": 114012425536,
+      "name": "Rust 1.85.0 / locked workspace",
+      "status": "completed",
+      "conclusion": "success",
+      "completed_at": "2026-10-09T20:45:39Z"
+    },
+    {
+      "id": 114012425578,
+      "name": "fmt / clippy / test",
+      "status": "in_progress",
+      "conclusion": null,
+      "completed_at": null
+    },
+    {
+      "id": 114012425579,
+      "name": "Required Chrome + Firefox / ubuntu-latest",
+      "status": "in_progress",
+      "conclusion": null,
+      "completed_at": null
+    },
+    {
+      "id": 114012425582,
+      "name": "Required headed / alternate versions / public sites",
+      "status": "completed",
+      "conclusion": "failure",
+      "completed_at": "2026-10-09T20:47:10Z"
+    },
+    {
+      "id": 114012425636,
+      "name": "Verified archives / stable + MSRV / native consumers",
+      "status": "completed",
+      "conclusion": "success",
+      "completed_at": "2026-10-09T20:50:05Z"
+    },
+    {
+      "id": 114012425680,
+      "name": "Required Chrome + Firefox / macos-latest",
+      "status": "in_progress",
+      "conclusion": null,
+      "completed_at": null
+    }
+  ],
+  "last_observed_job_counts": {
+    "success": 3,
+    "failure": 1,
+    "in_progress": 3,
+    "queued": 0
+  },
+  "downloaded_completed_job_logs": [
+    {
+      "job": "windows",
+      "log": "windows.log",
+      "actual_checkout_commit": "81864cc233628753cc97cdbb19a70cc30a1d4128",
+      "raw_log_confirms_checkout": true
+    },
+    {
+      "job": "msrv",
+      "log": "msrv.log",
+      "actual_checkout_commit": "81864cc233628753cc97cdbb19a70cc30a1d4128",
+      "raw_log_confirms_checkout": true
+    },
+    {
+      "job": "packages",
+      "log": "packages.log",
+      "actual_checkout_commit": "81864cc233628753cc97cdbb19a70cc30a1d4128",
+      "raw_log_confirms_checkout": true
+    },
+    {
+      "job": "extended",
+      "log": "extended.log",
+      "actual_checkout_commit": "81864cc233628753cc97cdbb19a70cc30a1d4128",
+      "raw_log_confirms_checkout": true
+    }
+  ],
+  "workspace_results": "unobserved; no workspace log or counts for this run available",
+  "native_http": {
+    "windows": {
+      "portable": {
+        "passed": 79,
+        "failed": 0,
+        "ignored": 0,
+        "filtered": 0,
+        "cases_by_target": {
+          "http_compat": 24,
+          "http_actionability": 12,
+          "http_clipped_control": 10,
+          "http_bidi_navigation": 7,
+          "http_network_idle_parity": 26
+        },
+        "cases_by_backend": {
+          "chrome": 39,
+          "firefox": 40
+        },
+        "mode": "headless",
+        "platform": "Windows-10-10.0.26100-SP0",
+        "browser_bindings": {
+          "RUSTWRIGHT_CHROME": "C:\\hostedtoolcache\\windows\\setup-chrome\\chrome\\stable\\x64\\chrome.exe",
+          "RUSTWRIGHT_FIREFOX": "C:\\Program Files\\Firefox_157.0.1\\firefox.exe"
+        },
+        "raw_reports_verified": true
+      }
+    }
+  },
+  "package": {
+    "status": "passed",
+    "archives": 8,
+    "archived_sources_independently_matched": 101,
+    "verified_dependency_archives": 57,
+    "readme_fences_compiled_stable_and_msrv": 9,
+    "native_consumer_cases": {
+      "chrome": 2,
+      "firefox": 2
+    },
+    "readme_native_entrypoints": 2,
+    "png_artifacts": 5,
+    "package_input_sha256": "1e79ef93767eac83b8c16d25776285ffaa87390a6f08485d37370838066c1f54",
+    "package_input_files": 106,
+    "actual_archive_vcs_commit": "81864cc233628753cc97cdbb19a70cc30a1d4128"
+  },
+  "extended": {
+    "status": "failed",
+    "failed_step": "Diagnose and configure alternate Chrome sandbox",
+    "current_155_preflight": "passed after helper configuration",
+    "alternate_151_preflight": "failed after configuration: outer25s timeout, exit0, no rendered document",
+    "headed_portable_cases": "unrun",
+    "alternate_headless_portable_cases": "unrun",
+    "public_sites": "unrun",
+    "mapped_window_evidence": "unrun",
+    "public_site_png_count": 0,
+    "root_cause": "not proved by this record"
+  },
+  "artifacts": [
+    {
+      "id": 11645050690,
+      "name": "release-verification",
+      "zip": "packages.zip",
+      "official_digest": "sha256:9d6235cfb874b6f94c0b2578c87967e74e5128381a2b5f91c8ac63efe40b0114",
+      "downloaded_digest": "sha256:9d6235cfb874b6f94c0b2578c87967e74e5128381a2b5f91c8ac63efe40b0114",
+      "official_digest_match": true,
+      "extracted_directory": "packages-artifact"
+    },
+    {
+      "id": 11643988663,
+      "name": "native-http-windows-latest",
+      "zip": "native-windows.zip",
+      "official_digest": "sha256:60fcb9c192969db557f7606d0223bda81779d8c2cb3f5ffae0f1117806c6898b",
+      "downloaded_digest": "sha256:60fcb9c192969db557f7606d0223bda81779d8c2cb3f5ffae0f1117806c6898b",
+      "official_digest_match": true,
+      "extracted_directory": "native-windows"
+    },
+    {
+      "id": 11643849037,
+      "name": "headed-versions-sites",
+      "zip": "extended.zip",
+      "official_digest": "sha256:8cdbbe4c00695b992e03745a959ac5ec8939986e65f42b467734a21c3efb79cc",
+      "downloaded_digest": "sha256:8cdbbe4c00695b992e03745a959ac5ec8939986e65f42b467734a21c3efb79cc",
+      "official_digest_match": true,
+      "extracted_directory": "extended"
+    }
+  ],
+  "scope": "Partial hosted CI record; no new all-seven success, headed/public-site/memory/SOTA or95 completion claim."
+}

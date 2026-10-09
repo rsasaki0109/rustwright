@@ -1,0 +1,23 @@
+{
+  "runs": [
+    {
+      "directory": "invalid-instrumentation/driver-heap-100",
+      "native_workload_success": true,
+      "heap_profile_valid": false,
+      "trace_bytes": 13,
+      "trace_sha256": "f96deff1816083fdff8bc3e46c3fe6ca46a6bb49f4d5a00627616c13237a512c",
+      "cause": "heaptrack_interpret could not load libdw.so.1; interpreted compressed stream contains no allocation data",
+      "observer_failure": null
+    },
+    {
+      "directory": "invalid-instrumentation/driver-heap-1000",
+      "native_workload_success": true,
+      "heap_profile_valid": false,
+      "trace_bytes": 13,
+      "trace_sha256": "f96deff1816083fdff8bc3e46c3fe6ca46a6bb49f4d5a00627616c13237a512c",
+      "cause": "heaptrack_interpret could not load libdw.so.1; interpreted compressed stream contains no allocation data",
+      "observer_failure": "StopIteration while finding trace, recorded in driver-heap-1000.log"
+    }
+  ],
+  "scope": "Native results are preserved as successful workload runs, but neither empty trace is heap-profile evidence. They are excluded from every peak/end comparison and plot."
+}

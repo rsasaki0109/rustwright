@@ -1,0 +1,25 @@
+[
+  {
+    "check": "forced-firefox",
+    "command": [
+      "python3",
+      "scripts/ci/browser_checks.py",
+      "--headed",
+      "--output",
+      "target/reliability95/headed/forced-firefox"
+    ],
+    "exit_code": 1,
+    "report": "target/reliability95/headed/forced-firefox/report.json"
+  },
+  {
+    "check": "default-headless",
+    "command": [
+      "python3",
+      "scripts/ci/browser_checks.py",
+      "--output",
+      "target/reliability95/headed/default-headless"
+    ],
+    "exit_code": 1,
+    "report": "target/reliability95/headed/default-headless/report.json"
+  }
+]

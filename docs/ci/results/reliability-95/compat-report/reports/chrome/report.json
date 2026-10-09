@@ -1,0 +1,344 @@
+{
+  "backend": "chrome",
+  "browser": {
+    "backend": "chrome",
+    "browser_log": "/tmp/rustwright-1752696-1791573358283651849-0/rustwright-chrome.log",
+    "ephemeral_profile": true,
+    "executable": "/workspace/.rustwright-env/chromium",
+    "launch_args": [
+      "--remote-debugging-port=0",
+      "--no-first-run",
+      "--no-default-browser-check",
+      "--user-data-dir=/tmp/rustwright-1752696-1791573358283651849-0",
+      "--headless=new",
+      "--disable-gpu",
+      "--hide-scrollbars",
+      "--mute-audio",
+      "--proxy-server=http://127.0.0.1:9",
+      "--proxy-bypass-list=localhost;127.0.0.1;[::1]",
+      "about:blank"
+    ],
+    "pid": 1752701,
+    "profile": "/tmp/rustwright-1752696-1791573358283651849-0",
+    "protocol_version": "1.3",
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+    "version": "Chrome/151.0.7922.173"
+  },
+  "certificate_policy": "browser default certificate verification enabled",
+  "diagnostic_limits": "event snapshots end before page close; Chrome backend has no public lost-event counter; Firefox cap/lag is explicit; a timed-out subscription can remain active until page/browser close",
+  "firefox_profile": null,
+  "headed_requested": false,
+  "idle_timeout_seconds": 3,
+  "mode_verification": "requested launch flags and environment preflight; native window visibility is not probed",
+  "operations": [
+    {
+      "deadline_ms": 15000,
+      "elapsed_ms": 524,
+      "error": null,
+      "failure_attribution": null,
+      "operation": "browser_launch",
+      "status": "passed"
+    },
+    {
+      "deadline_ms": 15000,
+      "elapsed_ms": 8,
+      "error": null,
+      "failure_attribution": null,
+      "operation": "browser_close",
+      "status": "passed"
+    },
+    {
+      "deadline_ms": 15000,
+      "elapsed_ms": 0,
+      "error": null,
+      "failure_attribution": null,
+      "operation": "profile_cleanup",
+      "status": "passed"
+    }
+  ],
+  "persistent_profile_requested": false,
+  "platform": {
+    "arch": "x86_64",
+    "os": "linux"
+  },
+  "proxy": "http://127.0.0.1:9",
+  "proxy_policy": "explicit proxy only; localhost/loopback bypass; no credentials stored",
+  "purpose": "read-only site observations; HTTP denial is not a driver-defect attribution",
+  "requested_profile": null,
+  "schema_version": 1,
+  "sites": [
+    {
+      "diagnostics": {
+        "console": [
+          {
+            "level": "log",
+            "text": "compat-fixture-console",
+            "timestamp": 1791573358903.111
+          }
+        ],
+        "dialogs": [],
+        "javascript_errors": [
+          {
+            "message": "Error: compat-fixture-js-error\n    at http://127.0.0.1:34437/okay:2:69",
+            "timestamp": 1791573358954.526
+          }
+        ],
+        "navigations": [
+          {
+            "frame_id": "C0E4601275344ECDC56DB3AB33C95A71",
+            "loader_id": "DC32535E5A1F34CC7DE6429D202F470A",
+            "mime_type": "text/html",
+            "url": "http://127.0.0.1:34437/okay"
+          }
+        ],
+        "network": [
+          {
+            "failure": null,
+            "finished": 45928.701387,
+            "method": "GET",
+            "mime_type": "text/html",
+            "request_id": "DC32535E5A1F34CC7DE6429D202F470A",
+            "resource_type": "Document",
+            "responded": 45928.701281,
+            "started": 45928.695305,
+            "status": 200,
+            "status_text": "OK",
+            "url": "http://127.0.0.1:34437/okay"
+          },
+          {
+            "failure": null,
+            "finished": 45928.741083,
+            "method": "GET",
+            "mime_type": "text/html",
+            "request_id": "1752797.2",
+            "resource_type": "Other",
+            "responded": 45928.740925,
+            "started": 45928.737389,
+            "status": 200,
+            "status_text": "OK",
+            "url": "http://127.0.0.1:34437/favicon.ico"
+          }
+        ],
+        "scope": "Chrome page diagnostics"
+      },
+      "document_status_attribution": "URL-matched Document candidates; same-URL iframe attribution is ambiguous",
+      "document_status_selection": "Document requests matching requested/final/main-frame navigation URLs; public network snapshots lack frame IDs and redirect history",
+      "final_url": "http://127.0.0.1:34437/okay",
+      "observation": "http_document_observed",
+      "observed_document_statuses": [
+        200
+      ],
+      "operations": [
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 66,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "new_page",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 1,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "viewport",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 32,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "navigation",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 3000,
+          "elapsed_ms": 523,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "network_idle",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 0,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "final_url",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 1,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "title",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 36,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "screenshot",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 0,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "page_close",
+          "status": "passed"
+        }
+      ],
+      "operations_succeeded": true,
+      "requested_url": "http://127.0.0.1:34437/okay",
+      "screenshot": "target/reliability95/sites/fixture-chrome/000.png",
+      "screenshot_requested_path": "target/reliability95/sites/fixture-chrome/000.png",
+      "title": "fixture observation"
+    },
+    {
+      "diagnostics": {
+        "console": [
+          {
+            "level": "log",
+            "text": "compat-fixture-console",
+            "timestamp": 1791573359536.891
+          }
+        ],
+        "dialogs": [],
+        "javascript_errors": [
+          {
+            "message": "Error: compat-fixture-js-error\n    at http://127.0.0.1:34437/denied:2:69",
+            "timestamp": 1791573359587.343
+          }
+        ],
+        "navigations": [
+          {
+            "frame_id": "CBDE5C22EF636D333D490760E9DB6E5E",
+            "loader_id": "F84AEDDA716D2DBF72A28F1115AB6749",
+            "mime_type": "text/html",
+            "url": "http://127.0.0.1:34437/denied"
+          }
+        ],
+        "network": [
+          {
+            "failure": null,
+            "finished": 45929.34334,
+            "method": "GET",
+            "mime_type": "text/html",
+            "request_id": "F84AEDDA716D2DBF72A28F1115AB6749",
+            "resource_type": "Document",
+            "responded": 45929.343558,
+            "started": 45929.34095,
+            "status": 403,
+            "status_text": "Forbidden",
+            "url": "http://127.0.0.1:34437/denied"
+          },
+          {
+            "failure": null,
+            "finished": 45929.362643,
+            "method": "GET",
+            "mime_type": "text/html",
+            "request_id": "1752819.2",
+            "resource_type": "Other",
+            "responded": 45929.362943,
+            "started": 45929.358188,
+            "status": 200,
+            "status_text": "OK",
+            "url": "http://127.0.0.1:34437/favicon.ico"
+          }
+        ],
+        "scope": "Chrome page diagnostics"
+      },
+      "document_status_attribution": "URL-matched Document candidates; same-URL iframe attribution is ambiguous",
+      "document_status_selection": "Document requests matching requested/final/main-frame navigation URLs; public network snapshots lack frame IDs and redirect history",
+      "final_url": "http://127.0.0.1:34437/denied",
+      "observation": "http_access_denied",
+      "observed_document_statuses": [
+        403
+      ],
+      "operations": [
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 50,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "new_page",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 1,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "viewport",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 16,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "navigation",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 3000,
+          "elapsed_ms": 512,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "network_idle",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 0,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "final_url",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 1,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "title",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 27,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "screenshot",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 0,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "page_close",
+          "status": "passed"
+        }
+      ],
+      "operations_succeeded": true,
+      "requested_url": "http://127.0.0.1:34437/denied",
+      "screenshot": "target/reliability95/sites/fixture-chrome/001.png",
+      "screenshot_requested_path": "target/reliability95/sites/fixture-chrome/001.png",
+      "title": "fixture denial"
+    }
+  ],
+  "started_unix_ms": 1791573358283,
+  "status": "completed",
+  "timeout_seconds": 15,
+  "viewport": {
+    "height": 800,
+    "width": 1280
+  }
+}

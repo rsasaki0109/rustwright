@@ -1,0 +1,4 @@
+#!/bin/sh
+printf '%s\n' "$$" > '/workspace/rustwright/target/reliability95/native-startup/chrome-run/chrome-07/pid'
+printf '%s\0' "$@" > '/workspace/rustwright/target/reliability95/native-startup/chrome-run/chrome-07/args.bin'
+exec '/workspace/rustwright/target/reliability95/native-startup/launchers/chrome' "$@"
