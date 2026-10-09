@@ -1,0 +1,11 @@
+# Latest Windows native portable check
+
+GitHub Actions run **37953023827**, Windows job **113896419971**, completed successfully at **2026-10-09T15:53:59Z**, source `b8710c968bf0d4f5efbc27843f80fc876aa812d1`. Original job JSON/log, downloaded native artifacts and run/jobs API responses are retained without rewriting their bytes. The four portable targets show **53** successful tests: 24 compatibility, 12 actionability, 10 clipped-control and 7 navigation; each target exits0 with failed, ignored and filtered counts all0. The job log records Chrome155.0.8059.39 and Firefox157.0.1.
+
+This run tests the current workflow that records macOS signature metadata without preventing native checks. The exact `b8710c9` workflow and HTTP runner are retained in `source-inputs/`. The frozen source archive reference is `../followup-local/source-of-tested-libraries.tar.gz`; all130 regular source files were checked byte-for-byte against this exact Git commit. `source-equality.json` records every file hash and the archive hash. Existing frozen directories were left unchanged.
+
+The retained `jobs.json` contains successful Windows and macOS jobs and **four queued Ubuntu jobs**: fmt/clippy/test, Rust1.85 workspace, Ubuntu portable/Linux-extra and verified package consumers. The retained `run.json` still reports queued with a null conclusion. These are API snapshots, not a claim of full CI completion; later results can differ. The jobs API establishes macOS job success, while macOS native artifacts and setup provenance are being archived separately. This Windows record does not substitute for those artifacts.
+
+Windows uses Chrome sandbox filesystem permission configuration. Managed Linux launcher-only sandbox adjustments are outside this run. OS-conditional skipped workflow steps are separate from native ignored/filtered test counts, which are0. Original artifact paths refer to the historical GitHub runner. No extra53 total is added to the earlier repeated Windows runs or Linux167, and this does not establish cross-version, external-site, memory-endurance or SOTA results.
+
+Verify files from repository root with `sha256sum -c docs/ci/results/remote-20261009/latest-windows/SHA256SUMS`. The existing source archive is separately bound by its hash in `source-equality.json`.

@@ -122,6 +122,40 @@ determine compatibility. The original archive and sandbox remain unchanged.
 Current Linux workspace and repeated distribution records are frozen in
 [the follow-up local record](ci/results/remote-20261009/followup-local/).
 
+The corrected receiver source also passes a fresh local HTTP run at commit
+`b8710c968bf0d4f5efbc27843f80fc876aa812d1`: all 53 portable and 114 additional
+Linux cases pass, with zero failed, ignored or filtered cases. This repeats the
+167-case coverage on the corrected source; it is not additional distinct
+coverage. The [current HTTP record](ci/results/remote-20261009/current-http/)
+preserves these logs separately from earlier source snapshots.
+
+## Corrected native macOS and Windows results
+
+[Run 37953023827](https://github.com/rsasaki0109/rustwright/actions/runs/37953023827)
+at commit `b8710c968bf0d4f5efbc27843f80fc876aa812d1` completes the required
+portable matrix successfully on both macOS and Windows: **53 cases per OS**,
+zero failed, ignored or filtered cases, using Chrome for Testing 155.0.8059.39
+and Firefox 157.0.1. macOS runs natively on arm64. This verifies the bundle
+restoration on that runner and repeats the Windows installation correction
+with the current receiver source.
+
+The macOS setup record retains the official archive hash, original bundle
+identifier and relative framework link. Its strict resource-signature diagnostic
+still returns exit code 1; the required native suite passes with the supplied
+archive bytes and sandbox intact. Signature metadata is an observation, not a
+passing signature check or a reason to count unexecuted browser cases.
+
+Original job logs, structured native reports and exact source identities are
+preserved in [the macOS record](ci/results/remote-20261009/macos-bundle-fixed/)
+and [the latest Windows record](ci/results/remote-20261009/latest-windows/).
+The earlier Windows run with the receiver correction is separately frozen in
+[its record](ci/results/remote-20261009/windows-receiver-fixed/).
+
+The four Ubuntu jobs in this run remain queued without assigned runners at
+the recorded snapshot. The run as a whole has not succeeded. Local Linux
+verification is independent evidence and cannot replace remote workspace,
+MSRV, browser or package-consumer job conclusions.
+
 ## Workflow behavior
 
 `browser-compat` installs both browsers explicitly and runs `http_compat`,
@@ -170,8 +204,11 @@ it does not prove successful navigation.
 
 ## Local reproduction
 
-The final Linux checks on 2026-10-09 passed with Chrome 151.0.7922.173 and Firefox
-157.0.1. These are local results for the current working sources:
+The initial Linux rollout on 2026-10-09 passed with Chrome 151.0.7922.173 and
+Firefox 157.0.1. Its frozen source predates the two receiver regressions. Current
+library, distribution and HTTP reruns are recorded above; the following table
+describes the earlier rollout rather than attributing its 169-case total to the
+corrected source:
 
 | Check | Executed result |
 | --- | --- |

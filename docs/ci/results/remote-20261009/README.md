@@ -86,3 +86,15 @@ sha256sum -c docs/ci/results/remote-20261009/macos-bundle-before/SHA256SUMS
 `followup-local/` preserves 171 current-source Linux library tests, all-target
 Clippy/MSRV checks and repeated real eight-archive distribution verification.
 Its native consumer and README results are local, rather than remote Linux CI.
+
+`current-http/` repeats all 167 local HTTP cases on source `b8710c9`, including
+the Firefox receiver correction, without adding overlap to earlier coverage.
+`windows-receiver-fixed/` freezes the second successful 53-case Windows run at
+`78e95e6`. `latest-windows/` and `macos-bundle-fixed/` preserve the 53 portable
+native passes per OS at `b8710c9` in run 37953023827. The latter confirms the
+macOS bundle restoration on an arm64 runner.
+
+Four Ubuntu jobs remain queued in that run's API snapshot. Successful Windows
+and macOS jobs do not establish a successful complete workflow. Earlier
+failures and setup-only attempts remain separate. These repeated suites are
+independent platform/source observations, not additional distinct API coverage.

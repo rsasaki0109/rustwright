@@ -133,15 +133,19 @@ seven native Chrome/Firefox reload/history checks. Required browser policy also
 turns explicitly configured legacy discovery/startup errors into failures.
 The [CI verification record](CI_VERIFICATION.md) distinguishes configured OS jobs
 from executed results and preserves the historical HEAD run separately. The first
-new Windows run exposes Chrome HTTP navigation failures; macOS has an incomplete
-first test, and the Linux jobs were canceled while queued. These remain open
-validation gaps, not completed platform checkpoints.
+new Windows run exposed Chrome HTTP navigation failures; macOS had an incomplete
+first test, and the Linux jobs were canceled while queued. The record preserves
+those initial failures separately from the corrected results below.
 
 The Windows installation correction subsequently passes all 53 portable native
 cases on Chrome 155 and Firefox 157. macOS now has a bounded diagnosis: Firefox
 passes twelve cases while Chrome's child processes are denied Mach rendezvous
-after its outer `.app` layout is lost. A same-version bundle restoration is
-submitted for native confirmation. Remote Linux jobs still await runners.
+after its outer `.app` layout is lost. The same-version bundle restoration now
+passes all 53 native portable cases on macOS arm64. The latest Windows run also
+passes 53 on the same corrected receiver source, with Chrome 155 and Firefox
+157 on both platforms. Current-source local Linux HTTP verification passes all
+167 cases and library tests pass 171. Remote Linux jobs still await runners;
+the complete workflow has not passed.
 
 The [Firefox network-idle investigation](FIREFOX_NETWORK_IDLE.md) preserves raw
 protocol evidence for delayed response bodies, child contexts and an incomplete

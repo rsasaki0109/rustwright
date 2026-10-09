@@ -1,0 +1,11 @@
+# macOS intact-bundle native result
+
+GitHub Actions run [37953023827 / job113896420051](https://github.com/rsasaki0109/rustwright/actions/runs/37953023827/job/113896420051), exact source `b8710c968bf0d4f5efbc27843f80fc876aa812d1`: **53 required portable native cases pass**, with zero failed, ignored or filtered. The four suites contribute24 compatibility,12 actionability,10 clipped controls and7 navigation cases;26 Chrome cases and27 Firefox cases execute on macOS26.6.2 ARM64, Chrome155.0.8059.39 and Firefox157.0.1.
+
+The setup downloads that same Chrome155 official archive, uses macOS ditto to retain the complete original `Google Chrome for Testing.app`, and records the relative framework Current link to155.0.8059.39. Original archive SHA256: `529a71bd61aaa2ef266a4d4bd300ae9572ba6a3468a8d55c3023ffeffb5b6b4e`. The supplied archive's strict resource-seal check still returns1 and is faithfully retained in setup metadata; it is an observation rather than a passing signature assertion. The original engine bytes and sandbox are preserved; there is no re-signing, signature removal or disabled sandbox.
+
+This result validates corrected macOS installation layout and the listed native scenarios. It does not claim complete three-OS CI success, Linux GitHub runner results, additional Linux-only suites, Windows results from this run, platform-wide leak freedom, or SOTA superiority. At collection time four Ubuntu jobs remain queued and the current Windows job is running; earlier Windows53-case passes belong to separately preserved stages.
+
+Original job JSON/log and uploaded artifact files are copied byte-for-byte. `source.tar.gz` is Git's exact relevant source archive for the verified job commit, with its embedded Git commit ID independently checked. Paths follow the earlier Windows archive selection: workflow, workspace manifests/lockfile, all crates and tests, and native CI runner script. Source hash/path count and evidence scope are in summary.json. Prior failing navigation/bundle/signature attempts remain in their separate directories and are not overwritten.
+
+`SHA256SUMS` contains repository-root-relative paths for every file here except itself; verify it from the repository root. Logs are remote native records, not a new local replay.
