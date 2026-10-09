@@ -93,6 +93,79 @@ jobs:
           path: target/ci/linux-sandbox/
           if-no-files-found: error
 
+  headed-versions-sites:
+    name: Required headed / alternate versions / public sites
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v5
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - name: Install and check the isolated X11 display tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes xvfb xauth x11-utils
+          command -v Xvfb xvfb-run xauth xwininfo xprop
+      - name: Install pinned current Chrome
+        id: chrome-current
+        uses: browser-actions/setup-chrome@v2
+        with:
+          chrome-version: '155.0.8059.39'
+          install-dependencies: true
+      - name: Diagnose and configure current Chrome sandbox
+        timeout-minutes: 3
+        env:
+          RUSTWRIGHT_CHROME: ${{ steps.chrome-current.outputs.chrome-path }}
+          CHROME_DEVEL_SANDBOX: ''
+        run: python scripts/ci/chrome_linux_sandbox.py --output target/ci/extended/sandbox-current
+      - name: Install pinned current Firefox
+        id: firefox-current
+        uses: browser-actions/setup-firefox@v1
+        with:
+          firefox-version: '157.0.1'
+      - name: Install pinned alternate Chrome
+        id: chrome-previous
+        uses: browser-actions/setup-chrome@v2
+        with:
+          # Exact available Linux build in the official CfT known-good index.
+          chrome-version: '151.0.7922.138'
+          install-dependencies: true
+      - name: Diagnose and configure alternate Chrome sandbox
+        timeout-minutes: 3
+        env:
+          RUSTWRIGHT_CHROME: ${{ steps.chrome-previous.outputs.chrome-path }}
+          CHROME_DEVEL_SANDBOX: ''
+        run: python scripts/ci/chrome_linux_sandbox.py --output target/ci/extended/sandbox-previous
+      - name: Install pinned Firefox ESR
+        id: firefox-esr
+        uses: browser-actions/setup-firefox@v1
+        with:
+          firefox-version: '153.4.0esr'
+      - name: Required sequential native and public-site observations
+        env:
+          CHROME_CURRENT: ${{ steps.chrome-current.outputs.chrome-path }}
+          FIREFOX_CURRENT: ${{ steps.firefox-current.outputs.firefox-path }}
+          CHROME_PREVIOUS: ${{ steps.chrome-previous.outputs.chrome-path }}
+          FIREFOX_ESR: ${{ steps.firefox-esr.outputs.firefox-path }}
+        run: |
+          xvfb-run -a --server-args '-screen 0 1280x1024x24 -nolisten tcp -noreset' \
+            python scripts/ci/headed_sites.py \
+              --chrome-current "$CHROME_CURRENT" --firefox-current "$FIREFOX_CURRENT" \
+              --chrome-previous "$CHROME_PREVIOUS" --firefox-esr "$FIREFOX_ESR" \
+              --sandbox-current target/ci/extended/sandbox-current/report.json \
+              --sandbox-previous target/ci/extended/sandbox-previous/report.json \
+              --output target/ci/extended
+      - name: Retain setup, native reports, window observations and site screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: headed-versions-sites
+          path: target/ci/extended/
+          if-no-files-found: warn
+
   browser-compat:
     name: Required Chrome + Firefox / ${{ matrix.os }}
     strategy:
