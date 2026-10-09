@@ -39,6 +39,10 @@ pub struct BrowserContext {
 #[path = "context_shutdown_tests.rs"]
 mod shutdown_tests;
 
+#[cfg(test)]
+#[path = "context_discovery_tests.rs"]
+mod discovery_tests;
+
 impl std::fmt::Debug for BrowserContext {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("BrowserContext")
@@ -356,6 +360,31 @@ impl BrowserContext {
                 && message == "No target with given id found" =>
             {
                 Ok(None)
+            }
+            Err(error @ Error::Cdp(rustwright_cdp::CdpError::SessionDetached { .. })) => {
+                // A snapshot can outlive a target that disappears while Page::attach
+                // initializes its session. Session loss alone is not target closure:
+                // verify the exact target through the still-live browser connection.
+                self.ensure_open()?;
+                let proof = self
+                    .connection
+                    .send_raw(None, "Target.getTargetInfo", json!({"targetId":target_id}))
+                    .await;
+                self.ensure_open()?;
+                match proof {
+                    Err(rustwright_cdp::CdpError::Protocol {
+                        method,
+                        message,
+                        code: -32602,
+                        ..
+                    }) if method == "Target.getTargetInfo"
+                        && message == "No target with given id found" =>
+                    {
+                        Ok(None)
+                    }
+                    Ok(_) => Err(error),
+                    Err(proof_error) => Err(proof_error.into()),
+                }
             }
             Err(error) => Err(error),
         }
