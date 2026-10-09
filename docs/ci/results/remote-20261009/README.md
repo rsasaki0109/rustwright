@@ -65,3 +65,20 @@ Linux controls establish neither Windows/macOS success nor a corrected CI defect
 ```sh
 sha256sum -c docs/ci/results/remote-20261009/linux-chrome155/SHA256SUMS
 ```
+
+`windows-fixed/` preserves all 53 native portable passes at commit `23ee6c5`,
+the Chrome helper's success status and capability ACLs. `macos-bundle-before/`
+preserves the same commit's twelve Chrome creation failures and twelve Firefox
+passes; it shares the exact source archive in `windows-fixed/`.
+
+The `windows-sandbox-review/`, `macos-bundle-review/` and
+`macos-workflow-review/` directories preserve authoritative installation source,
+archive metadata and reviewed workflow snapshots. Sparse ZIP seek aids and
+runtime caches are excluded. Their relative checksum manifests can be checked
+from inside each directory. The Windows review snapshot precedes the added
+two-minute step limit; the verified installer invocation is unchanged.
+
+```sh
+sha256sum -c docs/ci/results/remote-20261009/windows-fixed/SHA256SUMS
+sha256sum -c docs/ci/results/remote-20261009/macos-bundle-before/SHA256SUMS
+```

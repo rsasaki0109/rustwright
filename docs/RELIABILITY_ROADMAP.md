@@ -137,10 +137,19 @@ new Windows run exposes Chrome HTTP navigation failures; macOS has an incomplete
 first test, and the Linux jobs were canceled while queued. These remain open
 validation gaps, not completed platform checkpoints.
 
+The Windows installation correction subsequently passes all 53 portable native
+cases on Chrome 155 and Firefox 157. macOS now has a bounded diagnosis: Firefox
+passes twelve cases while Chrome's child processes are denied Mach rendezvous
+after its outer `.app` layout is lost. A same-version bundle restoration is
+submitted for native confirmation. Remote Linux jobs still await runners.
+
 The [Firefox network-idle investigation](FIREFOX_NETWORK_IDLE.md) preserves raw
 protocol evidence for delayed response bodies, child contexts and an incomplete
 late-subscription event sequence. Firefox network-idle parity remains unimplemented;
 the document specifies acceptance criteria rather than a passing API.
+The existing diagnostics receiver's separate acknowledgment window is corrected
+with two before/after regressions and native canceled-setup reuse evidence;
+that correction does not implement network-idle parity.
 
 1. **Execute required CI:** test the reviewed changes on Linux, macOS and Windows
    with explicitly installed Chrome and Firefox. Reject missing browsers,

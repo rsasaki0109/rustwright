@@ -57,12 +57,59 @@ The workflow now invokes the downloaded Chrome's own `setup.exe` with
 78. That helper grants Chrome installation capability SIDs read/execute access
 to the downloaded tree. It preserves the sandbox and does not add navigation
 retries or suppress errors.
-Native rerunning is needed to establish whether this corrects the failure.
+The subsequent Windows result below verifies this correction.
 Creation/cancellation stage diagnostics also add fatal 30-second test bounds so
 an incomplete macOS operation produces usable evidence instead of an indefinite
 first test. The staged test code passes all 24 compatibility cases locally with
 Chrome 155 and Firefox 157. These are Linux results, not macOS verification.
 Successful three-OS CI remains unestablished.
+
+## Windows correction and macOS bundle diagnosis
+
+[Run 37948648850](https://github.com/rsasaki0109/rustwright/actions/runs/37948648850)
+tested commit `23ee6c5a9ac4c89e9f0eb615a001d6459ae7fd31`. Windows now passes all
+53 portable native cases with Chrome 155.0.8059.39 and Firefox 157.0.1, zero
+failed/ignored/filtered tests. The job records Chrome's setup success code 78
+and the two inherited Chrome capability read/execute grants. This verifies the
+installation correction on that Windows runner; its earlier failing attempts
+remain preserved separately.
+
+macOS completes `http_compat` with all twelve Firefox cases passing and all
+twelve Chrome cases failing bounded page creation. Raw browser-level diagnostic
+commands work through target discovery and attachment, then stop at `Page.enable`.
+Browser stderr reports denied Mach-port rendezvous lookups and child-process
+termination. The action's stable-channel cache removes the outer `.app` suffix
+and changes relative framework links. Chrome's bundle/sandbox source and the
+official archive layout support correcting that installation, rather than
+retrying page creation or disabling the sandbox.
+
+The current workflow re-extracts the exact action-selected macOS Chrome version
+with `ditto`, preserving its complete signed `.app` and original links, then
+selects that executable. Native macOS confirmation remains required. Original
+job logs, source reviews and the successful Windows record are in
+[the remote evidence](ci/results/remote-20261009/). Linux jobs remain queued
+without assigned runners; they have not passed. These platform results predate
+the following Firefox receiver correction.
+
+## Firefox monitoring receiver readiness
+
+The existing diagnostics receiver now registers before awaiting the remote
+subscription acknowledgment, retaining early events in its bounded setup worker.
+Two identical controlled-peer regressions fail before the production correction
+and pass after it, including cancellation of the first caller. Full BiDi library
+tests pass 86 cases; the full workspace library suite passes 171. A native
+Firefox test completes ten monitoring/fetch cycles and closure. Workspace Clippy,
+Rust 1.85 all-target checks and formatting pass. Actual eight-archive packaging,
+version-only consumers on stable/MSRV, four native consumer cases and both
+verbatim README entry points also pass with the corrected source.
+
+[Receiver correction evidence](ci/results/firefox-monitor-readiness/) preserves
+exact sources, commands, binary identities and logs. Its eight readiness checks
+and two new regressions are included in the 86/171 totals, rather than added to
+them. The earlier [network-idle investigation](FIREFOX_NETWORK_IDLE.md) describes
+the frozen inspected source before this receiver correction. Historical activity,
+descendant filtering, event-lag handling and Firefox network-idle parity remain
+separate limits.
 
 ## Workflow behavior
 

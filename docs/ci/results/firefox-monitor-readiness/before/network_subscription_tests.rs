@@ -73,17 +73,7 @@ async fn remote(hold: bool, reject: bool) -> (Remote, BidiBrowser) {
                     };
                     if attempt == 1 && hold {
                         arrived.notify_one();
-                        loop {
-                            tokio::select! {
-                                () = released.notified() => break,
-                                event = event_rx.recv() => {
-                                    let Some(event) = event else { return; };
-                                    if ws.send(Message::text(event.to_string())).await.is_err() {
-                                        return;
-                                    }
-                                },
-                            }
-                        }
+                        released.notified().await;
                     }
                     failure = attempt == 1 && reject;
                     json!({"subscription":format!("subscription-{attempt}")})
@@ -285,76 +275,4 @@ async fn silent_subscription_has_a_bounded_local_waiter() {
         .unwrap();
     assert_eq!(*remote.subscriptions.lock().unwrap(), 2);
     browser.close().await.unwrap();
-}
-
-async fn pre_ack_events_remain_observable(cancel_first_waiter: bool) {
-    let (remote, browser) = remote(true, false).await;
-    let page = browser.new_page().await.unwrap();
-    let mut transport_events = browser.session().events();
-    let starting = page.clone();
-    let mut setup = tokio::spawn(async move { starting.start_network_monitoring().await });
-    entered(&remote).await;
-    if cancel_first_waiter {
-        setup.abort();
-        assert!(setup.await.unwrap_err().is_cancelled());
-        let starting = page.clone();
-        setup = tokio::spawn(async move { starting.start_network_monitoring().await });
-    }
-    for event in [
-        json!({"type":"event","method":"network.beforeRequestSent","params":{"context":"page","request":{"request":"pre-ack","url":"http://localhost/pre-ack","method":"GET"}}}),
-        json!({"type":"event","method":"network.responseCompleted","params":{"context":"page","request":{"request":"pre-ack"},"response":{"status":201,"statusText":"Created","mimeType":"text/plain"}}}),
-    ] {
-        remote.events.send(event).unwrap();
-    }
-    // The peer withholds ACK until the connection has dispatched completion.
-    // This proves both events predate local setup readiness, without a sleep.
-    tokio::time::timeout(Duration::from_secs(1), async {
-        loop {
-            let event = transport_events.recv().await.unwrap();
-            if event.method == "network.responseCompleted"
-                && event.params["request"]["request"] == "pre-ack"
-            {
-                break;
-            }
-        }
-    })
-    .await
-    .expect("the transport must receive pre-ack completion before ACK is released");
-    still_waiting(&mut setup).await;
-    assert!(page.network_pump.lock().unwrap().is_none());
-    remote.release.notify_one();
-    setup.await.unwrap().unwrap();
-    tokio::time::timeout(Duration::from_secs(1), async {
-        loop {
-            let requests = page.network_requests();
-            if requests.len() == 1 && requests[0].status == Some(201) {
-                assert_eq!(requests[0].request_id, "pre-ack");
-                assert_eq!(requests[0].url, "http://localhost/pre-ack");
-                assert_eq!(requests[0].method, "GET");
-                assert_eq!(requests[0].status_text.as_deref(), Some("Created"));
-                assert_eq!(requests[0].mime_type.as_deref(), Some("text/plain"));
-                break;
-            }
-            tokio::task::yield_now().await;
-        }
-    })
-    .await
-    .expect("monitoring must retain request and completion received before subscribe ACK");
-    let original = pump_id(&page);
-    page.start_network_monitoring().await.unwrap();
-    assert_eq!(pump_id(&page), original);
-    assert_eq!(*remote.subscriptions.lock().unwrap(), 1);
-    assert_eq!(browser.session().connection().pending_command_count(), 0);
-    page.close().await.unwrap();
-    browser.close().await.unwrap();
-}
-
-#[tokio::test]
-async fn monitoring_retains_events_received_before_subscription_acknowledgment() {
-    pre_ack_events_remain_observable(false).await;
-}
-
-#[tokio::test]
-async fn cancelled_monitoring_retains_events_received_before_subscription_acknowledgment() {
-    pre_ack_events_remain_observable(true).await;
 }

@@ -502,11 +502,12 @@ impl BidiPage {
                 if *ready {
                     return Ok(());
                 }
-                // The remote end may emit events before acknowledging subscribe.
-                // Buffer them locally while the cancellation-safe setup owns ACK.
-                let events = page.session.events();
                 page.session.ensure_network_subscription().await?;
-                let guard = spawn_network_pump(events, page.context.clone(), page.network.clone());
+                let guard = spawn_network_pump(
+                    page.session.clone(),
+                    page.context.clone(),
+                    page.network.clone(),
+                );
                 *page
                     .network_pump
                     .lock()

@@ -13,7 +13,7 @@ use serde_json::Value;
 use tokio::sync::{broadcast, mpsc, oneshot, watch};
 use tokio::task::JoinHandle;
 
-use crate::{connection::BidiEvent, session::BidiSession};
+use crate::session::BidiSession;
 
 /// A network request observed over BiDi.
 #[derive(Debug, Clone)]
@@ -134,12 +134,13 @@ impl BidiNetworkRequest {
 }
 
 pub(crate) fn spawn_network_pump(
-    mut events: broadcast::Receiver<BidiEvent>,
+    session: BidiSession,
     context: String,
     sink: Arc<Mutex<Vec<BidiNetworkRequest>>>,
 ) -> NetworkPumpGuard {
-    // The receiver was registered before the remote subscription handshake.
-    // Retain those queued events even before this task is first scheduled.
+    // Register the receiver before returning readiness to the page. Events can
+    // arrive before the spawned pump receives its first scheduling turn.
+    let mut events = session.events();
     let handle = tokio::spawn(async move {
         loop {
             match events.recv().await {
