@@ -18,6 +18,9 @@ use tokio::{
     task::{JoinHandle, JoinSet},
 };
 
+#[path = "support/chrome_navigation_probe.rs"]
+mod chrome_navigation_probe;
+
 static PROFILE: AtomicU64 = AtomicU64::new(0);
 
 struct Fixture {
@@ -49,21 +52,24 @@ async fn fixture() -> Fixture {
         loop {
             tokio::select! {
                 accepted = listener.accept() => {
-                    let (mut socket, _) = accepted.unwrap();
+                    let (mut socket, peer) = accepted.unwrap();
+                    eprintln!("HTTP compat fixture accepted: {peer}");
                     requests.spawn(async move {
                         let mut request = Vec::new();
                         loop {
                             let mut bytes = [0; 2048];
                             let Ok(n) = socket.read(&mut bytes).await else { return; };
-                            if n == 0 { return; }
+                            if n == 0 || request.len() + n > 16 * 1024 { return; }
                             request.extend_from_slice(&bytes[..n]);
                             if request.windows(4).any(|b| b == b"\r\n\r\n") { break; }
                         }
                         let text = String::from_utf8_lossy(&request);
+                        eprintln!("HTTP compat fixture request: peer={peer}, bytes={}, line={:?}", request.len(), text.lines().next());
                         let path = text.lines().next().unwrap().split_whitespace().nth(1).unwrap().split('?').next().unwrap();
                         let body = if path == "/frame.html" { FRAME } else { HTML };
                         let response = format!("HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=utf-8\r\nCache-Control: no-store\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{body}", body.len());
-                        let _ = socket.write_all(response.as_bytes()).await;
+                        let written = socket.write_all(response.as_bytes()).await;
+                        eprintln!("HTTP compat fixture response: peer={peer}, bytes={}, content_type=text/html, write={written:?}", response.len());
                     });
                 },
                 _ = requests.join_next(), if !requests.is_empty() => {},
@@ -156,9 +162,14 @@ async fn open(firefox: bool) -> (Fixture, Engine, AnyPage) {
         let page = browser.new_page().await.unwrap().into();
         (Engine::Chrome(browser), page)
     };
-    page.goto(&format!("{}/page.html", fixture.base))
-        .await
-        .unwrap();
+    let url = format!("{}/page.html", fixture.base);
+    if let Err(error) = page.goto(&url).await {
+        eprintln!("Original HTTP compat navigation failure: {error:?}");
+        if let (Engine::Chrome(browser), AnyPage::Chrome(page)) = (&browser, &page) {
+            chrome_navigation_probe::diagnose(browser, page, &url).await;
+        }
+        panic!("Initial HTTP compat navigation failed: {error:?}");
+    }
     (fixture, browser, page)
 }
 
