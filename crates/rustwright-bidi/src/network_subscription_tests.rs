@@ -361,3 +361,59 @@ async fn monitoring_retains_events_received_before_subscription_acknowledgment()
 async fn cancelled_monitoring_retains_events_received_before_subscription_acknowledgment() {
     pre_ack_events_remain_observable(true).await;
 }
+
+fn diagnostic_pump(page: &BidiPage) -> tokio::task::AbortHandle {
+    page.network_pump
+        .lock()
+        .unwrap()
+        .as_ref()
+        .unwrap()
+        .abort_handle()
+}
+
+async fn finished(pump: &tokio::task::AbortHandle) {
+    tokio::time::timeout(Duration::from_secs(1), async {
+        while !pump.is_finished() {
+            tokio::task::yield_now().await;
+        }
+    })
+    .await
+    .expect("closed resource must release its diagnostic pump without dropping retained handles");
+}
+
+#[tokio::test]
+async fn retained_page_diagnostics_stop_on_browser_close_without_remote_events() {
+    let (_remote, browser) = remote(false, false).await;
+    let context = browser.session().create_context().await.unwrap();
+    let page = BidiPage::from_context(browser.session().clone(), context, None);
+    page.start_network_monitoring().await.unwrap();
+    let pump = diagnostic_pump(&page);
+    browser.close().await.unwrap();
+    assert!(page.session.connection().is_closed());
+    finished(&pump).await;
+    assert!(matches!(
+        page.start_network_monitoring().await,
+        Err(BidiError::Closed)
+    ));
+}
+
+#[tokio::test]
+async fn closing_one_page_alias_stops_all_diagnostics_without_a_destroy_event() {
+    let (_remote, browser) = remote(false, false).await;
+    let context = browser.session().create_context().await.unwrap();
+    let page = BidiPage::from_context(browser.session().clone(), context.clone(), None);
+    let alias = BidiPage::from_context(browser.session().clone(), context, None);
+    page.start_network_monitoring().await.unwrap();
+    alias.start_network_monitoring().await.unwrap();
+    let first = diagnostic_pump(&page);
+    let second = diagnostic_pump(&alias);
+    page.close().await.unwrap();
+    assert!(!browser.session().connection().is_closed());
+    finished(&first).await;
+    finished(&second).await;
+    assert!(matches!(
+        alias.start_network_monitoring().await,
+        Err(BidiError::Closed)
+    ));
+    browser.close().await.unwrap();
+}

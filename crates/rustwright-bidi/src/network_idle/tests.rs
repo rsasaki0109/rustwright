@@ -320,6 +320,7 @@ async fn actual_broadcast_lag_invalidates_the_live_pump_and_releases_waiters() {
         observer.changes.clone(),
         receiver,
         shutdown,
+        observer.close_receiver(),
     );
     *observer.pump.lock().unwrap() = Some(pump);
     // No await lets the real receiver overflow before its task first runs.

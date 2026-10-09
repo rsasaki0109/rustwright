@@ -8,7 +8,35 @@ import tempfile
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from independent_bidi import Protocol, memory, session_endpoint
+from independent_bidi import Protocol, memory, reporter_totals, session_endpoint
+
+
+class ReporterTests(unittest.TestCase):
+    def test_allocator_aliases_are_not_double_counted_with_explicit_leaves(self):
+        def record(path, amount, kind=2, units=0, process='root'):
+            return dict(path=path, amount=amount, kind=kind, units=units, process=process)
+        data = {'reports': [record('heap-allocated', 100),
+                            record('heap/committed/allocated', 100),
+                            record('explicit/js/a', 30, kind=1),
+                            record('explicit/js/b', 20, kind=0),
+                            record('explicit/images/x', 10, kind=1),
+                            record('explicit/count', 999, kind=1, units=1),
+                            record('resident', 200),
+                            record('heap-allocated', 25, process='child')]}
+        result = reporter_totals(data)
+        self.assertEqual(result['root']['explicit_categories_bytes'], {'js': 50, 'images': 10})
+        self.assertEqual(result['root']['reported_explicit_heap_bytes'], 40)
+        self.assertEqual(result['root']['unclassified_heap_bytes'], 60)
+        self.assertEqual(result['root']['resident_bytes'], 200)
+        self.assertEqual(result['child']['unclassified_heap_bytes'], 25)
+
+    def test_missing_or_inconsistent_allocator_measurement_is_not_clamped(self):
+        reports = [dict(process='missing', path='explicit/js/a', amount=10, kind=1, units=0),
+                   dict(process='inconsistent', path='heap-allocated', amount=5, kind=2, units=0),
+                   dict(process='inconsistent', path='explicit/js/a', amount=10, kind=1, units=0)]
+        result = reporter_totals({'reports': reports})
+        self.assertIsNone(result['missing']['unclassified_heap_bytes'])
+        self.assertEqual(result['inconsistent']['unclassified_heap_bytes'], -5)
 
 
 class Socket:

@@ -10,6 +10,7 @@ import asyncio
 from collections import Counter
 from datetime import datetime, timezone
 import hashlib
+import gzip
 import json
 import math
 import os
@@ -87,6 +88,73 @@ def memory(browser_pid, driver_pid=None, proc=Path('/proc')):
             'browser_by_process': by_process,
             'sampling': 'sequential /proc reads; RSS double-counts shared mappings; '
                         'only State:Z excluded; missing live RSS/PSS makes aggregate null'}
+
+
+def reporter_totals(data):
+    """Summarize reporter leaves, not reachability or proof of a leak.
+
+    Firefox's byte reporters use kind 0 for nonheap, 1 for heap and 2 for
+    independent metrics. Only explicit leaves are added; independent allocator
+    totals must not be added to them again.
+    """
+    totals = {}
+    for record in data['reports']:
+        process = totals.setdefault(record['process'], {
+            'heap_allocated_bytes': None, 'reported_explicit_heap_bytes': 0,
+            'explicit_categories_bytes': {}, 'resident_bytes': None})
+        path, amount = record['path'], record['amount']
+        if record['units'] != 0:
+            continue
+        if path == 'heap-allocated':
+            process['heap_allocated_bytes'] = amount
+        elif path == 'resident':
+            process['resident_bytes'] = amount
+        if path.startswith('explicit/') and record['kind'] in (0, 1):
+            category = path.split('/')[1]
+            categories = process['explicit_categories_bytes']
+            categories[category] = categories.get(category, 0) + amount
+            if record['kind'] == 1:
+                process['reported_explicit_heap_bytes'] += amount
+    for process in totals.values():
+        allocated = process['heap_allocated_bytes']
+        process['unclassified_heap_bytes'] = (
+            None if allocated is None else allocated - process['reported_explicit_heap_bytes'])
+    return totals
+
+
+async def memory_report(browser_pid, directory, deadline):
+    """Ask only this owned Firefox root for its normal Linux memory reporters.
+
+    SIGRTMIN+1 would minimize memory and change the workload; it is never used.
+    Check the installed handler first so an unsupported build fails safely.
+    Firefox atomically renames a completed unified report; incomplete files are
+    not accepted. A missing report is a measurement failure, never zero bytes.
+    """
+    started = time.monotonic()
+    status = Path(f'/proc/{browser_pid}/status').read_text()
+    caught = int(next(line.split()[1] for line in status.splitlines()
+                      if line.startswith('SigCgt:')), 16)
+    if not caught & (1 << (signal.SIGRTMIN - 1)):
+        raise RuntimeError('owned Firefox has no installed memory-report signal handler')
+    prior = set(directory.glob('unified-memory-report-*.json.gz'))
+    os.kill(browser_pid, signal.SIGRTMIN)
+    async with asyncio.timeout(deadline):
+        while True:
+            reports = set(directory.glob(f'unified-memory-report-*-{browser_pid}.json.gz')) - prior
+            if reports:
+                break
+            await asyncio.sleep(.05)
+    if len(reports) != 1:
+        raise RuntimeError(f'expected one completed owned memory report, got {len(reports)}')
+    report = reports.pop()
+    data = json.loads(gzip.decompress(report.read_bytes()))
+    return {'file': report.name, 'sha256': digest(report), 'size_bytes': report.stat().st_size,
+            'signal': 'SIGRTMIN', 'minimize_memory': False,
+            'capture_elapsed_ms': round((time.monotonic() - started) * 1000),
+            'reporter_version': data['version'], 'report_count': len(data['reports']),
+            'processes': reporter_totals(data),
+            'scope': 'normal Firefox memory reporters; category/allocator amounts, '
+                     'not unreachable-object or full allocation-stack attribution'}
 
 
 class Protocol:
@@ -200,7 +268,12 @@ async def probe(args, output, emit):
         url = f'http://127.0.0.1:{server.sockets[0].getsockname()[1]}/page'
         command = [str(launcher), '--headless', '--no-remote', '--profile', profile.name,
                    '--remote-debugging-port=0', 'about:blank']
-        process = await asyncio.create_subprocess_exec(*command, stdout=asyncio.subprocess.DEVNULL,
+        browser_env = dict(os.environ)
+        reports_dir = output / 'memory-reports'
+        if args.memory_reports:
+            reports_dir.mkdir()
+            browser_env['TMPDIR'] = str(reports_dir)
+        process = await asyncio.create_subprocess_exec(*command, env=browser_env, stdout=asyncio.subprocess.DEVNULL,
                                                        stderr=asyncio.subprocess.PIPE, start_new_session=True)
         cleanup['browser_pid'] = process.pid
         endpoint = asyncio.get_running_loop().create_future()
@@ -242,12 +315,16 @@ async def probe(args, output, emit):
             async def checkpoint(completed, idle_seconds=None):
                 counts = await protocol.counts()
                 pending = len(protocol.pending)
-                emit({'kind': 'sample', 'completed': completed,
+                sample = {'kind': 'sample', 'completed': completed,
                       'measured_completed': max(0, completed - args.warmup),
                       'elapsed_ms': round((time.monotonic() - started) * 1000),
                       'idle_seconds': idle_seconds, 'counts': counts, 'baseline': baseline,
                       'pending_commands': pending, 'commands': dict(protocol.commands),
-                      'memory': memory(process.pid)})
+                      'memory': memory(process.pid)}
+                if args.memory_reports and (completed in (0, args.warmup, args.warmup + args.cycles)
+                                            or idle_seconds is not None):
+                    sample['memory_report'] = await memory_report(process.pid, reports_dir, args.deadline)
+                emit(sample)
                 if counts != baseline or pending:
                     raise RuntimeError(f'residual resources: counts={counts}, baseline={baseline}, pending={pending}')
             total = args.warmup + args.cycles
@@ -323,6 +400,8 @@ def main():
     parser.add_argument('--idle-tail', default='0,10,30')
     parser.add_argument('--deadline', type=float, default=15)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--memory-reports', action='store_true',
+                        help='Preserve normal Firefox Linux SIGRTMIN memory reports; no forced GC')
     args = parser.parse_args()
     try:
         args.idle_tail = [float(value) for value in args.idle_tail.split(',')]

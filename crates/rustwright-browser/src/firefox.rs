@@ -6,7 +6,7 @@ use std::time::{Duration, Instant};
 
 use crate::discovery::{find_firefox, firefox_candidates};
 use crate::error::{BrowserError, BrowserResult};
-use crate::launch::{pick_free_port, unique_suffix, DEFAULT_STARTUP_TIMEOUT};
+use crate::launch::{pick_free_port, unique_suffix, StartupGuard, DEFAULT_STARTUP_TIMEOUT};
 
 const STARTUP_POLL_INTERVAL: Duration = Duration::from_millis(10);
 
@@ -237,13 +237,16 @@ impl LaunchedFirefox {
             command.env(key, value);
         }
 
-        let mut child = command.spawn().map_err(|source| BrowserError::Launch {
+        // Explicit Firefox profiles belong to the caller; only the child transfers
+        // into the launched owner after readiness has completed.
+        let mut startup = StartupGuard::new(None);
+        startup.own_child(command.spawn().map_err(|source| BrowserError::Launch {
             executable: executable.clone(),
             source,
-        })?;
+        })?);
 
         wait_for_port(
-            &mut child,
+            startup.child_mut(),
             port,
             firefox.startup_timeout_value(),
             stderr_log.as_deref(),
@@ -251,7 +254,7 @@ impl LaunchedFirefox {
         .await?;
 
         Ok(Self {
-            child,
+            child: startup.ready(),
             port,
             ws_url: format!("ws://127.0.0.1:{port}/session"),
             executable,
@@ -376,6 +379,44 @@ async fn wait_for_port(
 #[cfg(test)]
 mod tests {
     use super::is_sandboxed_launcher;
+
+    #[cfg(unix)]
+    #[tokio::test]
+    async fn firefox_startup_timeout_reaps_child_and_preserves_caller_profile() {
+        use crate::launch::startup_tests::{error_log, Fixture};
+        let fixture = Fixture::new(false);
+        let profile = fixture.persistent_profile();
+        let error = super::LaunchedFirefox::launch(
+            &fixture
+                .firefox()
+                .profile(&profile)
+                .startup_timeout(std::time::Duration::from_millis(250)),
+        )
+        .await
+        .unwrap_err();
+        let pid = fixture.started().await;
+        fixture.assert_cleanup(
+            pid,
+            "firefox_timeout",
+            &profile,
+            false,
+            Some(&error_log(&error)),
+        );
+    }
+
+    #[cfg(unix)]
+    #[tokio::test]
+    async fn firefox_startup_cancellation_reaps_child_and_preserves_caller_profile() {
+        use crate::launch::startup_tests::Fixture;
+        let fixture = Fixture::new(false);
+        let profile = fixture.persistent_profile();
+        let options = fixture.firefox().profile(&profile);
+        let launch = tokio::spawn(async move { super::LaunchedFirefox::launch(&options).await });
+        let pid = fixture.started().await;
+        launch.abort();
+        assert!(launch.await.unwrap_err().is_cancelled());
+        fixture.assert_cleanup(pid, "firefox_cancellation", &profile, false, None);
+    }
 
     #[test]
     fn detects_snap_wrapper_scripts() {

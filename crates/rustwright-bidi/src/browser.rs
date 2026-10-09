@@ -528,14 +528,31 @@ impl BidiPage {
         tokio::spawn(async move {
             tokio::time::timeout(crate::session::NETWORK_SETUP_TIMEOUT, async {
                 let mut ready = page.network_started.lock().await;
+                if page.session.connection().is_closed() || page.idle.is_closed() {
+                    return Err(BidiError::Closed);
+                }
                 if *ready {
                     return Ok(());
                 }
                 // The remote end may emit events before acknowledging subscribe.
                 // Buffer them locally while the cancellation-safe setup owns ACK.
                 let events = page.session.events();
-                page.session.ensure_network_subscription().await?;
-                let guard = spawn_network_pump(events, page.context.clone(), page.network.clone());
+                let shutdown = page.session.connection().shutdown_receiver();
+                let mut closed = page.idle.close_receiver();
+                tokio::select! {
+                    result = page.session.ensure_network_subscription() => result?,
+                    _ = closed.changed() => return Err(BidiError::Closed),
+                }
+                if *shutdown.borrow() || page.idle.is_closed() {
+                    return Err(BidiError::Closed);
+                }
+                let guard = spawn_network_pump(
+                    events,
+                    page.context.clone(),
+                    page.network.clone(),
+                    shutdown,
+                    closed,
+                );
                 *page
                     .network_pump
                     .lock()

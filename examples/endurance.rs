@@ -102,17 +102,30 @@ impl Context {
 }
 impl Engine {
     async fn launch(name: &str, fixture: &Fixture) -> Check<Self> {
+        // Heaptrack instrumentation belongs to the Rust driver for this opt-in
+        // measurement. Clear it in Command's child environment, before even a
+        // browser wrapper starts, rather than mixing child allocations into it.
+        let driver_heap = std::env::var("RUSTWRIGHT_DRIVER_HEAP_PROFILE").as_deref() == Ok("1");
         match name {
-            "chrome" => Ok(Self::Chrome(
-                Browser::launch(Chrome::installed().headless(true)).await?,
-            )),
+            "chrome" => {
+                let mut options = Chrome::installed().headless(true);
+                if driver_heap {
+                    options = options
+                        .env("LD_PRELOAD", "")
+                        .env("DUMP_HEAPTRACK_OUTPUT", "");
+                }
+                Ok(Self::Chrome(Browser::launch(options).await?))
+            }
             "firefox" => {
-                let process = LaunchedFirefox::launch(
-                    &Firefox::installed()
-                        .headless(true)
-                        .profile(&fixture.profile),
-                )
-                .await?;
+                let mut options = Firefox::installed()
+                    .headless(true)
+                    .profile(&fixture.profile);
+                if driver_heap {
+                    options = options
+                        .env("LD_PRELOAD", "")
+                        .env("DUMP_HEAPTRACK_OUTPUT", "");
+                }
+                let process = LaunchedFirefox::launch(&options).await?;
                 let browser = BidiBrowser::connect(process.ws_url()).await?;
                 Ok(Self::Firefox(browser, process))
             }
@@ -524,7 +537,7 @@ async fn main() -> Check<()> {
     };
     let started = Instant::now();
     emit(
-        json!({"kind":"metadata", "engine":name,"workload":workload,"version":engine.version(),"cycles":cycles,"warmup":warmup,"browser_pid":engine.pid(),"driver_pid":std::process::id(),"memory":"/proc VmRSS in KiB; browser tree sum double-counts shared pages", "sessions":"not measured; page targets and isolated contexts are measured"}),
+        json!({"kind":"metadata", "engine":name,"workload":workload,"version":engine.version(),"cycles":cycles,"warmup":warmup,"browser_pid":engine.pid(),"driver_pid":std::process::id(),"driver_heap_profile":std::env::var("RUSTWRIGHT_DRIVER_HEAP_PROFILE").as_deref() == Ok("1"),"memory":"/proc VmRSS in KiB; browser tree sum double-counts shared pages", "sessions":"not measured; page targets and isolated contexts are measured"}),
     );
     let result = async {
         let baseline = tokio::time::timeout(LIMIT, engine.counts(observer.as_ref())).await??;

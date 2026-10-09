@@ -253,6 +253,7 @@ impl Activity {
 pub(crate) struct IdleObserver {
     state: Arc<Mutex<Activity>>,
     changes: watch::Sender<()>,
+    closed: watch::Sender<bool>,
     setup: tokio::sync::Mutex<bool>,
     pump: Mutex<Option<JoinHandle<()>>>,
 }
@@ -271,9 +272,11 @@ impl Drop for IdleObserver {
 impl IdleObserver {
     pub(crate) fn new(root: String) -> Self {
         let (changes, _) = watch::channel(());
+        let (closed, _) = watch::channel(false);
         Self {
             state: Arc::new(Mutex::new(Activity::new(root))),
             changes,
+            closed,
             setup: tokio::sync::Mutex::new(false),
             pump: Mutex::new(None),
         }
@@ -283,8 +286,21 @@ impl IdleObserver {
             .lock()
             .expect("idle state mutex poisoned")
             .close();
+        self.closed.send_replace(true);
         self.changes.send_replace(());
     }
+
+    pub(crate) fn close_receiver(&self) -> watch::Receiver<bool> {
+        self.closed.subscribe()
+    }
+
+    pub(crate) fn is_closed(&self) -> bool {
+        matches!(
+            self.state.lock().expect("idle state mutex poisoned").fault,
+            Some(Fault::Closed)
+        )
+    }
+
     pub(crate) async fn initialize(self: &Arc<Self>, session: BidiSession) -> BidiResult<()> {
         let observer = self.clone();
         tokio::spawn(async move {
@@ -348,7 +364,13 @@ impl IdleObserver {
             }
             *state = activity;
         }
-        let pump = spawn_idle_pump(self.state.clone(), self.changes.clone(), events, shutdown);
+        let pump = spawn_idle_pump(
+            self.state.clone(),
+            self.changes.clone(),
+            events,
+            shutdown,
+            self.close_receiver(),
+        );
         *self.pump.lock().expect("idle pump mutex poisoned") = Some(pump);
         *ready = true;
         self.changes.send_replace(());
@@ -393,10 +415,11 @@ fn spawn_idle_pump(
     changes: watch::Sender<()>,
     mut events: broadcast::Receiver<BidiEvent>,
     mut shutdown: watch::Receiver<bool>,
+    mut closed: watch::Receiver<bool>,
 ) -> JoinHandle<()> {
     tokio::spawn(async move {
         loop {
-            if *shutdown.borrow() {
+            if *shutdown.borrow() || *closed.borrow() {
                 state.lock().expect("idle state mutex poisoned").close();
                 changes.send_replace(());
                 break;
@@ -416,6 +439,11 @@ fn spawn_idle_pump(
                     if state.fault.is_some() { break; }
                 },
                 _ = shutdown.changed() => {
+                    state.lock().expect("idle state mutex poisoned").close();
+                    changes.send_replace(());
+                    break;
+                },
+                _ = closed.changed() => {
                     state.lock().expect("idle state mutex poisoned").close();
                     changes.send_replace(());
                     break;

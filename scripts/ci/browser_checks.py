@@ -32,6 +32,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--suite", choices=("portable", "linux-extra"), default="portable")
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--headed", action="store_true", help="Run the portable suite with visible browser windows")
     parser.add_argument("--list", action="store_true", help="List targets without running or validating browsers")
     args = parser.parse_args()
     selected = targets(args.suite)
@@ -40,7 +41,7 @@ def main() -> int:
         return 0
     output = (args.output or ROOT / "target/ci" / args.suite).resolve()
     output.mkdir(parents=True, exist_ok=True)
-    report = {"suite": args.suite, "platform": platform.platform(), "status": "running", "targets": selected, "cases": []}
+    report = {"suite": args.suite, "platform": platform.platform(), "status": "running", "targets": selected, "headless": not args.headed, "mode": "headed" if args.headed else "headless", "cases": []}
     summary = output / "report.json"
 
     def save() -> None:
@@ -48,6 +49,12 @@ def main() -> int:
 
     save()
     try:
+        if args.headed and args.suite != "portable":
+            raise ValueError("--headed is supported only for the portable suite")
+        if args.headed and sys.platform == "linux" and not (os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY")):
+            raise ValueError("Headed Linux browsers require DISPLAY or WAYLAND_DISPLAY")
+        if args.headed and os.environ.get("MOZ_HEADLESS"):
+            raise ValueError("Unset MOZ_HEADLESS to run Firefox with visible windows")
         if args.suite == "linux-extra" and sys.platform != "linux":
             raise ValueError("linux-extra requires Linux; use portable on other operating systems")
         env = dict(os.environ)
@@ -59,7 +66,7 @@ def main() -> int:
             browsers[key] = str(Path(value).resolve())
             env[key] = browsers[key]
         report["browsers"] = browsers
-        env.update(RUSTWRIGHT_RETRIES="0", RUSTWRIGHT_HEADLESS="1")
+        env.update(RUSTWRIGHT_RETRIES="0", RUSTWRIGHT_HEADLESS="0" if args.headed else "1")
         env.pop("RUSTWRIGHT_SHARD", None)
         cargo = shutil.which("cargo")
         if cargo is None:

@@ -111,6 +111,10 @@ impl NetworkPumpGuard {
     pub(crate) fn task_id(&self) -> tokio::task::Id {
         self.handle.id()
     }
+
+    pub(crate) fn abort_handle(&self) -> tokio::task::AbortHandle {
+        self.handle.abort_handle()
+    }
 }
 
 impl Drop for NetworkPumpGuard {
@@ -137,15 +141,25 @@ pub(crate) fn spawn_network_pump(
     mut events: broadcast::Receiver<BidiEvent>,
     context: String,
     sink: Arc<Mutex<Vec<BidiNetworkRequest>>>,
+    mut shutdown: watch::Receiver<bool>,
+    mut closed: watch::Receiver<bool>,
 ) -> NetworkPumpGuard {
     // The receiver was registered before the remote subscription handshake.
     // Retain those queued events even before this task is first scheduled.
     let handle = tokio::spawn(async move {
         loop {
-            match events.recv().await {
-                Ok(event) => dispatch(&context, &sink, &event.method, &event.params),
-                Err(broadcast::error::RecvError::Lagged(_)) => continue,
-                Err(broadcast::error::RecvError::Closed) => break,
+            if *shutdown.borrow() || *closed.borrow() {
+                break;
+            }
+            tokio::select! {
+                event = events.recv() => match event {
+                    Ok(event) if event.method == "browsingContext.contextDestroyed" && event.params["context"] == context => break,
+                    Ok(event) => dispatch(&context, &sink, &event.method, &event.params),
+                    Err(broadcast::error::RecvError::Lagged(_)) => continue,
+                    Err(broadcast::error::RecvError::Closed) => break,
+                },
+                _ = shutdown.changed() => break,
+                _ = closed.changed() => break,
             }
         }
     });

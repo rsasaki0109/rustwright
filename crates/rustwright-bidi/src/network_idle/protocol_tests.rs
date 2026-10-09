@@ -396,3 +396,28 @@ async fn silent_idle_setup_has_a_finite_budget_and_a_late_ack_does_not_poison_re
     observer.wait(Duration::from_secs(2)).await.unwrap();
     browser.close().await.unwrap();
 }
+
+#[tokio::test]
+async fn local_page_close_releases_idle_pump_without_a_remote_destroy_event() {
+    let (_remote, browser) = remote(None, false, false).await;
+    let page = browser.new_page().await.unwrap();
+    let retained = page.clone();
+    let pump = page
+        .idle
+        .pump
+        .lock()
+        .unwrap()
+        .as_ref()
+        .unwrap()
+        .abort_handle();
+    page.close().await.unwrap();
+    assert!(!browser.session().connection().is_closed());
+    tokio::time::timeout(Duration::from_secs(1), async {
+        while !pump.is_finished() { tokio::task::yield_now().await; }
+    }).await.expect("local page closure must stop the idle pump even with retained closed handles and no remote events");
+    assert!(matches!(
+        retained.wait_for_network_idle().await,
+        Err(BidiError::Closed)
+    ));
+    browser.close().await.unwrap();
+}

@@ -119,11 +119,32 @@ impl BrowserHandle {
     }
 }
 async fn open(firefox: bool) -> (Fixture, BrowserHandle, AnyPage) {
+    let headless = match std::env::var("RUSTWRIGHT_HEADLESS").as_deref() {
+        Ok("0" | "false") => false,
+        Ok("1" | "true") | Err(std::env::VarError::NotPresent) => true,
+        value => panic!("RUSTWRIGHT_HEADLESS must be 0, false, 1 or true: {value:?}"),
+    };
+    #[cfg(target_os = "linux")]
+    if !headless {
+        assert!(
+            ["DISPLAY", "WAYLAND_DISPLAY"]
+                .iter()
+                .any(|name| { std::env::var(name).is_ok_and(|display| !display.is_empty()) }),
+            "Headed Linux browsers require DISPLAY or WAYLAND_DISPLAY"
+        );
+    }
+    if firefox && !headless {
+        assert!(
+            std::env::var_os("MOZ_HEADLESS").is_none_or(|value| value.is_empty()),
+            "Unset MOZ_HEADLESS to run Firefox with visible windows"
+        );
+    }
+    eprintln!("Requested browser mode: headless={headless}");
     let fixture = fixture().await;
     let (browser, page) = if firefox {
         let browser = BidiBrowser::launch(
             Firefox::installed()
-                .headless(true)
+                .headless(headless)
                 .profile(&fixture.profile),
         )
         .await
@@ -132,7 +153,7 @@ async fn open(firefox: bool) -> (Fixture, BrowserHandle, AnyPage) {
         println!("backend=firefox version={:?}", browser.browser_version());
         (BrowserHandle::Firefox(browser), AnyPage::Firefox(page))
     } else {
-        let browser = Browser::launch(Chrome::installed().headless(true))
+        let browser = Browser::launch(Chrome::installed().headless(headless))
             .await
             .expect("Chrome must launch; no skip");
         let page = browser.new_page().await.unwrap();
