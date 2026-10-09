@@ -8,9 +8,22 @@ const executablePath = process.env.RUSTWRIGHT_BENCH_CHROME;
 if (!base || !executablePath || !Number.isInteger(samples) || samples <= 0) {
   throw new Error('fixture URL, browser path and positive sample count required');
 }
-const launch = () => chromium.launch({ executablePath, headless: true });
+const launch = () => chromium.launch({ executablePath, headless: true, chromiumSandbox: true, args: ['--disable-gpu'] });
 const browser = await launch();
-const diagnostics = await browser.newBrowserCDPSession();
+const diagnostics = await browser.newBrowserCDPSession().catch(async error => {
+  await browser.close();
+  throw error;
+});
+const browserLaunchArgs = (await diagnostics.send('Browser.getBrowserCommandLine').catch(async error => {
+  await browser.close();
+  throw error;
+})).arguments;
+const contextOptions = { viewport: { width: 1280, height: 720 }, deviceScaleFactor: 1, isMobile: false };
+const context = await browser.newContext(contextOptions).catch(async error => {
+  await browser.close();
+  throw error;
+});
+let viewportChecks = 0;
 const records = [];
 const cases = ['delayed_click', 'delayed_frame', 'cross_site_frame', 'cross_site_navigation', 'disabled_click', 'covered_click', 'moving_click', 'clipped_click', 'rotated_clipped_click', 'http_disconnect_recovery', 'browser_disconnect', 'mock_fetch', 'mock_navigation', 'mock_frame', 'mock_return', 'mock_clear'];
 const selected = process.env.RUSTWRIGHT_RELIABILITY_CASES?.split(',') || cases;
@@ -137,8 +150,14 @@ try {
     for (let index = 0; index <= samples; index++) {
       const owned = name === 'browser_disconnect' ? await launch() : null;
       const active = owned || browser;
-      const page = await active.newPage();
+      const activeContext = owned ? await owned.newContext(contextOptions) : context;
+      const page = await activeContext.newPage();
       try {
+        const viewport = await page.evaluate(() => ({ width: innerWidth, height: innerHeight, device_scale_factor: devicePixelRatio }));
+        if (viewport.width !== 1280 || viewport.height !== 720 || viewport.device_scale_factor !== 1) {
+          throw new Error(`viewport postcondition failed: ${JSON.stringify(viewport)}`);
+        }
+        viewportChecks += 1;
         await page.goto(`${base}/index.html`, { timeout: 10000 }).catch(error => {
           throw new Error(`${name}[${index}] initial navigation: ${error.message}`);
         });
@@ -183,5 +202,16 @@ try {
       }
     }
   }
-  console.log(JSON.stringify({ engine: 'playwright-core', browser: browser.version(), records }));
+  console.log(JSON.stringify({ engine: 'playwright-core', browser: browser.version(), records,
+    launch_policy: {
+      headless: true,
+      sandbox: true,
+      viewport: { width: 1280, height: 720, device_scale_factor: 1, mobile: false },
+      context_policy: 'reused main browser context; fresh browser/context for disconnect',
+      transport: 'CDP pipe',
+      driver_defaults_differ: true,
+      browser_launch_args: browserLaunchArgs,
+      viewport_checks: viewportChecks,
+    },
+  }));
 } finally { await browser.close(); }

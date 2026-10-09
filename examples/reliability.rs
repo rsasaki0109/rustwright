@@ -40,6 +40,8 @@ async fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
     let chrome = Chrome::at(executable).headless(true);
     let browser = Browser::launch(chrome.clone()).await?;
     let version = browser.version().browser.clone();
+    let launch_args = browser.diagnostics().launch_args;
+    let mut viewport_checks = 0usize;
     let diagnostics =
         rustwright::cdp::CdpConnection::connect(&browser.version().web_socket_debugger_url).await?;
     let mut records = Vec::new();
@@ -55,6 +57,15 @@ async fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
                 .new_page()
                 .await
                 .map_err(|error| format!("{case}[{index}] setup page: {error}"))?;
+            page.set_viewport(&Viewport::hd()).await?;
+            verify(
+                page.evaluate(
+                    "({width:innerWidth,height:innerHeight,device_scale_factor:devicePixelRatio})",
+                )
+                .await?,
+                json!({"width": 1280, "height": 720, "device_scale_factor": 1}),
+            )?;
+            viewport_checks += 1;
             page.goto_with_timeout(&format!("{base}/index.html"), SETUP_LIMIT)
                 .await
                 .map_err(|error| format!("{case}[{index}] initial navigation: {error}"))?;
@@ -135,7 +146,19 @@ async fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
     diagnostics.close();
     println!(
         "{}",
-        json!({"engine": "rustwright", "browser": version, "records": records})
+        json!({
+            "engine": "rustwright", "browser": version, "records": records,
+            "launch_policy": {
+                "headless": true,
+                "sandbox": true,
+                "viewport": {"width": 1280, "height": 720, "device_scale_factor": 1, "mobile": false},
+                "context_policy": "reused main browser context; fresh browser/context for disconnect",
+                "transport": "localhost CDP port",
+                "driver_defaults_differ": true,
+                "browser_launch_args": launch_args,
+                "viewport_checks": viewport_checks,
+            }
+        })
     );
     Ok(())
 }

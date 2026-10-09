@@ -34,6 +34,12 @@ startup reflect the runtime overhead.
 
 ## Reliability and tail latency
 
+The [repeated matched-browser protocol](reliability/COMPARISON_PROTOCOL.md)
+now aligns viewport and main-context policy and defines three separate CI job
+environments. Its fresh schema-version-2 reports preserve failed setup and raw
+phase sidecars; the historical single-host records below remain unchanged.
+
+
 The [2026-10-08 local baseline](reliability/RESULTS.md) records a late-iframe bug
 found through the comparison and the measurements after its fix.
 The [2026-10-09 100-sample comparison](reliability/COMPARISON_100.md) records all

@@ -1,0 +1,118 @@
+name: Matched Chromium comparison
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/comparison.yml'
+      - 'bench/reliability/**'
+      - 'bench/playwright/**'
+      - 'examples/reliability.rs'
+      - 'examples/Cargo.toml'
+      - 'Cargo.toml'
+      - 'Cargo.lock'
+      - 'crates/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: comparison-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  CARGO_TERM_COLOR: always
+  CARGO_INCREMENTAL: '0'
+  CARGO_BUILD_JOBS: '2'
+  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+
+jobs:
+  measure:
+    name: Same-browser comparison / ${{ matrix.host }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        host: [host-1, host-2, host-3]
+    env:
+      RUSTWRIGHT_BENCH_HOST_ID: ${{ matrix.host }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: dtolnay/rust-toolchain@1.99.0
+      - uses: Swatinem/rust-cache@v2
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.19.0'
+          cache: npm
+          cache-dependency-path: bench/playwright/package-lock.json
+      - name: Prepare artifact directory
+        run: mkdir -p target/comparison
+      - name: Install the locked reference driver
+        run: npm ci --prefix bench/playwright
+      - name: Install the common pinned browser
+        id: chrome
+        uses: browser-actions/setup-chrome@v2
+        with:
+          chrome-version: '155.0.8059.39'
+          install-dependencies: true
+      - name: Verify and configure the native sandbox
+        timeout-minutes: 3
+        env:
+          RUSTWRIGHT_CHROME: ${{ steps.chrome.outputs.chrome-path }}
+          CHROME_DEVEL_SANDBOX: ''
+        run: python scripts/ci/chrome_linux_sandbox.py --output target/comparison/sandbox
+      - name: Verify reporting and failure guards
+        run: python -m unittest discover -s bench/reliability -p 'test_*.py' -v
+      - name: Build the measured release driver
+        run: cargo build --release --locked -p rustwright-examples --example reliability 2>&1 | tee target/comparison/build.log
+      - name: Measure all sixteen cases in alternating order
+        env:
+          BENCH_CHROME: ${{ steps.chrome.outputs.chrome-path }}
+        run: |
+          python bench/reliability/run.py --chrome "$BENCH_CHROME" \
+            --samples 100 --pairs 2 --require-engine-success rustwright \
+            --output target/comparison/report.json 2>&1 | tee target/comparison/runner.log
+      - name: Retain raw measurements and setup failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: comparison-${{ matrix.host }}
+          path: target/comparison/
+          if-no-files-found: error
+
+  aggregate:
+    name: Validate and summarize three comparison environments
+    needs: measure
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: comparison-host-*
+          path: target/comparison/input
+      - name: Validate complete reports before comparison
+        run: |
+          python bench/reliability/aggregate.py --reports \
+            target/comparison/input/comparison-host-1/report.json \
+            target/comparison/input/comparison-host-2/report.json \
+            target/comparison/input/comparison-host-3/report.json \
+            --output target/comparison/aggregate.json \
+            --markdown target/comparison/REPORT.md
+      - name: Retain the comparison and validation outcome
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: comparison-summary
+          path: |
+            target/comparison/aggregate.json
+            target/comparison/REPORT.md
+          if-no-files-found: error
