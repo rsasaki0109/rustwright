@@ -1,0 +1,18 @@
+{"direction": "sent", "message": {"id": 1, "method": "Target.createTarget", "params": {"url": "about:blank"}}}
+{"direction": "received", "message": {"id": 1, "result": {"targetId": "target-main"}}}
+{"direction": "sent", "message": {"id": 2, "method": "Target.attachToTarget", "params": {"targetId": "target-main", "flatten": true}}}
+{"direction": "received", "message": {"id": 2, "result": {"sessionId": "session-main"}}}
+{"direction": "sent", "message": {"id": 3, "method": "Page.enable", "params": {}, "sessionId": "session-main"}}
+{"direction": "received", "message": {"id": 3, "result": {}, "sessionId": "session-main"}}
+{"direction": "sent", "message": {"id": 4, "method": "Page.setLifecycleEventsEnabled", "params": {"enabled": true}, "sessionId": "session-main"}}
+{"direction": "received", "message": {"id": 4, "result": {}, "sessionId": "session-main"}}
+{"direction": "sent", "message": {"id": 5, "method": "Network.enable", "params": {}, "sessionId": "session-main"}}
+{"direction": "received", "message": {"id": 5, "result": {}, "sessionId": "session-main"}}
+{"direction": "sent", "message": {"id": 6, "method": "Page.navigate", "params": {"url": "http://127.0.0.1:46863/preflight-d4ebbe2d8e3e5893"}, "sessionId": "session-main"}}
+{"direction": "received", "message": {"method": "Page.lifecycleEvent", "sessionId": "session-main", "params": {"frameId": "frame-main", "loaderId": "loader-main", "name": "DOMContentLoaded"}}}
+{"direction": "received", "message": {"method": "Network.responseReceived", "sessionId": "session-main", "params": {"frameId": "frame-main", "loaderId": "loader-main", "type": "Document", "requestId": "request-main", "response": {"url": "http://127.0.0.1:46863/preflight-d4ebbe2d8e3e5893", "status": 200, "mimeType": "text/html"}}}}
+{"direction": "received", "message": {"method": "Network.loadingFinished", "sessionId": "session-main", "params": {"requestId": "request-main"}}}
+{"direction": "received", "message": {"id": 6, "result": {"frameId": "frame-main", "loaderId": "loader-main"}, "sessionId": "session-main"}}
+{"direction": "sent", "message": {"id": 7, "method": "Runtime.evaluate", "params": {"expression": "({url:location.href,title:document.title,body:document.body.innerHTML,readyState:document.readyState})", "returnByValue": true}, "sessionId": "session-main"}}
+{"direction": "received", "message": {"id": 7, "result": {"result": {"type": "object", "value": {"url": "http://127.0.0.1:46863/preflight-d4ebbe2d8e3e5893", "title": "Rustwright Linux sandbox preflight", "body": "<h1>ready</h1>", "readyState": "complete"}}}, "sessionId": "session-main"}}
+{"direction": "sent", "message": {"id": 8, "method": "Browser.close", "params": {}}}

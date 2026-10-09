@@ -1,0 +1,34 @@
+{
+  "platform": "Linux-6.18.44-x86_64-Google_Chrome_for_Testing_151.0.7922.138-with-glibc2.41",
+  "status": "failed",
+  "probes": [
+    {
+      "passed": false,
+      "cleanup": {
+        "direct_child_reaped": true,
+        "errors": []
+      },
+      "profile_cleanup_error": "controlled profile removal refusal"
+    }
+  ],
+  "sandbox_disabled": false,
+  "global_policy_modified": false,
+  "uid": 1000,
+  "chrome": {
+    "path": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12",
+    "uid": 65534,
+    "gid": 65534,
+    "mode": "0o755",
+    "bytes": 30894944,
+    "sha256": "fa67443527ed9647f760d807e2a38f26340757123e643c4639cf273ed15d5ea7"
+  },
+  "version": "Google Chrome for Testing 151.0.7922.138",
+  "host_policy_observation": {
+    "/proc/sys/kernel/apparmor_restrict_unprivileged_userns": null,
+    "/proc/sys/kernel/unprivileged_userns_clone": null,
+    "/sys/module/apparmor/parameters/enabled": null
+  },
+  "bundled_helper": null,
+  "initial_CHROME_DEVEL_SANDBOX": null,
+  "error": "Failed Chrome preflight did not confirm owned-child/profile cleanup; refusing a second launch"
+}

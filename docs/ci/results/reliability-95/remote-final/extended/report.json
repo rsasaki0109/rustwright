@@ -1,0 +1,789 @@
+{
+  "schema_version": 1,
+  "started_utc": "2026-10-09T22:18:24.385617+00:00",
+  "status": "passed",
+  "commands": [
+    {
+      "name": "version-chrome_current",
+      "command": [
+        "/opt/hostedtoolcache/setup-chrome/chrome/155.0.8059.39/x64/chrome",
+        "--version"
+      ],
+      "started_utc": "2026-10-09T22:18:24.386208+00:00",
+      "environment": {
+        "DISPLAY": ":99",
+        "RUSTWRIGHT_CHROME": null,
+        "RUSTWRIGHT_FIREFOX": null,
+        "CHROME_DEVEL_SANDBOX": "/usr/local/lib/rustwright-ci/151.0.7922.138/chrome-sandbox",
+        "RUSTWRIGHT_HEADLESS": null,
+        "RUSTWRIGHT_RETRIES": null
+      },
+      "log": "/home/runner/work/rustwright/rustwright/target/ci/extended/version-chrome_current.log",
+      "status": "passed",
+      "exit_code": 0,
+      "finished_utc": "2026-10-09T22:18:24.418355+00:00",
+      "duration_seconds": 0.03202894999998307
+    },
+    {
+      "name": "version-firefox_current",
+      "command": [
+        "/opt/hostedtoolcache/firefox/157.0.1/x64/firefox",
+        "--version"
+      ],
+      "started_utc": "2026-10-09T22:18:24.419326+00:00",
+      "environment": {
+        "DISPLAY": ":99",
+        "RUSTWRIGHT_CHROME": null,
+        "RUSTWRIGHT_FIREFOX": null,
+        "CHROME_DEVEL_SANDBOX": "/usr/local/lib/rustwright-ci/151.0.7922.138/chrome-sandbox",
+        "RUSTWRIGHT_HEADLESS": null,
+        "RUSTWRIGHT_RETRIES": null
+      },
+      "log": "/home/runner/work/rustwright/rustwright/target/ci/extended/version-firefox_current.log",
+      "status": "passed",
+      "exit_code": 0,
+      "finished_utc": "2026-10-09T22:18:24.451708+00:00",
+      "duration_seconds": 0.031987857999979497
+    },
+    {
+      "name": "version-chrome_previous",
+      "command": [
+        "/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome",
+        "--version"
+      ],
+      "started_utc": "2026-10-09T22:18:24.452488+00:00",
+      "environment": {
+        "DISPLAY": ":99",
+        "RUSTWRIGHT_CHROME": null,
+        "RUSTWRIGHT_FIREFOX": null,
+        "CHROME_DEVEL_SANDBOX": "/usr/local/lib/rustwright-ci/151.0.7922.138/chrome-sandbox",
+        "RUSTWRIGHT_HEADLESS": null,
+        "RUSTWRIGHT_RETRIES": null
+      },
+      "log": "/home/runner/work/rustwright/rustwright/target/ci/extended/version-chrome_previous.log",
+      "status": "passed",
+      "exit_code": 0,
+      "finished_utc": "2026-10-09T22:18:24.485046+00:00",
+      "duration_seconds": 0.03230688100001089
+    },
+    {
+      "name": "version-firefox_esr",
+      "command": [
+        "/opt/hostedtoolcache/firefox/153.4.0esr/x64/firefox",
+        "--version"
+      ],
+      "started_utc": "2026-10-09T22:18:24.486052+00:00",
+      "environment": {
+        "DISPLAY": ":99",
+        "RUSTWRIGHT_CHROME": null,
+        "RUSTWRIGHT_FIREFOX": null,
+        "CHROME_DEVEL_SANDBOX": "/usr/local/lib/rustwright-ci/151.0.7922.138/chrome-sandbox",
+        "RUSTWRIGHT_HEADLESS": null,
+        "RUSTWRIGHT_RETRIES": null
+      },
+      "log": "/home/runner/work/rustwright/rustwright/target/ci/extended/version-firefox_esr.log",
+      "status": "passed",
+      "exit_code": 0,
+      "finished_utc": "2026-10-09T22:18:24.518547+00:00",
+      "duration_seconds": 0.03203235000000859
+    },
+    {
+      "name": "headed-current",
+      "command": [
+        "/opt/hostedtoolcache/Python/3.11.17/x64/bin/python",
+        "/home/runner/work/rustwright/rustwright/scripts/ci/browser_checks.py",
+        "--suite",
+        "portable",
+        "--output",
+        "/home/runner/work/rustwright/rustwright/target/ci/extended/headed-current",
+        "--headed"
+      ],
+      "started_utc": "2026-10-09T22:18:24.519934+00:00",
+      "environment": {
+        "DISPLAY": ":99",
+        "RUSTWRIGHT_CHROME": "/opt/hostedtoolcache/setup-chrome/chrome/155.0.8059.39/x64/chrome",
+        "RUSTWRIGHT_FIREFOX": "/opt/hostedtoolcache/firefox/157.0.1/x64/firefox",
+        "CHROME_DEVEL_SANDBOX": "/usr/local/lib/rustwright-ci/155.0.8059.39/chrome-sandbox",
+        "RUSTWRIGHT_HEADLESS": "0",
+        "RUSTWRIGHT_RETRIES": "0"
+      },
+      "log": "/home/runner/work/rustwright/rustwright/target/ci/extended/headed-current.log",
+      "status": "passed",
+      "exit_code": 0,
+      "mapped_windows": {
+        "chrome": {
+          "utc": "2026-10-09T22:18:47.603834+00:00",
+          "window": "0x200002",
+          "WM_CLASS": "\"chromium-browser (/tmp/rustwright-4952-1791584326989976866-0)\", \"Chromium-browser\"",
+          "pid": 4954,
+          "command_ancestor_pid": 3935,
+          "map_state": "IsViewable",
+          "raw_log": "/home/runner/work/rustwright/rustwright/target/ci/extended/headed-current-windows.jsonl"
+        },
+        "firefox": {
+          "utc": "2026-10-09T22:19:00.984780+00:00",
+          "window": "0x200003",
+          "WM_CLASS": "\"Navigator\", \"firefox\"",
+          "pid": 7857,
+          "command_ancestor_pid": 3935,
+          "map_state": "IsViewable",
+          "raw_log": "/home/runner/work/rustwright/rustwright/target/ci/extended/headed-current-windows.jsonl"
+        }
+      },
+      "window_observer_error": null,
+      "finished_utc": "2026-10-09T22:21:39.041206+00:00",
+      "duration_seconds": 194.520938322,
+      "protocol_version_observations": {
+        "Chrome": [
+          {
+            "target": "http_compat",
+            "line": "Chrome version: Chrome/155.0.8059.39"
+          },
+          {
+            "target": "http_compat",
+            "line": "Chrome version: Chrome/155.0.8059.39"
+          },
+          {
+            "target": "http_compat",
+            "line": "Chrome version: Chrome/155.0.8059.39"
+          },
+          {
+            "target": "http_compat",
+            "line": "Chrome version: Chrome/155.0.8059.39"
+          },
+          {
+            "target": "http_compat",
+            "line": "Chrome version: Chrome/155.0.8059.39"
+          },
+          {
+            "target": "http_compat",
+            "line": "Chrome version: Chrome/155.0.8059.39"
+          },
+          {
+            "target": "http_compat",
+            "line": "Chrome version: Chrome/155.0.8059.39"
+          },
+          {
+            "target": "http_compat",
+            "line": "Chrome version: Chrome/155.0.8059.39"
+          },
+          {
+            "target": "http_compat",
+            "line": "Chrome version: Chrome/155.0.8059.39"
+          },
+          {
+            "target": "http_compat",
+            "line": "Chrome version: Chrome/155.0.8059.39"
+          },
+          {
+            "target": "http_compat",
+            "line": "Chrome version: Chrome/155.0.8059.39"
+          },
+          {
+            "target": "http_compat",
+            "line": "Chrome version: Chrome/155.0.8059.39"
+          },
+          {
+            "target": "http_actionability",
+            "line": "Chrome version: Chrome/155.0.8059.39"
+          },
+          {
+            "target": "http_actionability",
+            "line": "Chrome version: Chrome/155.0.8059.39"
+          },
+          {
+            "target": "http_actionability",
+            "line": "Chrome version: Chrome/155.0.8059.39"
+          },
+          {
+            "target": "http_actionability",
+            "line": "Chrome version: Chrome/155.0.8059.39"
+          },
+          {
+            "target": "http_actionability",
+            "line": "Chrome version: Chrome/155.0.8059.39"
+          },
+          {
+            "target": "http_actionability",
+            "line": "Chrome version: Chrome/155.0.8059.39"
+          },
+          {
+            "target": "http_clipped_control",
+            "line": "Chrome version: Chrome/155.0.8059.39"
+          },
+          {
+            "target": "http_clipped_control",
+            "line": "Chrome version: Chrome/155.0.8059.39"
+          },
+          {
+            "target": "http_clipped_control",
+            "line": "Chrome version: Chrome/155.0.8059.39"
+          },
+          {
+            "target": "http_clipped_control",
+            "line": "Chrome version: Chrome/155.0.8059.39"
+          },
+          {
+            "target": "http_clipped_control",
+            "line": "Chrome version: Chrome/155.0.8059.39"
+          }
+        ],
+        "Firefox": [
+          {
+            "target": "http_compat",
+            "line": "Firefox version: Some(\"157.0.1\")"
+          },
+          {
+            "target": "http_compat",
+            "line": "Firefox version: Some(\"157.0.1\")"
+          },
+          {
+            "target": "http_compat",
+            "line": "Firefox version: Some(\"157.0.1\")"
+          },
+          {
+            "target": "http_compat",
+            "line": "Firefox version: Some(\"157.0.1\")"
+          },
+          {
+            "target": "http_compat",
+            "line": "Firefox version: Some(\"157.0.1\")"
+          },
+          {
+            "target": "http_compat",
+            "line": "Firefox version: Some(\"157.0.1\")"
+          },
+          {
+            "target": "http_compat",
+            "line": "Firefox version: Some(\"157.0.1\")"
+          },
+          {
+            "target": "http_compat",
+            "line": "Firefox version: Some(\"157.0.1\")"
+          },
+          {
+            "target": "http_compat",
+            "line": "Firefox version: Some(\"157.0.1\")"
+          },
+          {
+            "target": "http_compat",
+            "line": "Firefox version: Some(\"157.0.1\")"
+          },
+          {
+            "target": "http_compat",
+            "line": "Firefox version: Some(\"157.0.1\")"
+          },
+          {
+            "target": "http_compat",
+            "line": "Firefox version: Some(\"157.0.1\")"
+          },
+          {
+            "target": "http_actionability",
+            "line": "Firefox version: Some(\"157.0.1\")"
+          },
+          {
+            "target": "http_actionability",
+            "line": "Firefox version: Some(\"157.0.1\")"
+          },
+          {
+            "target": "http_actionability",
+            "line": "Firefox version: Some(\"157.0.1\")"
+          },
+          {
+            "target": "http_actionability",
+            "line": "Firefox version: Some(\"157.0.1\")"
+          },
+          {
+            "target": "http_actionability",
+            "line": "Firefox version: Some(\"157.0.1\")"
+          },
+          {
+            "target": "http_actionability",
+            "line": "Firefox version: Some(\"157.0.1\")"
+          },
+          {
+            "target": "http_clipped_control",
+            "line": "Firefox version: Some(\"157.0.1\")"
+          },
+          {
+            "target": "http_clipped_control",
+            "line": "Firefox version: Some(\"157.0.1\")"
+          },
+          {
+            "target": "http_clipped_control",
+            "line": "Firefox version: Some(\"157.0.1\")"
+          },
+          {
+            "target": "http_clipped_control",
+            "line": "Firefox version: Some(\"157.0.1\")"
+          },
+          {
+            "target": "http_clipped_control",
+            "line": "Firefox version: Some(\"157.0.1\")"
+          }
+        ]
+      },
+      "verified_native_passed": 79
+    },
+    {
+      "name": "headless-alternate",
+      "command": [
+        "/opt/hostedtoolcache/Python/3.11.17/x64/bin/python",
+        "/home/runner/work/rustwright/rustwright/scripts/ci/browser_checks.py",
+        "--suite",
+        "portable",
+        "--output",
+        "/home/runner/work/rustwright/rustwright/target/ci/extended/headless-alternate"
+      ],
+      "started_utc": "2026-10-09T22:21:39.042826+00:00",
+      "environment": {
+        "DISPLAY": ":99",
+        "RUSTWRIGHT_CHROME": "/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome",
+        "RUSTWRIGHT_FIREFOX": "/opt/hostedtoolcache/firefox/153.4.0esr/x64/firefox",
+        "CHROME_DEVEL_SANDBOX": "/usr/local/lib/rustwright-ci/151.0.7922.138/chrome-sandbox",
+        "RUSTWRIGHT_HEADLESS": "1",
+        "RUSTWRIGHT_RETRIES": "0"
+      },
+      "log": "/home/runner/work/rustwright/rustwright/target/ci/extended/headless-alternate.log",
+      "status": "passed",
+      "exit_code": 0,
+      "finished_utc": "2026-10-09T22:24:12.478230+00:00",
+      "duration_seconds": 153.43494792299998,
+      "protocol_version_observations": {
+        "Chrome": [
+          {
+            "target": "http_compat",
+            "line": "Chrome version: Chrome/151.0.7922.138"
+          },
+          {
+            "target": "http_compat",
+            "line": "Chrome version: Chrome/151.0.7922.138"
+          },
+          {
+            "target": "http_compat",
+            "line": "Chrome version: Chrome/151.0.7922.138"
+          },
+          {
+            "target": "http_compat",
+            "line": "Chrome version: Chrome/151.0.7922.138"
+          },
+          {
+            "target": "http_compat",
+            "line": "Chrome version: Chrome/151.0.7922.138"
+          },
+          {
+            "target": "http_compat",
+            "line": "Chrome version: Chrome/151.0.7922.138"
+          },
+          {
+            "target": "http_compat",
+            "line": "Chrome version: Chrome/151.0.7922.138"
+          },
+          {
+            "target": "http_compat",
+            "line": "Chrome version: Chrome/151.0.7922.138"
+          },
+          {
+            "target": "http_compat",
+            "line": "Chrome version: Chrome/151.0.7922.138"
+          },
+          {
+            "target": "http_compat",
+            "line": "Chrome version: Chrome/151.0.7922.138"
+          },
+          {
+            "target": "http_compat",
+            "line": "Chrome version: Chrome/151.0.7922.138"
+          },
+          {
+            "target": "http_compat",
+            "line": "Chrome version: Chrome/151.0.7922.138"
+          },
+          {
+            "target": "http_actionability",
+            "line": "Chrome version: Chrome/151.0.7922.138"
+          },
+          {
+            "target": "http_actionability",
+            "line": "Chrome version: Chrome/151.0.7922.138"
+          },
+          {
+            "target": "http_actionability",
+            "line": "Chrome version: Chrome/151.0.7922.138"
+          },
+          {
+            "target": "http_actionability",
+            "line": "Chrome version: Chrome/151.0.7922.138"
+          },
+          {
+            "target": "http_actionability",
+            "line": "Chrome version: Chrome/151.0.7922.138"
+          },
+          {
+            "target": "http_actionability",
+            "line": "Chrome version: Chrome/151.0.7922.138"
+          },
+          {
+            "target": "http_clipped_control",
+            "line": "Chrome version: Chrome/151.0.7922.138"
+          },
+          {
+            "target": "http_clipped_control",
+            "line": "Chrome version: Chrome/151.0.7922.138"
+          },
+          {
+            "target": "http_clipped_control",
+            "line": "Chrome version: Chrome/151.0.7922.138"
+          },
+          {
+            "target": "http_clipped_control",
+            "line": "Chrome version: Chrome/151.0.7922.138"
+          },
+          {
+            "target": "http_clipped_control",
+            "line": "Chrome version: Chrome/151.0.7922.138"
+          }
+        ],
+        "Firefox": [
+          {
+            "target": "http_compat",
+            "line": "Firefox version: Some(\"153.4.0\")"
+          },
+          {
+            "target": "http_compat",
+            "line": "Firefox version: Some(\"153.4.0\")"
+          },
+          {
+            "target": "http_compat",
+            "line": "Firefox version: Some(\"153.4.0\")"
+          },
+          {
+            "target": "http_compat",
+            "line": "Firefox version: Some(\"153.4.0\")"
+          },
+          {
+            "target": "http_compat",
+            "line": "Firefox version: Some(\"153.4.0\")"
+          },
+          {
+            "target": "http_compat",
+            "line": "Firefox version: Some(\"153.4.0\")"
+          },
+          {
+            "target": "http_compat",
+            "line": "Firefox version: Some(\"153.4.0\")"
+          },
+          {
+            "target": "http_compat",
+            "line": "Firefox version: Some(\"153.4.0\")"
+          },
+          {
+            "target": "http_compat",
+            "line": "Firefox version: Some(\"153.4.0\")"
+          },
+          {
+            "target": "http_compat",
+            "line": "Firefox version: Some(\"153.4.0\")"
+          },
+          {
+            "target": "http_compat",
+            "line": "Firefox version: Some(\"153.4.0\")"
+          },
+          {
+            "target": "http_compat",
+            "line": "Firefox version: Some(\"153.4.0\")"
+          },
+          {
+            "target": "http_actionability",
+            "line": "Firefox version: Some(\"153.4.0\")"
+          },
+          {
+            "target": "http_actionability",
+            "line": "Firefox version: Some(\"153.4.0\")"
+          },
+          {
+            "target": "http_actionability",
+            "line": "Firefox version: Some(\"153.4.0\")"
+          },
+          {
+            "target": "http_actionability",
+            "line": "Firefox version: Some(\"153.4.0\")"
+          },
+          {
+            "target": "http_actionability",
+            "line": "Firefox version: Some(\"153.4.0\")"
+          },
+          {
+            "target": "http_actionability",
+            "line": "Firefox version: Some(\"153.4.0\")"
+          },
+          {
+            "target": "http_clipped_control",
+            "line": "Firefox version: Some(\"153.4.0\")"
+          },
+          {
+            "target": "http_clipped_control",
+            "line": "Firefox version: Some(\"153.4.0\")"
+          },
+          {
+            "target": "http_clipped_control",
+            "line": "Firefox version: Some(\"153.4.0\")"
+          },
+          {
+            "target": "http_clipped_control",
+            "line": "Firefox version: Some(\"153.4.0\")"
+          },
+          {
+            "target": "http_clipped_control",
+            "line": "Firefox version: Some(\"153.4.0\")"
+          }
+        ]
+      },
+      "verified_native_passed": 79
+    },
+    {
+      "name": "build-compat-report",
+      "command": [
+        "cargo",
+        "build",
+        "--locked",
+        "-p",
+        "rustwright-examples",
+        "--example",
+        "compat_report"
+      ],
+      "started_utc": "2026-10-09T22:24:12.480322+00:00",
+      "environment": {
+        "DISPLAY": ":99",
+        "RUSTWRIGHT_CHROME": "/opt/hostedtoolcache/setup-chrome/chrome/155.0.8059.39/x64/chrome",
+        "RUSTWRIGHT_FIREFOX": "/opt/hostedtoolcache/firefox/157.0.1/x64/firefox",
+        "CHROME_DEVEL_SANDBOX": "/usr/local/lib/rustwright-ci/155.0.8059.39/chrome-sandbox",
+        "RUSTWRIGHT_HEADLESS": "0",
+        "RUSTWRIGHT_RETRIES": "0"
+      },
+      "log": "/home/runner/work/rustwright/rustwright/target/ci/extended/build-compat-report.log",
+      "status": "passed",
+      "exit_code": 0,
+      "finished_utc": "2026-10-09T22:24:14.249711+00:00",
+      "duration_seconds": 1.76875652800004
+    },
+    {
+      "name": "sites-chrome",
+      "command": [
+        "/home/runner/work/rustwright/rustwright/target/debug/examples/compat_report",
+        "--browser",
+        "chrome",
+        "--headed",
+        "--output",
+        "/home/runner/work/rustwright/rustwright/target/ci/extended/sites-chrome",
+        "--viewport",
+        "1280x800",
+        "https://example.com/",
+        "https://developer.mozilla.org/en-US/docs/Web",
+        "https://docs.rs/"
+      ],
+      "started_utc": "2026-10-09T22:24:14.250637+00:00",
+      "environment": {
+        "DISPLAY": ":99",
+        "RUSTWRIGHT_CHROME": "/opt/hostedtoolcache/setup-chrome/chrome/155.0.8059.39/x64/chrome",
+        "RUSTWRIGHT_FIREFOX": "/opt/hostedtoolcache/firefox/157.0.1/x64/firefox",
+        "CHROME_DEVEL_SANDBOX": "/usr/local/lib/rustwright-ci/155.0.8059.39/chrome-sandbox",
+        "RUSTWRIGHT_HEADLESS": "0",
+        "RUSTWRIGHT_RETRIES": "0"
+      },
+      "log": "/home/runner/work/rustwright/rustwright/target/ci/extended/sites-chrome.log",
+      "status": "passed",
+      "exit_code": 0,
+      "mapped_windows": {
+        "chrome": {
+          "utc": "2026-10-09T22:24:14.657965+00:00",
+          "window": "0x200002",
+          "WM_CLASS": "\"chromium-browser (/tmp/rustwright-56477-1791584654253586104-0)\", \"Chromium-browser\"",
+          "pid": 56484,
+          "command_ancestor_pid": 56477,
+          "map_state": "IsViewable",
+          "raw_log": "/home/runner/work/rustwright/rustwright/target/ci/extended/sites-chrome-windows.jsonl"
+        }
+      },
+      "window_observer_error": null,
+      "finished_utc": "2026-10-09T22:24:17.683140+00:00",
+      "duration_seconds": 3.431873223999901,
+      "screenshots": [
+        {
+          "path": "/home/runner/work/rustwright/rustwright/target/ci/extended/sites-chrome/000.png",
+          "bytes": 77481,
+          "sha256": "beaf4650a8369bf34b957c91f3841ae3ad5bc58dead08343467c108b28a740a7"
+        },
+        {
+          "path": "/home/runner/work/rustwright/rustwright/target/ci/extended/sites-chrome/001.png",
+          "bytes": 164896,
+          "sha256": "7eb2796010aa5c59da658f7e91b14e1a6dbab55bc26b1e66322eff94c43abe25"
+        },
+        {
+          "path": "/home/runner/work/rustwright/rustwright/target/ci/extended/sites-chrome/002.png",
+          "bytes": 132761,
+          "sha256": "cc26bb61271c52c9a9cc0a6e519cbb95238b5e781d5e7455188d53b43d53ae0d"
+        }
+      ]
+    },
+    {
+      "name": "sites-firefox",
+      "command": [
+        "/home/runner/work/rustwright/rustwright/target/debug/examples/compat_report",
+        "--browser",
+        "firefox",
+        "--headed",
+        "--output",
+        "/home/runner/work/rustwright/rustwright/target/ci/extended/sites-firefox",
+        "--viewport",
+        "1280x800",
+        "https://example.com/",
+        "https://developer.mozilla.org/en-US/docs/Web",
+        "https://docs.rs/"
+      ],
+      "started_utc": "2026-10-09T22:24:17.685824+00:00",
+      "environment": {
+        "DISPLAY": ":99",
+        "RUSTWRIGHT_CHROME": "/opt/hostedtoolcache/setup-chrome/chrome/155.0.8059.39/x64/chrome",
+        "RUSTWRIGHT_FIREFOX": "/opt/hostedtoolcache/firefox/157.0.1/x64/firefox",
+        "CHROME_DEVEL_SANDBOX": "/usr/local/lib/rustwright-ci/155.0.8059.39/chrome-sandbox",
+        "RUSTWRIGHT_HEADLESS": "0",
+        "RUSTWRIGHT_RETRIES": "0"
+      },
+      "log": "/home/runner/work/rustwright/rustwright/target/ci/extended/sites-firefox.log",
+      "status": "passed",
+      "exit_code": 0,
+      "mapped_windows": {
+        "firefox": {
+          "utc": "2026-10-09T22:24:18.689781+00:00",
+          "window": "0x200003",
+          "WM_CLASS": "\"Navigator\", \"firefox\"",
+          "pid": 56852,
+          "command_ancestor_pid": 56845,
+          "map_state": "IsViewable",
+          "raw_log": "/home/runner/work/rustwright/rustwright/target/ci/extended/sites-firefox-windows.jsonl"
+        }
+      },
+      "window_observer_error": null,
+      "finished_utc": "2026-10-09T22:24:23.272917+00:00",
+      "duration_seconds": 5.58639091200007,
+      "screenshots": [
+        {
+          "path": "/home/runner/work/rustwright/rustwright/target/ci/extended/sites-firefox/000.png",
+          "bytes": 77423,
+          "sha256": "24f9b0fc31d8524b90a5e09141d222d97e262907b85c9f19339b26595167a8bd"
+        },
+        {
+          "path": "/home/runner/work/rustwright/rustwright/target/ci/extended/sites-firefox/001.png",
+          "bytes": 176379,
+          "sha256": "d3a076241df72194dad5c7913dd50cd60138b364b41709a36fa09ac80a4cad49"
+        },
+        {
+          "path": "/home/runner/work/rustwright/rustwright/target/ci/extended/sites-firefox/002.png",
+          "bytes": 141010,
+          "sha256": "f19e2f25cf94636a44ba9aafb559a20047f147c8247a2b73691007286e2ead09"
+        }
+      ]
+    }
+  ],
+  "expected_versions": {
+    "chrome_current": "155.0.8059.39",
+    "firefox_current": "157.0.1",
+    "chrome_previous": "151.0.7922.138",
+    "firefox_esr": "153.4.0esr"
+  },
+  "expected_protocol_versions": {
+    "chrome_current": "155.0.8059.39",
+    "firefox_current": "157.0.1",
+    "chrome_previous": "151.0.7922.138",
+    "firefox_esr": "153.4.0"
+  },
+  "sites": [
+    "https://example.com/",
+    "https://developer.mozilla.org/en-US/docs/Web",
+    "https://docs.rs/"
+  ],
+  "http_status_policy": "HTTP denial/error observations remain separate from mandatory successful browser operations",
+  "window_proof_scope": "X11 IsViewable WM_CLASS and live PID descendant observed during each headed command",
+  "proxy_policy": "compat_report has no proxy argument; browser default TLS verification",
+  "browsers": {
+    "chrome_current": {
+      "path": "/opt/hostedtoolcache/setup-chrome/chrome/155.0.8059.39/x64/chrome",
+      "version_output": "Google Chrome for Testing 155.0.8059.39"
+    },
+    "firefox_current": {
+      "path": "/opt/hostedtoolcache/firefox/157.0.1/x64/firefox",
+      "version_output": "[3928] Sandbox: CanCreateUserNamespace() unshare(CLONE_NEWPID): EPERM\nMozilla Firefox 157.0.1"
+    },
+    "chrome_previous": {
+      "path": "/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome",
+      "version_output": "Google Chrome for Testing 151.0.7922.138"
+    },
+    "firefox_esr": {
+      "path": "/opt/hostedtoolcache/firefox/153.4.0esr/x64/firefox",
+      "version_output": "[3933] Sandbox: CanCreateUserNamespace() unshare(CLONE_NEWPID): EPERM\nMozilla Firefox 153.4.0esr"
+    }
+  },
+  "site_observations": [
+    {
+      "backend": "chrome",
+      "report": "/home/runner/work/rustwright/rustwright/target/ci/extended/sites-chrome/report.json",
+      "operations_succeeded": true,
+      "observations": [
+        {
+          "url": "https://example.com/",
+          "observation": "http_document_observed",
+          "observed_document_statuses": [
+            200
+          ]
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web",
+          "observation": "http_document_observed",
+          "observed_document_statuses": [
+            200
+          ]
+        },
+        {
+          "url": "https://docs.rs/",
+          "observation": "http_document_observed",
+          "observed_document_statuses": [
+            200
+          ]
+        }
+      ]
+    },
+    {
+      "backend": "firefox",
+      "report": "/home/runner/work/rustwright/rustwright/target/ci/extended/sites-firefox/report.json",
+      "operations_succeeded": true,
+      "observations": [
+        {
+          "url": "https://example.com/",
+          "observation": "http_document_observed",
+          "observed_document_statuses": [
+            200,
+            200
+          ]
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web",
+          "observation": "http_document_observed",
+          "observed_document_statuses": [
+            200,
+            200
+          ]
+        },
+        {
+          "url": "https://docs.rs/",
+          "observation": "http_document_observed",
+          "observed_document_statuses": [
+            200,
+            200
+          ]
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-09T22:24:23.276484+00:00"
+}

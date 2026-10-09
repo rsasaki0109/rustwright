@@ -1,0 +1,37 @@
+{
+  "phase": "close-frame",
+  "method": "CDP HTTP renderer preflight",
+  "outer_timeout_seconds": 5,
+  "stdout": "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controls/close-frame/close-frame-stdout.log",
+  "stderr": "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controls/close-frame/close-frame-stderr.log",
+  "protocol": "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controls/close-frame/close-frame-cdp.jsonl",
+  "timed_out": false,
+  "document_rendered": false,
+  "exit_code": 0,
+  "passed": false,
+  "profile_path": "/tmp/rustwright-cdp-controls-lne1nzzs/rustwright-close-frame-te77hq89",
+  "command": [
+    "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controlled_peer.py",
+    "--no-first-run",
+    "--no-default-browser-check",
+    "--user-data-dir=/tmp/rustwright-cdp-controls-lne1nzzs/rustwright-close-frame-te77hq89",
+    "--headless=new",
+    "--disable-gpu",
+    "--hide-scrollbars",
+    "--mute-audio",
+    "--remote-debugging-address=127.0.0.1",
+    "--remote-debugging-port=0",
+    "about:blank"
+  ],
+  "fixture_url": "http://127.0.0.1:36051/preflight-57ad5e24cc42c2f2",
+  "fixture_path": "/preflight-57ad5e24cc42c2f2",
+  "error": "RuntimeError: CDP WebSocket sent close before requested response",
+  "cleanup": {
+    "termination_requested": true,
+    "errors": [],
+    "direct_child_reaped": true,
+    "exit_code": 0
+  },
+  "fixture_requests": [],
+  "profile_removed": true
+}

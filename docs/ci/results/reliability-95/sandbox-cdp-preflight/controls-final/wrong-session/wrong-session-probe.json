@@ -1,0 +1,37 @@
+{
+  "phase": "wrong-session",
+  "method": "CDP HTTP renderer preflight",
+  "outer_timeout_seconds": 5,
+  "stdout": "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controls-final/wrong-session/wrong-session-stdout.log",
+  "stderr": "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controls-final/wrong-session/wrong-session-stderr.log",
+  "protocol": "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controls-final/wrong-session/wrong-session-cdp.jsonl",
+  "timed_out": false,
+  "document_rendered": false,
+  "exit_code": 0,
+  "passed": false,
+  "profile_path": "/tmp/rustwright-cdp-controls-t1esjxns/rustwright-wrong-session-x4mmno8n",
+  "command": [
+    "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controlled_peer.py",
+    "--no-first-run",
+    "--no-default-browser-check",
+    "--user-data-dir=/tmp/rustwright-cdp-controls-t1esjxns/rustwright-wrong-session-x4mmno8n",
+    "--headless=new",
+    "--disable-gpu",
+    "--hide-scrollbars",
+    "--mute-audio",
+    "--remote-debugging-address=127.0.0.1",
+    "--remote-debugging-port=0",
+    "about:blank"
+  ],
+  "fixture_url": "http://127.0.0.1:39089/preflight-6e191a844c52cc25",
+  "fixture_path": "/preflight-6e191a844c52cc25",
+  "error": "RuntimeError: Unexpected CDP response id/session for Page.enable: {'id': 3, 'result': {}, 'sessionId': 'foreign-session'}",
+  "cleanup": {
+    "termination_requested": true,
+    "errors": [],
+    "direct_child_reaped": true,
+    "exit_code": 0
+  },
+  "fixture_requests": [],
+  "profile_removed": true
+}

@@ -1,0 +1,202 @@
+{
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "status": "passed",
+  "probes": [
+    {
+      "phase": "before",
+      "method": "CDP HTTP renderer preflight",
+      "outer_timeout_seconds": 25,
+      "stdout": "/home/runner/work/rustwright/rustwright/target/ci/extended/sandbox-previous/before-stdout.log",
+      "stderr": "/home/runner/work/rustwright/rustwright/target/ci/extended/sandbox-previous/before-stderr.log",
+      "protocol": "/home/runner/work/rustwright/rustwright/target/ci/extended/sandbox-previous/before-cdp.jsonl",
+      "timed_out": false,
+      "document_rendered": false,
+      "exit_code": -6,
+      "passed": false,
+      "profile_path": "/home/runner/work/_temp/rustwright-before-ii279vca",
+      "command": [
+        "/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome",
+        "--no-first-run",
+        "--no-default-browser-check",
+        "--user-data-dir=/home/runner/work/_temp/rustwright-before-ii279vca",
+        "--headless=new",
+        "--disable-gpu",
+        "--hide-scrollbars",
+        "--mute-audio",
+        "--remote-debugging-address=127.0.0.1",
+        "--remote-debugging-port=0",
+        "about:blank"
+      ],
+      "fixture_url": "http://127.0.0.1:33035/preflight-c8e345bb38525816",
+      "fixture_path": "/preflight-c8e345bb38525816",
+      "error": "RuntimeError: Chrome exited before its debugging endpoint: -6",
+      "cleanup": {
+        "termination_requested": false,
+        "errors": [],
+        "direct_child_reaped": true,
+        "exit_code": -6
+      },
+      "fixture_requests": [],
+      "profile_removed": true
+    },
+    {
+      "phase": "after-configuration",
+      "method": "CDP HTTP renderer preflight",
+      "outer_timeout_seconds": 25,
+      "stdout": "/home/runner/work/rustwright/rustwright/target/ci/extended/sandbox-previous/after-configuration-stdout.log",
+      "stderr": "/home/runner/work/rustwright/rustwright/target/ci/extended/sandbox-previous/after-configuration-stderr.log",
+      "protocol": "/home/runner/work/rustwright/rustwright/target/ci/extended/sandbox-previous/after-configuration-cdp.jsonl",
+      "timed_out": false,
+      "document_rendered": true,
+      "exit_code": 0,
+      "passed": true,
+      "profile_path": "/home/runner/work/_temp/rustwright-after-configuration-xejoaden",
+      "command": [
+        "/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome",
+        "--no-first-run",
+        "--no-default-browser-check",
+        "--user-data-dir=/home/runner/work/_temp/rustwright-after-configuration-xejoaden",
+        "--headless=new",
+        "--disable-gpu",
+        "--hide-scrollbars",
+        "--mute-audio",
+        "--remote-debugging-address=127.0.0.1",
+        "--remote-debugging-port=0",
+        "about:blank"
+      ],
+      "fixture_url": "http://127.0.0.1:34877/preflight-faf7abc679f8cf07",
+      "fixture_path": "/preflight-faf7abc679f8cf07",
+      "navigation": {
+        "frameId": "38722FFDBDC7C515738F9AC209F83011",
+        "loaderId": "5F384A99F443FD70A634081B575FA836",
+        "isDownload": false
+      },
+      "document": {
+        "url": "http://127.0.0.1:34877/preflight-faf7abc679f8cf07",
+        "title": "Rustwright Linux sandbox preflight",
+        "body": "<h1>ready</h1>",
+        "readyState": "complete"
+      },
+      "lifecycle": {
+        "frameId": "38722FFDBDC7C515738F9AC209F83011",
+        "loaderId": "5F384A99F443FD70A634081B575FA836",
+        "name": "DOMContentLoaded",
+        "timestamp": 286.463976
+      },
+      "document_response": {
+        "requestId": "5F384A99F443FD70A634081B575FA836",
+        "loaderId": "5F384A99F443FD70A634081B575FA836",
+        "timestamp": 286.449992,
+        "type": "Document",
+        "response": {
+          "url": "http://127.0.0.1:34877/preflight-faf7abc679f8cf07",
+          "status": 200,
+          "statusText": "OK",
+          "headers": {
+            "Content-Length": "78",
+            "Content-Type": "text/html; charset=utf-8",
+            "Date": "Fri, 09 Oct 2026 22:18:16 GMT",
+            "Server": "BaseHTTP/0.6 Python/3.11.17"
+          },
+          "mimeType": "text/html",
+          "charset": "utf-8",
+          "connectionReused": true,
+          "connectionId": 128,
+          "remoteIPAddress": "127.0.0.1",
+          "remotePort": 34877,
+          "fromDiskCache": false,
+          "fromServiceWorker": false,
+          "fromPrefetchCache": false,
+          "encodedDataLength": 153,
+          "timing": {
+            "requestTime": 286.43859,
+            "proxyStart": -1,
+            "proxyEnd": -1,
+            "dnsStart": -1,
+            "dnsEnd": -1,
+            "connectStart": -1,
+            "connectEnd": -1,
+            "sslStart": -1,
+            "sslEnd": -1,
+            "workerStart": -1,
+            "workerReady": -1,
+            "workerFetchStart": -1,
+            "workerRespondWithSettled": -1,
+            "sendStart": 0.657,
+            "sendEnd": 0.717,
+            "pushStart": 0,
+            "pushEnd": 0,
+            "receiveHeadersStart": 1.842,
+            "receiveHeadersEnd": 1.883
+          },
+          "responseTime": 1791584296958.85,
+          "protocol": "http/1.0",
+          "alternateProtocolUsage": "unspecifiedReason",
+          "securityState": "secure"
+        },
+        "hasExtraInfo": true,
+        "frameId": "38722FFDBDC7C515738F9AC209F83011"
+      },
+      "loading_finished": {
+        "requestId": "5F384A99F443FD70A634081B575FA836",
+        "timestamp": 286.441964,
+        "encodedDataLength": 231
+      },
+      "browser_close_acknowledged": true,
+      "cleanup": {
+        "termination_requested": false,
+        "errors": [],
+        "direct_child_reaped": true,
+        "exit_code": 0
+      },
+      "fixture_requests": [
+        {
+          "path": "/preflight-faf7abc679f8cf07",
+          "status": 200,
+          "bytes_written": 78
+        },
+        {
+          "path": "/favicon.ico",
+          "status": 200,
+          "bytes_written": 78
+        }
+      ],
+      "profile_removed": true
+    }
+  ],
+  "sandbox_disabled": false,
+  "global_policy_modified": false,
+  "uid": 1001,
+  "chrome": {
+    "path": "/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome",
+    "uid": 1001,
+    "gid": 1001,
+    "mode": "0o755",
+    "bytes": 291020104,
+    "sha256": "22f1017b80d5744b3ece65a585fcdd462fcbc487df57d211db39b44a4e9f948f"
+  },
+  "version": "Google Chrome for Testing 151.0.7922.138",
+  "host_policy_observation": {
+    "/proc/sys/kernel/apparmor_restrict_unprivileged_userns": "1",
+    "/proc/sys/kernel/unprivileged_userns_clone": "1",
+    "/sys/module/apparmor/parameters/enabled": "Y"
+  },
+  "bundled_helper": {
+    "path": "/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome_sandbox",
+    "uid": 1001,
+    "gid": 1001,
+    "mode": "0o755",
+    "bytes": 15232,
+    "sha256": "18391bf9d217ddbde9956347cbb1346d2808a73ade4baa3f88a610447cf946b4"
+  },
+  "initial_CHROME_DEVEL_SANDBOX": "",
+  "diagnosis": "Chrome explicitly reported no usable or misconfigured sandbox; host policy is observed separately",
+  "installed_helper": {
+    "path": "/usr/local/lib/rustwright-ci/151.0.7922.138/chrome-sandbox",
+    "uid": 0,
+    "gid": 0,
+    "mode": "0o4755",
+    "bytes": 15232,
+    "sha256": "18391bf9d217ddbde9956347cbb1346d2808a73ade4baa3f88a610447cf946b4"
+  }
+}

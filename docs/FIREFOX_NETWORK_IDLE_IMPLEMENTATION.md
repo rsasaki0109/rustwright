@@ -110,15 +110,16 @@ All three pass after correction, within the 111-case BiDi suite. The original
 audit snapshots match `908323d38ba036960c41347ecbe2a5dfa8c24271`; its scoped run
 is distinct from subsequent combined-source verification.
 
-[Run 37983300059](https://github.com/rsasaki0109/rustwright/actions/runs/37983300059)
-completed successfully in all six jobs for PR head
-`4cdec571a26c64e123a4dde66d4d9b47e8c64f63`. The actual checkout was the PR merge
-`58ac49fda4fd9c85cf7711b9dc99aef32acd1f82`;
-[152 relevant inputs have identical Git blobs and file modes](ci/results/reliability-95/remote/tested-merge-source-equality.json)
-between that tested merge and head. This establishes those inputs' equality,
-not identity of the complete commits.
+[Run 37994561086](https://github.com/rsasaki0109/rustwright/actions/runs/37994561086)
+completed successfully in all seven jobs for head
+`39e1c8951dd2ebd67cd1ef8e7311f582d418d873`. All seven original checkout logs identify
+actual PR merge `a2191f83923497f1e34a7785f316e142206dda54`.
+[All 153 relevant inputs have identical Git blobs and modes](ci/results/reliability-95/remote-final/tested-source-equality.json)
+between that merge and head. This proves those inputs' equality, not whole-commit
+identity. The earlier [six-job baseline](ci/results/reliability-95/remote/README.md)
+remains a separate historical record.
 
-The completed [CI record](ci/results/reliability-95/remote/README.md) verifies:
+The completed [CI record](ci/results/reliability-95/remote-final/README.md) verifies:
 
 | Scope | Passing cases |
 | --- | ---: |
@@ -133,23 +134,32 @@ macro doctest. Library and native HTTP suites have zero ignored or filtered
 cases. The portable total includes all 26 network-idle parity cases; repeated
 operating-system executions and the workspace's 193 HTTP cases are overlapping
 coverage. Recorded native engines are Chrome `155.0.8059.39` and Firefox
-`157.0.1`. Formatting, all-target Clippy, locked Rust1.85 compilation, and the
+`157.0.1`. Formatting, all-target Clippy, locked Rust 1.85 compilation, and the
 eight-archive distribution checks also passed on that recorded source.
 
-### Extended verification remains incomplete
+### Completed selected headed/version/site verification
 
-The seven-job workflow at `be1b065aeff87e5c19e53492a19f4465ba4436f4` adds a required
-Ubuntu headed/version/public-site job with X11 window observations. It pins
-Chrome `155.0.8059.39` and Firefox `157.0.1`, plus alternate Chrome
-`151.0.7922.138` and Firefox `153.4.0esr`.
-[The partial attempt](ci/results/reliability-95/remote-final-before/README.md)
-records alternate Chrome sandbox preflight failure before the headed, version
-and site phases ran. Three jobs succeeded; three other final conclusions were
-unavailable after GitHub HTTP401 authentication errors. The supported finite
-DOM-capture correction is committed locally as `3d447e72` but not pushed or
-native-verified. [The checkpoint](RELIABILITY_95_CHECKPOINT.md) records the
-authentication block, retained failures and remaining scope. This document does
-not declare the 95% milestone or SOTA.
+The same five portable targets, including all 26 network-idle parity cases,
+pass all 79 cases headed on Linux Xvfb with current Chrome 155 / Firefox 157, and
+headless on Linux with Chrome 151.0.7922.138 / Firefox 153.4.0esr. Both phases
+have zero failed, ignored or filtered cases. Exact installed and protocol
+identities are retained; ESR's protocol value is 153.4.0. Owned mapped-window
+observations are per headed command/backend, not every case or a physical
+desktop. Both current engines also complete all operations and teardown for
+example.com, MDN Web docs and docs.rs, with HTTP 200 documents and six hashed
+PNGs. Default browser TLS remains enabled; there is no explicit proxy.
+[Extended proof](ci/results/reliability-95/remote-final/extended-verification.json)
+retains the actual records and document-attribution limits.
+
+Two earlier extended attempts failed Chrome 151's CLI sandbox preflight before
+any headed/alternate/site phases. Their
+[first completed supplement](ci/results/reliability-95/remote-final-before-completed/README.md)
+and [second failure record](ci/results/reliability-95/remote-final-second-before/README.md)
+remain unchanged. The final bounded-CDP preflight has actual current/alternate
+Chrome success in the final run; its 26 synthetic controls remain separate from
+native proof. [The checkpoint](RELIABILITY_95_CHECKPOINT.md) assesses the scoped
+95% milestone and preserves the failed local nine-site aggregates. Selected
+three-site observations do not establish broad site compatibility or SOTA.
 
 These waits do not establish complete historical reconstruction, service-worker
 or WebSocket tracking, complete backend parity, memory attribution, real-site

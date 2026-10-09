@@ -1,33 +1,55 @@
-# Reliability 95% target: blocked evidence checkpoint
+# Reliability 95% checkpoint: scoped verification complete
 
-**Status: blocked on GitHub authentication. Final headed, browser-version, and public-site verification remains unproven. The provisional development estimate is 92% toward the 95% target; this document does not declare the milestone complete.** The percentage is a development milestone, not a measured probability of successful browser operations or a percentage derived from test totals.
+**Status: the specified 95% development milestone is complete.** All seven
+required jobs in [run 37994561086](https://github.com/rsasaki0109/rustwright/actions/runs/37994561086)
+succeeded, and their source, logs, artifact digests, native matrix and package
+provenance are frozen and independently checked. The provisional completion
+assessment is **95% for this scoped development milestone**. It is not a
+measured probability of successful operations or a percentage computed from
+test totals. Broader SOTA and universal leak-freedom claims remain unproven.
 
-The current source fixes owned startup cleanup, releases closed Firefox observers, and verifies whether a Chrome target actually closed during discovery initialization. Source-specific evidence supports those changes and the tested headless workflows. The remaining final checks and limits are recorded below.
+The source fixes owned startup cleanup, releases closed Firefox observers,
+verifies actual Chrome target closure during discovery initialization, and uses
+a bounded native CDP sandbox preflight. Historical studies below retain their
+original source identities rather than being relabeled as final-source runs.
 
-## Source and completed CI
+## Final source and completed CI
 
-The repaired source commit is `4cdec571a26c64e123a4dde66d4d9b47e8c64f63`, following the startup/Firefox lifetime changes in `908323d38ba036960c41347ecbe2a5dfa8c24271`. [CI run 37983300059](https://github.com/rsasaki0109/rustwright/actions/runs/37983300059) completed with all six jobs successful.
-
-CI actually checked out the PR merge commit `58ac49fda4fd9c85cf7711b9dc99aef32acd1f82`. [The source-equality record](ci/results/reliability-95/remote/tested-merge-source-equality.json) verifies identical Git blob IDs and file modes for 152 relevant source, test, helper, workflow, and package-README inputs between the head and tested merge. All six raw job logs confirm the actual checkout. This proves equality for those inputs, not identity of every file or of the two commits.
+The tested head is `39e1c8951dd2ebd67cd1ef8e7311f582d418d873`; all seven original
+checkout logs identify actual PR merge
+`a2191f83923497f1e34a7785f316e142206dda54`. The
+[source-equality record](ci/results/reliability-95/remote-final/tested-source-equality.json)
+checks identical Git blobs and modes for 153 relevant source, test, helper,
+workflow and package inputs. The exact-head source archive SHA256 is
+`d2d0909443167cee5afc13b50e790607531b4cf4d9ba426fd38f2db696e228da`.
+This proves equality for those inputs, not identity of every file or commit.
 
 | Completed check | Recorded result |
 | --- | --- |
-| Workspace suites | 475 passed, 0 failed; one existing macro doctest explicitly ignored |
-| Library suites within that workspace run | 211 passed, 0 failed, 0 ignored |
-| Formatting and all-target Clippy | passed |
-| Locked workspace on Rust 1.85.0 | passed |
-| Required portable native HTTP cases, Windows | 79 passed; 39 Chrome and 40 Firefox |
-| Required portable native HTTP cases, macOS | 79 passed; 39 Chrome and 40 Firefox |
-| Required portable native HTTP cases, Ubuntu | 79 passed; 39 Chrome and 40 Firefox |
-| Additional Linux native HTTP cases | 114 passed |
-| Distribution verification | eight real crate archives; 57 third-party archive checksums verified |
-| README Rust fences | nine compiled |
-| Packaged native consumers | four passed: two Chrome and two Firefox |
-| README native entry points | two passed |
+| Workspace suites | 475 passed, zero failed/filtered; one existing ignored macro doctest |
+| Library subset | 211 passed, including 111 BiDi; zero failed/ignored/filtered |
+| `compat_report` example subset | Four passed |
+| Formatting, all-target Clippy and locked Rust 1.85 all-target compilation | Passed |
+| Required headless native HTTP, each of Windows/macOS arm64/Ubuntu | 79 passed: 39 Chrome, 40 Firefox; zero failed/ignored/filtered |
+| Additional Linux native HTTP | 114 passed; zero failed/ignored/filtered |
+| Linux headed current-version portable suite | 79 passed; zero failed/ignored/filtered |
+| Linux headless alternate-version portable suite | 79 passed; zero failed/ignored/filtered |
+| Selected headed public sites | Three per backend, all operations and teardown successful, six valid hashed PNGs |
+| Distribution | Eight actual crate archives, 57 verified dependency checksums, nine README fences on stable/MSRV |
+| Stable packaged native consumers and README entry points | Four consumers and two programs passed; five PNGs retained |
 
-The native HTTP reports have zero failures, ignored cases, and filtered cases. Job-recorded browsers are Chrome `155.0.8059.39` and Firefox `157.0.1`. The workspace total includes 193 HTTP cases, so it must not be added to the native-job totals as new coverage. Repeated runs of the same 79 portable cases across operating systems demonstrate the recorded platform matrix, not 237 unique test designs. The full scope breakdown, raw reports, and artifact digest checks are in the [completed CI summary](ci/results/reliability-95/remote/summary.json) and [native counts](ci/results/reliability-95/remote/native-counts.json).
+[The frozen final CI record](ci/results/reliability-95/remote-final/README.md)
+retains all seven logs and six original ZIPs with verified official digests.
+All eight archive VCS records identify the actual tested merge; 101 archived
+source files and the 106-input package fingerprint match. This is verified
+packaging and consumption, not registry publication. The workspace includes
+193 HTTP cases, so overlapping native jobs are not additional unique designs.
+Repeated 79-case suites demonstrate the recorded OS/mode/version matrix.
 
-The [distribution report](ci/results/reliability-95/remote/packages-artifact/report.json) describes a local registry simulation using verified real archives. Stable/MSRV consumer resolution, compilation and basic execution are separate from the four stable native-consumer cases. Archive provenance records the tested merge commit; 101 archived source files and the package fingerprint were independently matched. This is packaging and consumption evidence, not a crates.io publication.
+The prior [six-job baseline](ci/results/reliability-95/remote/README.md) at head
+`4cdec571` and merge `58ac49f` remains unchanged. Its earlier 152-input proof and
+two failed extended attempts remain historical records, separate from the
+final 153-input verification above.
 
 ## Discovery closure correction
 
@@ -90,26 +112,81 @@ All reported processes have `ghost-windows=0` in all six captures. At 90 seconds
 
 The original run manifest records HEAD `3e52b79` with dirty source. Archived Python hashes match later `908323d`, but the run did not occur on that later commit. The upstream memory-dumper source establishes provenance for the signal distinction, not exact installed Firefox source identity. Raw reports, binaries' identity records, summary, and [recomputed category amounts](ci/results/reliability-95/browser-memory/analysis.json) retain the actual run scope. Sequential `/proc` reads and later reports are not atomic; shared mappings affect RSS. Reporter values and zero ghost-window counts do not identify unreachable objects or prove browser leak freedom.
 
-## Pending final headed, version, and site verification
+## Completed headed, version and site checkpoint
 
-**Pending: this section must be replaced with final frozen proof before assessing the 95% milestone.** Earlier harness or exploratory observations do not complete these checks for the final source.
+The [extended proof](ci/results/reliability-95/remote-final/extended-verification.json)
+verifies the full five-target 79-case suite headed on Linux with Chrome
+`155.0.8059.39` / Firefox `157.0.1`, and headless with Chrome `151.0.7922.138` /
+Firefox `153.4.0esr`. Exact CLI identities, executable bindings and raw protocol
+versions are retained; ESR's numeric protocol value is `153.4.0`. The selected
+alternate Chrome differs from local `151.0.7922.173`.
 
-The [frozen local record](ci/results/reliability-95/local/README.md) retains completed final-source checks/distribution and the failed or interrupted headed, ESR and container attempts. Native thread/fork creation errors and a census of 27,449 adopted zombies were observed, but no initial census or causal attribution establishes that every failure was environmental. Nine headless public sites were observed per backend; only six per backend completed all operations, and both aggregate processes exited 1. HTTP document observations and successful teardown do not convert those aggregate failures into passes. These records remain separate from the new required hosted verification.
+Owned mapped-window proof is sampled per headed command/backend using Xvfb
+virtual X11 `IsViewable`, `WM_CLASS` and a live descendant PID. Four backend
+observations cover Chrome/Firefox in the headed suite and each site command.
+It does not prove
+a window for every case, a physical desktop, human-visible interaction or visual
+correctness. Headed and alternate-version proof is Linux-only; the current
+headless portable matrix covers all three operating systems.
 
-[Run 37987315249](https://github.com/rsasaki0109/rustwright/actions/runs/37987315249) contains the seven-job workflow at `be1b065aeff87e5c19e53492a19f4465ba4436f4`. The added job failed before native tests: alternate Chrome's configured sandbox preflight produced no DOM before its outer deadline. Its [partial frozen record](ci/results/reliability-95/remote-final-before/README.md) retains the failure and three successful jobs; final conclusions for the other three jobs were unavailable after HTTP401 authentication failures. This is not a seven-job success. The required scope remains sequential complete 79-case headed Chrome `155.0.8059.39` / Firefox `157.0.1` and headless Chrome `151.0.7922.138` / Firefox `153.4.0esr` suites. Hosted Chrome151 differs from the local `151.0.7922.173` build.
+Both current engines completed all operations and teardown on
+`https://example.com/`, `https://developer.mozilla.org/en-US/docs/Web` and
+`https://docs.rs/`, with browser-default TLS verification and no explicit proxy.
+All six site observations contain HTTP 200 documents, zero observed HTTP
+denial/error documents and six SHA-verified 1280×800 PNGs. Firefox repeated
+lifecycle statuses are not extra sites. Chrome's URL-matched document candidates
+can include same-URL iframes, while Firefox observations use the root context
+and navigation ID. These selected passes do not reclassify the broader failed
+local nine-site proxy aggregates.
 
-Local correction `3d447e72dfedadfd7c8f4e947a348091a6c8b88d` adds the supported 10-second internal DOM-capture deadline while keeping the 25-second outer deadline and strict normal-exit/title/body requirements. [The correction record](ci/results/reliability-95/sandbox-capture-deadline/ARCHIVE_README.md) preserves exact-tag upstream provenance and four synthetic-process controls, including failure on outer timeout even with full DOM and exit0. No native browser was run for these controls. The correction is not pushed; its native effectiveness remains unverified. GitHub authentication must be restored before push, full rerun and final proof retrieval.
+### Preserved failures and sandbox correction
 
-Owned mapped-window proof is sampled per headed command/backend using Xvfb virtual X11 `IsViewable`, `WM_CLASS` and a live descendant PID. It does not prove a window for every test, a physical desktop, human-visible interaction or visual correctness. The hosted read-only sites are `https://example.com/`, `https://developer.mozilla.org/en-US/docs/Web` and `https://docs.rs/`: navigation, evaluation, idle observation, screenshot and page closure are required, with six valid PNGs retained. Passing this selected three-site scope would not reclassify the failed broader nine-site proxy observations. The [harness preparation](ci/results/reliability-95/extended-harness/ARCHIVE.md) preserves source and scoped controls, not successful native execution.
+The [frozen local record](ci/results/reliability-95/local/README.md) retains
+completed checks and distribution plus failed/interrupted headed, ESR and
+container attempts. Native thread/fork errors and 27,449 adopted zombies were
+observed, but no initial census establishes causal attribution for every failure.
+Only six of nine headless public sites per backend completed all operations;
+both aggregate processes exited 1. Successful document or teardown observations
+do not convert those failures into passes.
 
-| Remaining checkpoint item | Draft status |
+[Run 37987315249](https://github.com/rsasaki0109/rustwright/actions/runs/37987315249)
+at head `be1b065` / merge `81864` finished with six successes and one alternate
+Chrome CLI sandbox-preflight failure. Its
+[partial freeze](ci/results/reliability-95/remote-final-before/README.md) preserves
+the original authentication-limited cutoff; the separate
+[completed supplement](ci/results/reliability-95/remote-final-before-completed/README.md)
+adds recovered final conclusions without rewriting it.
+[Run 37990278021](https://github.com/rsasaki0109/rustwright/actions/runs/37990278021)
+at direct head `66d98a9` again passed six jobs and failed the same preflight,
+despite the supported internal CLI capture timeout. The
+[second failed record](ci/results/reliability-95/remote-final-second-before/README.md)
+preserves its complete evidence. Both attempts left headed/alternate/site
+phases unrun; neither is counted as successful extended verification.
+
+The final correction at `39e1c895` replaces CLI DOM capture with bounded
+localhost CDP. Native current/alternate Chrome now prove correlated frame/loader
+DOMContentLoaded and document HTTP 200 HTML, completed body, exact evaluated
+URL/title/body, actual fixture request/write, Browser.close acknowledgment and
+natural child exit 0. Failed cleanup prevents another launch or helper
+installation; the existing approved helper-installation function is unchanged.
+Retained profiles remain outside artifacts. The native
+[sandbox record](ci/results/reliability-95/remote-final/sandbox-verification.json)
+is separate from the [26 synthetic controls](ci/results/reliability-95/sandbox-cdp-preflight/ARCHIVE_README.md)
+and [earlier CLI correction](ci/results/reliability-95/sandbox-capture-deadline/ARCHIVE_README.md).
+The synthetic interruption uses catchable Python `KeyboardInterrupt`, not CI
+SIGTERM/SIGKILL or host shutdown. The shared 25-second budget covers operations;
+process, server and filesystem cleanup is additional. Direct-child reaping does
+not establish descendant quiescence or a hard whole-invocation deadline.
+
+| Final acceptance condition | Verified result |
 | --- | --- |
-| Final-source native headed runs and selected headless controls | blocked; hosted attempt failed setup before both phases |
-| Actual browser identities, launch modes, and retained results across the selected version matrix | incomplete; final native version matrix unproven |
-| Final-source public-site observations and per-site teardown results | local failed aggregates retained; hosted selected sites unrun |
-| Independent audit of output completeness, source identities, and failures/limitations | completed for frozen available records; final hosted proof unavailable |
-| Completion assessment against the scoped milestone | 92% planning estimate; no 95% declaration |
-
-Public-site reporting must keep HTTP 401/403/429 denial, browser error pages, protocol operation failures, and successful document observations distinct. A report can show completed protocol operations with an HTTP 403 observation; that does not establish successful website access or attribute the refusal to the driver. Screenshots, requested headed flags, and a running process alone do not prove visible-window interaction or broad site compatibility.
+| All seven required current-source jobs succeed | Complete |
+| Actual checkout and all 153 relevant input blobs/modes are recorded | Complete; head `39e1` / merge `a219` |
+| Workspace, MSRV, formatting, Clippy, three-OS portable and extra Linux suites pass | Complete; scope and overlap recorded above |
+| Full headed 79 and alternate headless 79 suites pass without ignored/filtered cases | Complete; Linux-only scope |
+| Owned mapped windows and six successful selected site observations with hashed PNGs | Complete; per-command Xvfb and HTTP-attribution limits retained |
+| Eight real archives, native consumers and actual package provenance are verified | Complete |
+| Original digests, raw reports, source identities and archive hashes are independently audited | Complete; historical failures remain unchanged |
+| Scoped milestone assessment | 95% development estimate; no SOTA or universal leak-freedom declaration |
 
 Unknown remote subscription IDs after lost/timed-out acknowledgements remain unreclaimable by the local lifetime fixes; retries can create another remote subscription whose ID was not observed. OS cleanup refusal and descendant-process guarantees remain outside the demonstrated direct-child scope. Unexplained browser category retention, object reachability, longer-run memory bounds, and broad workload/platform/site coverage remain open. A broader SOTA claim requires a separately specified comparative benchmark and reproducible evaluation; this checkpoint provides no such claim.

@@ -126,10 +126,11 @@ browser/site coverage and independent host repeats remain outstanding.
 Continue expanding the shared matrix's remaining geometry, routing and navigation
 cases so performance work measures correct behavior.
 
-## Next checkpoint: 95%, before a SOTA claim
+## Completed scoped 95% checkpoint, before a SOTA claim
 
-The development target is now 95%. Preserve the earlier checkpoint's remaining
-limits rather than counting a configured workflow as executed evidence.
+The scoped development milestone is now assessed at 95% after completed final
+verification. This is a planning estimate, not a measured reliability probability.
+Preserve the earlier checkpoint's remaining limits.
 
 Locally verified additions include eleven BiDi navigation protocol cases and
 seven native Chrome/Firefox reload/history checks. Required browser policy also
@@ -166,37 +167,53 @@ pre-implementation record rather than a current missing-API statement.
 
 Owned browser startup now reaps the direct child before removing its temporary
 profile after cancellation, timeout or early exit. Twenty actual early-startup
-cancellations, ten per browser, verify binary identity, direct-child reaping and
+cancellations on Linux, ten per browser, verify binary identity, direct-child reaping and
 profile ownership. Closed Firefox pages/browsers also finish idle and diagnostic
 observers when callers retain page handles. Chrome discovery verifies actual
 target disappearance before skipping a detached initialization; unexpected
-errors still propagate. [The checkpoint draft](RELIABILITY_95_CHECKPOINT.md)
-links the frozen before/after tests and native evidence.
+errors still propagate. [The checkpoint](RELIABILITY_95_CHECKPOINT.md)
+links the frozen before/after tests and native evidence. The native startup
+build records head `908323d` with the then-dirty context correction; it is not
+relabeled as final `39e1`.
 
 Requested Rust-driver heap at exit is 26,020 B in both the 100- and 1,000-cycle
-profiled Firefox runs, with complete allocation stacks recorded. An independent
+profiled Firefox runs, each with 100 additional warmup cycles on recorded source
+`908323d`, with complete allocation stacks retained. An independent
 3,000-cycle Firefox run restores page/context counts and pending commands but
 retains some resident memory and reporter categories after its 90-second tail.
 These finite measurements distinguish driver allocations from browser memory;
 they do not establish reachability, a long-run plateau or universal leak freedom.
 
-The provisional development estimate remains **92% toward the 95% checkpoint**
-while final headed, alternate-version and public-site verification is pending.
-The required seven-job attempt at `be1b065` failed alternate Chrome's sandbox
-preflight before the new native phases ran. Its
-[partial frozen record](ci/results/reliability-95/remote-final-before/README.md)
-retains three successful jobs, one failed job and the last observed running
-state of three others. GitHub authentication subsequently returned HTTP401,
-preventing later result retrieval, push and a new run. The supported finite
-DOM-capture correction is committed locally as `3d447e72` but remains
-native-unverified. Restore GitHub authentication, push the correction and
-complete all seven jobs before changing this estimate.
-Local incomplete and failed attempts
-remain in [the frozen local record](ci/results/reliability-95/local/README.md),
-including native thread/fork exhaustion and public-site operation failures.
-Lost remote allocations, cleanup refusal, descendant processes and unexplained
-browser memory retention remain explicit limits even after this finite
-checkpoint. A general SOTA claim still requires broader comparative evidence.
+The final [run 37994561086](https://github.com/rsasaki0109/rustwright/actions/runs/37994561086)
+passes **all seven required jobs** for head `39e1c895`. All original checkout logs
+identify tested merge `a2191f8`, and all 153 relevant source/test/helper/workflow/package
+inputs have identical blobs and modes to the head. The
+[frozen final record](ci/results/reliability-95/remote-final/README.md) verifies
+workspace 475 / libraries 211 / example 4, native 79 on each OS plus Ubuntu 114,
+formatting/Clippy/MSRV and eight-archive distribution. The added Linux scope
+passes the full79 cases headed on Chrome 155/Firefox 157 and the full79 headless
+on Chrome 151.0.7922.138/Firefox 153.4.0esr, with exact version and per-command
+owned mapped Xvfb-window records. Both current engines complete all operations
+and teardown for the three selected read-only sites with HTTP 200 observations
+and six hashed PNGs. Repeated cases and HTTP lifecycle events are not additional
+unique coverage. Headed/version scope is Linux-only.
+
+Two earlier seven-job attempts passed six baseline jobs but failed alternate
+Chrome's CLI sandbox preflight. The
+[first completed supplement](ci/results/reliability-95/remote-final-before-completed/README.md)
+and [second complete failure](ci/results/reliability-95/remote-final-second-before/README.md)
+preserve their actual unrun scopes. The final CDP correction verifies actual
+HTTP rendering and normal shutdown; 26 synthetic controls are separate from
+native confirmation. The helper-installation function remains unchanged.
+
+The provisional completion assessment is now **95% for the specified
+reliability checkpoint**, supported by the completed and independently audited
+proof. Local failures remain in [their frozen record](ci/results/reliability-95/local/README.md),
+including native thread/fork exhaustion and both failed nine-site aggregates.
+Selected hosted success does not rewrite those outcomes. Lost remote IDs,
+cleanup refusal, descendant processes and unexplained browser-memory retention
+remain explicit limits. A general SOTA claim requires separately specified
+comparative workloads and reproducible independent measurements.
 
 1. **Maintain verified required CI:** test the reviewed changes on Linux, macOS and Windows
    with explicitly installed Chrome and Firefox. Reject missing browsers,

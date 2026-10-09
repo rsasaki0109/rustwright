@@ -1,0 +1,37 @@
+{
+  "phase": "oversized-frame",
+  "method": "CDP HTTP renderer preflight",
+  "outer_timeout_seconds": 5,
+  "stdout": "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controls-final/oversized-frame/oversized-frame-stdout.log",
+  "stderr": "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controls-final/oversized-frame/oversized-frame-stderr.log",
+  "protocol": "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controls-final/oversized-frame/oversized-frame-cdp.jsonl",
+  "timed_out": false,
+  "document_rendered": false,
+  "exit_code": 0,
+  "passed": false,
+  "profile_path": "/tmp/rustwright-cdp-controls-t1esjxns/rustwright-oversized-frame-uesm8orc",
+  "command": [
+    "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controlled_peer.py",
+    "--no-first-run",
+    "--no-default-browser-check",
+    "--user-data-dir=/tmp/rustwright-cdp-controls-t1esjxns/rustwright-oversized-frame-uesm8orc",
+    "--headless=new",
+    "--disable-gpu",
+    "--hide-scrollbars",
+    "--mute-audio",
+    "--remote-debugging-address=127.0.0.1",
+    "--remote-debugging-port=0",
+    "about:blank"
+  ],
+  "fixture_url": "http://127.0.0.1:43631/preflight-ca788f149dae66fd",
+  "fixture_path": "/preflight-ca788f149dae66fd",
+  "error": "RuntimeError: Incoming CDP message exceeded bound",
+  "cleanup": {
+    "termination_requested": true,
+    "errors": [],
+    "direct_child_reaped": true,
+    "exit_code": 0
+  },
+  "fixture_requests": [],
+  "profile_removed": true
+}

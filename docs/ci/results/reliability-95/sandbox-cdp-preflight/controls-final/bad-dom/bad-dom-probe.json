@@ -1,0 +1,47 @@
+{
+  "phase": "bad-dom",
+  "method": "CDP HTTP renderer preflight",
+  "outer_timeout_seconds": 5,
+  "stdout": "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controls-final/bad-dom/bad-dom-stdout.log",
+  "stderr": "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controls-final/bad-dom/bad-dom-stderr.log",
+  "protocol": "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controls-final/bad-dom/bad-dom-cdp.jsonl",
+  "timed_out": false,
+  "document_rendered": false,
+  "exit_code": 0,
+  "passed": false,
+  "profile_path": "/tmp/rustwright-cdp-controls-t1esjxns/rustwright-bad-dom-tkw_hwcn",
+  "command": [
+    "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controlled_peer.py",
+    "--no-first-run",
+    "--no-default-browser-check",
+    "--user-data-dir=/tmp/rustwright-cdp-controls-t1esjxns/rustwright-bad-dom-tkw_hwcn",
+    "--headless=new",
+    "--disable-gpu",
+    "--hide-scrollbars",
+    "--mute-audio",
+    "--remote-debugging-address=127.0.0.1",
+    "--remote-debugging-port=0",
+    "about:blank"
+  ],
+  "fixture_url": "http://127.0.0.1:39223/preflight-b25ce036542a8c60",
+  "fixture_path": "/preflight-b25ce036542a8c60",
+  "navigation": {
+    "frameId": "frame-main",
+    "loaderId": "loader-main"
+  },
+  "error": "RuntimeError: Renderer fixture DOM did not match: {'result': {'type': 'object', 'value': {'url': 'http://127.0.0.1:39223/preflight-b25ce036542a8c60', 'title': 'wrong title', 'body': '<h1>ready</h1>', 'readyState': 'complete'}}}",
+  "cleanup": {
+    "termination_requested": true,
+    "errors": [],
+    "direct_child_reaped": true,
+    "exit_code": 0
+  },
+  "fixture_requests": [
+    {
+      "path": "/preflight-b25ce036542a8c60",
+      "status": 200,
+      "bytes_written": 78
+    }
+  ],
+  "profile_removed": true
+}

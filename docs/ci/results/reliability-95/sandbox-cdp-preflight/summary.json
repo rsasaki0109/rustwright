@@ -1,0 +1,37 @@
+{
+  "status": "source-and-controls-ready-native-pending",
+  "before_ci_run": 37990278021,
+  "before_source_commit": "3d447e72dfedadfd7c8f4e947a348091a6c8b88d",
+  "before_actual_outcome": "supported --dump-dom --timeout=10000 still hit outer25s; no fixture DOM; extended native/site phases unrun",
+  "source_before_sha256": "3c8481734ffb1389c0fa03148e4490b249e37ef90b99821dbe5cd3ce1427da90",
+  "source_after_sha256": "9d9c2a1add74bdc096a583505a04b56915707081931dd31f9796ad8c22e393b2",
+  "approved_install_helper_function_byte_equal": true,
+  "final_controls": 26,
+  "owned_synthetic_peers": 20,
+  "mock_cleanup_refusal": 1,
+  "main_installation_gates": 5,
+  "actual_native_browser_or_build_commands_executed_locally": 0,
+  "checks": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "py_compile",
+        "scripts/ci/chrome_linux_sandbox.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check",
+        "--",
+        "scripts/ci/chrome_linux_sandbox.py"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "scope": "shared25s loopback CDP startup/renderer/close; exact id/session/frame/loader/request/HTTP200/DOM; normal Browser.close ACK+exit0 mandatory; bounded failure cleanup reaps before owned profile removal; unknown-exit profile retained outside artifacts",
+  "known_limit": "strict Browser.close ACK can reject natural exit0 if WebSocket closes first; native confirmation must assess this. No post-timeout SIGTERM0 is accepted. Direct-child cleanup does not prove descendant-tree quiescence."
+}

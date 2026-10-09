@@ -1,0 +1,37 @@
+{
+  "phase": "bad-continuation",
+  "method": "CDP HTTP renderer preflight",
+  "outer_timeout_seconds": 5,
+  "stdout": "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controls-final/bad-continuation/bad-continuation-stdout.log",
+  "stderr": "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controls-final/bad-continuation/bad-continuation-stderr.log",
+  "protocol": "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controls-final/bad-continuation/bad-continuation-cdp.jsonl",
+  "timed_out": false,
+  "document_rendered": false,
+  "exit_code": 0,
+  "passed": false,
+  "profile_path": "/tmp/rustwright-cdp-controls-t1esjxns/rustwright-bad-continuation-kr2dx7ew",
+  "command": [
+    "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controlled_peer.py",
+    "--no-first-run",
+    "--no-default-browser-check",
+    "--user-data-dir=/tmp/rustwright-cdp-controls-t1esjxns/rustwright-bad-continuation-kr2dx7ew",
+    "--headless=new",
+    "--disable-gpu",
+    "--hide-scrollbars",
+    "--mute-audio",
+    "--remote-debugging-address=127.0.0.1",
+    "--remote-debugging-port=0",
+    "about:blank"
+  ],
+  "fixture_url": "http://127.0.0.1:35647/preflight-f5794bd8aa592285",
+  "fixture_path": "/preflight-f5794bd8aa592285",
+  "error": "RuntimeError: Invalid CDP text/continuation frame sequence",
+  "cleanup": {
+    "termination_requested": true,
+    "errors": [],
+    "direct_child_reaped": true,
+    "exit_code": 0
+  },
+  "fixture_requests": [],
+  "profile_removed": true
+}

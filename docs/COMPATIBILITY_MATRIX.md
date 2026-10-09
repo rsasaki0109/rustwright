@@ -32,22 +32,40 @@ Run with both browsers installed, or select their executables through
 cargo test --locked -p rustwright-integration-tests --test http_compat -- --test-threads=1
 ```
 
-[GitHub Actions run 37983300059](https://github.com/rsasaki0109/rustwright/actions/runs/37983300059)
-for source `4cdec571a26c64e123a4dde66d4d9b47e8c64f63` passes all six jobs.
-The actual PR checkout is merge `58ac49fda4fd9c85cf7711b9dc99aef32acd1f82`;
-all 152 relevant source blobs and modes match that head commit.
-Its five required portable targets execute 79 cases per OS on native Ubuntu,
-Windows and macOS arm64 with Chrome 155.0.8059.39 and Firefox 157.0.1.
-These headless native suites have zero failed, ignored or filtered cases.
-The 24 compatibility cases above are included in 79. Ubuntu executes 114
-additional HTTP cases, for 193; those same HTTP cases also execute in the
-workspace job and are not counted twice as distinct coverage. The full workspace
-passes 475 cases, including 211 library tests, with one existing ignored macro
-doctest and zero failures or filters.
-[Frozen CI evidence](ci/results/reliability-95/remote/README.md) preserves the
-checkout identity, raw counts, browser versions, native sandbox setup and
-verified eight-archive distribution. [CI verification](CI_VERIFICATION.md)
-records the historical failed attempts separately.
+[GitHub Actions run 37994561086](https://github.com/rsasaki0109/rustwright/actions/runs/37994561086)
+for source `39e1c8951dd2ebd67cd1ef8e7311f582d418d873` passes all seven jobs.
+All seven checkout logs identify tested PR merge
+`a2191f83923497f1e34a7785f316e142206dda54`; all 153 relevant input blobs and modes
+match the source head. [Frozen final CI evidence](ci/results/reliability-95/remote-final/README.md)
+retains raw logs, native counts, versions, sandbox records, six original
+artifact digests and verified eight-archive distribution.
+
+| Native scope | Versions | Actual result |
+| --- | --- | --- |
+| Headless, Ubuntu/Windows/macOS arm64 | Chrome 155.0.8059.39 / Firefox 157.0.1 | 79 per OS, zero failed/ignored/filtered |
+| Additional Ubuntu headless HTTP | Same current versions | 114, zero failed/ignored/filtered |
+| Headed, Linux Xvfb | Same current versions | Full portable 79, zero failed/ignored/filtered |
+| Headless, Linux alternate | Chrome 151.0.7922.138 / Firefox 153.4.0esr | Full portable 79, zero failed/ignored/filtered |
+| Headed selected sites, Linux Xvfb | Same current versions | example.com / MDN Web docs / docs.rs: all operations and teardown succeed per backend; HTTP 200 observed, six hashed PNGs |
+
+The 24 compatibility cases above are included in each 79. Each portable suite
+has 39 Chrome and 40 Firefox cases across the same five targets. Ubuntu's193
+HTTP cases also execute in the workspace job, so overlapping executions are
+not counted as new designs. The workspace passes475 cases, including211
+library cases and four `compat_report` tests, with one existing ignored macro
+doctest and zero failures/filters. Exact CLI/executable identities and raw
+protocol versions are retained; ESR reports numeric 153.4.0.
+
+Mapped-window observations establish an owned `IsViewable` virtual X11 window
+per headed command/backend using `WM_CLASS` and a live descendant PID. Four
+backend observations cover the headed suite and the two site commands. They do
+not prove each case's window, physical-desktop interaction or visual correctness.
+The site scope uses default browser TLS and no explicit proxy. Repeated Firefox
+HTTP lifecycle events are not additional sites; Chrome URL-matched document
+candidates can include same-URL iframes. Selected passes do not reclassify the
+failed local nine-site aggregates or establish broad website compatibility.
+[CI verification](CI_VERIFICATION.md) preserves the earlier failed preflights
+and complete historical six-job baseline separately.
 
 The separate `http_disconnect` target force-terminates a browser root process
 after an unresolved evaluation and a locator wait have entered its document.
@@ -89,7 +107,10 @@ also verifies successful readiness transfers ownership to the returned handle.
 [Twenty native cancellations](ci/results/reliability-95/native-startup/README.md)
 observe ten Chrome 155 and ten Firefox 157 processes executing their actual
 browser binary before API handoff, then verify direct-child reaping and profile
-ownership. These checks cover early startup and the direct owned child;
+ownership on Linux. The recorded build used head `908323d` with the then-dirty
+context correction, whose frozen files match later `4cdec571`. These are historical
+source-scoped observations, not a final `39e1` startup run. These checks cover early
+startup and the direct owned child;
 descendant trees, later startup stages, OS kill refusal and a hard deadline for
 synchronous kill/wait or filesystem cleanup remain outside that guarantee.
 
@@ -156,16 +177,12 @@ missing historical activity reconstruction are outside that guarantee.
 Firefox's `BidiContext::pages` is async discovery, whereas Chrome also exposes
 `BrowserContext::wait_for_page`; the shared popup case checks context-scoped
 discovery and ownership. Downloads remain documented as CDP-only; a Firefox
-download implementation is outside this matrix. Additional headed sessions,
-representative public-site observations and broader version checks are still in
-progress; their outcomes are not included here. The added hosted job failed
-alternate Chrome151's sandbox preflight before those phases; the local
-DOM-capture correction awaits push and native verification after GitHub
-authentication is restored. [The blocked checkpoint](RELIABILITY_95_CHECKPOINT.md)
-retains the partial attempt and failures. The required
-portable targets have native Windows/macOS evidence, and Ubuntu CI passes the
-full workspace including legacy file/data fixtures. Local cloud HTTP results
-alone do not establish that full suite. The [Linux endurance observations](../bench/endurance/RESULTS.md)
+download implementation is outside this matrix. The specified headed,
+alternate-version and selected site checkpoint is now complete; its
+[assessment](RELIABILITY_95_CHECKPOINT.md) retains Linux-only headed/version
+scope and all failure/ownership/memory limits. Required portable targets have
+native Windows/macOS evidence, and Ubuntu passes the full workspace including
+legacy file/data fixtures. The [Linux endurance observations](../bench/endurance/RESULTS.md)
 cover 1,000 measured context/page cycles per backend and a further Firefox helper
 ledger run, with sampled resource counts and RSS. Follow-up Firefox operation
 ablation adds 6,000 matched cycles and RSS/PSS; Chrome default-context churn adds
