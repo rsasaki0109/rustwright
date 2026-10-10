@@ -1,0 +1,1634 @@
+--- before/crates/rustwright-bidi/src/browser.rs
++++ after/crates/rustwright-bidi/src/browser.rs
+@@ -1,7 +1,7 @@
+ //! A minimal Firefox/BiDi browser and page on top of [`BidiSession`].
+ 
+ use std::path::Path;
+-use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
++use std::sync::atomic::{AtomicUsize, Ordering};
+ use std::sync::{Arc, Mutex};
+ 
+ use rustwright_browser::{Firefox, LaunchedFirefox};
+@@ -13,24 +13,22 @@
+ #[path = "frame_helper_cache_tests.rs"]
+ mod frame_helper_cache_tests;
+ #[cfg(test)]
++#[path = "interception_tests.rs"]
++mod interception_tests;
++#[cfg(test)]
+ #[path = "network_subscription_tests.rs"]
+ mod network_subscription_tests;
+ #[cfg(test)]
+ #[path = "shutdown_tests.rs"]
+ mod shutdown_tests;
+-#[cfg(test)]
+-#[path = "interception_tests.rs"]
+-mod interception_tests;
+-use rustwright_common::{Role, Route, RouteAction, Selector, INJECTED_SCRIPT};
++use rustwright_common::{Role, RouteAction, Selector, INJECTED_SCRIPT};
+ use serde_json::{json, Value};
+ 
+ use crate::connection::BidiConnection;
+ use crate::error::{BidiError, BidiResult};
+ use crate::frame::{collect_frames, BidiFrame};
+ use crate::locator::BidiLocator;
+-use crate::network::{
+-    spawn_intercept_pump, spawn_network_pump, BidiNetworkRequest, NetworkPumpGuard,
+-};
++use crate::network::{spawn_network_pump, BidiNetworkRequest, NetworkPumpGuard};
+ use crate::session::{
+     BidiCookie, BidiOriginStorage, BidiSession, BidiStorageItem, BidiStorageState,
+ };
+@@ -296,10 +294,7 @@
+     network: Arc<Mutex<Vec<BidiNetworkRequest>>>,
+     network_started: Arc<tokio::sync::Mutex<bool>>,
+     network_pump: Arc<Mutex<Option<NetworkPumpGuard>>>,
+-    routes: Arc<Mutex<Vec<Route>>>,
+-    intercept: Arc<Mutex<Option<String>>>,
+-    intercept_pump: Arc<Mutex<Option<NetworkPumpGuard>>>,
+-    response_stage: Arc<AtomicBool>,
++    routing: Arc<crate::interception::Routing>,
+ }
+ 
+ impl std::fmt::Debug for BidiPage {
+@@ -313,6 +308,7 @@
+ impl BidiPage {
+     fn from_context(session: BidiSession, context: String, user_context: Option<&str>) -> Self {
+         let helper = session.page_helper(&context, user_context);
++        let routing = session.page_routing(&context, user_context);
+         Self {
+             session,
+             context,
+@@ -320,10 +316,7 @@
+             network: Arc::new(Mutex::new(Vec::new())),
+             network_started: Arc::new(tokio::sync::Mutex::new(false)),
+             network_pump: Arc::new(Mutex::new(None)),
+-            routes: Arc::new(Mutex::new(Vec::new())),
+-            intercept: Arc::new(Mutex::new(None)),
+-            intercept_pump: Arc::new(Mutex::new(None)),
+-            response_stage: Arc::new(AtomicBool::new(false)),
++            routing,
+         }
+     }
+ 
+@@ -590,54 +583,12 @@
+     ///
+     /// The first matching rule wins; unmatched requests continue unchanged.
+     /// Interception is generic and contains no site-specific behaviour.
++    /// Discovered handles share registrations. Once polled, the worker survives
++    /// cancellation; a candidate not accepted by the waiter is rolled back while
++    /// preserving previous rules. Allocation waits at most thirty seconds and
++    /// each removal five seconds, excluding serialized-operation lock waits.
+     pub async fn route(&self, pattern: impl Into<String>, action: RouteAction) -> BidiResult<()> {
+-        let needs_response = matches!(action, RouteAction::SetResponseHeaders(_));
+-        let first = {
+-            let mut routes = self.routes.lock().expect("bidi routes mutex poisoned");
+-            let first = routes.is_empty();
+-            routes.push(Route::new(pattern, action));
+-            first
+-        };
+-        let response_enabled = self.response_stage.load(Ordering::SeqCst);
+-        if first || (needs_response && !response_enabled) {
+-            // Re-register the intercept with the required phases.
+-            let previous = self
+-                .intercept
+-                .lock()
+-                .expect("bidi intercept mutex poisoned")
+-                .take();
+-            if let Some(intercept) = previous {
+-                let _ = self.session.remove_intercept(&intercept).await;
+-            }
+-            *self
+-                .intercept_pump
+-                .lock()
+-                .expect("bidi intercept pump mutex poisoned") = None;
+-
+-            self.session.ensure_network_subscription().await?;
+-            let with_response = response_enabled || needs_response;
+-            let phases: Vec<&str> = if with_response {
+-                vec!["beforeRequestSent", "responseStarted"]
+-            } else {
+-                vec!["beforeRequestSent"]
+-            };
+-            let intercept = self.session.add_intercept(&self.context, &phases).await?;
+-            *self
+-                .intercept
+-                .lock()
+-                .expect("bidi intercept mutex poisoned") = Some(intercept);
+-            self.response_stage.store(with_response, Ordering::SeqCst);
+-            let guard = spawn_intercept_pump(
+-                self.session.clone(),
+-                self.context.clone(),
+-                self.routes.clone(),
+-            );
+-            *self
+-                .intercept_pump
+-                .lock()
+-                .expect("bidi intercept pump mutex poisoned") = Some(guard);
+-        }
+-        Ok(())
++        self.routing.route(pattern.into(), action).await
+     }
+ 
+     /// Abort requests matching `pattern`.
+@@ -664,30 +615,13 @@
+         .await
+     }
+ 
+-    /// Remove all interception rules.
++    /// Remove all interception rules owned by this page's shared handles.
++    ///
++    /// Cleanup continues after waiter cancellation. Failed removals retain their
++    /// IDs for retry; the pump continues blocked requests without applying rules.
++    /// Raw registrations created through [`BidiSession`] remain caller-managed.
+     pub async fn clear_routes(&self) -> BidiResult<()> {
+-        let had_routes = {
+-            let mut routes = self.routes.lock().expect("bidi routes mutex poisoned");
+-            let had = !routes.is_empty();
+-            routes.clear();
+-            had
+-        };
+-        if had_routes {
+-            let intercept = self
+-                .intercept
+-                .lock()
+-                .expect("bidi intercept mutex poisoned")
+-                .take();
+-            if let Some(intercept) = intercept {
+-                let _ = self.session.remove_intercept(&intercept).await;
+-            }
+-            *self
+-                .intercept_pump
+-                .lock()
+-                .expect("bidi intercept pump mutex poisoned") = None;
+-            self.response_stage.store(false, Ordering::SeqCst);
+-        }
+-        Ok(())
++        self.routing.clear().await
+     }
+ 
+     // -- Locators -----------------------------------------------------------
+--- before/crates/rustwright-bidi/src/session.rs
++++ after/crates/rustwright-bidi/src/session.rs
+@@ -96,6 +96,11 @@
+ 
+ type CloseLocks = Mutex<HashMap<String, Weak<tokio::sync::Mutex<()>>>>;
+ 
++struct RoutingEntry {
++    user_context: String,
++    core: Weak<crate::interception::RoutingCore>,
++}
++
+ struct HelperEntry {
+     user_context: String,
+     helper: Weak<PageHelper>,
+@@ -109,6 +114,7 @@
+     capabilities: Value,
+     network_subscribed: Arc<tokio::sync::Mutex<bool>>,
+     helpers: Arc<Mutex<HashMap<String, HelperEntry>>>,
++    routing: Arc<Mutex<HashMap<String, RoutingEntry>>>,
+     registered_helpers: Arc<AtomicUsize>,
+     closing: Arc<CloseLocks>,
+ }
+@@ -140,11 +146,77 @@
+             capabilities,
+             network_subscribed: Arc::new(tokio::sync::Mutex::new(false)),
+             helpers: Arc::new(Mutex::new(HashMap::new())),
++            routing: Arc::new(Mutex::new(HashMap::new())),
+             registered_helpers: Arc::new(AtomicUsize::new(0)),
+             closing: Arc::new(Mutex::new(HashMap::new())),
+         })
+     }
+ 
++    pub(crate) fn page_routing(
++        &self,
++        context: &str,
++        user_context: Option<&str>,
++    ) -> Arc<crate::interception::Routing> {
++        let mut registry = self.routing.lock().expect("bidi routing mutex poisoned");
++        registry.retain(|_, entry| entry.core.strong_count() > 0);
++        let core = registry
++            .get(context)
++            .and_then(|entry| entry.core.upgrade())
++            .unwrap_or_else(|| {
++                let core = Arc::new(crate::interception::RoutingCore::new(
++                    self.clone(),
++                    context.to_owned(),
++                ));
++                registry.insert(
++                    context.to_owned(),
++                    RoutingEntry {
++                        user_context: user_context.unwrap_or("default").to_owned(),
++                        core: Arc::downgrade(&core),
++                    },
++                );
++                core
++            });
++        Arc::new(crate::interception::Routing::new(core))
++    }
++
++    async fn retire_routes(&self, id: &str, user: bool) -> BidiResult<()> {
++        let cores: Vec<_> = {
++            let registry = self.routing.lock().expect("bidi routing mutex poisoned");
++            registry
++                .iter()
++                .filter_map(|(context, entry)| {
++                    ((user && entry.user_context == id) || (!user && context == id))
++                        .then(|| entry.core.upgrade())
++                        .flatten()
++                })
++                .collect()
++        };
++        for core in &cores {
++            core.mark_closed();
++        }
++        let mut pending = tokio::task::JoinSet::new();
++        for core in cores {
++            pending.spawn(async move { core.clear_protected(true).await });
++        }
++        let mut first = None;
++        while let Some(result) = pending.join_next().await {
++            let error = match result {
++                Ok(Ok(())) => None,
++                Ok(Err(error)) => Some(error),
++                Err(error) => Some(BidiError::Unexpected(format!(
++                    "routing retirement task failed: {error}"
++                ))),
++            };
++            if first.is_none() {
++                first = error;
++            }
++        }
++        match first {
++            Some(error) => Err(error),
++            None => Ok(()),
++        }
++    }
++
+     pub(crate) fn page_helper(&self, context: &str, user_context: Option<&str>) -> Arc<PageHelper> {
+         let mut helpers = self.helpers.lock().expect("bidi helpers mutex poisoned");
+         helpers.retain(|_, entry| entry.helper.strong_count() > 0);
+@@ -359,6 +431,14 @@
+         tokio::spawn(async move {
+             tokio::time::timeout(SHUTDOWN_TIMEOUT, async {
+                 let _close = lock.lock().await;
++                // Retirement may wait for a late registration acknowledgement.
++                // It must never prevent the actual context-close command.
++                let routing_session = session.clone();
++                let routing_id = id.clone();
++                let routing =
++                    tokio::spawn(
++                        async move { routing_session.retire_routes(&routing_id, user).await },
++                    );
+                 match session.connection.send(method, json!({key: id})).await {
+                     Ok(_) => {}
+                     // Only the appropriate missing-resource error confirms that
+@@ -368,6 +448,7 @@
+                             || (!user && error == "no such frame") => {}
+                     Err(error) => return Err(error),
+                 }
++                let mut cleanup_error = None;
+                 let helpers: Vec<_> = {
+                     let registered = session.helpers.lock().expect("bidi helpers mutex poisoned");
+                     registered
+@@ -384,7 +465,6 @@
+                         })
+                         .collect()
+                 };
+-                let mut cleanup_error = None;
+                 for (context, helper) in helpers {
+                     // Failure keeps the weak registry entry and preload id so a
+                     // later close can retry even while callers retain page handles.
+@@ -403,6 +483,15 @@
+                         }
+                     }
+                 }
++                let routing_error = match routing.await {
++                    Ok(result) => result.err(),
++                    Err(error) => Some(BidiError::Unexpected(format!(
++                        "routing cleanup task failed: {error}"
++                    ))),
++                };
++                if cleanup_error.is_none() {
++                    cleanup_error = routing_error;
++                }
+                 match cleanup_error {
+                     Some(error) => Err(error),
+                     None => Ok(()),
+--- before/crates/rustwright-bidi/src/network.rs
++++ after/crates/rustwright-bidi/src/network.rs
+@@ -4,13 +4,13 @@
+ //! diagnostics: it collects `network.beforeRequestSent`, `responseCompleted`
+ //! and `fetchError` events for a page.
+ 
+-use std::collections::BTreeMap;
++use std::collections::{BTreeMap, HashSet};
+ use std::sync::{Arc, Mutex};
+ 
+ use rustwright_common::{Route, RouteAction};
+ use serde::{Deserialize, Serialize};
+ use serde_json::Value;
+-use tokio::sync::broadcast;
++use tokio::sync::{broadcast, mpsc, oneshot, watch};
+ use tokio::task::JoinHandle;
+ 
+ use crate::session::BidiSession;
+@@ -93,7 +93,6 @@
+ #[derive(Debug, Deserialize)]
+ #[serde(rename_all = "camelCase")]
+ struct ResponseStartedParams {
+-    context: String,
+     #[serde(default)]
+     is_blocked: bool,
+     #[serde(default)]
+@@ -285,30 +284,177 @@
+ 
+ /// Drives interception: answers every blocked `beforeRequestSent` event using
+ /// the registered routes, continuing anything that does not match.
++// Separate from the transport's broadcast capacity: awaiting an allocation
++// must not drain unlimited unknown events into a second unbounded buffer.
++const MAX_DEFERRED_INTERCEPT_EVENTS: usize = 2048;
++fn defer_intercept(
++    events: &mut Vec<crate::BidiEvent>,
++    event: crate::BidiEvent,
++    overflowed: &mut bool,
++) {
++    if events.len() < MAX_DEFERRED_INTERCEPT_EVENTS {
++        events.push(event)
++    } else if !*overflowed {
++        *overflowed = true;
++        tracing::warn!("BiDi pending interception event queue overflowed; a blocked request may require caller recovery");
++    }
++}
++pub(crate) struct InterceptRegistry {
++    pub(crate) ids: Mutex<HashSet<String>>,
++    allocating: watch::Sender<bool>,
++}
++impl Default for InterceptRegistry {
++    fn default() -> Self {
++        let (allocating, _) = watch::channel(false);
++        Self {
++            ids: Mutex::new(HashSet::new()),
++            allocating,
++        }
++    }
++}
++impl InterceptRegistry {
++    pub(crate) fn begin_allocation(&self) {
++        self.allocating.send_replace(true);
++    }
++    pub(crate) fn finish_allocation(&self) {
++        self.allocating.send_replace(false);
++    }
++}
++enum PumpControl {
++    Retire(String, oneshot::Sender<()>),
++    Stop,
++}
++pub(crate) struct InterceptPump {
++    handle: JoinHandle<()>,
++    control: mpsc::UnboundedSender<PumpControl>,
++}
++impl InterceptPump {
++    pub(crate) async fn retire(&self, id: &str) {
++        let (tx, rx) = oneshot::channel();
++        if self
++            .control
++            .send(PumpControl::Retire(id.to_owned(), tx))
++            .is_ok()
++        {
++            let _ = tokio::time::timeout(crate::session::SHUTDOWN_TIMEOUT, rx).await;
++        }
++    }
++    pub(crate) async fn stop(mut self) {
++        let _ = self.control.send(PumpControl::Stop);
++        let _ = tokio::time::timeout(crate::session::SHUTDOWN_TIMEOUT, &mut self.handle).await;
++    }
++}
++impl Drop for InterceptPump {
++    fn drop(&mut self) {
++        self.handle.abort();
++    }
++}
++
+ pub(crate) fn spawn_intercept_pump(
+     session: BidiSession,
+-    context: String,
+     routes: Arc<Mutex<Vec<Route>>>,
+-) -> NetworkPumpGuard {
++    owned: Arc<InterceptRegistry>,
++) -> InterceptPump {
++    let mut events = session.events();
++    let mut shutdown = session.connection().shutdown_receiver();
++    let mut allocating = owned.allocating.subscribe();
++    let (control, mut commands) = mpsc::unbounded_channel();
+     let handle = tokio::spawn(async move {
+-        let mut events = session.events();
++        let mut deferred = Vec::new();
++        let mut overflowed = false;
+         loop {
+-            match events.recv().await {
+-                Ok(event) => match event.method.as_str() {
+-                    "network.beforeRequestSent" => {
+-                        handle_request_stage(&session, &context, &routes, &event.params).await;
+-                    }
+-                    "network.responseStarted" => {
+-                        handle_response_stage(&session, &context, &routes, &event.params).await;
++            if *shutdown.borrow() {
++                break;
++            }
++            tokio::select! {
++                biased;
++                _=shutdown.changed()=>break,
++                command=commands.recv()=>{
++                    // Drain the finite prefix received before removal's reply.
++                    // Unknown IDs during allocation stay deferred; known old
++                    // routes continue without waiting for the new ID's reply.
++                    let queued=events.len();
++                    for _ in 0..queued {match events.try_recv(){
++                        Ok(event)=>{if let Some(event)=dispatch_intercept(&session,&routes,&owned,event).await{defer_intercept(&mut deferred,event,&mut overflowed)}},
++                        Err(broadcast::error::TryRecvError::Lagged(_))=>continue,
++                        Err(_)=>break,
++                    }}
++                    deferred=replay_intercepts(&session,&routes,&owned,deferred).await;
++                    match command {
++                        Some(PumpControl::Retire(id,done))=>{owned.ids.lock().expect("bidi intercept IDs mutex poisoned").remove(&id);let _=done.send(());},
++                        Some(PumpControl::Stop)|None=>break,
+                     }
+-                    _ => {}
++                }
++                _=allocating.changed()=>{
++                    deferred=replay_intercepts(&session,&routes,&owned,deferred).await;
++                }
++                event=events.recv()=>match event {
++                    Ok(event)=>{if let Some(event)=dispatch_intercept(&session,&routes,&owned,event).await{defer_intercept(&mut deferred,event,&mut overflowed)}},
++                    Err(broadcast::error::RecvError::Lagged(_))=>continue,
++                    Err(broadcast::error::RecvError::Closed)=>break,
+                 },
+-                Err(broadcast::error::RecvError::Lagged(_)) => continue,
+-                Err(broadcast::error::RecvError::Closed) => break,
+             }
+         }
+     });
+-    NetworkPumpGuard { handle }
++    InterceptPump { handle, control }
++}
++async fn replay_intercepts(
++    session: &BidiSession,
++    routes: &Arc<Mutex<Vec<Route>>>,
++    owned: &InterceptRegistry,
++    events: Vec<crate::BidiEvent>,
++) -> Vec<crate::BidiEvent> {
++    let mut deferred = Vec::new();
++    let mut overflowed = false;
++    for event in events {
++        if let Some(event) = dispatch_intercept(session, routes, owned, event).await {
++            defer_intercept(&mut deferred, event, &mut overflowed)
++        }
++    }
++    deferred
++}
++async fn dispatch_intercept(
++    session: &BidiSession,
++    routes: &Arc<Mutex<Vec<Route>>>,
++    owned: &InterceptRegistry,
++    event: crate::BidiEvent,
++) -> Option<crate::BidiEvent> {
++    if !matches!(
++        event.method.as_str(),
++        "network.beforeRequestSent" | "network.responseStarted"
++    ) {
++        return None;
++    }
++    if event.params.get("isBlocked").and_then(Value::as_bool) != Some(true) {
++        return None;
++    }
++    let ids = event.params.get("intercepts").and_then(Value::as_array)?;
++    let (ours, allocating) = {
++        let known = owned.ids.lock().expect("bidi intercept IDs mutex poisoned");
++        let ours = ids
++            .iter()
++            .any(|id| id.as_str().is_some_and(|id| known.contains(id)));
++        // Snapshot the pending flag before unlocking. Otherwise publication of
++        // the new ID followed by pending=false could make an early owned event
++        // appear foreign between these two observations.
++        (ours, *owned.allocating.borrow())
++    };
++    if !ours {
++        return if allocating { Some(event) } else { None };
++    }
++    let operation = async {
++        match event.method.as_str() {
++            "network.beforeRequestSent" => {
++                handle_request_stage(session, routes, &event.params).await
++            }
++            "network.responseStarted" => {
++                handle_response_stage(session, routes, &event.params).await
++            }
++            _ => {}
++        }
++    };
++    let _ = tokio::time::timeout(crate::session::SHUTDOWN_TIMEOUT, operation).await;
++    None
+ }
+ 
+ fn route_action(routes: &Arc<Mutex<Vec<Route>>>, url: &str) -> Option<RouteAction> {
+@@ -321,14 +467,13 @@
+ 
+ async fn handle_request_stage(
+     session: &BidiSession,
+-    context: &str,
+     routes: &Arc<Mutex<Vec<Route>>>,
+     params: &Value,
+ ) {
+     let Ok(params) = serde_json::from_value::<BeforeRequestSentParams>(params.clone()) else {
+         return;
+     };
+-    if params.context != context || !params.is_blocked {
++    if !params.is_blocked {
+         return;
+     }
+     let request_id = params.request.request.clone();
+@@ -362,14 +507,13 @@
+ 
+ async fn handle_response_stage(
+     session: &BidiSession,
+-    context: &str,
+     routes: &Arc<Mutex<Vec<Route>>>,
+     params: &Value,
+ ) {
+     let Ok(params) = serde_json::from_value::<ResponseStartedParams>(params.clone()) else {
+         return;
+     };
+-    if params.context != context || !params.is_blocked {
++    if !params.is_blocked {
+         return;
+     }
+     let request_id = params.request.request.clone();
+@@ -421,3 +565,26 @@
+     }
+     merged.into_values().collect()
+ }
++
++#[cfg(test)]
++mod interception_queue_tests {
++    use super::*;
++    #[test]
++    fn deferred_allocation_events_have_a_separate_bounded_queue() {
++        let mut events = Vec::new();
++        let mut overflowed = false;
++        for request in 0..MAX_DEFERRED_INTERCEPT_EVENTS + 100 {
++            defer_intercept(
++                &mut events,
++                crate::BidiEvent {
++                    method: "network.beforeRequestSent".to_owned(),
++                    params: serde_json::json!({"isBlocked":true,"request":{"request":request}}),
++                },
++                &mut overflowed,
++            );
++        }
++        assert_eq!(events.len(), MAX_DEFERRED_INTERCEPT_EVENTS);
++        assert!(overflowed);
++        assert_eq!(events.first().unwrap().params["request"]["request"], 0);
++    }
++}
+--- before/crates/rustwright-bidi/src/connection.rs
++++ after/crates/rustwright-bidi/src/connection.rs
+@@ -222,6 +222,10 @@
+             .len()
+     }
+ 
++    pub(crate) fn shutdown_receiver(&self) -> watch::Receiver<bool> {
++        self.inner.shutdown.subscribe()
++    }
++
+     /// Whether the socket has been closed.
+     pub fn is_closed(&self) -> bool {
+         self.inner.closed.load(Ordering::SeqCst)
+--- before/crates/rustwright-bidi/src/lib.rs
++++ after/crates/rustwright-bidi/src/lib.rs
+@@ -28,6 +28,7 @@
+ mod creation;
+ mod error;
+ mod frame;
++mod interception;
+ mod locator;
+ mod network;
+ mod session;
+--- /dev/null
++++ after/crates/rustwright-bidi/src/interception.rs
+@@ -0,0 +1,389 @@
++//! Lifetime and acknowledgement tracking for page-owned BiDi interception.
++use crate::network::{spawn_intercept_pump, InterceptPump, InterceptRegistry};
++use crate::{BidiError, BidiResult, BidiSession};
++use rustwright_common::{Route, RouteAction};
++use std::{
++    sync::{
++        atomic::{AtomicBool, AtomicUsize, Ordering},
++        Arc, Mutex,
++    },
++    time::Duration,
++};
++use tokio::sync::oneshot;
++const ADD_TIMEOUT: Duration = Duration::from_secs(30);
++const REMOVE_TIMEOUT: Duration = Duration::from_secs(5);
++struct Registration {
++    id: String,
++    response: bool,
++    removing: bool,
++}
++#[derive(Default)]
++struct Registrations {
++    ids: Vec<Registration>,
++    pump: Option<InterceptPump>,
++}
++pub(crate) struct RoutingCore {
++    runtime: tokio::runtime::Handle,
++    session: BidiSession,
++    context: String,
++    owners: AtomicUsize,
++    closed: AtomicBool,
++    operations: tokio::sync::Mutex<Registrations>,
++    routes: Arc<Mutex<Vec<Route>>>,
++    // Unknown IDs are buffered during allocation; existing IDs keep working.
++    event_ids: Arc<InterceptRegistry>,
++}
++// Registration becomes a committed rule when the public waiter acknowledges
++// this handoff. Dropping a queued, unobserved result requests rollback.
++struct Handoff(Option<oneshot::Sender<bool>>);
++impl Handoff {
++    fn accept(mut self) {
++        if let Some(tx) = self.0.take() {
++            let _ = tx.send(true);
++        }
++    }
++}
++impl Drop for Handoff {
++    fn drop(&mut self) {
++        if let Some(tx) = self.0.take() {
++            let _ = tx.send(false);
++        }
++    }
++}
++pub(crate) struct Routing {
++    core: Arc<RoutingCore>,
++}
++impl Routing {
++    pub(crate) fn new(core: Arc<RoutingCore>) -> Self {
++        core.owners.fetch_add(1, Ordering::AcqRel);
++        Self { core }
++    }
++    pub(crate) async fn route(&self, pattern: String, action: RouteAction) -> BidiResult<()> {
++        let (tx, rx) = oneshot::channel();
++        let (finished, completion) = oneshot::channel();
++        let core = self.core.clone();
++        self.core.runtime.spawn(async move {
++            let mut tx = Some(tx);
++            let result = core.add(pattern, action, &mut tx).await;
++            if let Some(tx) = tx {
++                let _ = tx.send(Err(result.err().unwrap_or(BidiError::Closed)));
++            } else {
++                let _ = finished.send(result);
++            }
++        });
++        let handoff = rx
++            .await
++            .map_err(|_| BidiError::Unexpected("interception worker stopped".into()))??;
++        handoff.accept();
++        completion
++            .await
++            .map_err(|_| BidiError::Unexpected("interception worker stopped".into()))?
++    }
++
++    #[cfg(test)]
++    pub(crate) fn weak_core(&self) -> std::sync::Weak<RoutingCore> {
++        Arc::downgrade(&self.core)
++    }
++    #[cfg(test)]
++    pub(crate) async fn event_id_count(&self) -> usize {
++        self.core
++            .event_ids
++            .ids
++            .lock()
++            .expect("bidi intercept IDs mutex poisoned")
++            .len()
++    }
++    pub(crate) async fn clear(&self) -> BidiResult<()> {
++        self.core.clone().clear_protected(false).await
++    }
++}
++impl Drop for Routing {
++    fn drop(&mut self) {
++        if self.core.owners.fetch_sub(1, Ordering::AcqRel) != 1 {
++            return;
++        }
++        let core = self.core.clone();
++        self.core.runtime.spawn(async move {
++            let mut delay = Duration::from_millis(100);
++            loop {
++                if core.owners.load(Ordering::Acquire) != 0 {
++                    break;
++                }
++                if core.clear_if_abandoned().await.is_ok() || core.session.connection().is_closed()
++                {
++                    break;
++                }
++                // Failed retirement keeps a continue-only pump and known IDs reachable via
++                // the session's weak index. A new owner can retry without duplicating them.
++                tokio::time::sleep(delay).await;
++                delay = (delay * 2).min(Duration::from_secs(5));
++            }
++        });
++    }
++}
++impl RoutingCore {
++    pub(crate) fn new(session: BidiSession, context: String) -> Self {
++        Self {
++            runtime: tokio::runtime::Handle::current(),
++            session,
++            context,
++            owners: AtomicUsize::new(0),
++            closed: AtomicBool::new(false),
++            operations: tokio::sync::Mutex::new(Registrations::default()),
++            routes: Arc::new(Mutex::new(Vec::new())),
++            event_ids: Arc::new(InterceptRegistry::default()),
++        }
++    }
++    async fn add(
++        &self,
++        pattern: String,
++        action: RouteAction,
++        tx: &mut Option<oneshot::Sender<BidiResult<Handoff>>>,
++    ) -> BidiResult<()> {
++        if self.closed.load(Ordering::Acquire) || self.session.connection().is_closed() {
++            return Err(BidiError::Closed);
++        }
++        let mut state = self.operations.lock().await;
++        if self.closed.load(Ordering::Acquire) {
++            return Err(BidiError::Closed);
++        }
++        if tx.as_ref().is_none_or(|tx| tx.is_closed()) {
++            return Ok(());
++        }
++        // A failed or timed-out removal may already have succeeded remotely.
++        // Confirm the same IDs absent before activating any replacement rule.
++        let retiring: Vec<_> = state
++            .ids
++            .iter()
++            .filter(|id| id.removing)
++            .map(|id| id.id.clone())
++            .collect();
++        for id in retiring {
++            self.remove(&mut state, &id).await?;
++        }
++        let prior_has_routes = !self
++            .routes
++            .lock()
++            .expect("bidi routes mutex poisoned")
++            .is_empty();
++        let prior_response = self
++            .routes
++            .lock()
++            .expect("bidi routes mutex poisoned")
++            .iter()
++            .any(|route| matches!(route.action, RouteAction::SetResponseHeaders(_)));
++        let needs_response = matches!(action, RouteAction::SetResponseHeaders(_)) || prior_response;
++        let existing_response = state.ids.iter().any(|id| id.response);
++        let mut added = None;
++        if state.ids.is_empty() || (needs_response && !existing_response) {
++            self.session.ensure_network_subscription().await?;
++            if tx.as_ref().is_none_or(|tx| tx.is_closed()) && !prior_has_routes {
++                return Ok(());
++            }
++            if state.pump.is_none() {
++                state.pump = Some(spawn_intercept_pump(
++                    self.session.clone(),
++                    self.routes.clone(),
++                    self.event_ids.clone(),
++                ));
++            }
++            self.event_ids.begin_allocation();
++            let phases = if needs_response || existing_response {
++                vec!["beforeRequestSent", "responseStarted"]
++            } else {
++                vec!["beforeRequestSent"]
++            };
++            let response = needs_response || existing_response;
++            let result = tokio::time::timeout(
++                ADD_TIMEOUT,
++                self.session.add_intercept(&self.context, &phases),
++            )
++            .await;
++            let id = match result {
++                Ok(Ok(id)) => id,
++                Ok(Err(error)) => {
++                    self.event_ids.finish_allocation();
++                    if state.ids.is_empty() {
++                        self.stop(&mut state).await;
++                    }
++                    return Err(error);
++                }
++                Err(_) => {
++                    self.event_ids.finish_allocation();
++                    if state.ids.is_empty() {
++                        self.stop(&mut state).await;
++                    }
++                    return Err(BidiError::Timeout {
++                        method: "network.addIntercept".into(),
++                        timeout: ADD_TIMEOUT,
++                    });
++                }
++            };
++            self.event_ids
++                .ids
++                .lock()
++                .expect("bidi intercept IDs mutex poisoned")
++                .insert(id.clone());
++            self.event_ids.finish_allocation();
++            state.ids.push(Registration {
++                id: id.clone(),
++                response,
++                removing: false,
++            });
++            added = Some(id);
++        }
++        // No public handle observed the registration: discard this candidate while
++        // preserving the previous committed rules and their owned registration.
++        if tx.as_ref().is_none_or(|tx| tx.is_closed()) {
++            if let Some(id) = added {
++                self.rollback(&mut state, &id).await?;
++            }
++            if state.ids.is_empty() {
++                self.stop(&mut state).await;
++            }
++            return Ok(());
++        }
++        // Broader registration is installed before old phases are retired. The pump
++        // consumes each event once even if it lists both owned IDs.
++        if state.ids.len() > 1 {
++            let keep = state.ids.last().unwrap().id.clone();
++            let old: Vec<_> = state
++                .ids
++                .iter()
++                .filter(|id| id.id != keep)
++                .map(|id| id.id.clone())
++                .collect();
++            for id in old {
++                if let Err(error) = self.remove(&mut state, &id).await {
++                    if let Some(id) = added.as_ref() {
++                        let _ = self.remove(&mut state, id).await;
++                    }
++                    return Err(error);
++                }
++            }
++        }
++        if self.closed.load(Ordering::Acquire) || tx.as_ref().is_none_or(|tx| tx.is_closed()) {
++            if let Some(id) = added {
++                self.rollback(&mut state, &id).await?;
++            }
++            if state.ids.is_empty() {
++                self.stop(&mut state).await;
++            }
++            return if self.closed.load(Ordering::Acquire) {
++                Err(BidiError::Closed)
++            } else {
++                Ok(())
++            };
++        }
++        let (accept, accepted) = oneshot::channel();
++        let transferred = tx.take().unwrap().send(Ok(Handoff(Some(accept)))).is_ok();
++        if !transferred || !accepted.await.unwrap_or(false) {
++            if let Some(id) = added.as_ref() {
++                self.rollback(&mut state, id).await?;
++            }
++            if state.ids.is_empty() {
++                self.stop(&mut state).await;
++            }
++            return Ok(());
++        }
++        self.routes
++            .lock()
++            .expect("bidi routes mutex poisoned")
++            .push(Route::new(pattern, action));
++        Ok(())
++    }
++    async fn rollback(&self, state: &mut Registrations, id: &str) -> BidiResult<()> {
++        // If the older phases were already acknowledged absent, keep the new
++        // registration for prior committed rules. The candidate is never added.
++        if state.ids.iter().any(|owned| owned.id != id)
++            || self
++                .routes
++                .lock()
++                .expect("bidi routes mutex poisoned")
++                .is_empty()
++        {
++            self.remove(state, id).await?;
++        }
++        Ok(())
++    }
++    async fn remove(&self, state: &mut Registrations, id: &str) -> BidiResult<()> {
++        if let Some(registration) = state.ids.iter_mut().find(|owned| owned.id == id) {
++            registration.removing = true;
++        }
++        match tokio::time::timeout(REMOVE_TIMEOUT, self.session.remove_intercept(id)).await {
++            Ok(Ok(())) => {}
++            Ok(Err(BidiError::Protocol { error, .. })) if error == "no such intercept" => {}
++            Ok(Err(error)) => return Err(error),
++            Err(_) => {
++                return Err(BidiError::Timeout {
++                    method: "network.removeIntercept".into(),
++                    timeout: REMOVE_TIMEOUT,
++                })
++            }
++        }
++        state.ids.retain(|registered| registered.id != id);
++        // Drain events queued before the acknowledgement, then prune this ID.
++        // Repeated upgrades must not accumulate every historical registration.
++        if let Some(pump) = state.pump.as_ref() {
++            pump.retire(id).await;
++        }
++        Ok(())
++    }
++    async fn stop(&self, state: &mut Registrations) {
++        if let Some(pump) = state.pump.take() {
++            pump.stop().await;
++        }
++        self.event_ids
++            .ids
++            .lock()
++            .expect("bidi intercept IDs mutex poisoned")
++            .clear();
++    }
++    async fn clear_locked(&self, state: &mut Registrations) -> BidiResult<()> {
++        self.routes
++            .lock()
++            .expect("bidi routes mutex poisoned")
++            .clear();
++        let ids: Vec<_> = state.ids.iter().map(|id| id.id.clone()).collect();
++        let mut first = None;
++        for id in ids {
++            if let Err(error) = self.remove(state, &id).await {
++                if first.is_none() {
++                    first = Some(error)
++                }
++            }
++        }
++        if state.ids.is_empty() || self.session.connection().is_closed() {
++            self.stop(state).await;
++        }
++        match first {
++            Some(error) => Err(error),
++            None => Ok(()),
++        }
++    }
++    async fn clear_if_abandoned(&self) -> BidiResult<()> {
++        let mut state = self.operations.lock().await;
++        if self.owners.load(Ordering::Acquire) != 0 {
++            return Ok(());
++        }
++        self.clear_locked(&mut state).await
++    }
++    pub(crate) fn mark_closed(&self) {
++        self.closed.store(true, Ordering::Release);
++    }
++    pub(crate) async fn clear_protected(self: Arc<Self>, close: bool) -> BidiResult<()> {
++        if close {
++            self.mark_closed();
++        }
++        let runtime = self.runtime.clone();
++        runtime
++            .spawn(async move {
++                let mut state = self.operations.lock().await;
++                self.clear_locked(&mut state).await
++            })
++            .await
++            .map_err(|error| {
++                BidiError::Unexpected(format!("interception cleanup worker failed: {error}"))
++            })?
++    }
++}
+--- /dev/null
++++ after/crates/rustwright-bidi/src/interception_tests.rs
+@@ -0,0 +1,622 @@
++//! Protocol regressions for page-owned interception registrations.
++use crate::{BidiBrowser, BidiError};
++use futures_util::{SinkExt, StreamExt};
++use rustwright_common::RouteAction;
++use serde_json::{json, Value};
++use std::{
++    collections::{HashMap, HashSet},
++    sync::{Arc, Mutex},
++    time::Duration,
++};
++use tokio::{
++    net::TcpListener,
++    sync::{mpsc, Notify},
++    task::JoinHandle,
++};
++use tokio_tungstenite::{accept_async, tungstenite::Message};
++
++#[derive(Default)]
++struct State {
++    ids: HashSet<String>,
++    methods: HashMap<String, usize>,
++    fail: Option<&'static str>,
++    pause: Option<&'static str>,
++    reject_removal: bool,
++}
++struct Remote {
++    state: Arc<Mutex<State>>,
++    entered: Arc<Notify>,
++    release: Arc<Notify>,
++    events: mpsc::UnboundedSender<Value>,
++    task: JoinHandle<()>,
++}
++impl Drop for Remote {
++    fn drop(&mut self) {
++        self.task.abort();
++    }
++}
++impl Remote {
++    fn count(&self) -> usize {
++        self.state.lock().unwrap().ids.len()
++    }
++    fn calls(&self, m: &str) -> usize {
++        *self.state.lock().unwrap().methods.get(m).unwrap_or(&0)
++    }
++    fn fail(&self, m: &'static str) {
++        self.state.lock().unwrap().fail = Some(m)
++    }
++    fn pause(&self, m: &'static str) {
++        self.state.lock().unwrap().pause = Some(m)
++    }
++    async fn entered(&self) {
++        tokio::time::timeout(Duration::from_secs(2), self.entered.notified())
++            .await
++            .unwrap();
++    }
++    fn id(&self) -> String {
++        self.state
++            .lock()
++            .unwrap()
++            .ids
++            .iter()
++            .next()
++            .unwrap()
++            .clone()
++    }
++    fn event(&self, method: &str, ids: Vec<String>, context: &str) {
++        self.events.send(json!({"type":"event","method":method,"params":{"context":context,"isBlocked":true,"intercepts":ids,"request":{"request":"request-1","url":if method=="network.responseStarted"{"http://fixture/response"}else{"http://fixture/match"},"headers":[]},"response":{"headers":[]}}})).unwrap();
++    }
++    async fn calls_is(&self, method: &str, count: usize) {
++        tokio::time::timeout(Duration::from_secs(2), async {
++            while self.calls(method) < count {
++                tokio::time::sleep(Duration::from_millis(5)).await;
++            }
++        })
++        .await
++        .unwrap();
++    }
++    async fn count_is(&self, n: usize) {
++        tokio::time::timeout(Duration::from_secs(2), async {
++            while self.count() != n {
++                tokio::time::sleep(Duration::from_millis(5)).await;
++            }
++        })
++        .await
++        .unwrap();
++    }
++}
++async fn remote() -> (Remote, BidiBrowser) {
++    let listener = TcpListener::bind("127.0.0.1:0").await.unwrap();
++    let endpoint = format!("ws://{}/session", listener.local_addr().unwrap());
++    let state = Arc::new(Mutex::new(State::default()));
++    let remote = state.clone();
++    let entered = Arc::new(Notify::new());
++    let signal = entered.clone();
++    let release = Arc::new(Notify::new());
++    let resume = release.clone();
++    let (events, mut incoming) = mpsc::unbounded_channel::<Value>();
++    let task = tokio::spawn(async move {
++        let (socket, _) = listener.accept().await.unwrap();
++        let mut ws = accept_async(socket).await.unwrap();
++        let mut next = 0;
++        let mut held = None;
++        let mut pages = HashMap::<String, String>::new();
++        loop {
++            tokio::select! {
++             Some(event)=incoming.recv()=>{ws.send(Message::text(event.to_string())).await.unwrap();}
++             _=resume.notified(),if held.is_some()=>{ws.send(Message::text(held.take().unwrap())).await.unwrap();}
++             message=ws.next()=>{let Some(Ok(message))=message else {break};if !message.is_text(){continue}
++              let command:Value=serde_json::from_str(message.to_text().unwrap()).unwrap();let method=command["method"].as_str().unwrap();let p=&command["params"];
++              let (fail,pause)={let mut s=remote.lock().unwrap();*s.methods.entry(method.to_owned()).or_default()+=1;let fail=s.fail==Some(method)||(s.reject_removal&&method=="network.removeIntercept");let pause=s.pause==Some(method);if fail{s.fail=None}
++              if pause{s.pause=None}(fail,pause)};
++              let reply=if fail {json!({"id":command["id"],"type":"error","error":"unknown error","message":"fixture rejection"})}else{
++               let result=match method{
++                "session.new"=>json!({"sessionId":"mock","capabilities":{}}),
++                "browser.createUserContext"=>json!({"userContext":"owned"}),
++                "browsingContext.create"=>{next+=1;let tab=format!("tab-{next}");pages.insert(tab.clone(),p["userContext"].as_str().unwrap_or("default").to_owned());json!({"context":tab})},
++                "browsingContext.getTree"=>json!({"contexts":pages.iter().map(|(id,owner)|json!({"context":id,"userContext":owner,"children":[]})).collect::<Vec<_>>() }),
++                "script.addPreloadScript"=>{next+=1;json!({"script":format!("helper-{next}")})},
++                "script.evaluate"=>json!({"type":"success","result":{"type":"undefined"}}),
++                "network.addIntercept"=>{next+=1;let id=format!("intercept-{next}");remote.lock().unwrap().ids.insert(id.clone());json!({"intercept":id})},
++                "network.removeIntercept"=>{if remote.lock().unwrap().ids.remove(p["intercept"].as_str().unwrap()){json!({})}else{json!({"fixtureMissing":true})}},
++                "browsingContext.close"=>{pages.remove(p["context"].as_str().unwrap());json!({})},
++                "browser.removeUserContext"=>{pages.retain(|_,owner|Some(owner.as_str())!=p["userContext"].as_str());json!({})},
++                "session.subscribe"|"script.removePreloadScript"|"session.end"|"network.continueRequest"|"network.continueResponse"|"network.failRequest"=>json!({}),
++                other=>panic!("unexpected method {other}")
++               };if result["fixtureMissing"]==true{json!({"id":command["id"],"type":"error","error":"no such intercept","message":"already removed"})}else{json!({"id":command["id"],"type":"success","result":result})}
++              }.to_string();
++              if pause {held=Some(reply);signal.notify_one();}else if ws.send(Message::text(reply)).await.is_err(){break}
++             }
++            }
++        }
++    });
++    let browser = BidiBrowser::connect(&endpoint).await.unwrap();
++    (
++        Remote {
++            state,
++            entered,
++            release,
++            events,
++            task,
++        },
++        browser,
++    )
++}
++#[tokio::test]
++async fn rejected_registration_is_retryable() {
++    let (r, b) = remote().await;
++    let p = b.new_page().await.unwrap();
++    r.fail("network.addIntercept");
++    assert!(p.block("*one*").await.is_err());
++    p.block("*two*").await.unwrap();
++    assert_eq!(r.count(), 1);
++    assert_eq!(r.calls("network.addIntercept"), 2);
++    p.clear_routes().await.unwrap();
++}
++#[tokio::test]
++async fn removal_error_is_typed_and_retains_the_id() {
++    let (r, b) = remote().await;
++    let p = b.new_page().await.unwrap();
++    p.block("*").await.unwrap();
++    r.fail("network.removeIntercept");
++    assert!(matches!(
++        p.clear_routes().await,
++        Err(BidiError::Protocol { .. })
++    ));
++    assert_eq!(r.count(), 1);
++    p.clear_routes().await.unwrap();
++    assert_eq!(r.count(), 0);
++}
++#[tokio::test]
++async fn canceled_registration_reclaims_the_late_id() {
++    let (r, b) = remote().await;
++    let p = b.new_page().await.unwrap();
++    r.pause("network.addIntercept");
++    let c = p.clone();
++    let task = tokio::spawn(async move { c.block("*").await });
++    r.entered().await;
++    task.abort();
++    assert!(task.await.unwrap_err().is_cancelled());
++    r.release.notify_one();
++    r.count_is(0).await;
++    p.block("*").await.unwrap();
++    assert_eq!(r.count(), 1);
++    p.clear_routes().await.unwrap();
++}
++#[tokio::test]
++async fn clear_continues_after_waiter_cancellation() {
++    let (r, b) = remote().await;
++    let p = b.new_page().await.unwrap();
++    p.block("*").await.unwrap();
++    r.pause("network.removeIntercept");
++    let c = p.clone();
++    let task = tokio::spawn(async move { c.clear_routes().await });
++    r.entered().await;
++    task.abort();
++    assert!(task.await.unwrap_err().is_cancelled());
++    r.release.notify_one();
++    tokio::time::sleep(Duration::from_millis(30)).await;
++    p.block("*").await.unwrap();
++    assert_eq!(r.count(), 1);
++    p.clear_routes().await.unwrap();
++    assert_eq!(r.count(), 0);
++}
++#[tokio::test]
++async fn concurrent_registration_does_not_return_before_ack() {
++    let (r, b) = remote().await;
++    let p = b.new_page().await.unwrap();
++    r.pause("network.addIntercept");
++    let c = p.clone();
++    let first = tokio::spawn(async move { c.block("*one*").await });
++    r.entered().await;
++    let c = p.clone();
++    let second = tokio::spawn(async move { c.block("*two*").await });
++    tokio::time::sleep(Duration::from_millis(30)).await;
++    assert!(!second.is_finished());
++    r.release.notify_one();
++    first.await.unwrap().unwrap();
++    second.await.unwrap().unwrap();
++    assert_eq!(r.count(), 1);
++    p.clear_routes().await.unwrap();
++}
++#[tokio::test]
++async fn final_routed_page_handle_drop_removes_registration() {
++    let (r, b) = remote().await;
++    let p = b.new_page().await.unwrap();
++    p.block("*").await.unwrap();
++    drop(p);
++    r.count_is(0).await;
++    assert_eq!(b.pages().await.unwrap().len(), 1);
++}
++#[tokio::test]
++async fn discovered_handles_share_routes_and_keep_registration_alive() {
++    let (r, b) = remote().await;
++    let p = b.new_page().await.unwrap();
++    p.block("*one*").await.unwrap();
++    let discovered = b.pages().await.unwrap().pop().unwrap();
++    discovered.block("*two*").await.unwrap();
++    assert_eq!(r.count(), 1);
++    drop(p);
++    tokio::time::sleep(Duration::from_millis(20)).await;
++    assert_eq!(r.count(), 1);
++    discovered.clear_routes().await.unwrap();
++    assert_eq!(r.count(), 0);
++}
++#[tokio::test]
++async fn page_close_retires_routes_while_handle_is_retained() {
++    let (r, b) = remote().await;
++    let p = b.new_page().await.unwrap();
++    p.block("*").await.unwrap();
++    p.close().await.unwrap();
++    assert_eq!(r.count(), 0);
++    assert!(p.block("*").await.is_err());
++}
++#[tokio::test]
++async fn user_context_close_retires_only_owned_routes() {
++    let (r, b) = remote().await;
++    let keeper = b.new_page().await.unwrap();
++    keeper.block("*").await.unwrap();
++    let c = b.new_context().await.unwrap();
++    let p = c.new_page().await.unwrap();
++    p.block("*").await.unwrap();
++    c.close().await.unwrap();
++    assert_eq!(r.count(), 1);
++    assert!(p.block("*").await.is_err());
++    keeper.clear_routes().await.unwrap();
++}
++#[tokio::test]
++async fn failed_phase_expansion_preserves_existing_registration() {
++    let (r, b) = remote().await;
++    let p = b.new_page().await.unwrap();
++    p.block("*one*").await.unwrap();
++    r.fail("network.removeIntercept");
++    assert!(matches!(
++        p.route("*two*", RouteAction::SetResponseHeaders(vec![]))
++            .await,
++        Err(BidiError::Protocol { .. })
++    ));
++    assert_eq!(r.count(), 1);
++    p.clear_routes().await.unwrap();
++    assert_eq!(r.count(), 0);
++}
++#[tokio::test]
++async fn failed_broader_registration_keeps_previous_phases_usable() {
++    let (r, b) = remote().await;
++    let p = b.new_page().await.unwrap();
++    p.block("*match*").await.unwrap();
++    let previous = r.id();
++    r.fail("network.addIntercept");
++    assert!(p
++        .route("*response*", RouteAction::SetResponseHeaders(vec![]))
++        .await
++        .is_err());
++    assert_eq!(r.count(), 1);
++    assert_eq!(r.id(), previous);
++    r.event("network.beforeRequestSent", vec![previous], "child-frame");
++    r.calls_is("network.failRequest", 1).await;
++    p.block("*later*").await.unwrap();
++    assert_eq!(r.calls("network.addIntercept"), 2);
++    p.clear_routes().await.unwrap();
++}
++#[tokio::test]
++async fn canceled_pre_ack_event_continues_instead_of_being_lost() {
++    let (r, b) = remote().await;
++    let p = b.new_page().await.unwrap();
++    r.pause("network.addIntercept");
++    let c = p.clone();
++    let task = tokio::spawn(async move { c.block("*match*").await });
++    r.entered().await;
++    r.event("network.beforeRequestSent", vec![r.id()], "child-frame");
++    task.abort();
++    assert!(task.await.unwrap_err().is_cancelled());
++    r.release.notify_one();
++    r.calls_is("network.continueRequest", 1).await;
++    r.count_is(0).await;
++    assert_eq!(r.calls("network.failRequest"), 0);
++}
++#[tokio::test]
++async fn descendant_events_use_owned_ids_and_foreign_intercepts_are_untouched() {
++    let (r, b) = remote().await;
++    let p = b.new_page().await.unwrap();
++    p.block("*match*").await.unwrap();
++    let owned = r.id();
++    r.event(
++        "network.beforeRequestSent",
++        vec!["foreign".into()],
++        p.context_id(),
++    );
++    tokio::time::sleep(Duration::from_millis(20)).await;
++    assert_eq!(r.calls("network.failRequest"), 0);
++    assert_eq!(r.calls("network.continueRequest"), 0);
++    r.event(
++        "network.beforeRequestSent",
++        vec![owned, "foreign".into()],
++        "child-frame",
++    );
++    r.calls_is("network.failRequest", 1).await;
++    p.clear_routes().await.unwrap();
++}
++#[tokio::test]
++async fn retiring_intercept_continues_blocked_requests_until_ack() {
++    let (r, b) = remote().await;
++    let p = b.new_page().await.unwrap();
++    p.block("*match*").await.unwrap();
++    let owned = r.id();
++    r.pause("network.removeIntercept");
++    let c = p.clone();
++    let clear = tokio::spawn(async move { c.clear_routes().await });
++    r.entered().await;
++    r.event("network.beforeRequestSent", vec![owned], "child-frame");
++    r.calls_is("network.continueRequest", 1).await;
++    assert!(!clear.is_finished());
++    r.release.notify_one();
++    clear.await.unwrap().unwrap();
++    assert_eq!(p.routing.event_id_count().await, 0);
++}
++#[tokio::test]
++async fn failed_drop_retirement_is_reused_by_discovered_handle() {
++    let (r, b) = remote().await;
++    let p = b.new_page().await.unwrap();
++    p.block("*match*").await.unwrap();
++    let previous = r.id();
++    r.fail("network.removeIntercept");
++    drop(p);
++    r.calls_is("network.removeIntercept", 1).await;
++    let p = b.pages().await.unwrap().pop().unwrap();
++    p.block("*another*").await.unwrap();
++    assert_ne!(r.id(), previous);
++    assert_eq!(r.calls("network.removeIntercept"), 2);
++    assert_eq!(r.calls("network.addIntercept"), 2);
++    p.clear_routes().await.unwrap();
++    assert_eq!(r.count(), 0);
++}
++#[tokio::test]
++async fn repeated_canceled_upgrades_do_not_retain_historical_intercept_ids() {
++    let (r, b) = remote().await;
++    let p = b.new_page().await.unwrap();
++    p.block("*match*").await.unwrap();
++    for _ in 0..40 {
++        r.pause("network.addIntercept");
++        let c = p.clone();
++        let upgrade = tokio::spawn(async move {
++            c.route("*response*", RouteAction::SetResponseHeaders(vec![]))
++                .await
++        });
++        r.entered().await;
++        upgrade.abort();
++        assert!(upgrade.await.unwrap_err().is_cancelled());
++        r.release.notify_one();
++        r.count_is(1).await;
++        tokio::time::timeout(Duration::from_secs(2), async {
++            while p.routing.event_id_count().await != 1 {
++                tokio::time::sleep(Duration::from_millis(5)).await;
++            }
++        })
++        .await
++        .unwrap();
++    }
++    p.clear_routes().await.unwrap();
++    assert_eq!(p.routing.event_id_count().await, 0);
++}
++#[tokio::test]
++async fn cancellation_after_old_phase_removal_preserves_previous_rules() {
++    let (r, b) = remote().await;
++    let p = b.new_page().await.unwrap();
++    p.block("*match*").await.unwrap();
++    r.pause("network.removeIntercept");
++    let c = p.clone();
++    let upgrade = tokio::spawn(async move {
++        c.route("*response*", RouteAction::SetResponseHeaders(vec![]))
++            .await
++    });
++    r.entered().await;
++    upgrade.abort();
++    assert!(upgrade.await.unwrap_err().is_cancelled());
++    r.release.notify_one();
++    p.block("*later*").await.unwrap();
++    assert_eq!(r.count(), 1);
++    r.event("network.beforeRequestSent", vec![r.id()], "child-frame");
++    r.calls_is("network.failRequest", 1).await;
++    r.event("network.responseStarted", vec![r.id()], "child-frame");
++    r.calls_is("network.continueResponse", 1).await;
++    p.clear_routes().await.unwrap();
++}
++#[tokio::test]
++async fn closing_during_unacknowledged_add_closes_remote_and_removes_helper() {
++    let (r, b) = remote().await;
++    let p = b.new_page().await.unwrap();
++    r.pause("network.addIntercept");
++    let c = p.clone();
++    let registration = tokio::spawn(async move { c.block("*").await });
++    r.entered().await;
++    let c = p.clone();
++    let closing = tokio::spawn(async move { c.close().await });
++    r.calls_is("browsingContext.close", 1).await;
++    r.calls_is("script.removePreloadScript", 1).await;
++    assert!(matches!(
++        tokio::time::timeout(Duration::from_millis(100), p.block("*"))
++            .await
++            .unwrap(),
++        Err(BidiError::Closed)
++    ));
++    r.release.notify_one();
++    assert!(registration.await.unwrap().is_err());
++    closing.await.unwrap().unwrap();
++    assert_eq!(r.count(), 0);
++}
++#[tokio::test]
++async fn context_close_marks_every_page_closed_before_waiting_for_late_add() {
++    let (r, b) = remote().await;
++    let context = b.new_context().await.unwrap();
++    let first = context.new_page().await.unwrap();
++    let second = context.new_page().await.unwrap();
++    second.block("*").await.unwrap();
++    r.pause("network.addIntercept");
++    let page = first.clone();
++    let registration = tokio::spawn(async move { page.block("*").await });
++    r.entered().await;
++    let c = context.clone();
++    let closing = tokio::spawn(async move { c.close().await });
++    r.calls_is("browser.removeUserContext", 1).await;
++    r.calls_is("script.removePreloadScript", 2).await;
++    assert!(matches!(
++        tokio::time::timeout(Duration::from_millis(100), second.block("*"))
++            .await
++            .unwrap(),
++        Err(BidiError::Closed)
++    ));
++    r.release.notify_one();
++    assert!(registration.await.unwrap().is_err());
++    closing.await.unwrap().unwrap();
++    assert_eq!(r.count(), 0);
++}
++#[tokio::test]
++async fn route_removal_failure_does_not_skip_native_close_or_helper_cleanup() {
++    let (r, b) = remote().await;
++    let p = b.new_page().await.unwrap();
++    p.block("*").await.unwrap();
++    r.fail("network.removeIntercept");
++    assert!(
++        matches!(p.close().await,Err(BidiError::Protocol{method,..})if method=="network.removeIntercept")
++    );
++    assert_eq!(r.calls("browsingContext.close"), 1);
++    assert_eq!(r.calls("script.removePreloadScript"), 1);
++    assert_eq!(r.count(), 1);
++    p.clear_routes().await.unwrap();
++    assert_eq!(r.count(), 0);
++}
++#[tokio::test]
++async fn final_handle_drop_outside_runtime_uses_its_origin_runtime() {
++    let (r, b) = remote().await;
++    let p = b.new_page().await.unwrap();
++    p.block("*").await.unwrap();
++    std::thread::spawn(move || drop(p)).join().unwrap();
++    r.count_is(0).await;
++    assert_eq!(b.pages().await.unwrap().len(), 1);
++}
++#[tokio::test]
++async fn persistent_drop_rejection_exits_after_explicit_browser_close() {
++    let (r, b) = remote().await;
++    let p = b.new_page().await.unwrap();
++    p.block("*").await.unwrap();
++    let core = p.routing.weak_core();
++    let connection = b.session().connection().clone();
++    r.state.lock().unwrap().reject_removal = true;
++    drop(p);
++    r.calls_is("network.removeIntercept", 1).await;
++    assert!(core.upgrade().is_some());
++    b.close().await.unwrap();
++    assert!(connection.is_closed());
++    tokio::time::timeout(Duration::from_secs(2), async {
++        while core.upgrade().is_some() {
++            tokio::time::sleep(Duration::from_millis(5)).await;
++        }
++    })
++    .await
++    .unwrap();
++    assert_eq!(connection.pending_command_count(), 0);
++}
++#[tokio::test]
++async fn acknowledged_late_removal_is_reconciled_before_a_new_route() {
++    let (r, b) = remote().await;
++    let p = b.new_page().await.unwrap();
++    p.block("*match*").await.unwrap();
++    let previous = r.id();
++    r.pause("network.removeIntercept");
++    assert!(
++        matches!(p.clear_routes().await,Err(BidiError::Timeout{method,..})if method=="network.removeIntercept")
++    );
++    assert_eq!(r.count(), 0);
++    p.block("*match*").await.unwrap();
++    assert_eq!(r.count(), 1);
++    assert_ne!(r.id(), previous);
++    assert_eq!(r.calls("network.removeIntercept"), 2);
++    assert_eq!(r.calls("network.addIntercept"), 2);
++    r.release.notify_one();
++    r.event("network.beforeRequestSent", vec![r.id()], "child-frame");
++    r.calls_is("network.failRequest", 1).await;
++    p.clear_routes().await.unwrap();
++}
++#[tokio::test]
++async fn queued_unobserved_registration_handoff_is_rolled_back() {
++    use std::{
++        future::Future,
++        task::{Context, Poll},
++    };
++    let (r, b) = remote().await;
++    let p = b.new_page().await.unwrap();
++    r.pause("network.addIntercept");
++    let mut registration = Box::pin(p.block("*match*"));
++    let mut context = Context::from_waker(futures_util::task::noop_waker_ref());
++    assert!(matches!(
++        registration.as_mut().poll(&mut context),
++        Poll::Pending
++    ));
++    r.entered().await;
++    r.release.notify_one();
++    // The operation published its ID, but the public future has never been
++    // polled again to observe and accept the queued handoff.
++    tokio::time::timeout(Duration::from_secs(2), async {
++        while p.routing.event_id_count().await != 1 {
++            tokio::time::sleep(Duration::from_millis(5)).await;
++        }
++    })
++    .await
++    .unwrap();
++    drop(registration);
++    r.count_is(0).await;
++    p.block("*later*").await.unwrap();
++    assert_eq!(r.calls("network.addIntercept"), 2);
++    p.clear_routes().await.unwrap();
++}
++#[tokio::test]
++async fn previous_routes_keep_dispatching_while_broader_allocation_is_unacknowledged() {
++    let (r, b) = remote().await;
++    let p = b.new_page().await.unwrap();
++    p.block("*match*").await.unwrap();
++    let previous = r.id();
++    r.pause("network.addIntercept");
++    let c = p.clone();
++    let upgrade = tokio::spawn(async move {
++        c.route("*response*", RouteAction::SetResponseHeaders(vec![]))
++            .await
++    });
++    r.entered().await;
++    r.event("network.beforeRequestSent", vec![previous], "child-frame");
++    r.calls_is("network.failRequest", 1).await;
++    assert!(!upgrade.is_finished());
++    upgrade.abort();
++    assert!(upgrade.await.unwrap_err().is_cancelled());
++    r.release.notify_one();
++    r.count_is(1).await;
++    p.clear_routes().await.unwrap();
++}
++#[tokio::test]
++async fn canceled_reconciliation_restores_previous_committed_rules() {
++    let (r, b) = remote().await;
++    let p = b.new_page().await.unwrap();
++    p.block("*match*").await.unwrap();
++    r.fail("network.removeIntercept");
++    assert!(p
++        .route("*response*", RouteAction::SetResponseHeaders(vec![]))
++        .await
++        .is_err());
++    r.pause("network.removeIntercept");
++    let c = p.clone();
++    let retry = tokio::spawn(async move { c.block("*candidate*").await });
++    r.entered().await;
++    retry.abort();
++    assert!(retry.await.unwrap_err().is_cancelled());
++    r.release.notify_one();
++    r.count_is(1).await;
++    tokio::time::timeout(Duration::from_secs(2), async {
++        while p.routing.event_id_count().await != 1 {
++            tokio::time::sleep(Duration::from_millis(5)).await;
++        }
++    })
++    .await
++    .unwrap();
++    r.event("network.beforeRequestSent", vec![r.id()], "child-frame");
++    r.calls_is("network.failRequest", 1).await;
++    p.clear_routes().await.unwrap();
++}

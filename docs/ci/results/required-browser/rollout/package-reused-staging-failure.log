@@ -1,0 +1,55 @@
+   Packaging rustwright-cdp v0.1.0 (/workspace/rustwright/crates/rustwright-cdp)
+    Blocking waiting for file lock on package cache
+    Packaged 25 files, 120.6KiB (30.1KiB compressed)
+   Packaging rustwright-browser v0.1.0 (/workspace/rustwright/crates/rustwright-browser)
+    Packaged 13 files, 69.8KiB (19.0KiB compressed)
+   Packaging rustwright-common v0.1.0 (/workspace/rustwright/crates/rustwright-common)
+    Packaged 13 files, 51.8KiB (15.7KiB compressed)
+   Packaging rustwright-bidi v0.1.0 (/workspace/rustwright/crates/rustwright-bidi)
+    Packaged 26 files, 275.6KiB (59.0KiB compressed)
+   Packaging rustwright-core v0.1.0 (/workspace/rustwright/crates/rustwright-core)
+    Packaged 23 files, 291.2KiB (65.5KiB compressed)
+   Packaging rustwright v0.1.0 (/workspace/rustwright/crates/rustwright)
+    Packaged 9 files, 49.2KiB (13.7KiB compressed)
+   Packaging rustwright-test-macros v0.1.0 (/workspace/rustwright/crates/rustwright-test-macros)
+    Packaged 8 files, 18.4KiB (7.0KiB compressed)
+   Packaging rustwright-test v0.1.0 (/workspace/rustwright/crates/rustwright-test)
+    Packaged 12 files, 65.5KiB (19.0KiB compressed)
+   Verifying rustwright-cdp v0.1.0 (/workspace/rustwright/crates/rustwright-cdp)
+   Compiling rustwright-cdp v0.1.0 (/workspace/rustwright/target/release-check/package-target/package/rustwright-cdp-0.1.0)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.93s
+   Verifying rustwright-browser v0.1.0 (/workspace/rustwright/crates/rustwright-browser)
+   Compiling rustwright-browser v0.1.0 (/workspace/rustwright/target/release-check/package-target/package/rustwright-browser-0.1.0)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.25s
+   Verifying rustwright-common v0.1.0 (/workspace/rustwright/crates/rustwright-common)
+   Compiling rustwright-common v0.1.0 (/workspace/rustwright/target/release-check/package-target/package/rustwright-common-0.1.0)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.36s
+   Verifying rustwright-bidi v0.1.0 (/workspace/rustwright/crates/rustwright-bidi)
+   Compiling rustwright-bidi v0.1.0 (/workspace/rustwright/target/release-check/package-target/package/rustwright-bidi-0.1.0)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.62s
+   Verifying rustwright-core v0.1.0 (/workspace/rustwright/crates/rustwright-core)
+   Compiling rustwright-core v0.1.0 (/workspace/rustwright/target/release-check/package-target/package/rustwright-core-0.1.0)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 4.45s
+   Verifying rustwright v0.1.0 (/workspace/rustwright/crates/rustwright)
+   Compiling rustwright v0.1.0 (/workspace/rustwright/target/release-check/package-target/package/rustwright-0.1.0)
+error[E0599]: no method named `reload` found for reference `&BidiPage` in the current scope
+  --> src/any.rs:91:44
+   |
+91 |             AnyPage::Firefox(page) => page.reload().await.map_err(Into::into),
+   |                                            ^^^^^^ method not found in `&BidiPage`
+
+error[E0599]: no method named `go_back` found for reference `&BidiPage` in the current scope
+   --> src/any.rs:100:44
+    |
+100 |             AnyPage::Firefox(page) => page.go_back().await.map_err(Into::into),
+    |                                            ^^^^^^^ method not found in `&BidiPage`
+
+error[E0599]: no method named `go_forward` found for reference `&BidiPage` in the current scope
+   --> src/any.rs:109:44
+    |
+109 |             AnyPage::Firefox(page) => page.go_forward().await.map_err(Into::into),
+    |                                            ^^^^^^^^^^ method not found in `&BidiPage`
+
+For more information about this error, try `rustc --explain E0599`.
+error: could not compile `rustwright` (lib) due to 3 previous errors
+error: failed to verify package tarball

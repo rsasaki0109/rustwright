@@ -1,0 +1,92 @@
+[package]
+name = "rustwright-integration-tests"
+description = "Integration tests for Rustwright"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+publish = false
+
+[dependencies]
+rustwright.workspace = true
+serde_json.workspace = true
+tokio = { workspace = true }
+futures-util.workspace = true
+tokio-tungstenite.workspace = true
+
+[[test]]
+name = "vertical_slice"
+path = "vertical_slice.rs"
+
+[[test]]
+name = "features"
+path = "features.rs"
+
+[[test]]
+name = "advanced"
+path = "advanced.rs"
+
+[[test]]
+name = "bidi"
+path = "bidi.rs"
+
+[[test]]
+name = "unified"
+path = "unified.rs"
+
+[[test]]
+name = "diagnostics"
+path = "diagnostics.rs"
+
+[[test]]
+name = "http_frames"
+path = "http_frames.rs"
+
+[[test]]
+name = "http_navigation"
+path = "http_navigation.rs"
+
+[[test]]
+name = "http_network_idle"
+path = "http_network_idle.rs"
+
+[[test]]
+name = "http_contexts"
+path = "http_contexts.rs"
+
+[[test]]
+name = "http_compat"
+path = "http_compat.rs"
+
+[[test]]
+name = "http_disconnect"
+path = "http_disconnect.rs"
+
+[[test]]
+name = "http_creation"
+path = "http_creation.rs"
+
+[[test]]
+name = "http_actionability"
+path = "http_actionability.rs"
+
+[[test]]
+name = "http_shutdown"
+path = "http_shutdown.rs"
+
+[[test]]
+name = "http_clipped_control"
+path = "http_clipped_control.rs"
+
+[[test]]
+name = "http_frame_helpers"
+path = "http_frame_helpers.rs"
+
+[[test]]
+name = "http_intercept_lifecycle"
+path = "http_intercept_lifecycle.rs"
+
+[[test]]
+name = "http_bidi_navigation"
+path = "http_bidi_navigation.rs"

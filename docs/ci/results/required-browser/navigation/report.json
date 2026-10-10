@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-09",
+  "platform": "Linux",
+  "git_head": "91e72af388d000266c9b4e7567a3e1fe4007fc33",
+  "browser_versions": {
+    "chrome": "151.0.7922.173",
+    "firefox": "157.0.1"
+  },
+  "before": {
+    "compile_exit": 101,
+    "missing_public_methods": [
+      "BidiPage.reload",
+      "BidiPage.go_back",
+      "BidiPage.go_forward"
+    ],
+    "native_raw_protocol_probe": "passed; no driver API existed"
+  },
+  "after": {
+    "bidi_unit_tests": 84,
+    "new_navigation_unit_tests": 11,
+    "native_tests": 7,
+    "chrome_native_tests": 3,
+    "firefox_native_tests": 4,
+    "skipped": 0,
+    "clippy": "passed -D warnings",
+    "msrv": "passed Rust 1.85 alltargets"
+  },
+  "limitations": [
+    "Missing API baseline is a compilation failure, not a failing native run.",
+    "Loopback Linux only; macOS and Windows CI execution not claimed.",
+    "Concurrent navigation on one context is not supported by history waiter correlation.",
+    "Subscriptions require historyUpdated support; tested on Firefox 157.0.1.",
+    "Setup survives caller cancellation for at most five seconds; lost subscription acknowledgments leave remote state uncertain.",
+    "History navigation failures without lifecycle events terminate at the timeout or a remote command error."
+  ],
+  "source_sha256": {
+    "crates/rustwright-bidi/src/browser.rs": "8fef2964eb34b060adf76175b841f2d0c3c812bc51201684cf994f8ff282823f",
+    "crates/rustwright-bidi/src/session.rs": "05bfd4490a2183bd4d74716925f8f2b9cd50d6fdcaae46e421279cd70a2c07a5",
+    "crates/rustwright-bidi/src/navigation_tests.rs": "31b868b5ab34f84dde2f8f2adf5d928fb53724f848be29865997a7aaacba4c4b",
+    "tests/http_bidi_navigation.rs": "7ab3f6aaed371278909f19b090fce40c99036820cab84e5144adfcc7e8aebb30",
+    "tests/Cargo.toml": "8594894954791ecf94f9f476eee00834dc0ce2fdbb45465045de75f58db83739",
+    "crates/rustwright/src/any.rs": "07700db5dacf322b95da8189b76d06c2e7a23acbf7e924b9c63d8cf4d4de9f76",
+    "Cargo.lock": "e1e288a07fbc109457242e641506ade33297b472cd766b9aa0ad9cc3aef547af"
+  },
+  "executables_sha256": {
+    "target/debug/deps/rustwright_bidi-cedd5209c7d1f7e2": "9a0d18527fca78f6b49417c70ce9259e15d4c94804021d05111359de292962be",
+    "target/debug/deps/http_bidi_navigation-5fb55f4b1a8f8cf0": "15242939cac399d5ea34983b786987659c9a722039c446f8c7e7b326c6479c5b"
+  }
+}

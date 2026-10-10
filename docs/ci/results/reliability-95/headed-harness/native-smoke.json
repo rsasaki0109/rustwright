@@ -1,0 +1,38 @@
+[
+  {
+    "backend": "chrome",
+    "case": "chrome_blocked_prepare_timeout",
+    "command": [
+      "target/debug/deps/http_actionability-4979319a40142347",
+      "chrome_blocked_prepare_timeout",
+      "--exact",
+      "--nocapture"
+    ],
+    "requested_headless": false,
+    "environment": {
+      "DISPLAY": ":95",
+      "RUSTWRIGHT_HEADLESS": "0"
+    },
+    "exit_code": 0,
+    "duration_seconds": 0.764,
+    "log": "target/reliability95/headed/chrome-headed-native.log"
+  },
+  {
+    "backend": "firefox",
+    "case": "firefox_blocked_prepare_timeout",
+    "command": [
+      "target/debug/deps/http_actionability-4979319a40142347",
+      "firefox_blocked_prepare_timeout",
+      "--exact",
+      "--nocapture"
+    ],
+    "requested_headless": false,
+    "environment": {
+      "DISPLAY": ":95",
+      "RUSTWRIGHT_HEADLESS": "false"
+    },
+    "exit_code": 0,
+    "duration_seconds": 12.176,
+    "log": "target/reliability95/headed/firefox-headed-native.log"
+  }
+]

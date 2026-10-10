@@ -1,0 +1,4 @@
+#!/bin/sh
+printf '%s\n' "$$" > '/workspace/rustwright/target/reliability95/native-startup/firefox-run/firefox-08/pid'
+printf '%s\0' "$@" > '/workspace/rustwright/target/reliability95/native-startup/firefox-run/firefox-08/args.bin'
+exec '/workspace/rustwright/target/reliability95/native-startup/launchers/firefox' "$@"

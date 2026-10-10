@@ -1,0 +1,28 @@
+{
+  "readme_sha256": "98a2b28a7ae37a30f3c69ad38bb84785d41c5a2a39e8359d10e742ba70b4e049",
+  "cases": [
+    {
+      "backend": "chrome",
+      "binary": "readme_quickstart",
+      "exit_code": 0,
+      "title": "README 配布チェック",
+      "headless": true,
+      "snippet_verbatim": true,
+      "fixture": "loopback HTTP",
+      "profile_mode": "default ephemeral",
+      "log": "/workspace/rustwright/target/release-check/readme_quickstart-native.log"
+    },
+    {
+      "backend": "firefox",
+      "binary": "readme_firefox",
+      "exit_code": 0,
+      "title": "README 配布チェック",
+      "headless": true,
+      "snippet_verbatim": true,
+      "fixture": "loopback HTTP",
+      "profile_mode": "explicit disposable",
+      "log": "/workspace/rustwright/target/release-check/readme_firefox-native.log",
+      "screenshot_sha256": "7c76344992e8b241bc379968264222411ddcfee2c35be2aef92d47edfbf89e08"
+    }
+  ]
+}

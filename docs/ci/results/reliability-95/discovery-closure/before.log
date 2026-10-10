@@ -1,0 +1,49 @@
+   Compiling rustwright-browser v0.1.0 (/workspace/rustwright/crates/rustwright-browser)
+   Compiling rustwright-core v0.1.0 (/workspace/rustwright/crates/rustwright-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 10.05s
+     Running unittests src/lib.rs (target/debug/deps/rustwright_core-01704876b489003a)
+
+running 8 tests
+test context::discovery_tests::context_closure_during_target_proof_remains_context_closed ... 
+thread 'context::discovery_tests::context_closure_during_target_proof_remains_context_closed' (1876489) panicked at crates/rustwright-core/src/context_discovery_tests.rs:135:10:
+requested command must arrive: Elapsed(())
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+test context::discovery_tests::detached_session_on_existing_target_remains_an_initialization_error ... ok
+test context::discovery_tests::near_match_missing_target_message_is_not_accepted_as_proof ... 
+thread 'context::discovery_tests::near_match_missing_target_message_is_not_accepted_as_proof' (1876502) panicked at crates/rustwright-core/src/context_discovery_tests.rs:191:5:
+Err(Cdp(SessionDetached { session_id: "partial-session", method: "Page.enable" }))
+FAILED
+test context::discovery_tests::ordinary_initialization_protocol_error_is_not_reinterpreted_as_closure ... ok
+test context::discovery_tests::socket_loss_during_target_proof_remains_browser_closed ... 
+thread 'context::discovery_tests::socket_loss_during_target_proof_remains_browser_closed' (1876504) panicked at crates/rustwright-core/src/context_discovery_tests.rs:135:10:
+requested command must arrive: Elapsed(())
+FAILED
+test context::discovery_tests::target_proof_protocol_error_is_not_hidden ... 
+thread 'context::discovery_tests::target_proof_protocol_error_is_not_hidden' (1876505) panicked at crates/rustwright-core/src/context_discovery_tests.rs:181:5:
+Err(Cdp(SessionDetached { session_id: "partial-session", method: "Page.enable" }))
+FAILED
+test context::discovery_tests::vanished_popup_during_initialization_keeps_waiting_until_deadline ... vanished popup wait: Err(Cdp(SessionDetached { session_id: "partial-session", method: "Page.enable" }))
+
+thread 'context::discovery_tests::vanished_popup_during_initialization_keeps_waiting_until_deadline' (1876506) panicked at crates/rustwright-core/src/context_discovery_tests.rs:161:5:
+Err(Cdp(SessionDetached { session_id: "partial-session", method: "Page.enable" }))
+FAILED
+test context::discovery_tests::vanished_target_during_page_enable_is_skipped_after_browser_proof ... stale snapshot refresh: Err(Cdp(SessionDetached { session_id: "partial-session", method: "Page.enable" }))
+
+thread 'context::discovery_tests::vanished_target_during_page_enable_is_skipped_after_browser_proof' (1876507) panicked at crates/rustwright-core/src/context_discovery_tests.rs:148:5:
+Err(Cdp(SessionDetached { session_id: "partial-session", method: "Page.enable" }))
+FAILED
+
+failures:
+
+failures:
+    context::discovery_tests::context_closure_during_target_proof_remains_context_closed
+    context::discovery_tests::near_match_missing_target_message_is_not_accepted_as_proof
+    context::discovery_tests::socket_loss_during_target_proof_remains_browser_closed
+    context::discovery_tests::target_proof_protocol_error_is_not_hidden
+    context::discovery_tests::vanished_popup_during_initialization_keeps_waiting_until_deadline
+    context::discovery_tests::vanished_target_during_page_enable_is_skipped_after_browser_proof
+
+test result: FAILED. 2 passed; 6 failed; 0 ignored; 0 measured; 53 filtered out; finished in 2.02s
+
+error: test failed, to rerun pass `-p rustwright-core --lib`

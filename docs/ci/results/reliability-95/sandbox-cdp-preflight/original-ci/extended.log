@@ -1,0 +1,891 @@
+﻿2026-10-09T21:25:17.3985290Z Current runner version: '2.337.0'
+2026-10-09T21:25:17.4001822Z ##[group]Runner Image Provisioner
+2026-10-09T21:25:17.4002451Z Hosted Compute Agent
+2026-10-09T21:25:17.4002893Z Version: 20261002.596
+2026-10-09T21:25:17.4003360Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
+2026-10-09T21:25:17.4003877Z Build Date: 2026-10-02T22:28:27Z
+2026-10-09T21:25:17.4004659Z Worker ID: {ff378d6a-0e4e-4158-9732-004c0a848bc0}
+2026-10-09T21:25:17.4005413Z Region: centralus
+2026-10-09T21:25:17.4005840Z Cloud: Azure
+2026-10-09T21:25:17.4006280Z ##[endgroup]
+2026-10-09T21:25:17.4007519Z ##[group]Operating System
+2026-10-09T21:25:17.4008043Z Ubuntu
+2026-10-09T21:25:17.4008451Z 24.04.5
+2026-10-09T21:25:17.4008836Z LTS
+2026-10-09T21:25:17.4009203Z ##[endgroup]
+2026-10-09T21:25:17.4009598Z ##[group]Runner Image
+2026-10-09T21:25:17.4010018Z Image: ubuntu-24.04
+2026-10-09T21:25:17.4010432Z Version: 20261004.327.1
+2026-10-09T21:25:17.4011336Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-09T21:25:17.4012454Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327
+2026-10-09T21:25:17.4013177Z ##[endgroup]
+2026-10-09T21:25:17.4014001Z ##[group]GITHUB_TOKEN Permissions
+2026-10-09T21:25:17.4015748Z Contents: read
+2026-10-09T21:25:17.4016228Z Metadata: read
+2026-10-09T21:25:17.4016648Z ##[endgroup]
+2026-10-09T21:25:17.4018202Z Secret source: Actions
+2026-10-09T21:25:17.4018941Z Cache mode: write
+2026-10-09T21:25:17.4019426Z Prepare workflow directory
+2026-10-09T21:25:17.4314447Z Prepare all required actions
+2026-10-09T21:25:17.4349331Z Getting action download info
+2026-10-09T21:25:17.7237791Z Download action repository 'actions/checkout@v5' (SHA:fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09)
+2026-10-09T21:25:17.8091990Z Download action repository 'dtolnay/rust-toolchain@stable' (SHA:686976e191b89faba57d3206551f0f330d8cb249)
+2026-10-09T21:25:17.9646562Z Download action repository 'Swatinem/rust-cache@v2' (SHA:6323deb102c322ba6fcbdcafc7e3dddab59af2b6)
+2026-10-09T21:25:18.3993266Z Download action repository 'actions/setup-python@v6' (SHA:ece7cb06caefa5fff74198d8649806c4678c61a1)
+2026-10-09T21:25:18.4860045Z Download action repository 'browser-actions/setup-chrome@v2' (SHA:48ad923757ca74d66703209fe939badbdf80f2f4)
+2026-10-09T21:25:18.7879293Z Download action repository 'browser-actions/setup-firefox@v1' (SHA:0bc507ddf224827e3b1af68e014d5e42ab93e795)
+2026-10-09T21:25:19.1224709Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-09T21:25:19.3911320Z Complete job name: Required headed / alternate versions / public sites
+2026-10-09T21:25:19.4546330Z ##[group]Run actions/checkout@v5
+2026-10-09T21:25:19.4547330Z with:
+2026-10-09T21:25:19.4548008Z   repository: rsasaki0109/rustwright
+2026-10-09T21:25:19.4553841Z   token: ***
+2026-10-09T21:25:19.4554529Z   ssh-strict: true
+2026-10-09T21:25:19.4555341Z   ssh-user: git
+2026-10-09T21:25:19.4556039Z   persist-credentials: true
+2026-10-09T21:25:19.4556814Z   clean: true
+2026-10-09T21:25:19.4557490Z   sparse-checkout-cone-mode: true
+2026-10-09T21:25:19.4558323Z   fetch-depth: 1
+2026-10-09T21:25:19.4558962Z   fetch-tags: false
+2026-10-09T21:25:19.4559625Z   show-progress: true
+2026-10-09T21:25:19.4560308Z   lfs: false
+2026-10-09T21:25:19.4560930Z   submodules: false
+2026-10-09T21:25:19.4561631Z   set-safe-directory: true
+2026-10-09T21:25:19.4562405Z   allow-unsafe-pr-checkout: false
+2026-10-09T21:25:19.4563298Z env:
+2026-10-09T21:25:19.4563923Z   CARGO_TERM_COLOR: always
+2026-10-09T21:25:19.4564621Z   RUST_BACKTRACE: 1
+2026-10-09T21:25:19.4565414Z ##[endgroup]
+2026-10-09T21:25:19.5333284Z Syncing repository: rsasaki0109/rustwright
+2026-10-09T21:25:19.5336632Z ##[group]Getting Git version info
+2026-10-09T21:25:19.5338087Z Working directory is '/home/runner/work/rustwright/rustwright'
+2026-10-09T21:25:19.5340133Z [command]/usr/bin/git version
+2026-10-09T21:25:19.5341205Z git version 2.55.0
+2026-10-09T21:25:19.5352746Z ##[endgroup]
+2026-10-09T21:25:19.5360308Z Temporarily overriding HOME='/home/runner/work/_temp/51580a3d-f972-4f4f-90da-02970168b641' before making global git config changes
+2026-10-09T21:25:19.5362965Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-09T21:25:19.5365458Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/rustwright/rustwright
+2026-10-09T21:25:19.5400267Z Deleting the contents of '/home/runner/work/rustwright/rustwright'
+2026-10-09T21:25:19.5409367Z ##[group]Initializing the repository
+2026-10-09T21:25:19.5426909Z [command]/usr/bin/git init /home/runner/work/rustwright/rustwright
+2026-10-09T21:25:19.5488212Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-09T21:25:19.5490566Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-09T21:25:19.5493282Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-09T21:25:19.5494850Z hint: call:
+2026-10-09T21:25:19.5495972Z hint:
+2026-10-09T21:25:19.5497248Z hint: 	git config --global init.defaultBranch <name>
+2026-10-09T21:25:19.5498528Z hint:
+2026-10-09T21:25:19.5499781Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-09T21:25:19.5502087Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-09T21:25:19.5503687Z hint:
+2026-10-09T21:25:19.5504611Z hint: 	git branch -m <name>
+2026-10-09T21:25:19.5505855Z hint:
+2026-10-09T21:25:19.5507327Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-09T21:25:19.5509622Z Initialized empty Git repository in /home/runner/work/rustwright/rustwright/.git/
+2026-10-09T21:25:19.5514805Z [command]/usr/bin/git remote add origin https://github.com/rsasaki0109/rustwright
+2026-10-09T21:25:19.5540209Z ##[endgroup]
+2026-10-09T21:25:19.5541797Z ##[group]Disabling automatic garbage collection
+2026-10-09T21:25:19.5543676Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-09T21:25:19.5569415Z ##[endgroup]
+2026-10-09T21:25:19.5571161Z ##[group]Setting up auth
+2026-10-09T21:25:19.5586973Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-09T21:25:19.5592532Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-09T21:25:19.5838953Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-09T21:25:19.5864336Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-09T21:25:19.6015948Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-09T21:25:19.6040187Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-09T21:25:19.6175644Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-09T21:25:19.6206281Z ##[endgroup]
+2026-10-09T21:25:19.6207492Z ##[group]Fetching the repository
+2026-10-09T21:25:19.6213672Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +66d98a9fcfa9ee744aae768cb06e472b2cef79d5:refs/remotes/origin/codex/reliability-95-ci
+2026-10-09T21:25:21.3458025Z From https://github.com/rsasaki0109/rustwright
+2026-10-09T21:25:21.3458818Z  * [new ref]         66d98a9fcfa9ee744aae768cb06e472b2cef79d5 -> origin/codex/reliability-95-ci
+2026-10-09T21:25:21.3461920Z ##[endgroup]
+2026-10-09T21:25:21.3462564Z ##[group]Determining the checkout info
+2026-10-09T21:25:21.3464715Z ##[endgroup]
+2026-10-09T21:25:21.3470091Z [command]/usr/bin/git sparse-checkout disable
+2026-10-09T21:25:21.3517214Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-09T21:25:21.3541089Z ##[group]Checking out the ref
+2026-10-09T21:25:21.3545312Z [command]/usr/bin/git checkout --progress --force -B codex/reliability-95-ci refs/remotes/origin/codex/reliability-95-ci
+2026-10-09T21:25:21.5312054Z Switched to a new branch 'codex/reliability-95-ci'
+2026-10-09T21:25:21.5316022Z branch 'codex/reliability-95-ci' set up to track 'origin/codex/reliability-95-ci'.
+2026-10-09T21:25:21.5326424Z ##[endgroup]
+2026-10-09T21:25:21.5372892Z [command]/usr/bin/git log -1 --format=%H
+2026-10-09T21:25:21.5376595Z 66d98a9fcfa9ee744aae768cb06e472b2cef79d5
+2026-10-09T21:25:21.5618373Z ##[group]Run dtolnay/rust-toolchain@stable
+2026-10-09T21:25:21.5618623Z with:
+2026-10-09T21:25:21.5618788Z   toolchain: stable
+2026-10-09T21:25:21.5618959Z env:
+2026-10-09T21:25:21.5619119Z   CARGO_TERM_COLOR: always
+2026-10-09T21:25:21.5619301Z   RUST_BACKTRACE: 1
+2026-10-09T21:25:21.5619467Z ##[endgroup]
+2026-10-09T21:25:21.5669672Z ##[start-action display=Parse toolchain version;id=__dtolnay_rust-toolchain.parse]
+2026-10-09T21:25:21.5716598Z ##[group]Run if [[ -z $toolchain ]]; then
+2026-10-09T21:25:21.5716883Z [36;1mif [[ -z $toolchain ]]; then[0m
+2026-10-09T21:25:21.5717292Z [36;1m  # GitHub does not enforce `required: true` inputs itself. https://github.com/actions/runner/issues/1070[0m
+2026-10-09T21:25:21.5717671Z [36;1m  echo "'toolchain' is a required input" >&2[0m
+2026-10-09T21:25:21.5717893Z [36;1m  exit 1[0m
+2026-10-09T21:25:21.5718133Z [36;1melif [[ $toolchain =~ ^stable' '[0-9]+' '(year|month|week|day)s?' 'ago$ ]]; then[0m
+2026-10-09T21:25:21.5718470Z [36;1m  if [[ Linux == macOS ]]; then[0m
+2026-10-09T21:25:21.5718844Z [36;1m    echo "toolchain=1.$((($(date -v-$(sed 's/stable \([0-9]*\) \(.\).*/\1\2/' <<< $toolchain) +%s)/60/60/24-16569)/7/6))" >> $GITHUB_OUTPUT[0m
+2026-10-09T21:25:21.5719209Z [36;1m  else[0m
+2026-10-09T21:25:21.5719491Z [36;1m    echo "toolchain=1.$((($(date --date "${toolchain#stable }" +%s)/60/60/24-16569)/7/6))" >> $GITHUB_OUTPUT[0m
+2026-10-09T21:25:21.5719803Z [36;1m  fi[0m
+2026-10-09T21:25:21.5720027Z [36;1melif [[ $toolchain =~ ^stable' 'minus' '[0-9]+' 'releases?$ ]]; then[0m
+2026-10-09T21:25:21.5720390Z [36;1m  echo "toolchain=1.$((($(date +%s)/60/60/24-16569)/7/6-${toolchain//[^0-9]/}))" >> $GITHUB_OUTPUT[0m
+2026-10-09T21:25:21.5720702Z [36;1melif [[ $toolchain =~ ^1\.[0-9]+$ ]]; then[0m
+2026-10-09T21:25:21.5721049Z [36;1m  echo "toolchain=1.$((i=${toolchain#1.}, c=($(date +%s)/60/60/24-16569)/7/6, i+9*i*(10*i<=c)+90*i*(100*i<=c)))" >> $GITHUB_OUTPUT[0m
+2026-10-09T21:25:21.5721379Z [36;1melse[0m
+2026-10-09T21:25:21.5721530Z [36;1m  delimiter=EOF[0m
+2026-10-09T21:25:21.5721751Z [36;1m  while [[ $toolchain == *$delimiter* ]]; do delimiter+=_; done[0m
+2026-10-09T21:25:21.5722094Z [36;1m  printf 'toolchain<<%s\n%s\n%s\n' "$delimiter" "$toolchain" "$delimiter" >> $GITHUB_OUTPUT[0m
+2026-10-09T21:25:21.5722378Z [36;1mfi[0m
+2026-10-09T21:25:21.5875125Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T21:25:21.5875459Z env:
+2026-10-09T21:25:21.5875633Z   CARGO_TERM_COLOR: always
+2026-10-09T21:25:21.5875800Z   RUST_BACKTRACE: 1
+2026-10-09T21:25:21.5875955Z   toolchain: stable
+2026-10-09T21:25:21.5876099Z ##[endgroup]
+2026-10-09T21:25:21.5959928Z ##[end-action id=__dtolnay_rust-toolchain.parse;outcome=success;conclusion=success;duration_ms=28]
+2026-10-09T21:25:21.5963470Z ##[start-action display=Set $CARGO_HOME;id=__dtolnay_rust-toolchain.__run]
+2026-10-09T21:25:21.5987725Z ##[group]Run echo CARGO_HOME=${CARGO_HOME:-"$HOME/.cargo"} >> $GITHUB_ENV
+2026-10-09T21:25:21.5988081Z [36;1mecho CARGO_HOME=${CARGO_HOME:-"$HOME/.cargo"} >> $GITHUB_ENV[0m
+2026-10-09T21:25:21.6009924Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T21:25:21.6010169Z env:
+2026-10-09T21:25:21.6010324Z   CARGO_TERM_COLOR: always
+2026-10-09T21:25:21.6010499Z   RUST_BACKTRACE: 1
+2026-10-09T21:25:21.6010656Z ##[endgroup]
+2026-10-09T21:25:21.6052345Z ##[end-action id=__dtolnay_rust-toolchain.__run;outcome=success;conclusion=success;duration_ms=8]
+2026-10-09T21:25:21.6054094Z ##[start-action display=Install rustup if needed;id=__dtolnay_rust-toolchain.__run_2]
+2026-10-09T21:25:21.6073344Z ##[group]Run if ! command -v rustup &>/dev/null; then
+2026-10-09T21:25:21.6073608Z [36;1mif ! command -v rustup &>/dev/null; then[0m
+2026-10-09T21:25:21.6074118Z [36;1m  curl --proto '=https' --tlsv1.2 --retry 10 --retry-connrefused --location --silent --show-error --fail https://sh.rustup.rs | sh -s -- --default-toolchain none -y[0m
+2026-10-09T21:25:21.6074592Z [36;1m  echo "$CARGO_HOME/bin" >> $GITHUB_PATH[0m
+2026-10-09T21:25:21.6075143Z [36;1mfi[0m
+2026-10-09T21:25:21.6097155Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T21:25:21.6097396Z env:
+2026-10-09T21:25:21.6097562Z   CARGO_TERM_COLOR: always
+2026-10-09T21:25:21.6097739Z   RUST_BACKTRACE: 1
+2026-10-09T21:25:21.6097909Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T21:25:21.6098090Z ##[endgroup]
+2026-10-09T21:25:21.6136702Z ##[end-action id=__dtolnay_rust-toolchain.__run_2;outcome=success;conclusion=success;duration_ms=8]
+2026-10-09T21:25:21.6138350Z ##[start-action display=Install rustup if needed on windows;id=__dtolnay_rust-toolchain.__run_3]
+2026-10-09T21:25:21.6143487Z ##[end-action id=__dtolnay_rust-toolchain.__run_3;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-09T21:25:21.6153063Z ##[start-action display=rustup toolchain install stable;id=__dtolnay_rust-toolchain.__run_4]
+2026-10-09T21:25:21.6167137Z ##[group]Run set -f  # split targets and components on commas and whitespace, without glob expansion
+2026-10-09T21:25:21.6167807Z [36;1mset -f  # split targets and components on commas and whitespace, without glob expansion[0m
+2026-10-09T21:25:21.6168172Z [36;1mflags=()[0m
+2026-10-09T21:25:21.6168445Z [36;1mfor t in ${targets//,/ }; do flags+=(--target "$t"); done[0m
+2026-10-09T21:25:21.6168801Z [36;1mfor c in ${components//,/ }; do flags+=(--component "$c"); done[0m
+2026-10-09T21:25:21.6169220Z [36;1mif [[ $toolchain == nightly && -n $components ]]; then flags+=(--allow-downgrade); fi[0m
+2026-10-09T21:25:21.6169599Z [36;1mlog=$(mktemp)[0m
+2026-10-09T21:25:21.6169852Z [36;1mtrap 'rm -f "$log"' EXIT[0m
+2026-10-09T21:25:21.6170106Z [36;1mfor attempt in 1 2 3 4 5; do[0m
+2026-10-09T21:25:21.6170562Z [36;1m  if rustup toolchain install "$toolchain" "${flags[@]}" --profile minimal --no-self-update --force-non-host 2>&1 | tee "$log"; then[0m
+2026-10-09T21:25:21.6171016Z [36;1m    break[0m
+2026-10-09T21:25:21.6171215Z [36;1m  else[0m
+2026-10-09T21:25:21.6171451Z [36;1m    status=$?[0m
+2026-10-09T21:25:21.6171677Z [36;1m  fi[0m
+2026-10-09T21:25:21.6171998Z [36;1m  if [[ $attempt == 5 ]] || ! grep -Fq 'checksum failed for ' "$log" \[0m
+2026-10-09T21:25:21.6172453Z [36;1m      || ! grep -Fq 'this is likely due to an ongoing update of the official release server' "$log"; then[0m
+2026-10-09T21:25:21.6172823Z [36;1m    exit "$status"[0m
+2026-10-09T21:25:21.6173074Z [36;1m  fi[0m
+2026-10-09T21:25:21.6173388Z [36;1m  echo "Retrying rustup toolchain install in 30 seconds (retry $attempt of 4)" >&2[0m
+2026-10-09T21:25:21.6173738Z [36;1m  sleep 30[0m
+2026-10-09T21:25:21.6173977Z [36;1mdone[0m
+2026-10-09T21:25:21.6195835Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T21:25:21.6196151Z env:
+2026-10-09T21:25:21.6196400Z   CARGO_TERM_COLOR: always
+2026-10-09T21:25:21.6196645Z   RUST_BACKTRACE: 1
+2026-10-09T21:25:21.6196895Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T21:25:21.6197158Z   toolchain: stable
+2026-10-09T21:25:21.6197373Z   targets: 
+2026-10-09T21:25:21.6197596Z   components: 
+2026-10-09T21:25:21.6197842Z   RUSTUP_PERMIT_COPY_RENAME: 1
+2026-10-09T21:25:21.6198078Z ##[endgroup]
+2026-10-09T21:25:21.9414697Z info: syncing channel updates for stable-x86_64-unknown-linux-gnu
+2026-10-09T21:25:22.2300597Z 
+2026-10-09T21:25:22.2363795Z   stable-x86_64-unknown-linux-gnu unchanged - rustc 1.99.0 (b940084d7 2026-09-28)
+2026-10-09T21:25:22.2364116Z 
+2026-10-09T21:25:22.2409636Z ##[end-action id=__dtolnay_rust-toolchain.__run_4;outcome=success;conclusion=success;duration_ms=625]
+2026-10-09T21:25:22.2416335Z ##[start-action display=rustup default stable;id=__dtolnay_rust-toolchain.__run_5]
+2026-10-09T21:25:22.2433282Z ##[group]Run rustup default "$toolchain" --force-non-host
+2026-10-09T21:25:22.2433577Z [36;1mrustup default "$toolchain" --force-non-host[0m
+2026-10-09T21:25:22.2464678Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T21:25:22.2465089Z env:
+2026-10-09T21:25:22.2465263Z   CARGO_TERM_COLOR: always
+2026-10-09T21:25:22.2465445Z   RUST_BACKTRACE: 1
+2026-10-09T21:25:22.2465763Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T21:25:22.2465949Z   toolchain: stable
+2026-10-09T21:25:22.2466102Z ##[endgroup]
+2026-10-09T21:25:22.2542633Z info: using existing install for stable-x86_64-unknown-linux-gnu
+2026-10-09T21:25:22.2554193Z info: default toolchain set to stable-x86_64-unknown-linux-gnu
+2026-10-09T21:25:22.2554382Z 
+2026-10-09T21:25:22.2611381Z   stable-x86_64-unknown-linux-gnu unchanged - rustc 1.99.0 (b940084d7 2026-09-28)
+2026-10-09T21:25:22.2611627Z 
+2026-10-09T21:25:22.2675749Z ##[end-action id=__dtolnay_rust-toolchain.__run_5;outcome=success;conclusion=success;duration_ms=25]
+2026-10-09T21:25:22.2678103Z ##[start-action display=Create cachekey;id=__dtolnay_rust-toolchain.rustc-version]
+2026-10-09T21:25:22.2690167Z ##[group]Run DATE=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-date: \(20[0-9][0-9]\)-\([01][0-9]\)-\([0-3][0-9]\)$/\1\2\3/p')
+2026-10-09T21:25:22.2690744Z [36;1mDATE=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-date: \(20[0-9][0-9]\)-\([01][0-9]\)-\([0-3][0-9]\)$/\1\2\3/p')[0m
+2026-10-09T21:25:22.2691187Z [36;1mHASH=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-hash: //p')[0m
+2026-10-09T21:25:22.2691527Z [36;1mecho "cachekey=$(echo $DATE$HASH | head -c12)" >> $GITHUB_OUTPUT[0m
+2026-10-09T21:25:22.2713617Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T21:25:22.2713847Z env:
+2026-10-09T21:25:22.2713999Z   CARGO_TERM_COLOR: always
+2026-10-09T21:25:22.2714180Z   RUST_BACKTRACE: 1
+2026-10-09T21:25:22.2714335Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T21:25:22.2714510Z   toolchain: stable
+2026-10-09T21:25:22.2714654Z ##[endgroup]
+2026-10-09T21:25:22.3160656Z ##[end-action id=__dtolnay_rust-toolchain.rustc-version;outcome=success;conclusion=success;duration_ms=48]
+2026-10-09T21:25:22.3162292Z ##[start-action display=Disable incremental compilation;id=__dtolnay_rust-toolchain.__run_6]
+2026-10-09T21:25:22.3175547Z ##[group]Run if [ -z "${CARGO_INCREMENTAL+set}" ]; then
+2026-10-09T21:25:22.3175827Z [36;1mif [ -z "${CARGO_INCREMENTAL+set}" ]; then[0m
+2026-10-09T21:25:22.3176055Z [36;1m  echo CARGO_INCREMENTAL=0 >> $GITHUB_ENV[0m
+2026-10-09T21:25:22.3176249Z [36;1mfi[0m
+2026-10-09T21:25:22.3198548Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T21:25:22.3198785Z env:
+2026-10-09T21:25:22.3198940Z   CARGO_TERM_COLOR: always
+2026-10-09T21:25:22.3199110Z   RUST_BACKTRACE: 1
+2026-10-09T21:25:22.3199276Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T21:25:22.3199463Z ##[endgroup]
+2026-10-09T21:25:22.3238897Z ##[end-action id=__dtolnay_rust-toolchain.__run_6;outcome=success;conclusion=success;duration_ms=7]
+2026-10-09T21:25:22.3240502Z ##[start-action display=Enable colors in Cargo output;id=__dtolnay_rust-toolchain.__run_7]
+2026-10-09T21:25:22.3253239Z ##[group]Run if [ -z "${CARGO_TERM_COLOR+set}" ]; then
+2026-10-09T21:25:22.3253495Z [36;1mif [ -z "${CARGO_TERM_COLOR+set}" ]; then[0m
+2026-10-09T21:25:22.3253738Z [36;1m  echo CARGO_TERM_COLOR=always >> $GITHUB_ENV[0m
+2026-10-09T21:25:22.3253952Z [36;1mfi[0m
+2026-10-09T21:25:22.3275983Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T21:25:22.3276226Z env:
+2026-10-09T21:25:22.3276378Z   CARGO_TERM_COLOR: always
+2026-10-09T21:25:22.3276602Z   RUST_BACKTRACE: 1
+2026-10-09T21:25:22.3276768Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T21:25:22.3276954Z   CARGO_INCREMENTAL: 0
+2026-10-09T21:25:22.3277115Z ##[endgroup]
+2026-10-09T21:25:22.3315154Z ##[end-action id=__dtolnay_rust-toolchain.__run_7;outcome=success;conclusion=success;duration_ms=7]
+2026-10-09T21:25:22.3317684Z ##[start-action display=Enable Cargo sparse registry;id=__dtolnay_rust-toolchain.__run_8]
+2026-10-09T21:25:22.3331986Z ##[group]Run # implemented in 1.66, stabilized in 1.68, made default in 1.70
+2026-10-09T21:25:22.3332404Z [36;1m# implemented in 1.66, stabilized in 1.68, made default in 1.70[0m
+2026-10-09T21:25:22.3332988Z [36;1mif [ -z "${CARGO_REGISTRIES_CRATES_IO_PROTOCOL+set}" -o -f "/home/runner/work/_temp"/.implicit_cargo_registries_crates_io_protocol ]; then[0m
+2026-10-09T21:25:22.3333479Z [36;1m  if rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.6[89]\.'; then[0m
+2026-10-09T21:25:22.3333913Z [36;1m    touch "/home/runner/work/_temp"/.implicit_cargo_registries_crates_io_protocol || true[0m
+2026-10-09T21:25:22.3334266Z [36;1m    echo CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse >> $GITHUB_ENV[0m
+2026-10-09T21:25:22.3334611Z [36;1m  elif rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.6[67]\.'; then[0m
+2026-10-09T21:25:22.3335188Z [36;1m    touch "/home/runner/work/_temp"/.implicit_cargo_registries_crates_io_protocol || true[0m
+2026-10-09T21:25:22.3335540Z [36;1m    echo CARGO_REGISTRIES_CRATES_IO_PROTOCOL=git >> $GITHUB_ENV[0m
+2026-10-09T21:25:22.3335775Z [36;1m  fi[0m
+2026-10-09T21:25:22.3335913Z [36;1mfi[0m
+2026-10-09T21:25:22.3357150Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T21:25:22.3357380Z env:
+2026-10-09T21:25:22.3357531Z   CARGO_TERM_COLOR: always
+2026-10-09T21:25:22.3357705Z   RUST_BACKTRACE: 1
+2026-10-09T21:25:22.3357866Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T21:25:22.3358044Z   CARGO_INCREMENTAL: 0
+2026-10-09T21:25:22.3358208Z   toolchain: stable
+2026-10-09T21:25:22.3358353Z ##[endgroup]
+2026-10-09T21:25:22.3560410Z ##[end-action id=__dtolnay_rust-toolchain.__run_8;outcome=success;conclusion=success;duration_ms=24]
+2026-10-09T21:25:22.3562730Z ##[start-action display=Work around spurious network errors in curl 8.0;id=__dtolnay_rust-toolchain.__run_9]
+2026-10-09T21:25:22.3574568Z ##[group]Run # https://rust-lang.zulipchat.com/#narrow/stream/246057-t-cargo/topic/timeout.20investigation
+2026-10-09T21:25:22.3575248Z [36;1m# https://rust-lang.zulipchat.com/#narrow/stream/246057-t-cargo/topic/timeout.20investigation[0m
+2026-10-09T21:25:22.3575674Z [36;1mif rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.7[01]\.'; then[0m
+2026-10-09T21:25:22.3575995Z [36;1m  echo CARGO_HTTP_MULTIPLEXING=false >> $GITHUB_ENV[0m
+2026-10-09T21:25:22.3576223Z [36;1mfi[0m
+2026-10-09T21:25:22.3597846Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T21:25:22.3598075Z env:
+2026-10-09T21:25:22.3598222Z   CARGO_TERM_COLOR: always
+2026-10-09T21:25:22.3598386Z   RUST_BACKTRACE: 1
+2026-10-09T21:25:22.3598548Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T21:25:22.3598729Z   CARGO_INCREMENTAL: 0
+2026-10-09T21:25:22.3598883Z   toolchain: stable
+2026-10-09T21:25:22.3599030Z ##[endgroup]
+2026-10-09T21:25:22.3715770Z ##[end-action id=__dtolnay_rust-toolchain.__run_9;outcome=success;conclusion=success;duration_ms=15]
+2026-10-09T21:25:22.3718700Z ##[start-action display=rustc +stable --version --verbose;id=__dtolnay_rust-toolchain.__run_10]
+2026-10-09T21:25:22.3730809Z ##[group]Run rustc +"$toolchain" --version --verbose
+2026-10-09T21:25:22.3731066Z [36;1mrustc +"$toolchain" --version --verbose[0m
+2026-10-09T21:25:22.3752569Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-09T21:25:22.3752815Z env:
+2026-10-09T21:25:22.3752980Z   CARGO_TERM_COLOR: always
+2026-10-09T21:25:22.3753148Z   RUST_BACKTRACE: 1
+2026-10-09T21:25:22.3753319Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T21:25:22.3753496Z   CARGO_INCREMENTAL: 0
+2026-10-09T21:25:22.3753647Z   toolchain: stable
+2026-10-09T21:25:22.3753839Z ##[endgroup]
+2026-10-09T21:25:22.3860425Z rustc 1.99.0 (b940084d7 2026-09-28)
+2026-10-09T21:25:22.3860820Z binary: rustc
+2026-10-09T21:25:22.3861163Z commit-hash: b940084d7eb6a299eb4bfeb8e34901bc051e7ac4
+2026-10-09T21:25:22.3861689Z commit-date: 2026-09-28
+2026-10-09T21:25:22.3861997Z host: x86_64-unknown-linux-gnu
+2026-10-09T21:25:22.3862312Z release: 1.99.0
+2026-10-09T21:25:22.3862509Z LLVM version: 23.1.1
+2026-10-09T21:25:22.3873126Z ##[end-action id=__dtolnay_rust-toolchain.__run_10;outcome=success;conclusion=success;duration_ms=15]
+2026-10-09T21:25:22.3950764Z ##[group]Run Swatinem/rust-cache@v2
+2026-10-09T21:25:22.3950975Z with:
+2026-10-09T21:25:22.3951135Z   prefix-key: v0-rust
+2026-10-09T21:25:22.3951311Z   add-job-id-key: true
+2026-10-09T21:25:22.3951498Z   add-rust-environment-hash-key: true
+2026-10-09T21:25:22.3951709Z   cache-targets: true
+2026-10-09T21:25:22.3951876Z   cache-all-crates: false
+2026-10-09T21:25:22.3952060Z   cache-workspace-crates: false
+2026-10-09T21:25:22.3952239Z   save-if: true
+2026-10-09T21:25:22.3952394Z   cache-provider: github
+2026-10-09T21:25:22.3952561Z   cache-bin: true
+2026-10-09T21:25:22.3952715Z   lookup-only: false
+2026-10-09T21:25:22.3952871Z   cmd-format: {0}
+2026-10-09T21:25:22.3953027Z env:
+2026-10-09T21:25:22.3953177Z   CARGO_TERM_COLOR: always
+2026-10-09T21:25:22.3953346Z   RUST_BACKTRACE: 1
+2026-10-09T21:25:22.3953510Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T21:25:22.3953697Z   CARGO_INCREMENTAL: 0
+2026-10-09T21:25:22.3953855Z ##[endgroup]
+2026-10-09T21:25:23.6237453Z ##[group]Cache Configuration
+2026-10-09T21:25:23.6238074Z Cache Provider:
+2026-10-09T21:25:23.6238651Z     github
+2026-10-09T21:25:23.6238885Z Workspaces:
+2026-10-09T21:25:23.6239113Z     /home/runner/work/rustwright/rustwright
+2026-10-09T21:25:23.6239412Z Cache Paths:
+2026-10-09T21:25:23.6239656Z     /home/runner/.cargo/bin
+2026-10-09T21:25:23.6239899Z     /home/runner/.cargo/.crates.toml
+2026-10-09T21:25:23.6240155Z     /home/runner/.cargo/.crates2.json
+2026-10-09T21:25:23.6240415Z     /home/runner/.cargo/registry
+2026-10-09T21:25:23.6240668Z     /home/runner/.cargo/git
+2026-10-09T21:25:23.6240950Z     /home/runner/work/rustwright/rustwright/target
+2026-10-09T21:25:23.6241265Z Restore Key:
+2026-10-09T21:25:23.6241565Z     v0-rust-headed-versions-sites-Linux-x64-2c4d122c
+2026-10-09T21:25:23.6241873Z Cache Key:
+2026-10-09T21:25:23.6242159Z     v0-rust-headed-versions-sites-Linux-x64-2c4d122c-f6e92162
+2026-10-09T21:25:23.6242513Z .. Prefix:
+2026-10-09T21:25:23.6242761Z   - v0-rust-headed-versions-sites-Linux-x64
+2026-10-09T21:25:23.6243078Z .. Environment considered:
+2026-10-09T21:25:23.6243319Z   - Rust Versions:
+2026-10-09T21:25:23.6243664Z     - 1.99.0 x86_64-unknown-linux-gnu b940084d7eb6a299eb4bfeb8e34901bc051e7ac4
+2026-10-09T21:25:23.6244038Z   - CARGO_HOME
+2026-10-09T21:25:23.6244247Z   - CARGO_INCREMENTAL
+2026-10-09T21:25:23.6244474Z   - CARGO_TERM_COLOR
+2026-10-09T21:25:23.6244689Z   - RUST_BACKTRACE
+2026-10-09T21:25:23.6244900Z .. Lockfiles considered:
+2026-10-09T21:25:23.6245413Z   - /home/runner/work/rustwright/rustwright/Cargo.lock
+2026-10-09T21:25:23.6245867Z   - /home/runner/work/rustwright/rustwright/crates/rustwright-bidi/Cargo.toml
+2026-10-09T21:25:23.6246408Z   - /home/runner/work/rustwright/rustwright/crates/rustwright-browser/Cargo.toml
+2026-10-09T21:25:23.6246967Z   - /home/runner/work/rustwright/rustwright/crates/rustwright-cdp/Cargo.toml
+2026-10-09T21:25:23.6247518Z   - /home/runner/work/rustwright/rustwright/crates/rustwright-common/Cargo.toml
+2026-10-09T21:25:23.6248148Z   - /home/runner/work/rustwright/rustwright/crates/rustwright-core/Cargo.toml
+2026-10-09T21:25:23.6248706Z   - /home/runner/work/rustwright/rustwright/crates/rustwright-test-macros/Cargo.toml
+2026-10-09T21:25:23.6249235Z   - /home/runner/work/rustwright/rustwright/crates/rustwright-test/Cargo.toml
+2026-10-09T21:25:23.6249727Z   - /home/runner/work/rustwright/rustwright/crates/rustwright/Cargo.toml
+2026-10-09T21:25:23.6250371Z   - /home/runner/work/rustwright/rustwright/docs/ci/results/firefox-network-idle/local/release/consumer/.cargo/config.toml
+2026-10-09T21:25:23.6251227Z   - /home/runner/work/rustwright/rustwright/docs/ci/results/reliability-95/local/distribution/consumer/.cargo/config.toml
+2026-10-09T21:25:23.6252258Z   - /home/runner/work/rustwright/rustwright/docs/ci/results/remote-20261009/followup-local/consumer/.cargo/config.toml
+2026-10-09T21:25:23.6253026Z   - /home/runner/work/rustwright/rustwright/docs/ci/results/required-browser/release/consumer/.cargo/config.toml
+2026-10-09T21:25:23.6253911Z   - /home/runner/work/rustwright/rustwright/docs/release/results/local-package/consumer/.cargo/config.toml
+2026-10-09T21:25:23.6254472Z   - /home/runner/work/rustwright/rustwright/examples/Cargo.toml
+2026-10-09T21:25:23.6254835Z   - /home/runner/work/rustwright/rustwright/tests/Cargo.toml
+2026-10-09T21:25:23.6255554Z ##[endgroup]
+2026-10-09T21:25:23.6255658Z 
+2026-10-09T21:25:23.6255736Z ... Restoring cache ...
+2026-10-09T21:25:23.7579304Z No cache found.
+2026-10-09T21:25:23.7659444Z ##[group]Run actions/setup-python@v6
+2026-10-09T21:25:23.7659652Z with:
+2026-10-09T21:25:23.7659812Z   python-version: 3.11
+2026-10-09T21:25:23.7659987Z   check-latest: false
+2026-10-09T21:25:23.7661933Z   token: ***
+2026-10-09T21:25:23.7662119Z   update-environment: true
+2026-10-09T21:25:23.7662311Z   allow-prereleases: false
+2026-10-09T21:25:23.7662502Z   freethreaded: false
+2026-10-09T21:25:23.7662656Z env:
+2026-10-09T21:25:23.7662800Z   CARGO_TERM_COLOR: always
+2026-10-09T21:25:23.7662964Z   RUST_BACKTRACE: 1
+2026-10-09T21:25:23.7663132Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T21:25:23.7663320Z   CARGO_INCREMENTAL: 0
+2026-10-09T21:25:23.7663488Z   CACHE_ON_FAILURE: false
+2026-10-09T21:25:23.7663657Z ##[endgroup]
+2026-10-09T21:25:23.8546499Z ##[group]Installed versions
+2026-10-09T21:25:23.8612059Z Successfully set up CPython (3.11.17)
+2026-10-09T21:25:23.8612576Z ##[endgroup]
+2026-10-09T21:25:23.8717763Z ##[group]Run sudo apt-get update
+2026-10-09T21:25:23.8718383Z [36;1msudo apt-get update[0m
+2026-10-09T21:25:23.8719037Z [36;1msudo apt-get install --yes xvfb xauth x11-utils[0m
+2026-10-09T21:25:23.8719846Z [36;1mcommand -v Xvfb xvfb-run xauth xwininfo xprop[0m
+2026-10-09T21:25:23.8778655Z shell: /usr/bin/bash -e {0}
+2026-10-09T21:25:23.8778869Z env:
+2026-10-09T21:25:23.8779024Z   CARGO_TERM_COLOR: always
+2026-10-09T21:25:23.8779195Z   RUST_BACKTRACE: 1
+2026-10-09T21:25:23.8779361Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T21:25:23.8779545Z   CARGO_INCREMENTAL: 0
+2026-10-09T21:25:23.8779705Z   CACHE_ON_FAILURE: false
+2026-10-09T21:25:23.8779920Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T21:25:23.8780228Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-10-09T21:25:23.8780514Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T21:25:23.8780812Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T21:25:23.8781067Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T21:25:23.8781326Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-10-09T21:25:23.8781547Z ##[endgroup]
+2026-10-09T21:25:23.9306407Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-10-09T21:25:23.9656615Z Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+2026-10-09T21:25:23.9667988Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+2026-10-09T21:25:23.9693850Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+2026-10-09T21:25:23.9702495Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+2026-10-09T21:25:23.9818070Z Get:6 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+2026-10-09T21:25:24.0419779Z Get:7 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1375 kB]
+2026-10-09T21:25:24.0520545Z Get:8 http://azure.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [306 kB]
+2026-10-09T21:25:24.0536549Z Get:9 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1702 kB]
+2026-10-09T21:25:24.0583756Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [342 kB]
+2026-10-09T21:25:24.0602179Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [1761 kB]
+2026-10-09T21:25:24.0675250Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [401 kB]
+2026-10-09T21:25:24.0689210Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [55.0 kB]
+2026-10-09T21:25:24.0696622Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse Translation-en [14.3 kB]
+2026-10-09T21:25:24.1060479Z Get:15 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [1121 kB]
+2026-10-09T21:25:24.1108562Z Get:16 http://azure.archive.ubuntu.com/ubuntu noble-security/main Translation-en [228 kB]
+2026-10-09T21:25:24.1377634Z Get:23 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [475 kB]
+2026-10-09T21:25:24.1471264Z Get:24 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [531 kB]
+2026-10-09T21:25:24.1531458Z Get:17 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1220 kB]
+2026-10-09T21:25:24.1575510Z Get:18 http://azure.archive.ubuntu.com/ubuntu noble-security/universe Translation-en [245 kB]
+2026-10-09T21:25:24.1582152Z Get:25 https://packages.microsoft.com/ubuntu/24.04/prod noble/main armhf Packages [12.3 kB]
+2026-10-09T21:25:24.1588801Z Get:19 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [1669 kB]
+2026-10-09T21:25:24.1623287Z Get:26 https://packages.microsoft.com/ubuntu/24.04/prod noble/main all Packages [640 B]
+2026-10-09T21:25:24.1646456Z Get:20 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted Translation-en [383 kB]
+2026-10-09T21:25:24.1662589Z Get:21 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [49.8 kB]
+2026-10-09T21:25:24.1668854Z Get:22 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse Translation-en [12.4 kB]
+2026-10-09T21:25:29.0356399Z Fetched 12.3 MB in 1s (12.9 MB/s)
+2026-10-09T21:25:29.6770210Z Reading package lists...
+2026-10-09T21:25:29.7019500Z Reading package lists...
+2026-10-09T21:25:29.8141404Z Building dependency tree...
+2026-10-09T21:25:29.8144899Z Reading state information...
+2026-10-09T21:25:29.9382970Z xvfb is already the newest version (2:21.1.12-1ubuntu1.8).
+2026-10-09T21:25:29.9383647Z xauth is already the newest version (1:1.1.2-1build1).
+2026-10-09T21:25:29.9384214Z xauth set to manually installed.
+2026-10-09T21:25:29.9384630Z The following additional packages will be installed:
+2026-10-09T21:25:29.9385292Z   libxcb-shape0 libxv1 libxxf86dga1
+2026-10-09T21:25:29.9389803Z Suggested packages:
+2026-10-09T21:25:29.9390070Z   mesa-utils
+2026-10-09T21:25:29.9390327Z Recommended packages:
+2026-10-09T21:25:29.9390624Z   luit
+2026-10-09T21:25:29.9515540Z The following NEW packages will be installed:
+2026-10-09T21:25:29.9518055Z   libxcb-shape0 libxv1 libxxf86dga1 x11-utils
+2026-10-09T21:25:29.9647037Z 0 upgraded, 4 newly installed, 0 to remove and 23 not upgraded.
+2026-10-09T21:25:29.9647565Z Need to get 217 kB of archives.
+2026-10-09T21:25:29.9648005Z After this operation, 779 kB of additional disk space will be used.
+2026-10-09T21:25:29.9648459Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-10-09T21:25:30.0206433Z Get:2 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxcb-shape0 amd64 1.15-1ubuntu2 [6100 B]
+2026-10-09T21:25:30.0577335Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxv1 amd64 2:1.0.11-1.1build1 [10.7 kB]
+2026-10-09T21:25:30.0893637Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxxf86dga1 amd64 2:1.1.5-1build1 [11.6 kB]
+2026-10-09T21:25:30.1203305Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 x11-utils amd64 7.7+6build2 [189 kB]
+2026-10-09T21:25:30.2986376Z Fetched 217 kB in 0s (1328 kB/s)
+2026-10-09T21:25:30.3153062Z Selecting previously unselected package libxcb-shape0:amd64.
+2026-10-09T21:25:30.3321408Z (Reading database ... 
+2026-10-09T21:25:30.3321844Z (Reading database ... 5%
+2026-10-09T21:25:30.3322232Z (Reading database ... 10%
+2026-10-09T21:25:30.3323017Z (Reading database ... 15%
+2026-10-09T21:25:30.3323272Z (Reading database ... 20%
+2026-10-09T21:25:30.3323483Z (Reading database ... 25%
+2026-10-09T21:25:30.3323695Z (Reading database ... 30%
+2026-10-09T21:25:30.3323907Z (Reading database ... 35%
+2026-10-09T21:25:30.3324132Z (Reading database ... 40%
+2026-10-09T21:25:30.3324384Z (Reading database ... 45%
+2026-10-09T21:25:30.3324634Z (Reading database ... 50%
+2026-10-09T21:25:30.3364129Z (Reading database ... 55%
+2026-10-09T21:25:30.4542791Z (Reading database ... 60%
+2026-10-09T21:25:30.6637473Z (Reading database ... 65%
+2026-10-09T21:25:30.8635248Z (Reading database ... 70%
+2026-10-09T21:25:31.0099261Z (Reading database ... 75%
+2026-10-09T21:25:31.2087783Z (Reading database ... 80%
+2026-10-09T21:25:31.4136673Z (Reading database ... 85%
+2026-10-09T21:25:31.6180637Z (Reading database ... 90%
+2026-10-09T21:25:31.7609013Z (Reading database ... 95%
+2026-10-09T21:25:31.7609494Z (Reading database ... 100%
+2026-10-09T21:25:31.7610124Z (Reading database ... 203191 files and directories currently installed.)
+2026-10-09T21:25:31.7651070Z Preparing to unpack .../libxcb-shape0_1.15-1ubuntu2_amd64.deb ...
+2026-10-09T21:25:31.7683976Z Unpacking libxcb-shape0:amd64 (1.15-1ubuntu2) ...
+2026-10-09T21:25:31.8809685Z Selecting previously unselected package libxv1:amd64.
+2026-10-09T21:25:31.8890966Z Preparing to unpack .../libxv1_2%3a1.0.11-1.1build1_amd64.deb ...
+2026-10-09T21:25:31.8902294Z Unpacking libxv1:amd64 (2:1.0.11-1.1build1) ...
+2026-10-09T21:25:31.9067758Z Selecting previously unselected package libxxf86dga1:amd64.
+2026-10-09T21:25:31.9147071Z Preparing to unpack .../libxxf86dga1_2%3a1.1.5-1build1_amd64.deb ...
+2026-10-09T21:25:31.9156354Z Unpacking libxxf86dga1:amd64 (2:1.1.5-1build1) ...
+2026-10-09T21:25:31.9311391Z Selecting previously unselected package x11-utils.
+2026-10-09T21:25:31.9389179Z Preparing to unpack .../x11-utils_7.7+6build2_amd64.deb ...
+2026-10-09T21:25:31.9399493Z Unpacking x11-utils (7.7+6build2) ...
+2026-10-09T21:25:31.9806574Z Setting up libxcb-shape0:amd64 (1.15-1ubuntu2) ...
+2026-10-09T21:25:31.9834893Z Setting up libxxf86dga1:amd64 (2:1.1.5-1build1) ...
+2026-10-09T21:25:31.9860783Z Setting up libxv1:amd64 (2:1.0.11-1.1build1) ...
+2026-10-09T21:25:31.9890831Z Setting up x11-utils (7.7+6build2) ...
+2026-10-09T21:25:31.9997979Z Processing triggers for man-db (2.12.0-4build2) ...
+2026-10-09T21:25:32.0019285Z Not building database; man-db/auto-update is not 'true'.
+2026-10-09T21:25:32.0031727Z Processing triggers for libc-bin (2.39-0ubuntu8.9) ...
+2026-10-09T21:25:32.6100784Z 
+2026-10-09T21:25:32.6101206Z Running kernel seems to be up-to-date.
+2026-10-09T21:25:32.6101485Z 
+2026-10-09T21:25:32.6101757Z No services need to be restarted.
+2026-10-09T21:25:32.6101937Z 
+2026-10-09T21:25:32.6102075Z No containers need to be restarted.
+2026-10-09T21:25:32.6102246Z 
+2026-10-09T21:25:32.6102404Z No user sessions are running outdated binaries.
+2026-10-09T21:25:32.6102602Z 
+2026-10-09T21:25:32.6102825Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+2026-10-09T21:25:33.2188818Z /usr/bin/Xvfb
+2026-10-09T21:25:33.2189296Z /usr/bin/xvfb-run
+2026-10-09T21:25:33.2189520Z /usr/bin/xauth
+2026-10-09T21:25:33.2189795Z /usr/bin/xwininfo
+2026-10-09T21:25:33.2190083Z /usr/bin/xprop
+2026-10-09T21:25:33.2228723Z ##[group]Run browser-actions/setup-chrome@v2
+2026-10-09T21:25:33.2229026Z with:
+2026-10-09T21:25:33.2229281Z   chrome-version: 155.0.8059.39
+2026-10-09T21:25:33.2229603Z   install-dependencies: true
+2026-10-09T21:25:33.2229865Z   install-chromedriver: false
+2026-10-09T21:25:33.2230130Z   no-sudo: false
+2026-10-09T21:25:33.2230357Z env:
+2026-10-09T21:25:33.2230585Z   CARGO_TERM_COLOR: always
+2026-10-09T21:25:33.2230843Z   RUST_BACKTRACE: 1
+2026-10-09T21:25:33.2231066Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T21:25:33.2231341Z   CARGO_INCREMENTAL: 0
+2026-10-09T21:25:33.2231582Z   CACHE_ON_FAILURE: false
+2026-10-09T21:25:33.2231910Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T21:25:33.2232303Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-10-09T21:25:33.2232792Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T21:25:33.2233179Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T21:25:33.2233581Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T21:25:33.2233978Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-10-09T21:25:33.2234279Z ##[endgroup]
+2026-10-09T21:25:33.2759858Z Installing dependencies
+2026-10-09T21:25:33.2793182Z [command]/usr/bin/sudo apt-get update
+2026-10-09T21:25:33.3247739Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-10-09T21:25:33.3693350Z Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+2026-10-09T21:25:33.3701512Z Hit:6 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease
+2026-10-09T21:25:33.3717579Z Hit:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease
+2026-10-09T21:25:33.3729260Z Hit:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease
+2026-10-09T21:25:33.3730340Z Hit:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease
+2026-10-09T21:25:34.2054782Z Reading package lists...
+2026-10-09T21:25:34.2164751Z [command]/usr/bin/sudo apt-get install --yes --no-install-recommends libasound2t64 libatk-bridge2.0-0t64 libatk1.0-0t64 libcairo2 libcups2t64 libdbus-1-3 libexpat1 libgbm1 libglib2.0-0t64 libnss3 libpango-1.0-0 libxcomposite1 libxdamage1 libxfixes3 libxkbcommon0 libxrandr2
+2026-10-09T21:25:34.2317920Z Reading package lists...
+2026-10-09T21:25:34.3531670Z Building dependency tree...
+2026-10-09T21:25:34.3535986Z Reading state information...
+2026-10-09T21:25:34.5052132Z libasound2t64 is already the newest version (1.2.11-1ubuntu0.3).
+2026-10-09T21:25:34.5052584Z libasound2t64 set to manually installed.
+2026-10-09T21:25:34.5052977Z libatk-bridge2.0-0t64 is already the newest version (2.52.0-1build1).
+2026-10-09T21:25:34.5053379Z libatk-bridge2.0-0t64 set to manually installed.
+2026-10-09T21:25:34.5053691Z libatk1.0-0t64 is already the newest version (2.52.0-1build1).
+2026-10-09T21:25:34.5054059Z libatk1.0-0t64 set to manually installed.
+2026-10-09T21:25:34.5054353Z libcairo2 is already the newest version (1.18.0-3build1).
+2026-10-09T21:25:34.5054658Z libcairo2 set to manually installed.
+2026-10-09T21:25:34.5055115Z libcups2t64 is already the newest version (2.4.7-1.2ubuntu7.14).
+2026-10-09T21:25:34.5055436Z libcups2t64 set to manually installed.
+2026-10-09T21:25:34.5055814Z libdbus-1-3 is already the newest version (1.14.10-4ubuntu4.1).
+2026-10-09T21:25:34.5056203Z libdbus-1-3 set to manually installed.
+2026-10-09T21:25:34.5056567Z libexpat1 is already the newest version (2.6.1-2ubuntu0.6).
+2026-10-09T21:25:34.5057030Z libexpat1 set to manually installed.
+2026-10-09T21:25:34.5057387Z libgbm1 is already the newest version (25.2.8-0ubuntu0.24.04.4).
+2026-10-09T21:25:34.5057787Z libgbm1 set to manually installed.
+2026-10-09T21:25:34.5058208Z libglib2.0-0t64 is already the newest version (2.80.0-6ubuntu3.9).
+2026-10-09T21:25:34.5058626Z libglib2.0-0t64 set to manually installed.
+2026-10-09T21:25:34.5059051Z libnss3 is already the newest version (2:3.98-1ubuntu0.2).
+2026-10-09T21:25:34.5059424Z libnss3 set to manually installed.
+2026-10-09T21:25:34.5060028Z libpango-1.0-0 is already the newest version (1.52.1+ds-1build1).
+2026-10-09T21:25:34.5060438Z libpango-1.0-0 set to manually installed.
+2026-10-09T21:25:34.5060845Z libxcomposite1 is already the newest version (1:0.4.5-1build3).
+2026-10-09T21:25:34.5061256Z libxcomposite1 set to manually installed.
+2026-10-09T21:25:34.5061651Z libxdamage1 is already the newest version (1:1.1.6-1build1).
+2026-10-09T21:25:34.5062024Z libxdamage1 set to manually installed.
+2026-10-09T21:25:34.5062438Z libxfixes3 is already the newest version (1:6.0.0-2build1).
+2026-10-09T21:25:34.5062840Z libxfixes3 set to manually installed.
+2026-10-09T21:25:34.5063209Z libxkbcommon0 is already the newest version (1.6.0-1build1).
+2026-10-09T21:25:34.5063622Z libxkbcommon0 set to manually installed.
+2026-10-09T21:25:34.5064007Z libxrandr2 is already the newest version (2:1.5.2-2build1).
+2026-10-09T21:25:34.5064330Z libxrandr2 set to manually installed.
+2026-10-09T21:25:34.5064648Z 0 upgraded, 0 newly installed, 0 to remove and 23 not upgraded.
+2026-10-09T21:25:34.5068368Z Setup chrome 155.0.8059.39
+2026-10-09T21:25:34.5078541Z Attempting to download chrome 155.0.8059.39...
+2026-10-09T21:25:34.8972388Z Acquiring chrome 155.0.8059.39 from https://storage.googleapis.com/chrome-for-testing-public/155.0.8059.39/linux64/chrome-linux64.zip
+2026-10-09T21:25:36.4706951Z Installing chrome...
+2026-10-09T21:25:36.4745146Z [command]/usr/bin/unzip -o -q /home/runner/work/_temp/d734e638-1fd6-4ea3-af61-a337c437bb94
+2026-10-09T21:25:41.0328591Z Successfully Installed chrome to /opt/hostedtoolcache/setup-chrome/chrome/155.0.8059.39/x64
+2026-10-09T21:25:41.0335053Z [command]/opt/hostedtoolcache/setup-chrome/chrome/155.0.8059.39/x64/chrome --version
+2026-10-09T21:25:41.0716517Z Google Chrome for Testing 155.0.8059.39 
+2026-10-09T21:25:41.0742987Z Successfully setup chrome 155.0.8059.39
+2026-10-09T21:25:41.1520042Z ##[group]Run python scripts/ci/chrome_linux_sandbox.py --output target/ci/extended/sandbox-current
+2026-10-09T21:25:41.1520576Z [36;1mpython scripts/ci/chrome_linux_sandbox.py --output target/ci/extended/sandbox-current[0m
+2026-10-09T21:25:41.1552819Z shell: /usr/bin/bash -e {0}
+2026-10-09T21:25:41.1553063Z env:
+2026-10-09T21:25:41.1553336Z   CARGO_TERM_COLOR: always
+2026-10-09T21:25:41.1553606Z   RUST_BACKTRACE: 1
+2026-10-09T21:25:41.1553839Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T21:25:41.1554097Z   CARGO_INCREMENTAL: 0
+2026-10-09T21:25:41.1554323Z   CACHE_ON_FAILURE: false
+2026-10-09T21:25:41.1554606Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T21:25:41.1555168Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-10-09T21:25:41.1555609Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T21:25:41.1555948Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T21:25:41.1556361Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T21:25:41.1556712Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-10-09T21:25:41.1557095Z   RUSTWRIGHT_CHROME: /opt/hostedtoolcache/setup-chrome/chrome/155.0.8059.39/x64/chrome
+2026-10-09T21:25:41.1557459Z   CHROME_DEVEL_SANDBOX: 
+2026-10-09T21:25:41.1557686Z ##[endgroup]
+2026-10-09T21:25:42.0720838Z Chrome before: {"phase": "before", "command": ["/opt/hostedtoolcache/setup-chrome/chrome/155.0.8059.39/x64/chrome", "--no-first-run", "--no-default-browser-check", "--user-data-dir=/home/runner/work/rustwright/rustwright/target/ci/extended/sandbox-current/before-profile-y57kzrak", "--headless=new", "--disable-gpu", "--hide-scrollbars", "--mute-audio", "--dump-dom", "--timeout=10000", "http://127.0.0.1:40835/"], "exit_code": -6, "timed_out": false, "stdout": "/home/runner/work/rustwright/rustwright/target/ci/extended/sandbox-current/before-stdout.log", "stderr": "/home/runner/work/rustwright/rustwright/target/ci/extended/sandbox-current/before-stderr.log", "capture_timeout_ms": 10000, "outer_timeout_seconds": 25, "capture_scope": "fixture DOM/title observed; internal capture can stop loading and does not prove full load-event completion", "document_rendered": false, "passed": false}
+2026-10-09T21:25:42.0725436Z [3015:3015:1009/212541.622904:FATAL:content/browser/zygote_host/zygote_host_impl_linux.cc:130] No usable sandbox! If you are running on Ubuntu 23.10+ or another Linux distro that has disabled unprivileged user namespaces with AppArmor, see https://chromium.googlesource.com/chromium/src/+/main/docs/security/apparmor-userns-restrictions.md. Otherwise see https://chromium.googlesource.com/chromium/src/+/main/docs/linux/suid_sandbox_development.md for more information on developing with the (older) SUID sandbox. If you want to live dangerously and need an immediate workaround, you can try using --no-sandbox.
+2026-10-09T21:25:42.0727145Z Received signal 6
+2026-10-09T21:25:42.0727771Z #0 0x56055f7f6fc3 (/opt/hostedtoolcache/setup-chrome/chrome/155.0.8059.39/x64/chrome+0x6aecfc2)
+2026-10-09T21:25:42.0728299Z #1 0x5605647c5174 (/opt/hostedtoolcache/setup-chrome/chrome/155.0.8059.39/x64/chrome+0xbabb173)
+2026-10-09T21:25:42.0728704Z #2 0x7fb390245330 (/usr/lib/x86_64-linux-gnu/libc.so.6+0x4532f)
+2026-10-09T21:25:42.0729032Z #3 0x7fb39024527e (/usr/lib/x86_64-linux-gnu/libc.so.6+0x4527d)
+2026-10-09T21:25:42.0729378Z #4 0x7fb3902288ff (/usr/lib/x86_64-linux-gnu/libc.so.6+0x288fe)
+2026-10-09T21:25:42.0729763Z #5 0x5605647bbed5 (/opt/hostedtoolcache/setup-chrome/chrome/155.0.8059.39/x64/chrome+0xbab1ed4)
+2026-10-09T21:25:42.0730272Z #6 0x56056477bb8d (/opt/hostedtoolcache/setup-chrome/chrome/155.0.8059.39/x64/chrome+0xba71b8c)
+2026-10-09T21:25:42.0730723Z #7 0x56056477badd (/opt/hostedtoolcache/setup-chrome/chrome/155.0.8059.39/x64/chrome+0xba71adc)
+2026-10-09T21:25:42.0731169Z #8 0x56055f4c0c12 (/opt/hostedtoolcache/setup-chrome/chrome/155.0.8059.39/x64/chrome+0x67b6c11)
+2026-10-09T21:25:42.0731760Z #9 0x56055ebe7829 (/opt/hostedtoolcache/setup-chrome/chrome/155.0.8059.39/x64/chrome+0x5edd828)
+2026-10-09T21:25:42.0732215Z #10 0x56055e71ff58 (/opt/hostedtoolcache/setup-chrome/chrome/155.0.8059.39/x64/chrome+0x5a15f57)
+2026-10-09T21:25:42.0732697Z #11 0x560563c8e74f (/opt/hostedtoolcache/setup-chrome/chrome/155.0.8059.39/x64/chrome+0xaf8474e)
+2026-10-09T21:25:42.0733189Z #12 0x56055ec3090c (/opt/hostedtoolcache/setup-chrome/chrome/155.0.8059.39/x64/chrome+0x5f2690b)
+2026-10-09T21:25:42.0733632Z #13 0x56055ec30060 (/opt/hostedtoolcache/setup-chrome/chrome/155.0.8059.39/x64/chrome+0x5f2605f)
+2026-10-09T21:25:42.0734049Z #14 0x7fb39022a1ca (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a1c9)
+2026-10-09T21:25:42.0734398Z #15 0x7fb39022a28b (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a28a)
+2026-10-09T21:25:42.0734785Z #16 0x56055fab036a (/opt/hostedtoolcache/setup-chrome/chrome/155.0.8059.39/x64/chrome+0x6da6369)
+2026-10-09T21:25:42.0735423Z   r8: 00002398000a8263  r9: 0000000000000001 r10: 0000000000000008 r11: 0000000000000246
+2026-10-09T21:25:42.0735834Z  r12: 0000000000000006 r13: 00002398000a8000 r14: 0000000000000016 r15: 00007fff5b8fe968
+2026-10-09T21:25:42.0736279Z   di: 0000000000000bc7  si: 0000000000000bc7  bp: 00007fff5b8fe2e0  bx: 0000000000000bc7
+2026-10-09T21:25:42.0736692Z   dx: 0000000000000006  ax: 0000000000000000  cx: 00007fb39029ec0c  sp: 00007fff5b8fe2a0
+2026-10-09T21:25:42.0737079Z   ip: 00007fb39029ec0c efl: 0000000000000246 cgf: 002b000000000033 erf: 0000000000000000
+2026-10-09T21:25:42.0737492Z  trp: 0000000000000000 msk: 0000000000000000 cr2: 0000000000000000
+2026-10-09T21:25:42.0737780Z [end of stack trace]
+2026-10-09T21:25:42.0737931Z 
+2026-10-09T21:25:43.0684060Z Chrome after-configuration: {"phase": "after-configuration", "command": ["/opt/hostedtoolcache/setup-chrome/chrome/155.0.8059.39/x64/chrome", "--no-first-run", "--no-default-browser-check", "--user-data-dir=/home/runner/work/rustwright/rustwright/target/ci/extended/sandbox-current/after-configuration-profile-4ed7400c", "--headless=new", "--disable-gpu", "--hide-scrollbars", "--mute-audio", "--dump-dom", "--timeout=10000", "http://127.0.0.1:37765/"], "exit_code": 0, "timed_out": false, "stdout": "/home/runner/work/rustwright/rustwright/target/ci/extended/sandbox-current/after-configuration-stdout.log", "stderr": "/home/runner/work/rustwright/rustwright/target/ci/extended/sandbox-current/after-configuration-stderr.log", "capture_timeout_ms": 10000, "outer_timeout_seconds": 25, "capture_scope": "fixture DOM/title observed; internal capture can stop loading and does not prove full load-event completion", "document_rendered": true, "passed": true}
+2026-10-09T21:25:43.0686703Z [3057:3077:1009/212542.231881:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-09T21:25:43.0687494Z [3057:3077:1009/212542.232446:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-09T21:25:43.0688548Z [3057:3077:1009/212542.232456:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-09T21:25:43.0689363Z [3057:3077:1009/212542.234047:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-09T21:25:43.0690199Z [3057:3077:1009/212542.259735:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-09T21:25:43.0690986Z [3057:3057:1009/212542.341643:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-09T21:25:43.0691841Z [3057:3057:1009/212542.341721:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-09T21:25:43.0692629Z [3057:3057:1009/212542.341800:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-09T21:25:43.0693463Z [3057:3077:1009/212542.342673:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-09T21:25:43.0694307Z [3057:3077:1009/212542.342741:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-09T21:25:43.0695233Z [3057:3057:1009/212542.357239:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-09T21:25:43.0696133Z [3057:3077:1009/212542.357424:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-09T21:25:43.0697119Z [3057:3057:1009/212542.378322:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-09T21:25:43.0697940Z [3057:3057:1009/212542.378483:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-09T21:25:43.0698811Z [3057:3077:1009/212542.379046:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-09T21:25:43.0699624Z [3057:3057:1009/212542.380041:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-09T21:25:43.0700386Z [3057:3057:1009/212542.388552:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-09T21:25:43.0701465Z [3057:3057:1009/212542.388599:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.Properties.GetAll: object_path= /org/freedesktop/UPower/devices/DisplayDevice: org.freedesktop.DBus.Error.ServiceUnknown: The name org.freedesktop.UPower was not provided by any .service files
+2026-10-09T21:25:43.0702529Z [3057:3077:1009/212542.388608:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-09T21:25:43.0703309Z [3057:3057:1009/212542.404943:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-09T21:25:43.0704079Z [3057:3077:1009/212542.405022:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-09T21:25:43.0704890Z [3057:3057:1009/212542.418161:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-09T21:25:43.0706065Z [3057:3057:1009/212542.429111:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.NetworkManager.GetDevices: object_path= /org/freedesktop/NetworkManager: org.freedesktop.DBus.Error.ServiceUnknown: The name org.freedesktop.NetworkManager was not provided by any .service files
+2026-10-09T21:25:43.0706761Z 
+2026-10-09T21:25:43.0822527Z ##[group]Run browser-actions/setup-firefox@v1
+2026-10-09T21:25:43.0822812Z with:
+2026-10-09T21:25:43.0823018Z   firefox-version: 157.0.1
+2026-10-09T21:25:43.0823272Z env:
+2026-10-09T21:25:43.0823476Z   CARGO_TERM_COLOR: always
+2026-10-09T21:25:43.0823702Z   RUST_BACKTRACE: 1
+2026-10-09T21:25:43.0823949Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T21:25:43.0824207Z   CARGO_INCREMENTAL: 0
+2026-10-09T21:25:43.0824441Z   CACHE_ON_FAILURE: false
+2026-10-09T21:25:43.0824784Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T21:25:43.0825371Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-10-09T21:25:43.0825830Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T21:25:43.0826212Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T21:25:43.0826557Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T21:25:43.0826886Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-10-09T21:25:43.0827386Z   CHROME_DEVEL_SANDBOX: /usr/local/lib/rustwright-ci/155.0.8059.39/chrome-sandbox
+2026-10-09T21:25:43.0827715Z ##[endgroup]
+2026-10-09T21:25:43.1369625Z Setup firefox 157.0.1 (en-US)
+2026-10-09T21:25:43.1376162Z Attempting to download firefox 157.0.1...
+2026-10-09T21:25:43.1376566Z This is the version number:157
+2026-10-09T21:25:43.1378430Z Acquiring 157.0.1 from https://ftp.mozilla.org/pub/firefox/releases/157.0.1/linux-x86_64/en-US/firefox-157.0.1.tar.xz
+2026-10-09T21:25:43.6392272Z Extracting Firefox...
+2026-10-09T21:25:43.6479940Z [command]/usr/bin/tar xJ --strip-components=1 --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/566c29dc-92cc-4938-8fec-3898807d4ff9 -f /home/runner/work/_temp/95d07be1-8e3d-49c4-8a69-608d5865f2c4
+2026-10-09T21:25:47.9400935Z Successfully extracted firefox 157.0.1 to /home/runner/work/_temp/566c29dc-92cc-4938-8fec-3898807d4ff9
+2026-10-09T21:25:47.9401573Z Adding to the cache ...
+2026-10-09T21:25:48.3559582Z (node:3249) Warning: Closing file descriptor 21 on garbage collection
+2026-10-09T21:25:48.3560182Z (Use `node --trace-warnings ...` to show where the warning was created)
+2026-10-09T21:25:48.3561456Z (node:3249) [DEP0137] DeprecationWarning: Closing a FileHandle object on garbage collection is deprecated. Please close FileHandle objects explicitly using FileHandle.prototype.close(). In the future, an error will be thrown if a file descriptor is closed during garbage collection.
+2026-10-09T21:25:49.4703557Z Successfully cached firefox 157.0.1 to /opt/hostedtoolcache/firefox/157.0.1/x64
+2026-10-09T21:25:49.4715939Z [command]/opt/hostedtoolcache/firefox/157.0.1/x64/firefox --version
+2026-10-09T21:25:49.4761044Z [3267] Sandbox: CanCreateUserNamespace() unshare(CLONE_NEWPID): EPERM
+2026-10-09T21:25:49.5308605Z Mozilla Firefox 157.0.1
+2026-10-09T21:25:49.5318986Z Successfully setup firefox version 157.0.1
+2026-10-09T21:25:49.5489853Z ##[group]Run browser-actions/setup-chrome@v2
+2026-10-09T21:25:49.5490149Z with:
+2026-10-09T21:25:49.5490429Z   chrome-version: 151.0.7922.138
+2026-10-09T21:25:49.5490721Z   install-dependencies: true
+2026-10-09T21:25:49.5490991Z   install-chromedriver: false
+2026-10-09T21:25:49.5491262Z   no-sudo: false
+2026-10-09T21:25:49.5491486Z env:
+2026-10-09T21:25:49.5491720Z   CARGO_TERM_COLOR: always
+2026-10-09T21:25:49.5491985Z   RUST_BACKTRACE: 1
+2026-10-09T21:25:49.5492406Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T21:25:49.5492683Z   CARGO_INCREMENTAL: 0
+2026-10-09T21:25:49.5492928Z   CACHE_ON_FAILURE: false
+2026-10-09T21:25:49.5493237Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T21:25:49.5493651Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-10-09T21:25:49.5494018Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T21:25:49.5494402Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T21:25:49.5494811Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T21:25:49.5495389Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-10-09T21:25:49.5495826Z   CHROME_DEVEL_SANDBOX: /usr/local/lib/rustwright-ci/155.0.8059.39/chrome-sandbox
+2026-10-09T21:25:49.5496190Z ##[endgroup]
+2026-10-09T21:25:49.6023827Z Installing dependencies
+2026-10-09T21:25:49.6076437Z [command]/usr/bin/sudo apt-get update
+2026-10-09T21:25:49.6606185Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-10-09T21:25:49.7110626Z Hit:6 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease
+2026-10-09T21:25:49.7181049Z Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+2026-10-09T21:25:49.7197007Z Hit:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease
+2026-10-09T21:25:49.7197782Z Hit:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease
+2026-10-09T21:25:49.7198335Z Hit:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease
+2026-10-09T21:25:50.6062453Z Reading package lists...
+2026-10-09T21:25:50.6176964Z [command]/usr/bin/sudo apt-get install --yes --no-install-recommends libasound2t64 libatk-bridge2.0-0t64 libatk1.0-0t64 libcairo2 libcups2t64 libdbus-1-3 libexpat1 libgbm1 libglib2.0-0t64 libnss3 libpango-1.0-0 libxcomposite1 libxdamage1 libxfixes3 libxkbcommon0 libxrandr2
+2026-10-09T21:25:50.6339483Z Reading package lists...
+2026-10-09T21:25:50.7615918Z Building dependency tree...
+2026-10-09T21:25:50.7624283Z Reading state information...
+2026-10-09T21:25:50.9145197Z libasound2t64 is already the newest version (1.2.11-1ubuntu0.3).
+2026-10-09T21:25:50.9145755Z libatk-bridge2.0-0t64 is already the newest version (2.52.0-1build1).
+2026-10-09T21:25:50.9146378Z libatk1.0-0t64 is already the newest version (2.52.0-1build1).
+2026-10-09T21:25:50.9146854Z libcairo2 is already the newest version (1.18.0-3build1).
+2026-10-09T21:25:50.9147265Z libcups2t64 is already the newest version (2.4.7-1.2ubuntu7.14).
+2026-10-09T21:25:50.9147747Z libdbus-1-3 is already the newest version (1.14.10-4ubuntu4.1).
+2026-10-09T21:25:50.9148261Z libexpat1 is already the newest version (2.6.1-2ubuntu0.6).
+2026-10-09T21:25:50.9148878Z libgbm1 is already the newest version (25.2.8-0ubuntu0.24.04.4).
+2026-10-09T21:25:50.9149595Z libglib2.0-0t64 is already the newest version (2.80.0-6ubuntu3.9).
+2026-10-09T21:25:50.9150136Z libnss3 is already the newest version (2:3.98-1ubuntu0.2).
+2026-10-09T21:25:50.9150621Z libpango-1.0-0 is already the newest version (1.52.1+ds-1build1).
+2026-10-09T21:25:50.9151174Z libxcomposite1 is already the newest version (1:0.4.5-1build3).
+2026-10-09T21:25:50.9151672Z libxdamage1 is already the newest version (1:1.1.6-1build1).
+2026-10-09T21:25:50.9152137Z libxfixes3 is already the newest version (1:6.0.0-2build1).
+2026-10-09T21:25:50.9152604Z libxkbcommon0 is already the newest version (1.6.0-1build1).
+2026-10-09T21:25:50.9153114Z libxrandr2 is already the newest version (2:1.5.2-2build1).
+2026-10-09T21:25:50.9154007Z 0 upgraded, 0 newly installed, 0 to remove and 23 not upgraded.
+2026-10-09T21:25:50.9158109Z Setup chrome 151.0.7922.138
+2026-10-09T21:25:50.9174453Z Attempting to download chrome 151.0.7922.138...
+2026-10-09T21:25:51.2553244Z Acquiring chrome 151.0.7922.138 from https://storage.googleapis.com/chrome-for-testing-public/151.0.7922.138/linux64/chrome-linux64.zip
+2026-10-09T21:25:52.8749489Z Installing chrome...
+2026-10-09T21:25:52.8796306Z [command]/usr/bin/unzip -o -q /home/runner/work/_temp/3691ad67-fdbf-4bca-b833-c34bb290710f
+2026-10-09T21:25:58.4353856Z Successfully Installed chrome to /opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64
+2026-10-09T21:25:58.4359502Z [command]/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome --version
+2026-10-09T21:25:58.4553088Z Google Chrome for Testing 151.0.7922.138 
+2026-10-09T21:25:58.4583577Z Successfully setup chrome 151.0.7922.138
+2026-10-09T21:25:58.4673952Z ##[group]Run python scripts/ci/chrome_linux_sandbox.py --output target/ci/extended/sandbox-previous
+2026-10-09T21:25:58.4674537Z [36;1mpython scripts/ci/chrome_linux_sandbox.py --output target/ci/extended/sandbox-previous[0m
+2026-10-09T21:25:58.4709812Z shell: /usr/bin/bash -e {0}
+2026-10-09T21:25:58.4710146Z env:
+2026-10-09T21:25:58.4710369Z   CARGO_TERM_COLOR: always
+2026-10-09T21:25:58.4710639Z   RUST_BACKTRACE: 1
+2026-10-09T21:25:58.4710889Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T21:25:58.4711138Z   CARGO_INCREMENTAL: 0
+2026-10-09T21:25:58.4711384Z   CACHE_ON_FAILURE: false
+2026-10-09T21:25:58.4711711Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T21:25:58.4712123Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-10-09T21:25:58.4712487Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T21:25:58.4712815Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T21:25:58.4713241Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T21:25:58.4713586Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-10-09T21:25:58.4713886Z   CHROME_DEVEL_SANDBOX: 
+2026-10-09T21:25:58.4714211Z   RUSTWRIGHT_CHROME: /opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome
+2026-10-09T21:25:58.4714548Z ##[endgroup]
+2026-10-09T21:25:59.2172271Z Chrome before: {"phase": "before", "command": ["/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome", "--no-first-run", "--no-default-browser-check", "--user-data-dir=/home/runner/work/rustwright/rustwright/target/ci/extended/sandbox-previous/before-profile-8yln9xgh", "--headless=new", "--disable-gpu", "--hide-scrollbars", "--mute-audio", "--dump-dom", "--timeout=10000", "http://127.0.0.1:33501/"], "exit_code": -6, "timed_out": false, "stdout": "/home/runner/work/rustwright/rustwright/target/ci/extended/sandbox-previous/before-stdout.log", "stderr": "/home/runner/work/rustwright/rustwright/target/ci/extended/sandbox-previous/before-stderr.log", "capture_timeout_ms": 10000, "outer_timeout_seconds": 25, "capture_scope": "fixture DOM/title observed; internal capture can stop loading and does not prove full load-event completion", "document_rendered": false, "passed": false}
+2026-10-09T21:25:59.2176026Z [3595:3595:1009/212558.737712:FATAL:content/browser/zygote_host/zygote_host_impl_linux.cc:128] No usable sandbox! If you are running on Ubuntu 23.10+ or another Linux distro that has disabled unprivileged user namespaces with AppArmor, see https://chromium.googlesource.com/chromium/src/+/main/docs/security/apparmor-userns-restrictions.md. Otherwise see https://chromium.googlesource.com/chromium/src/+/main/docs/linux/suid_sandbox_development.md for more information on developing with the (older) SUID sandbox. If you want to live dangerously and need an immediate workaround, you can try using --no-sandbox.
+2026-10-09T21:25:59.2177630Z Received signal 6
+2026-10-09T21:25:59.2178035Z #0 0x55908a18de33 (/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome+0x6a7fe32)
+2026-10-09T21:25:59.2178526Z #1 0x55908ec26964 (/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome+0xb518963)
+2026-10-09T21:25:59.2178940Z #2 0x7fbff5c45330 (/usr/lib/x86_64-linux-gnu/libc.so.6+0x4532f)
+2026-10-09T21:25:59.2179276Z #3 0x7fbff5c4527e (/usr/lib/x86_64-linux-gnu/libc.so.6+0x4527d)
+2026-10-09T21:25:59.2179640Z #4 0x7fbff5c288ff (/usr/lib/x86_64-linux-gnu/libc.so.6+0x288fe)
+2026-10-09T21:25:59.2180033Z #5 0x55908ec1e875 (/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome+0xb510874)
+2026-10-09T21:25:59.2180481Z #6 0x55908ebe217d (/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome+0xb4d417c)
+2026-10-09T21:25:59.2181202Z #7 0x55908ebe210e (/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome+0xb4d410d)
+2026-10-09T21:25:59.2181664Z #8 0x559089e720d8 (/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome+0x67640d7)
+2026-10-09T21:25:59.2182357Z #9 0x5590888f8b29 (/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome+0x51eab28)
+2026-10-09T21:25:59.2182908Z #10 0x5590886ce3fb (/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome+0x4fc03fa)
+2026-10-09T21:25:59.2183490Z #11 0x55908e0168fc (/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome+0xa9088fb)
+2026-10-09T21:25:59.2184102Z #12 0x559088e7f90c (/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome+0x577190b)
+2026-10-09T21:25:59.2184732Z #13 0x559088e80375 (/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome+0x5772374)
+2026-10-09T21:25:59.2185393Z #14 0x7fbff5c2a1ca (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a1c9)
+2026-10-09T21:25:59.2185849Z #15 0x7fbff5c2a28b (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a28a)
+2026-10-09T21:25:59.2186348Z #16 0x55908a3cdd9a (/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome+0x6cbfd99)
+2026-10-09T21:25:59.2186888Z   r8: 00000b88000b4263  r9: 0000000000000001 r10: 0000000000000008 r11: 0000000000000246
+2026-10-09T21:25:59.2187311Z  r12: 0000000000000006 r13: 0000000000000264 r14: 0000000000000016 r15: 00007ffe0c77e698
+2026-10-09T21:25:59.2187709Z   di: 0000000000000e0b  si: 0000000000000e0b  bp: 00007ffe0c77e010  bx: 0000000000000e0b
+2026-10-09T21:25:59.2188151Z   dx: 0000000000000006  ax: 0000000000000000  cx: 00007fbff5c9ec0c  sp: 00007ffe0c77dfd0
+2026-10-09T21:25:59.2188535Z   ip: 00007fbff5c9ec0c efl: 0000000000000246 cgf: 002b000000000033 erf: 0000000000000000
+2026-10-09T21:25:59.2188909Z  trp: 0000000000000000 msk: 0000000000000000 cr2: 0000000000000000
+2026-10-09T21:25:59.2189213Z [end of stack trace]
+2026-10-09T21:25:59.2189345Z 
+2026-10-09T21:26:24.6092074Z Chrome after-configuration: {"phase": "after-configuration", "command": ["/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome", "--no-first-run", "--no-default-browser-check", "--user-data-dir=/home/runner/work/rustwright/rustwright/target/ci/extended/sandbox-previous/after-configuration-profile-5ix_ykmj", "--headless=new", "--disable-gpu", "--hide-scrollbars", "--mute-audio", "--dump-dom", "--timeout=10000", "http://127.0.0.1:33603/"], "exit_code": 0, "timed_out": true, "stdout": "/home/runner/work/rustwright/rustwright/target/ci/extended/sandbox-previous/after-configuration-stdout.log", "stderr": "/home/runner/work/rustwright/rustwright/target/ci/extended/sandbox-previous/after-configuration-stderr.log", "capture_timeout_ms": 10000, "outer_timeout_seconds": 25, "capture_scope": "fixture DOM/title observed; internal capture can stop loading and does not prove full load-event completion", "document_rendered": false, "passed": false}
+2026-10-09T21:26:24.6096117Z [3640:3662:1009/212559.291149:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-09T21:26:24.6097072Z [3640:3662:1009/212559.293925:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-09T21:26:24.6098316Z [3640:3662:1009/212559.326573:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-09T21:26:24.6099647Z [3640:3662:1009/212559.342995:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-09T21:26:24.6101810Z [3640:3640:1009/212559.365447:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-09T21:26:24.6104371Z [3640:3662:1009/212559.365517:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-09T21:26:24.6106912Z [3640:3640:1009/212559.365576:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-09T21:26:24.6108494Z Configured sandbox preflight failed; see preserved stderr
+2026-10-09T21:26:24.6109363Z [3640:3662:1009/212559.365601:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-09T21:26:24.6110496Z [3640:3640:1009/212559.373420:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-09T21:26:24.6111651Z [3640:3640:1009/212559.374026:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-09T21:26:24.6112786Z [3640:3640:1009/212559.474304:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-09T21:26:24.6113988Z [3640:3640:1009/212559.474619:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-09T21:26:24.6115743Z [3640:3640:1009/212559.476003:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.Properties.GetAll: object_path= /org/freedesktop/UPower/devices/DisplayDevice: org.freedesktop.DBus.Error.ServiceUnknown: The name org.freedesktop.UPower was not provided by any .service files
+2026-10-09T21:26:24.6117390Z [3640:3662:1009/212559.476400:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-09T21:26:24.6118575Z [3640:3640:1009/212559.500435:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-09T21:26:24.6119711Z [3640:3662:1009/212559.500487:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-09T21:26:24.6120938Z [3640:3640:1009/212559.518344:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-09T21:26:24.6122076Z [3640:3662:1009/212559.518418:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-09T21:26:24.6123290Z [3640:3640:1009/212559.532553:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-09T21:26:24.6124482Z [3640:3662:1009/212601.799823:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: PHONE_REGISTRATION_ERROR
+2026-10-09T21:26:24.6125761Z [3640:3662:1009/212601.800013:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: PHONE_REGISTRATION_ERROR
+2026-10-09T21:26:24.6126892Z [3640:3662:1009/212601.800578:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: PHONE_REGISTRATION_ERROR
+2026-10-09T21:26:24.6127919Z [3640:3640:1009/212624.238134:ERROR:content/common/zygote/zygote_communication_linux.cc:291] Failed to send GetTerminationStatus message to zygote
+2026-10-09T21:26:24.6128999Z [3640:3640:1009/212624.240063:ERROR:content/common/zygote/zygote_communication_linux.cc:291] Failed to send GetTerminationStatus message to zygote
+2026-10-09T21:26:24.6130292Z [3640:3662:1009/212624.246998:ERROR:google_apis/gcm/engine/connection_factory_impl.cc:484] ConnectionHandler failed with net error: -2
+2026-10-09T21:26:24.6130848Z 
+2026-10-09T21:26:24.6224438Z ##[error]Process completed with exit code 1.
+2026-10-09T21:26:24.6299245Z ##[group]Run actions/upload-artifact@v4
+2026-10-09T21:26:24.6299580Z with:
+2026-10-09T21:26:24.6299906Z   name: headed-versions-sites
+2026-10-09T21:26:24.6300215Z   path: target/ci/extended/
+2026-10-09T21:26:24.6300504Z   if-no-files-found: warn
+2026-10-09T21:26:24.6300831Z   compression-level: 6
+2026-10-09T21:26:24.6301114Z   overwrite: false
+2026-10-09T21:26:24.6301444Z   include-hidden-files: false
+2026-10-09T21:26:24.6301732Z env:
+2026-10-09T21:26:24.6301975Z   CARGO_TERM_COLOR: always
+2026-10-09T21:26:24.6302292Z   RUST_BACKTRACE: 1
+2026-10-09T21:26:24.6302562Z   CARGO_HOME: /home/runner/.cargo
+2026-10-09T21:26:24.6302927Z   CARGO_INCREMENTAL: 0
+2026-10-09T21:26:24.6303192Z   CACHE_ON_FAILURE: false
+2026-10-09T21:26:24.6303509Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T21:26:24.6304023Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-10-09T21:26:24.6304490Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T21:26:24.6305199Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T21:26:24.6305690Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T21:26:24.6306128Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-10-09T21:26:24.6306584Z   CHROME_DEVEL_SANDBOX: /usr/local/lib/rustwright-ci/155.0.8059.39/chrome-sandbox
+2026-10-09T21:26:24.6306970Z ##[endgroup]
+2026-10-09T21:26:24.7599204Z (node:3894) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-09T21:26:24.7600018Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-09T21:26:24.7719304Z With the provided path, there will be 12 files uploaded
+2026-10-09T21:26:24.7720076Z Artifact name is valid!
+2026-10-09T21:26:24.7720473Z Root directory input is valid!
+2026-10-09T21:26:25.0309816Z Beginning upload of artifact content to blob storage
+2026-10-09T21:26:25.0545599Z (node:3894) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-09T21:26:25.2173430Z Uploaded bytes 7503
+2026-10-09T21:26:25.2601435Z Finished uploading artifact content to blob storage!
+2026-10-09T21:26:25.2602208Z SHA256 digest of uploaded artifact zip is 7cd174649bc3448837ede4eef275aa0ec2d25cd2116755c927d140bb690ea726
+2026-10-09T21:26:25.2602994Z Finalizing artifact upload
+2026-10-09T21:26:25.4976029Z Artifact headed-versions-sites.zip successfully finalized. Artifact ID 11646475805
+2026-10-09T21:26:25.4977155Z Artifact headed-versions-sites has been successfully uploaded! Final size is 7503 bytes. Artifact ID is 11646475805
+2026-10-09T21:26:25.4983619Z Artifact download URL: https://github.com/rsasaki0109/rustwright/actions/runs/37990278021/artifacts/11646475805
+2026-10-09T21:26:25.5139699Z Post job cleanup.
+2026-10-09T21:26:25.5732258Z [command]/usr/bin/git version
+2026-10-09T21:26:25.5760193Z git version 2.55.0
+2026-10-09T21:26:25.5784001Z Temporarily overriding HOME='/home/runner/work/_temp/d0880604-366b-45ba-b70d-5e4dbb5e327d' before making global git config changes
+2026-10-09T21:26:25.5785085Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-09T21:26:25.5787560Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/rustwright/rustwright
+2026-10-09T21:26:25.5814035Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-09T21:26:25.5836636Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-09T21:26:25.5997184Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-09T21:26:25.6015732Z http.https://github.com/.extraheader
+2026-10-09T21:26:25.6032825Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-09T21:26:25.6056138Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-09T21:26:25.6221871Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-09T21:26:25.6246422Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-09T21:26:25.6530060Z Cleaning up orphan processes
+2026-10-09T21:26:25.6706105Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

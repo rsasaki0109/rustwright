@@ -1,0 +1,13 @@
+# Windows CfT155 sandbox ACL review
+
+This is a read-only review. No production/test/CI source changed. The independent Linux Chrome155 baseline passes23 native cases, while diagnostic Windows CI ends15 passed9 failed. The first failed request records no response status/headers/MIME, no HTTP accept before the diagnostic repetition, and the page remains about:blank. Browser stderr explicitly reports AppContainer executable access denied0x5 and subsequent network-service restart. Raw subsequent navigation succeeds with isDownload=false and HTTP200/full page load; this is an observation after failure and did not repair or pass the original test.
+
+Chrome155 sandbox source matches the stderr line exactly: AddAppContainerProfileToConfig AccessCheck requests GENERIC_READ|GENERIC_EXECUTE on the executable and returns SBOX_ERROR_CREATE_APPCONTAINER_ACCESS_CHECK if denied. The network service is given lpacChromeInstallFiles capability; LPAC selection is feature-controlled (disabled by default in the fetched source), so do not infer it was enabled on the runner.
+
+The official CfT155 win64 ZIP was inspected by a TLS-verified HTTP206 suffix request. Central-directory metadata confirms chrome-win64/setup.exe (7,324,672 uncompressed bytes). The sparse ZIP contains only the remote central-directory suffix, not a complete downloaded executable archive; its entries/HTTP metadata are recorded separately.
+
+Use the sibling Chrome-provided setup.exe with one argument --configure-browser-in-directory=<absolute install directory>. Official setup_main says this flag is intended for Chrome-for-Testing and calls ConfigureAppContainerSandbox. Puppeteer invokes it via spawnSync(shell:false). Chrome155 reports success78 and failure79, so require78 and normalize the final PowerShell step exit status after validation. Do not treat nonzero78 as failure or blindly accept arbitrary nonzero codes.
+
+The helper grants inheritable read/execute permissions to precisely chromeInstallFiles and lpacChromeInstallFiles capability SIDs, rather than all AppContainers. It applies CONTAINER_INHERIT_ACE|OBJECT_INHERIT_ACE to the install directory. Record install-root/chrome.exe/chrome.dll ACL before/after and rerun unchanged native scenarios; this CI-side repair is not yet proven until actual Windows results arrive. setup-chrome v2 copies extracted ZIP files into toolcache without invoking setup.exe or configuring these ACLs.
+
+Authoritative source URLs and hashes are in sources.json. The proposed repair keeps Chromium sandboxing enabled; no error suppression, retry or old-browser pin is justified by this evidence.

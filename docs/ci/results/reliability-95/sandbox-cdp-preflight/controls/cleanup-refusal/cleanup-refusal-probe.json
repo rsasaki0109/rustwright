@@ -1,0 +1,41 @@
+{
+  "phase": "cleanup-refusal",
+  "method": "CDP HTTP renderer preflight",
+  "outer_timeout_seconds": 0.05,
+  "stdout": "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controls/cleanup-refusal/cleanup-refusal-stdout.log",
+  "stderr": "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controls/cleanup-refusal/cleanup-refusal-stderr.log",
+  "protocol": "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controls/cleanup-refusal/cleanup-refusal-cdp.jsonl",
+  "timed_out": true,
+  "document_rendered": false,
+  "exit_code": null,
+  "passed": false,
+  "profile_path": "/tmp/rustwright-cdp-controls-lne1nzzs/rustwright-cleanup-refusal-rvapwk2p",
+  "command": [
+    "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controlled_peer.py",
+    "--no-first-run",
+    "--no-default-browser-check",
+    "--user-data-dir=/tmp/rustwright-cdp-controls-lne1nzzs/rustwright-cleanup-refusal-rvapwk2p",
+    "--headless=new",
+    "--disable-gpu",
+    "--hide-scrollbars",
+    "--mute-audio",
+    "--remote-debugging-address=127.0.0.1",
+    "--remote-debugging-port=0",
+    "about:blank"
+  ],
+  "fixture_url": "http://127.0.0.1:42697/preflight-3feb0a17e7cd01ed",
+  "fixture_path": "/preflight-3feb0a17e7cd01ed",
+  "error": "TimeoutError: Shared Chrome CDP preflight deadline expired",
+  "cleanup": {
+    "termination_requested": true,
+    "errors": [
+      "controlled OS termination refusal",
+      "controlled OS termination refusal",
+      "Command 'controlled unconfirmed child' timed out after 2 seconds"
+    ],
+    "direct_child_reaped": false,
+    "exit_code": null
+  },
+  "fixture_requests": [],
+  "profile_retained_after_unconfirmed_exit": "/tmp/rustwright-cdp-controls-lne1nzzs/rustwright-cleanup-refusal-rvapwk2p"
+}

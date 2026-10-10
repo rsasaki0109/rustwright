@@ -1,0 +1,12 @@
+. /workspace/.rustwright-env/activate.sh
+# Before production change, identical added regression source:
+cargo test --offline --locked -p rustwright-bidi --lib browser::network_subscription_tests::monitoring_retains_events_received_before_subscription_acknowledgment -- --exact
+cargo test --offline --locked -p rustwright-bidi --lib browser::network_subscription_tests::cancelled_monitoring_retains_events_received_before_subscription_acknowledgment -- --exact
+# After production change:
+cargo test --offline --locked -p rustwright-bidi --lib browser::network_subscription_tests -- --test-threads=1
+cargo test --offline --locked -p rustwright-bidi --lib
+cargo test --offline --locked -p rustwright-integration-tests --test http_shutdown firefox_cancelled_monitor_setup_still_waits_for_subscription -- --exact --nocapture
+cargo +1.85.0 check --offline --locked -p rustwright-bidi --all-targets --target-dir /workspace/.rustwright-env/target-msrv
+cargo clippy --offline --locked -p rustwright-bidi --all-targets -- -D warnings
+rustfmt --check --edition 2021 --config skip_children=true crates/rustwright-bidi/src/browser.rs crates/rustwright-bidi/src/network.rs crates/rustwright-bidi/src/network_subscription_tests.rs
+git diff --check -- crates/rustwright-bidi/src/browser.rs crates/rustwright-bidi/src/network.rs crates/rustwright-bidi/src/network_subscription_tests.rs

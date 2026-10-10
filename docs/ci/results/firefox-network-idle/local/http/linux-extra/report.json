@@ -1,0 +1,213 @@
+{
+  "suite": "linux-extra",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "status": "passed",
+  "targets": [
+    "http_frames",
+    "http_navigation",
+    "http_network_idle",
+    "http_contexts",
+    "http_disconnect",
+    "http_creation",
+    "http_shutdown",
+    "http_frame_helpers",
+    "http_intercept_lifecycle"
+  ],
+  "cases": [
+    {
+      "target": "http_frames",
+      "command": [
+        "/workspace/.rustwright-env/cargo/bin/cargo",
+        "test",
+        "--locked",
+        "-p",
+        "rustwright-integration-tests",
+        "--test",
+        "http_frames",
+        "--",
+        "--test-threads=1",
+        "--nocapture"
+      ],
+      "log": "/workspace/rustwright/target/firefox-network-idle/http/linux-extra/http_frames.log",
+      "exit_code": 0,
+      "passed": 67,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0
+    },
+    {
+      "target": "http_navigation",
+      "command": [
+        "/workspace/.rustwright-env/cargo/bin/cargo",
+        "test",
+        "--locked",
+        "-p",
+        "rustwright-integration-tests",
+        "--test",
+        "http_navigation",
+        "--",
+        "--test-threads=1",
+        "--nocapture"
+      ],
+      "log": "/workspace/rustwright/target/firefox-network-idle/http/linux-extra/http_navigation.log",
+      "exit_code": 0,
+      "passed": 14,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0
+    },
+    {
+      "target": "http_network_idle",
+      "command": [
+        "/workspace/.rustwright-env/cargo/bin/cargo",
+        "test",
+        "--locked",
+        "-p",
+        "rustwright-integration-tests",
+        "--test",
+        "http_network_idle",
+        "--",
+        "--test-threads=1",
+        "--nocapture"
+      ],
+      "log": "/workspace/rustwright/target/firefox-network-idle/http/linux-extra/http_network_idle.log",
+      "exit_code": 0,
+      "passed": 10,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0
+    },
+    {
+      "target": "http_contexts",
+      "command": [
+        "/workspace/.rustwright-env/cargo/bin/cargo",
+        "test",
+        "--locked",
+        "-p",
+        "rustwright-integration-tests",
+        "--test",
+        "http_contexts",
+        "--",
+        "--test-threads=1",
+        "--nocapture"
+      ],
+      "log": "/workspace/rustwright/target/firefox-network-idle/http/linux-extra/http_contexts.log",
+      "exit_code": 0,
+      "passed": 10,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0
+    },
+    {
+      "target": "http_disconnect",
+      "command": [
+        "/workspace/.rustwright-env/cargo/bin/cargo",
+        "test",
+        "--locked",
+        "-p",
+        "rustwright-integration-tests",
+        "--test",
+        "http_disconnect",
+        "--",
+        "--test-threads=1",
+        "--nocapture"
+      ],
+      "log": "/workspace/rustwright/target/firefox-network-idle/http/linux-extra/http_disconnect.log",
+      "exit_code": 0,
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0
+    },
+    {
+      "target": "http_creation",
+      "command": [
+        "/workspace/.rustwright-env/cargo/bin/cargo",
+        "test",
+        "--locked",
+        "-p",
+        "rustwright-integration-tests",
+        "--test",
+        "http_creation",
+        "--",
+        "--test-threads=1",
+        "--nocapture"
+      ],
+      "log": "/workspace/rustwright/target/firefox-network-idle/http/linux-extra/http_creation.log",
+      "exit_code": 0,
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0
+    },
+    {
+      "target": "http_shutdown",
+      "command": [
+        "/workspace/.rustwright-env/cargo/bin/cargo",
+        "test",
+        "--locked",
+        "-p",
+        "rustwright-integration-tests",
+        "--test",
+        "http_shutdown",
+        "--",
+        "--test-threads=1",
+        "--nocapture"
+      ],
+      "log": "/workspace/rustwright/target/firefox-network-idle/http/linux-extra/http_shutdown.log",
+      "exit_code": 0,
+      "passed": 3,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0
+    },
+    {
+      "target": "http_frame_helpers",
+      "command": [
+        "/workspace/.rustwright-env/cargo/bin/cargo",
+        "test",
+        "--locked",
+        "-p",
+        "rustwright-integration-tests",
+        "--test",
+        "http_frame_helpers",
+        "--",
+        "--test-threads=1",
+        "--nocapture"
+      ],
+      "log": "/workspace/rustwright/target/firefox-network-idle/http/linux-extra/http_frame_helpers.log",
+      "exit_code": 0,
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0
+    },
+    {
+      "target": "http_intercept_lifecycle",
+      "command": [
+        "/workspace/.rustwright-env/cargo/bin/cargo",
+        "test",
+        "--locked",
+        "-p",
+        "rustwright-integration-tests",
+        "--test",
+        "http_intercept_lifecycle",
+        "--",
+        "--test-threads=1",
+        "--nocapture"
+      ],
+      "log": "/workspace/rustwright/target/firefox-network-idle/http/linux-extra/http_intercept_lifecycle.log",
+      "exit_code": 0,
+      "passed": 4,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0
+    }
+  ],
+  "browsers": {
+    "RUSTWRIGHT_CHROME": "/workspace/.rustwright-env/chromium",
+    "RUSTWRIGHT_FIREFOX": "/workspace/.rustwright-env/firefox-browser"
+  },
+  "cargo_version": "cargo 1.99.0 (5f94df478 2026-08-27)",
+  "passed": 114
+}

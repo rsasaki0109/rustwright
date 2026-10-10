@@ -1,0 +1,44 @@
+   Compiling rustwright-bidi v0.1.0 (/workspace/rustwright/crates/rustwright-bidi)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 14.43s
+     Running unittests src/lib.rs (target/debug/deps/rustwright_bidi-cedd5209c7d1f7e2)
+
+running 17 tests
+test network_idle::tests::completed_historical_start_and_non_http_activity_do_not_create_pending_work ... ok
+test network_idle::tests::descendant_requests_count_and_destroying_subtree_preserves_other_work ... ok
+test network_idle::tests::already_quiet_page_still_observes_a_fresh_window_per_call ... FAILED
+test network_idle::tests::discovered_incomplete_lost_and_closed_are_explicit_errors ... ok
+test network_idle::tests::committed_new_document_preserves_incoming_request_and_new_subresources ... ok
+test network_idle::tests::headers_leave_body_pending_and_errors_start_quiet_window ... ok
+test network_idle::tests::protocol_tests::dropped_last_observer_aborts_its_pump_without_a_registry_cycle ... ok
+test network_idle::tests::protocol_tests::page_close_and_disconnect_wake_pending_waiters ... ok
+test network_idle::tests::protocol_tests::held_snapshot_overflow_fails_setup_instead_of_claiming_idle ... ok
+test network_idle::tests::protocol_tests::discovered_handles_reuse_created_observer_and_unobserved_pages_are_rejected ... ok
+test network_idle::tests::repeated_document_and_request_churn_retains_only_live_ownership ... ok
+test network_idle::tests::request_delivered_after_triggering_command_ack_interrupts_fresh_window ... FAILED
+test network_idle::tests::stale_redirect_terminal_and_duplicates_cannot_finish_new_hop ... ok
+test network_idle::tests::timeout_and_cancel_leave_shared_state_and_interrupted_quiet_window_intact ... ok
+test network_idle::tests::protocol_tests::cancelling_new_page_during_setup_closes_allocation_and_does_not_poison_retry ... ok
+test network_idle::tests::protocol_tests::rejected_setup_closes_unexposed_page_and_next_creation_retries ... ok
+test network_idle::tests::protocol_tests::public_creation_waits_for_ack_and_retains_early_nested_requests ... ok
+
+failures:
+
+---- network_idle::tests::already_quiet_page_still_observes_a_fresh_window_per_call stdout ----
+
+thread 'network_idle::tests::already_quiet_page_still_observes_a_fresh_window_per_call' (1518301) panicked at crates/rustwright-bidi/src/network_idle/tests.rs:279:5:
+assertion failed: !waiter.is_finished()
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- network_idle::tests::request_delivered_after_triggering_command_ack_interrupts_fresh_window stdout ----
+
+thread 'network_idle::tests::request_delivered_after_triggering_command_ack_interrupts_fresh_window' (1518367) panicked at crates/rustwright-bidi/src/network_idle/tests.rs:300:5:
+assertion failed: !waiter.is_finished()
+
+
+failures:
+    network_idle::tests::already_quiet_page_still_observes_a_fresh_window_per_call
+    network_idle::tests::request_delivered_after_triggering_command_ack_interrupts_fresh_window
+
+test result: FAILED. 15 passed; 2 failed; 0 ignored; 0 measured; 86 filtered out; finished in 0.72s
+
+error: test failed, to rerun pass `-p rustwright-bidi --lib`

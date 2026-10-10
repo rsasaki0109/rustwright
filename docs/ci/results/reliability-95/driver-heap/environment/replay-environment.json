@@ -1,0 +1,11 @@
+{
+  "activation": "/workspace/.rustwright-env/activate.sh",
+  "observer_explicit_variables": {
+    "LD_LIBRARY_PATH": "/workspace/.rustwright-env/xvfb/root/usr/lib/x86_64-linux-gnu",
+    "RUSTWRIGHT_DRIVER_HEAP_PROFILE": "1"
+  },
+  "instrumentation": "heaptrack --record-only in Rust driver; examples/endurance.rs selects sources/firefox-driver-only when driver heap profiling is enabled; this wrapper unsets LD_PRELOAD and DUMP_HEAPTRACK_OUTPUT before launching the normal Firefox wrapper",
+  "browser": "Firefox 157.0.1, explicit root process mapping and executable SHA recorded separately in each instrumentation.json",
+  "display": "These runs use the Firefox headless endurance launch; no headed/Xvfb comparison is claimed. The locally unpacked .rustwright-env/xvfb packages supply heaptrack/libdw dependencies.",
+  "captured_environment_scope": "Only explicitly used non-secret settings and tool/package identities; inherited environment is not dumped."
+}

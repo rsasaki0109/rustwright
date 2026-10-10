@@ -1,0 +1,17 @@
+   Compiling rustwright-bidi v0.1.0 (/workspace/rustwright/crates/rustwright-bidi)
+   Compiling rustwright v0.1.0 (/workspace/rustwright/crates/rustwright)
+   Compiling rustwright-integration-tests v0.1.0 (/workspace/rustwright/tests)
+error[E0599]: no method named `input_value` found for enum `AnyLocator` in the current scope
+   --> tests/http_bidi_navigation.rs:143:39
+    |
+143 |     assert_eq!(page.locator("#field").input_value().await.unwrap(), "履歴 日本語 🦀");
+    |                                       ^^^^^^^^^^^ method not found in `AnyLocator`
+
+error[E0599]: no method named `input_value` found for enum `AnyLocator` in the current scope
+   --> tests/http_bidi_navigation.rs:161:39
+    |
+161 |     assert_eq!(page.locator("#field").input_value().await.unwrap(), "再読み込み 🦀");
+    |                                       ^^^^^^^^^^^ method not found in `AnyLocator`
+
+For more information about this error, try `rustc --explain E0599`.
+error: could not compile `rustwright-integration-tests` (test "http_bidi_navigation") due to 2 previous errors

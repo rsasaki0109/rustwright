@@ -1,0 +1,40 @@
+   Compiling rustwright-bidi v0.1.0 (/workspace/rustwright/crates/rustwright-bidi)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 12.06s
+     Running unittests src/lib.rs (target/debug/deps/rustwright_bidi-cedd5209c7d1f7e2)
+
+running 7 tests
+test browser::frame_helper_cache_tests::live_frame_reuses_its_document_helper_without_reinjection ... ok
+test browser::network_subscription_tests::rejected_monitoring_setup_can_retry_without_installing_a_failed_pump ... ok
+test browser::navigation_tests::subscription_setup_survives_cancellation_without_duplicate_registration ... ok
+test network_idle::tests::protocol_tests::dropped_last_observer_aborts_its_pump_without_a_registry_cycle ... ok
+test browser::network_subscription_tests::retained_page_diagnostics_stop_on_browser_close_without_remote_events ... FAILED
+test network_idle::tests::protocol_tests::local_page_close_releases_idle_pump_without_a_remote_destroy_event ... FAILED
+test browser::network_subscription_tests::closing_one_page_alias_stops_all_diagnostics_without_a_destroy_event ... FAILED
+
+failures:
+
+---- browser::network_subscription_tests::retained_page_diagnostics_stop_on_browser_close_without_remote_events stdout ----
+
+thread 'browser::network_subscription_tests::retained_page_diagnostics_stop_on_browser_close_without_remote_events' (1612534) panicked at crates/rustwright-bidi/src/network_subscription_tests.rs:381:6:
+closed resource must release its diagnostic pump without dropping retained handles: Elapsed(())
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- network_idle::tests::protocol_tests::local_page_close_releases_idle_pump_without_a_remote_destroy_event stdout ----
+
+thread 'network_idle::tests::protocol_tests::local_page_close_releases_idle_pump_without_a_remote_destroy_event' (1612536) panicked at crates/rustwright-bidi/src/network_idle/protocol_tests.rs:417:14:
+local page closure must stop the idle pump even with retained closed handles and no remote events: Elapsed(())
+
+---- browser::network_subscription_tests::closing_one_page_alias_stops_all_diagnostics_without_a_destroy_event stdout ----
+
+thread 'browser::network_subscription_tests::closing_one_page_alias_stops_all_diagnostics_without_a_destroy_event' (1612532) panicked at crates/rustwright-bidi/src/network_subscription_tests.rs:381:6:
+closed resource must release its diagnostic pump without dropping retained handles: Elapsed(())
+
+
+failures:
+    browser::network_subscription_tests::closing_one_page_alias_stops_all_diagnostics_without_a_destroy_event
+    browser::network_subscription_tests::retained_page_diagnostics_stop_on_browser_close_without_remote_events
+    network_idle::tests::protocol_tests::local_page_close_releases_idle_pump_without_a_remote_destroy_event
+
+test result: FAILED. 4 passed; 3 failed; 0 ignored; 0 measured; 104 filtered out; finished in 1.07s
+
+error: test failed, to rerun pass `-p rustwright-bidi --lib`

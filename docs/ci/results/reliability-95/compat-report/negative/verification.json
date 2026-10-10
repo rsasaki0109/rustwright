@@ -1,0 +1,190 @@
+[
+  {
+    "case": "missing-value",
+    "argv": [
+      "target/debug/examples/compat_report",
+      "--browser",
+      "--output",
+      "target/reliability95/sites/negative-missing-value",
+      "--timeout-secs",
+      "2",
+      "http://127.0.0.1:9/"
+    ],
+    "environment_overrides": {},
+    "expected_exit": 2,
+    "actual_exit": 2,
+    "elapsed_seconds": 0.0037622451782226562
+  },
+  {
+    "case": "unsupported-backend",
+    "argv": [
+      "target/debug/examples/compat_report",
+      "--browser",
+      "webkit",
+      "--output",
+      "target/reliability95/sites/negative-unsupported-backend",
+      "--timeout-secs",
+      "2",
+      "http://127.0.0.1:9/"
+    ],
+    "environment_overrides": {},
+    "expected_exit": 2,
+    "actual_exit": 2,
+    "elapsed_seconds": 0.003520488739013672
+  },
+  {
+    "case": "persistent-profile-proxy",
+    "argv": [
+      "target/debug/examples/compat_report",
+      "--browser",
+      "firefox",
+      "--profile",
+      "user-profile",
+      "--proxy",
+      "http://proxy:8080",
+      "--output",
+      "target/reliability95/sites/negative-persistent-profile-proxy",
+      "--timeout-secs",
+      "2",
+      "http://127.0.0.1:9/"
+    ],
+    "environment_overrides": {},
+    "expected_exit": 2,
+    "actual_exit": 2,
+    "elapsed_seconds": 0.003505229949951172
+  },
+  {
+    "case": "nonempty-output",
+    "argv": [
+      "target/debug/examples/compat_report",
+      "--output",
+      "target/reliability95/sites/implementation",
+      "--timeout-secs",
+      "2",
+      "http://127.0.0.1:9/"
+    ],
+    "environment_overrides": {},
+    "expected_exit": 1,
+    "actual_exit": 1,
+    "elapsed_seconds": 0.0035130977630615234
+  },
+  {
+    "case": "chrome-explicit-missing",
+    "argv": [
+      "target/debug/examples/compat_report",
+      "--browser",
+      "chrome",
+      "--output",
+      "target/reliability95/sites/negative-chrome-explicit-missing",
+      "--timeout-secs",
+      "2",
+      "http://127.0.0.1:9/"
+    ],
+    "environment_overrides": {
+      "RUSTWRIGHT_CHROME": "/workspace/rustwright/target/reliability95/sites/implementation/missing-chrome"
+    },
+    "expected_exit": 1,
+    "actual_exit": 1,
+    "elapsed_seconds": 0.003498554229736328
+  },
+  {
+    "case": "firefox-explicit-missing",
+    "argv": [
+      "target/debug/examples/compat_report",
+      "--browser",
+      "firefox",
+      "--output",
+      "target/reliability95/sites/negative-firefox-explicit-missing",
+      "--timeout-secs",
+      "2",
+      "http://127.0.0.1:9/"
+    ],
+    "environment_overrides": {
+      "RUSTWRIGHT_FIREFOX": "/workspace/rustwright/target/reliability95/sites/implementation/missing-firefox"
+    },
+    "expected_exit": 1,
+    "actual_exit": 1,
+    "elapsed_seconds": 0.0035185813903808594
+  },
+  {
+    "case": "chrome-explicit-early-exit",
+    "argv": [
+      "target/debug/examples/compat_report",
+      "--browser",
+      "chrome",
+      "--output",
+      "target/reliability95/sites/negative-chrome-explicit-early-exit",
+      "--timeout-secs",
+      "2",
+      "http://127.0.0.1:9/"
+    ],
+    "environment_overrides": {
+      "RUSTWRIGHT_CHROME": "/workspace/rustwright/target/reliability95/sites/implementation/exit-immediately"
+    },
+    "expected_exit": 1,
+    "actual_exit": 1,
+    "elapsed_seconds": 0.007553815841674805
+  },
+  {
+    "case": "firefox-explicit-early-exit",
+    "argv": [
+      "target/debug/examples/compat_report",
+      "--browser",
+      "firefox",
+      "--output",
+      "target/reliability95/sites/negative-firefox-explicit-early-exit",
+      "--timeout-secs",
+      "2",
+      "http://127.0.0.1:9/"
+    ],
+    "environment_overrides": {
+      "RUSTWRIGHT_FIREFOX": "/workspace/rustwright/target/reliability95/sites/implementation/exit-immediately"
+    },
+    "expected_exit": 1,
+    "actual_exit": 1,
+    "elapsed_seconds": 0.015631675720214844
+  },
+  {
+    "case": "headed-chrome-no-display",
+    "argv": [
+      "target/debug/examples/compat_report",
+      "--browser",
+      "chrome",
+      "--headed",
+      "--output",
+      "target/reliability95/sites/negative-headed-chrome-no-display",
+      "--timeout-secs",
+      "2",
+      "http://127.0.0.1:9/"
+    ],
+    "environment_overrides": {
+      "DISPLAY": "",
+      "WAYLAND_DISPLAY": ""
+    },
+    "expected_exit": 1,
+    "actual_exit": 1,
+    "elapsed_seconds": 0.003530263900756836
+  },
+  {
+    "case": "headed-firefox-env-headless",
+    "argv": [
+      "target/debug/examples/compat_report",
+      "--browser",
+      "firefox",
+      "--headed",
+      "--output",
+      "target/reliability95/sites/negative-headed-firefox-env-headless",
+      "--timeout-secs",
+      "2",
+      "http://127.0.0.1:9/"
+    ],
+    "environment_overrides": {
+      "DISPLAY": ":invalid",
+      "WAYLAND_DISPLAY": "",
+      "MOZ_HEADLESS": "1"
+    },
+    "expected_exit": 1,
+    "actual_exit": 1,
+    "elapsed_seconds": 0.003509044647216797
+  }
+]

@@ -1,0 +1,87 @@
+--- a/crates/rustwright-bidi/src/browser.rs
++++ b/crates/rustwright-bidi/src/browser.rs
+@@ -12,6 +12,9 @@
+ #[cfg(test)]
+ #[path = "frame_helper_cache_tests.rs"]
+ mod frame_helper_cache_tests;
++#[cfg(test)]
++#[path = "network_subscription_tests.rs"]
++mod network_subscription_tests;
+ #[cfg(test)]
+ #[path = "shutdown_tests.rs"]
+ mod shutdown_tests;
+@@ -288,7 +291,7 @@
+     context: String,
+     helper: Arc<PageHelper>,
+     network: Arc<Mutex<Vec<BidiNetworkRequest>>>,
+-    network_started: Arc<AtomicBool>,
++    network_started: Arc<tokio::sync::Mutex<bool>>,
+     network_pump: Arc<Mutex<Option<NetworkPumpGuard>>>,
+     routes: Arc<Mutex<Vec<Route>>>,
+     intercept: Arc<Mutex<Option<String>>>,
+@@ -312,7 +315,7 @@
+             context,
+             helper,
+             network: Arc::new(Mutex::new(Vec::new())),
+-            network_started: Arc::new(AtomicBool::new(false)),
++            network_started: Arc::new(tokio::sync::Mutex::new(false)),
+             network_pump: Arc::new(Mutex::new(None)),
+             routes: Arc::new(Mutex::new(Vec::new())),
+             intercept: Arc::new(Mutex::new(None)),
+@@ -447,24 +450,39 @@
+     ///
+     /// This is opt-in because it subscribes to `network.*` events for the whole
+     /// session. Calling it more than once is a no-op.
++    /// Setup continues after caller cancellation for up to five seconds, and
++    /// concurrent callers wait until the subscription and one pump are ready.
+     pub async fn start_network_monitoring(&self) -> BidiResult<()> {
+-        if self.network_started.swap(true, Ordering::SeqCst) {
+-            return Ok(());
+-        }
+-        if let Err(error) = self.session.ensure_network_subscription().await {
+-            self.network_started.store(false, Ordering::SeqCst);
+-            return Err(error);
+-        }
+-        let guard = spawn_network_pump(
+-            self.session.clone(),
+-            self.context.clone(),
+-            self.network.clone(),
+-        );
+-        *self
+-            .network_pump
+-            .lock()
+-            .expect("bidi network pump mutex poisoned") = Some(guard);
+-        Ok(())
++        let page = self.clone();
++        tokio::spawn(async move {
++            tokio::time::timeout(crate::session::NETWORK_SETUP_TIMEOUT, async {
++                let mut ready = page.network_started.lock().await;
++                if *ready {
++                    return Ok(());
++                }
++                page.session.ensure_network_subscription().await?;
++                let guard = spawn_network_pump(
++                    page.session.clone(),
++                    page.context.clone(),
++                    page.network.clone(),
++                );
++                *page
++                    .network_pump
++                    .lock()
++                    .expect("bidi network pump mutex poisoned") = Some(guard);
++                *ready = true;
++                Ok(())
++            })
++            .await
++            .map_err(|_| BidiError::Timeout {
++                method: "start_network_monitoring".to_owned(),
++                timeout: crate::session::NETWORK_SETUP_TIMEOUT,
++            })?
++        })
++        .await
++        .map_err(|error| {
++            BidiError::Unexpected(format!("network monitoring task failed: {error}"))
++        })?
+     }
+ 
+     /// Network requests observed since monitoring started.

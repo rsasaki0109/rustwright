@@ -1,0 +1,30 @@
+[
+  {
+    "check": "whitespace",
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "exit_code": 0,
+    "log": "/workspace/rustwright/target/release-check/final/whitespace.log"
+  },
+  {
+    "check": "fmt",
+    "command": ". /workspace/.rustwright-env/activate.sh\ncargo fmt --all -- --check",
+    "exit_code": 0,
+    "log": "/workspace/rustwright/target/release-check/final/fmt.log"
+  },
+  {
+    "check": "clippy",
+    "command": ". /workspace/.rustwright-env/activate.sh\ncargo clippy --workspace --all-targets --offline --locked -- -D warnings",
+    "exit_code": 0,
+    "log": "/workspace/rustwright/target/release-check/final/clippy.log"
+  },
+  {
+    "check": "msrv",
+    "command": ". /workspace/.rustwright-env/activate.sh\ncargo +1.85.0 check --workspace --all-targets --offline --locked",
+    "exit_code": 0,
+    "log": "/workspace/rustwright/target/release-check/final/msrv.log"
+  }
+]

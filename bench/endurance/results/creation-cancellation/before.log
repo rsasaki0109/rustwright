@@ -1,0 +1,102 @@
+   Compiling rustwright-core v0.1.0 (/workspace/rustwright/crates/rustwright-core)
+   Compiling rustwright-bidi v0.1.0 (/workspace/rustwright/crates/rustwright-bidi)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.68s
+     Running unittests src/lib.rs (target/debug/deps/rustwright_bidi-3c9c4eeb7cfbe32c)
+
+running 5 tests
+test browser::creation_tests::cancelled_context_before_creation_reply_is_removed ... FAILED
+test browser::creation_tests::cancelled_default_page_before_creation_reply_is_closed ... FAILED
+test browser::creation_tests::cancelled_page_before_creation_reply_is_closed ... FAILED
+test browser::creation_tests::cancelled_page_initialization_closes_created_page ... FAILED
+test browser::creation_tests::failed_page_initialization_closes_created_page ... FAILED
+
+failures:
+
+---- browser::creation_tests::cancelled_context_before_creation_reply_is_removed stdout ----
+
+thread 'browser::creation_tests::cancelled_context_before_creation_reply_is_removed' (787228) panicked at crates/rustwright-bidi/src/creation_tests.rs:153:6:
+cancelled or failed creation must release only its allocated resources: Elapsed(())
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- browser::creation_tests::cancelled_default_page_before_creation_reply_is_closed stdout ----
+
+thread 'browser::creation_tests::cancelled_default_page_before_creation_reply_is_closed' (787229) panicked at crates/rustwright-bidi/src/creation_tests.rs:153:6:
+cancelled or failed creation must release only its allocated resources: Elapsed(())
+
+---- browser::creation_tests::cancelled_page_before_creation_reply_is_closed stdout ----
+
+thread 'browser::creation_tests::cancelled_page_before_creation_reply_is_closed' (787230) panicked at crates/rustwright-bidi/src/creation_tests.rs:153:6:
+cancelled or failed creation must release only its allocated resources: Elapsed(())
+
+---- browser::creation_tests::cancelled_page_initialization_closes_created_page stdout ----
+
+thread 'browser::creation_tests::cancelled_page_initialization_closes_created_page' (787231) panicked at crates/rustwright-bidi/src/creation_tests.rs:153:6:
+cancelled or failed creation must release only its allocated resources: Elapsed(())
+
+---- browser::creation_tests::failed_page_initialization_closes_created_page stdout ----
+
+thread 'browser::creation_tests::failed_page_initialization_closes_created_page' (787232) panicked at crates/rustwright-bidi/src/creation_tests.rs:153:6:
+cancelled or failed creation must release only its allocated resources: Elapsed(())
+
+
+failures:
+    browser::creation_tests::cancelled_context_before_creation_reply_is_removed
+    browser::creation_tests::cancelled_default_page_before_creation_reply_is_closed
+    browser::creation_tests::cancelled_page_before_creation_reply_is_closed
+    browser::creation_tests::cancelled_page_initialization_closes_created_page
+    browser::creation_tests::failed_page_initialization_closes_created_page
+
+test result: FAILED. 0 passed; 5 failed; 0 ignored; 0 measured; 17 filtered out; finished in 5.02s
+
+error: test failed, to rerun pass `-p rustwright-bidi --lib`
+     Running unittests src/lib.rs (target/debug/deps/rustwright_core-7b2f98169fb5c90d)
+
+running 5 tests
+test creation_tests::cancelled_context_before_creation_reply_is_removed ... FAILED
+test creation_tests::cancelled_default_page_before_creation_reply_is_closed ... FAILED
+test creation_tests::cancelled_page_before_creation_reply_is_closed ... FAILED
+test creation_tests::cancelled_page_initialization_closes_created_page ... FAILED
+test creation_tests::failed_page_initialization_closes_created_page ... FAILED
+
+failures:
+
+---- creation_tests::cancelled_context_before_creation_reply_is_removed stdout ----
+
+thread 'creation_tests::cancelled_context_before_creation_reply_is_removed' (787234) panicked at crates/rustwright-core/src/creation_tests.rs:159:6:
+cancelled or failed creation must release only its allocated resources: Elapsed(())
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- creation_tests::cancelled_default_page_before_creation_reply_is_closed stdout ----
+
+thread 'creation_tests::cancelled_default_page_before_creation_reply_is_closed' (787235) panicked at crates/rustwright-core/src/creation_tests.rs:159:6:
+cancelled or failed creation must release only its allocated resources: Elapsed(())
+
+---- creation_tests::cancelled_page_before_creation_reply_is_closed stdout ----
+
+thread 'creation_tests::cancelled_page_before_creation_reply_is_closed' (787236) panicked at crates/rustwright-core/src/creation_tests.rs:159:6:
+cancelled or failed creation must release only its allocated resources: Elapsed(())
+
+---- creation_tests::cancelled_page_initialization_closes_created_page stdout ----
+
+thread 'creation_tests::cancelled_page_initialization_closes_created_page' (787237) panicked at crates/rustwright-core/src/creation_tests.rs:159:6:
+cancelled or failed creation must release only its allocated resources: Elapsed(())
+
+---- creation_tests::failed_page_initialization_closes_created_page stdout ----
+
+thread 'creation_tests::failed_page_initialization_closes_created_page' (787238) panicked at crates/rustwright-core/src/creation_tests.rs:159:6:
+cancelled or failed creation must release only its allocated resources: Elapsed(())
+
+
+failures:
+    creation_tests::cancelled_context_before_creation_reply_is_removed
+    creation_tests::cancelled_default_page_before_creation_reply_is_closed
+    creation_tests::cancelled_page_before_creation_reply_is_closed
+    creation_tests::cancelled_page_initialization_closes_created_page
+    creation_tests::failed_page_initialization_closes_created_page
+
+test result: FAILED. 0 passed; 5 failed; 0 ignored; 0 measured; 30 filtered out; finished in 5.02s
+
+error: test failed, to rerun pass `-p rustwright-core --lib`
+error: 2 targets failed:
+    `-p rustwright-bidi --lib`
+    `-p rustwright-core --lib`

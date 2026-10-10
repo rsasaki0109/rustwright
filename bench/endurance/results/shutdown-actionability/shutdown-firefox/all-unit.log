@@ -1,0 +1,44 @@
+   Compiling rustwright-bidi v0.1.0 (/workspace/rustwright/crates/rustwright-bidi)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.98s
+     Running unittests src/lib.rs (target/debug/deps/rustwright_bidi-cedd5209c7d1f7e2)
+
+running 36 tests
+test browser::creation_tests::cancelled_creation_with_silent_peer_releases_local_waiter_after_grace ... ok
+test browser::creation_tests::cancelled_default_page_before_creation_reply_is_closed ... ok
+test browser::creation_tests::cancelled_context_before_creation_reply_is_removed ... ok
+test browser::creation_tests::cancelled_after_reply_before_handoff_removes_context ... ok
+test browser::creation_tests::cancelled_page_before_creation_reply_is_closed ... ok
+test browser::shutdown_tests::browser_close_bounds_silent_end_and_closes_retained_connection ... ok
+test browser::creation_tests::cancelled_initialization_outside_runtime_thread_cleans_up ... ok
+test browser::creation_tests::failed_page_initialization_closes_created_page ... ok
+test browser::shutdown_tests::cancelled_browser_close_closes_retained_connection ... ok
+test browser::shutdown_tests::cancelled_context_close_bounds_silent_remote_waiter ... ok
+test browser::shutdown_tests::cancelled_context_close_before_reply_removes_retained_helper ... ok
+test browser::shutdown_tests::concurrent_and_repeated_context_close_remove_helper_once ... ok
+test browser::shutdown_tests::concurrent_context_cleanup_error_does_not_skip_other_helpers ... ok
+test browser::shutdown_tests::cancelled_page_close_during_helper_removal_closes_page ... ok
+test browser::shutdown_tests::failed_helper_removal_is_retried_after_context_is_gone ... ok
+test browser::creation_tests::cancelled_page_initialization_closes_created_page ... ok
+test browser::shutdown_tests::cancelled_context_close_during_helper_removal_finishes ... ok
+test connection::tests::cancelled_request_is_removed ... ok
+test connection::tests::protocol_error_preserves_command_details ... ok
+test browser::shutdown_tests::page_helper_cleanup_error_is_returned_and_clone_retries ... ok
+test connection::transport_lifetime_tests::last_clone_drop_releases_inner_and_socket ... ok
+test connection::transport_lifetime_tests::peer_loss_releases_waiters_and_inner ... ok
+test connection::tests::timed_out_request_is_removed ... ok
+test connection::transport_lifetime_tests::writer_failure_releases_idle_reader_and_socket ... ok
+test browser::shutdown_tests::remote_context_error_is_returned_and_retry_cleans_helper ... ok
+test lifecycle_tests::closing_one_context_preserves_other_context_helpers ... ok
+test lifecycle_tests::context_close_releases_helpers_even_while_page_handles_are_retained ... ok
+test lifecycle_tests::dropping_the_last_page_handle_releases_its_helper_registration ... ok
+test lifecycle_tests::repeated_discovery_reuses_the_page_helper_registration ... ok
+test session::tests::converts_arrays_and_objects ... ok
+test session::tests::converts_scalars ... ok
+test session::tests::evaluation_exceptions_preserve_the_browser_message ... ok
+test session::tests::successful_null_and_undefined_are_distinct_from_exceptions ... ok
+test lifecycle_tests::cancelling_helper_registration_still_releases_the_remote_script ... ok
+test connection::transport_lifetime_tests::explicit_close_interrupts_blocked_write_and_close ... ok
+test connection::transport_lifetime_tests::reader_failure_interrupts_blocked_write_and_close ... ok
+
+test result: ok. 36 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.39s
+

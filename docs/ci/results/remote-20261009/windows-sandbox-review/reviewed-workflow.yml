@@ -1,0 +1,203 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: 1
+
+jobs:
+  msrv:
+    name: Rust 1.85.0 / locked workspace
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install minimum supported Rust
+        uses: dtolnay/rust-toolchain@1.85.0
+
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+
+      - name: Check all targets on the minimum Rust version
+        run: cargo check --locked --workspace --all-targets
+
+  check:
+    name: fmt / clippy / test
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+
+      - name: Check formatting
+        run: cargo fmt --all -- --check
+
+      - name: Clippy (deny warnings)
+        run: cargo clippy --workspace --all-targets -- -D warnings
+
+      - name: Install Chrome
+        id: chrome
+        uses: browser-actions/setup-chrome@v2
+        with:
+          chrome-version: stable
+          install-dependencies: true
+
+      - name: Install Firefox for the shared HTTP tests
+        id: firefox
+        uses: browser-actions/setup-firefox@v1
+        with:
+          firefox-version: '157.0.1'
+
+      - name: Firefox version
+        run: '"${{ steps.firefox.outputs.firefox-path }}" --version'
+
+      - name: Test
+        env:
+          RUSTWRIGHT_CHROME: ${{ steps.chrome.outputs.chrome-path }}
+          RUSTWRIGHT_FIREFOX: ${{ steps.firefox.outputs.firefox-path }}
+          RUSTWRIGHT_RETRIES: '0'
+          RUSTWRIGHT_HEADLESS: '1'
+          RUSTWRIGHT_REQUIRE_BROWSERS: '1'
+        run: cargo test --locked --workspace -- --test-threads=1
+
+  browser-compat:
+    name: Required Chrome + Firefox / ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - name: Install Chrome
+        id: chrome
+        uses: browser-actions/setup-chrome@v2
+        with:
+          chrome-version: stable
+          install-dependencies: true
+      - name: Install Firefox
+        id: firefox
+        uses: browser-actions/setup-firefox@v1
+        with:
+          firefox-version: '157.0.1'
+      - name: Configure Windows Chrome sandbox permissions
+        if: runner.os == 'Windows'
+        timeout-minutes: 2
+        shell: pwsh
+        env:
+          CHROME_EXECUTABLE: ${{ steps.chrome.outputs.chrome-path }}
+        run: |
+          $chromeDirectory = Split-Path -Parent $env:CHROME_EXECUTABLE
+          $setupExecutable = Join-Path $chromeDirectory 'setup.exe'
+          if (-not (Test-Path -LiteralPath $setupExecutable -PathType Leaf)) {
+            throw "Chrome for Testing sandbox setup executable is missing"
+          }
+          # The Chrome-provided helper grants its installation capabilities
+          # read/execute access. It returns installer status 78 on success.
+          $setupArgument = '--configure-browser-in-directory="{0}"' -f $chromeDirectory
+          $setupProcess = Start-Process -FilePath $setupExecutable -ArgumentList $setupArgument -Wait -PassThru
+          Write-Host "Chrome sandbox setup exit code: $($setupProcess.ExitCode)"
+          if ($setupProcess.ExitCode -ne 78) { throw "Chrome sandbox permission configuration failed" }
+          & icacls.exe $env:CHROME_EXECUTABLE
+          if ($LASTEXITCODE -ne 0) { throw "Unable to inspect Chrome executable permissions" }
+      - name: Record installed browser versions
+        shell: bash
+        env:
+          CHROME_VERSION: ${{ steps.chrome.outputs.chrome-version }}
+          FIREFOX_VERSION: ${{ steps.firefox.outputs.firefox-version }}
+        run: |
+          echo "Chrome: $CHROME_VERSION"
+          echo "Firefox: $FIREFOX_VERSION"
+      - name: Required portable HTTP scenarios
+        env:
+          RUSTWRIGHT_CHROME: ${{ steps.chrome.outputs.chrome-path }}
+          RUSTWRIGHT_FIREFOX: ${{ steps.firefox.outputs.firefox-path }}
+        run: python scripts/ci/browser_checks.py --suite portable
+      - name: Additional Linux HTTP regressions
+        if: runner.os == 'Linux'
+        env:
+          RUSTWRIGHT_CHROME: ${{ steps.chrome.outputs.chrome-path }}
+          RUSTWRIGHT_FIREFOX: ${{ steps.firefox.outputs.firefox-path }}
+        run: python scripts/ci/browser_checks.py --suite linux-extra
+      - name: Retain native test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-http-${{ matrix.os }}
+          path: target/ci/
+          if-no-files-found: error
+
+  package-consumer:
+    name: Verified archives / stable + MSRV / native consumers
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+      - uses: dtolnay/rust-toolchain@1.85.0
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - name: Install Chrome
+        id: chrome
+        uses: browser-actions/setup-chrome@v2
+        with:
+          chrome-version: stable
+          install-dependencies: true
+      - name: Install Firefox
+        id: firefox
+        uses: browser-actions/setup-firefox@v1
+        with:
+          firefox-version: '157.0.1'
+      - name: Cache exact locked dependency archives
+        run: cargo +stable fetch --locked
+      - name: Check real packages and native consumers
+        env:
+          RUSTWRIGHT_CHROME: ${{ steps.chrome.outputs.chrome-path }}
+          RUSTWRIGHT_FIREFOX: ${{ steps.firefox.outputs.firefox-path }}
+        run: python scripts/release_check.py --run-browser-tests
+      - name: Execute README entry points
+        env:
+          RUSTWRIGHT_CHROME: ${{ steps.chrome.outputs.chrome-path }}
+          RUSTWRIGHT_FIREFOX: ${{ steps.firefox.outputs.firefox-path }}
+        run: python scripts/release/readme_runtime.py
+      - name: Retain release verification results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-verification
+          path: |
+            target/release-check/*.log
+            target/release-check/*.json
+            target/release-check/package-target/*/package/*.crate
+            target/release-check/consumer/Cargo.lock
+            target/release-check/consumer/readme-snippets.json
+            target/release-check/consumer/firefox.png
+            target/release-check/native-screenshots/
+          if-no-files-found: error

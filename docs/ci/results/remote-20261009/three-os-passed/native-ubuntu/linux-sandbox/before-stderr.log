@@ -1,0 +1,28 @@
+[2821:2821:1009/181753.378622:FATAL:content/browser/zygote_host/zygote_host_impl_linux.cc:130] No usable sandbox! If you are running on Ubuntu 23.10+ or another Linux distro that has disabled unprivileged user namespaces with AppArmor, see https://chromium.googlesource.com/chromium/src/+/main/docs/security/apparmor-userns-restrictions.md. Otherwise see https://chromium.googlesource.com/chromium/src/+/main/docs/linux/suid_sandbox_development.md for more information on developing with the (older) SUID sandbox. If you want to live dangerously and need an immediate workaround, you can try using --no-sandbox.
+[1009/181753.386230:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:145] open /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq: No such file or directory (2)
+[1009/181753.386275:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:145] open /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq: No such file or directory (2)
+Received signal 6
+#0 0x55bde10b7fc3 (/opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome+0x6aecfc2)
+#1 0x55bde6086174 (/opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome+0xbabb173)
+#2 0x7fe2bd645330 (/usr/lib/x86_64-linux-gnu/libc.so.6+0x4532f)
+#3 0x7fe2bd64527e (/usr/lib/x86_64-linux-gnu/libc.so.6+0x4527d)
+#4 0x7fe2bd6288ff (/usr/lib/x86_64-linux-gnu/libc.so.6+0x288fe)
+#5 0x55bde607ced5 (/opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome+0xbab1ed4)
+#6 0x55bde603cb8d (/opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome+0xba71b8c)
+#7 0x55bde603cadd (/opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome+0xba71adc)
+#8 0x55bde0d81c12 (/opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome+0x67b6c11)
+#9 0x55bde04a8829 (/opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome+0x5edd828)
+#10 0x55bddffe0f58 (/opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome+0x5a15f57)
+#11 0x55bde554f74f (/opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome+0xaf8474e)
+#12 0x55bde04f190c (/opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome+0x5f2690b)
+#13 0x55bde04f1060 (/opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome+0x5f2605f)
+#14 0x7fe2bd62a1ca (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a1c9)
+#15 0x7fe2bd62a28b (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a28a)
+#16 0x55bde137136a (/opt/hostedtoolcache/setup-chrome/chrome/stable/x64/chrome+0x6da6369)
+  r8: 000030d00013c263  r9: 0000000000000001 r10: 0000000000000008 r11: 0000000000000246
+ r12: 0000000000000006 r13: 000030d00013c000 r14: 0000000000000016 r15: 00007ffc516f19e8
+  di: 0000000000000b05  si: 0000000000000b05  bp: 00007ffc516f1360  bx: 0000000000000b05
+  dx: 0000000000000006  ax: 0000000000000000  cx: 00007fe2bd69ec0c  sp: 00007ffc516f1320
+  ip: 00007fe2bd69ec0c efl: 0000000000000246 cgf: 002b000000000033 erf: 0000000000000000
+ trp: 0000000000000000 msk: 0000000000000000 cr2: 0000000000000000
+[end of stack trace]

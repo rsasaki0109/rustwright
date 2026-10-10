@@ -1,0 +1,9 @@
+Running /workspace/rustwright/target/ci-rollout/guard-probes/stale-release/bin-88i7owbu/cargo +stable package --allow-dirty --offline --locked --target-dir /workspace/rustwright/target/ci-rollout/guard-probes/stale-release/package-target/1692ce918eaf21d2 --package rustwright --package rustwright-bidi --package rustwright-browser --package rustwright-cdp --package rustwright-common --package rustwright-core --package rustwright-test --package rustwright-test-macros
+Traceback (most recent call last):
+  File "/workspace/rustwright/scripts/release_check.py", line 342, in <module>
+    main()
+  File "/workspace/rustwright/scripts/release_check.py", line 277, in main
+    run(command, ROOT, output / "package.log")
+  File "/workspace/rustwright/scripts/release_check.py", line 39, in run
+    raise RuntimeError(f"Command failed ({process.returncode}); see {log}")
+RuntimeError: Command failed (23); see /workspace/rustwright/target/ci-rollout/guard-probes/stale-release/package.log

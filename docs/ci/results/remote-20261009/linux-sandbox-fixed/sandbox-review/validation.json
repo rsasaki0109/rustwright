@@ -1,0 +1,39 @@
+{
+  "git_head_at_freeze": "4b7226472f3ac4be27e8fcadb536f7019de17894",
+  "checks": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "py_compile",
+        "scripts/ci/chrome_linux_sandbox.py"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/workspace/.rustwright-env/actionlint/actionlint",
+        ".github/workflows/ci.yml"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check",
+        "--",
+        ".github/workflows/ci.yml",
+        "scripts/ci/chrome_linux_sandbox.py"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "scope": "Syntax and workflow validation only; actual Linux hosted-runner native validation pending."
+}

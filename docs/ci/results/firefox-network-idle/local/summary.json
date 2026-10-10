@@ -1,0 +1,86 @@
+{
+  "frozen_at_utc": "2026-10-09T18:47:48.723417+00:00",
+  "source_commit": "e3bc08e7ce0a117d173bdcde2924165806e8e854",
+  "scope": "Final local managed Linux root validation only; remoteCI evidence is separate.",
+  "library_tests": {
+    "passed": 193,
+    "bidi_passed": 108,
+    "new_bidi_idle_cases": 22,
+    "failed": 0,
+    "ignored": 0,
+    "filtered": 0
+  },
+  "native_http": {
+    "portable_passed": 79,
+    "previous_shared_portable_cases": 53,
+    "new_network_idle_parity_cases": 26,
+    "new_cases_by_backend": {
+      "chrome": 13,
+      "firefox": 13
+    },
+    "linux_extra_passed": 114,
+    "total_native_http_passed": 193,
+    "target_count": 14,
+    "failed": 0,
+    "ignored": 0,
+    "filtered": 0,
+    "new_case_names": [
+      "chrome_abort",
+      "chrome_body_timeout_reuse",
+      "chrome_browser_closure",
+      "chrome_cancelled_waiter",
+      "chrome_child_removal",
+      "chrome_cross_origin_child",
+      "chrome_document_replacement",
+      "chrome_foreign_tab",
+      "chrome_interrupted_quiet",
+      "chrome_nested_children",
+      "chrome_page_closure",
+      "chrome_partial_body",
+      "chrome_redirects",
+      "firefox_abort",
+      "firefox_body_timeout_reuse",
+      "firefox_browser_closure",
+      "firefox_cancelled_waiter",
+      "firefox_child_removal",
+      "firefox_cross_origin_child",
+      "firefox_document_replacement",
+      "firefox_foreign_tab",
+      "firefox_interrupted_quiet",
+      "firefox_nested_children",
+      "firefox_page_closure",
+      "firefox_partial_body",
+      "firefox_redirects"
+    ],
+    "foreign_tab_scope": "Firefox foreign_tab also verifies positive reuse of a complete shared observer through a discovered alias, then typed NetworkObservationIncomplete for a cold-discovered context; these assertions are inside the existing named case and not extra tests."
+  },
+  "checks": {
+    "stable_workspace_all_target_clippy_deny_warnings": "passed",
+    "rust_1_85_workspace_all_targets": "passed",
+    "fmt": "passed"
+  },
+  "distribution": {
+    "status": "passed",
+    "package_input_sha256": "42f96b66441e5c35ec856314be79855d15e465f595ddf32c6825f39a57195660",
+    "verified_real_crate_archives": 8,
+    "third_party_checksum_archives": 57,
+    "all9_readme_rust_fences_compile_on_stable_and_msrv": true,
+    "native_consumer_passed": 4,
+    "native_consumer_by_backend": {
+      "chrome": 2,
+      "firefox": 2
+    },
+    "readme_native_entry_points_passed": 2,
+    "screenshots": 5
+  },
+  "source_archive_file_count": 151,
+  "source_archive_sha256": "fb57f612eac209e6862080f9aa5a986a81feb050395dbc623b1c87de2287d413",
+  "compiled_binary_and_cache_policy": "No compiled Rust/ELF/cache copied. Only actual.crate source packages,source archives,raw logs/JSON,generated consumer text inputs and PNG screenshots are included.",
+  "excluded_work_in_progress_logs": [
+    "first-run.log",
+    "build.log",
+    "diffstat/WIP logs"
+  ],
+  "overlap": "193library and193nativeHTTP are distinct scopes. Backendstage108 is a subset of library193; repeated native consumer/README checks are kept separate, not added to unique library/native coverage.",
+  "scope_caveats": "Local headlessChrome151/Firefox157 plus managed-cloud wrapper settings, HTTP fixtures. No remoteOS/fullCI/public-site/memory/SOTA claim from this local record."
+}

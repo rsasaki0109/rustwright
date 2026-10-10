@@ -1,0 +1,36 @@
+{
+  "suite": "portable",
+  "platform": "Windows-10-10.0.26100-SP0",
+  "status": "failed",
+  "targets": [
+    "http_compat",
+    "http_actionability",
+    "http_clipped_control",
+    "http_bidi_navigation"
+  ],
+  "cases": [
+    {
+      "target": "http_compat",
+      "command": [
+        "C:\\Users\\runneradmin\\.cargo\\bin\\cargo.EXE",
+        "test",
+        "--locked",
+        "-p",
+        "rustwright-integration-tests",
+        "--test",
+        "http_compat",
+        "--",
+        "--test-threads=1",
+        "--nocapture"
+      ],
+      "log": "D:\\a\\rustwright\\rustwright\\target\\ci\\portable\\http_compat.log",
+      "exit_code": 101
+    }
+  ],
+  "browsers": {
+    "RUSTWRIGHT_CHROME": "C:\\hostedtoolcache\\windows\\setup-chrome\\chrome\\stable\\x64\\chrome.exe",
+    "RUSTWRIGHT_FIREFOX": "C:\\Program Files\\Firefox_157.0.1\\firefox.exe"
+  },
+  "cargo_version": "cargo 1.99.0 (5f94df478 2026-08-27)",
+  "error": "http_compat failed or did not finish one native suite; see D:\\a\\rustwright\\rustwright\\target\\ci\\portable\\http_compat.log"
+}

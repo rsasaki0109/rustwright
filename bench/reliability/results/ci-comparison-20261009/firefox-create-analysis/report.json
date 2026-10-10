@@ -1,0 +1,55 @@
+{
+  "upstream_run": 38002188290,
+  "upstream_commit": "d563c82875b3ca820cfa5bd798fcd40ba878763e",
+  "upstream_test": "firefox_page_closure",
+  "failure_stage": "open -> first new_page, before page_closure body",
+  "error": "browsingContext.create: no such frame: DiscardedBrowsingContextError: BrowsingContext does no longer exist",
+  "firefox_source_version": "157.0.1",
+  "mozilla_sources": {
+    "NavigationManager.sys.mjs": {
+      "sha256": "3d7f9a6f9bd6f1d2afe16e3013b5e46b62fd56dcb0cf3056189c7bbb251c9a0a",
+      "bytes": 34782
+    },
+    "browsingContext-tree.sys.mjs": {
+      "sha256": "b7466759e7fda2f8954d11b77bdfc963ce9b937686217f64fca82ebe7816ad7a",
+      "bytes": 2030
+    },
+    "browsingContext-root.sys.mjs": {
+      "sha256": "feb43760b4da4328cc3d939d6575255a3e8acbb58522c92213409fc9eff0d0e3",
+      "bytes": 99647
+    },
+    "BrowsingContextUtils.sys.mjs": {
+      "sha256": "918856dccf4c4b0428dba1383744c937d061cd072b96dd72e43fff692bc6ca6c",
+      "bytes": 11228
+    }
+  },
+  "fix": "background allocation then targeted activation, with allocation guard spanning both",
+  "new_tests": {
+    "creation_visibility_tests": 3,
+    "creation_tests_activation_cleanup": 2
+  },
+  "local_validation": {
+    "rustfmt": "pass under activated Rust environment after root formatted protocol_tests match arm",
+    "git_diff_check": "pass",
+    "compilation": "not run; root instructed no build under zombie exhaustion",
+    "native": "not run; next actual CI required"
+  },
+  "scope_limit": "Avoids previous-context capture before addTab in foreground create. Activate reads selected context after creation; unrelated concurrent discard during activation can still fail, in which case allocated context is retired. No retry.",
+  "source_sha256": {
+    "crates/rustwright-bidi/src/browser.rs": "5931b427d0e5d2372cd40d0f3e70826c047fa2a480aa04039ffaf762a8275383",
+    "crates/rustwright-bidi/src/session.rs": "104e721c90f35da4d7e38b395a5c05e341cfe6fdf14deb8951d0dff4dfdcfbbf",
+    "crates/rustwright-bidi/src/creation_tests.rs": "404c7d939dc82a4fa8034cd3153a58c652f20bd4ee81c1972ab740d7ada007b3",
+    "crates/rustwright-bidi/src/creation_visibility_tests.rs": "5e52faf5454e633a4d7da9d1d029f51eefd2586c5e0f4b5e0c7586196f88f36a",
+    "crates/rustwright-bidi/src/lifecycle_tests.rs": "147d7cd3335d8f0aa3fc195c10447dcfe3c143825d18c24ba741e497ac8c6101",
+    "crates/rustwright-bidi/src/frame_helper_cache_tests.rs": "354c1e49753d2a64dbbda1fc4b054b80dce7c3ea7df59f94db70d9edea62563d",
+    "crates/rustwright-bidi/src/interception_tests.rs": "5405ead88c2a5898354671c83f741c4e185fa0211a29b4b2828e844744ca2233",
+    "crates/rustwright-bidi/src/shutdown_tests.rs": "c11fb08c7aeb89ebe97d4fec846c76b697b25fda64ac8899621d4d8b9cdfa901",
+    "crates/rustwright-bidi/src/navigation_tests.rs": "c1e70346825ea83611089cdca336a63de133d15cd6e1a23a5cf347d841f112e3",
+    "crates/rustwright-bidi/src/network_subscription_tests.rs": "eb055d9090267af3d2234c0a5ab6dbb7c4cf7409b6f1f3aba5c97db483f8271d",
+    "crates/rustwright-bidi/src/network_idle/protocol_tests.rs": "08af0bd7042e2e56d6afea73b71e52db6ec90424d917b55fd14e1fac134ada7e",
+    "tests/http_network_idle_parity.rs": "02b1d461ec3ec6871fbda66e4eb43aac49e43018bc662fc3c8eaee33171dc247"
+  },
+  "native_regression": "existing firefox_page_closure now performs five independent startup/profile/page create/visible/fetch/close/waiter-closed cycles; no retry, first failure aborts; Chrome remains one cycle",
+  "diagnostic_limit": "Original native error has no event/stack trace identifying whether previous or new document visibility waiter failed. Bundled-source analysis supports the predecessor-context correction; controlled fixture demonstrates that mechanism, not a native timing reproduction.",
+  "visibility_limit": "Explicit activation preserves focus selection, but Firefox activate lacks foreground-create final new-document visibility wait. Actual new_page visible-state and headed/actionability tests are required; identical every-stage visibility timing is not claimed."
+}

@@ -1,0 +1,2575 @@
+{
+  "workload": "evaluate",
+  "success": true,
+  "result": {
+    "kind": "result",
+    "success": true,
+    "completed": 1100,
+    "commands": {
+      "session.new": 1,
+      "browser.createUserContext": 1,
+      "browsingContext.create": 1,
+      "browsingContext.navigate": 1,
+      "script.evaluate": 1101,
+      "browsingContext.getTree": 16,
+      "browser.getUserContexts": 16,
+      "browser.removeUserContext": 1,
+      "session.end": 1
+    },
+    "events": {},
+    "pending_commands": 0,
+    "elapsed_ms": 39099
+  },
+  "samples": [
+    {
+      "kind": "sample",
+      "completed": 0,
+      "measured_completed": 0,
+      "elapsed_ms": 1740,
+      "idle_seconds": null,
+      "counts": {
+        "pages": [
+          "45fe10ac-4b5e-49cf-b0dc-e408708b9fff",
+          "7ddede8f-1927-4ab0-a49b-7495b0e2ffef"
+        ],
+        "user_contexts": [
+          "6a27ea03-fdaf-49cd-84a6-4815195d6ce1",
+          "ac99958f-932d-463c-b44d-62d3fc4d8553",
+          "b934ec90-91fa-4f36-9b06-0c04a8005826",
+          "bee7a91a-07e1-4a78-b75a-014d07d0f048",
+          "d60053da-c64d-4351-a60c-0b3bc922ee4a",
+          "default"
+        ]
+      },
+      "baseline": {
+        "pages": [
+          "45fe10ac-4b5e-49cf-b0dc-e408708b9fff",
+          "7ddede8f-1927-4ab0-a49b-7495b0e2ffef"
+        ],
+        "user_contexts": [
+          "6a27ea03-fdaf-49cd-84a6-4815195d6ce1",
+          "ac99958f-932d-463c-b44d-62d3fc4d8553",
+          "b934ec90-91fa-4f36-9b06-0c04a8005826",
+          "bee7a91a-07e1-4a78-b75a-014d07d0f048",
+          "d60053da-c64d-4351-a60c-0b3bc922ee4a",
+          "default"
+        ]
+      },
+      "pending_commands": 0,
+      "commands": {
+        "session.new": 1,
+        "browser.createUserContext": 1,
+        "browsingContext.create": 1,
+        "browsingContext.navigate": 1,
+        "script.evaluate": 1,
+        "browsingContext.getTree": 2,
+        "browser.getUserContexts": 2
+      },
+      "memory": {
+        "driver_pid": 971445,
+        "browser_pid": 971449,
+        "driver_rss_kib": 26604,
+        "driver_pss_kib": 23951,
+        "browser_root_rss_kib": 295980,
+        "browser_root_pss_kib": 264047,
+        "browser_tree_rss_kib": 670644,
+        "browser_tree_pss_kib": 422538,
+        "browser_processes": 9,
+        "browser_observed_processes": 12,
+        "excluded_zombies": [
+          {
+            "pid": 971518,
+            "state": "Z"
+          },
+          {
+            "pid": 971527,
+            "state": "Z"
+          },
+          {
+            "pid": 971597,
+            "state": "Z"
+          }
+        ],
+        "browser_by_process": [
+          {
+            "pid": 971449,
+            "root": true,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 295980,
+            "pss_kib": 264047
+          },
+          {
+            "pid": 971515,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 16988,
+            "pss_kib": 4785
+          },
+          {
+            "pid": 971518,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971520,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 74572,
+            "pss_kib": 42243
+          },
+          {
+            "pid": 971527,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971557,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 46108,
+            "pss_kib": 15880
+          },
+          {
+            "pid": 971597,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971605,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 77908,
+            "pss_kib": 43603
+          },
+          {
+            "pid": 971673,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 50348,
+            "pss_kib": 17706
+          },
+          {
+            "pid": 971695,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36352,
+            "pss_kib": 11476
+          },
+          {
+            "pid": 971698,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36100,
+            "pss_kib": 11319
+          },
+          {
+            "pid": 971721,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36288,
+            "pss_kib": 11479
+          }
+        ],
+        "sampling": "sequential /proc reads; RSS double-counts shared mappings; only State:Z excluded; missing live RSS/PSS makes aggregate null"
+      }
+    },
+    {
+      "kind": "sample",
+      "completed": 100,
+      "measured_completed": 0,
+      "elapsed_ms": 2347,
+      "idle_seconds": null,
+      "counts": {
+        "pages": [
+          "45fe10ac-4b5e-49cf-b0dc-e408708b9fff",
+          "7ddede8f-1927-4ab0-a49b-7495b0e2ffef"
+        ],
+        "user_contexts": [
+          "6a27ea03-fdaf-49cd-84a6-4815195d6ce1",
+          "ac99958f-932d-463c-b44d-62d3fc4d8553",
+          "b934ec90-91fa-4f36-9b06-0c04a8005826",
+          "bee7a91a-07e1-4a78-b75a-014d07d0f048",
+          "d60053da-c64d-4351-a60c-0b3bc922ee4a",
+          "default"
+        ]
+      },
+      "baseline": {
+        "pages": [
+          "45fe10ac-4b5e-49cf-b0dc-e408708b9fff",
+          "7ddede8f-1927-4ab0-a49b-7495b0e2ffef"
+        ],
+        "user_contexts": [
+          "6a27ea03-fdaf-49cd-84a6-4815195d6ce1",
+          "ac99958f-932d-463c-b44d-62d3fc4d8553",
+          "b934ec90-91fa-4f36-9b06-0c04a8005826",
+          "bee7a91a-07e1-4a78-b75a-014d07d0f048",
+          "d60053da-c64d-4351-a60c-0b3bc922ee4a",
+          "default"
+        ]
+      },
+      "pending_commands": 0,
+      "commands": {
+        "session.new": 1,
+        "browser.createUserContext": 1,
+        "browsingContext.create": 1,
+        "browsingContext.navigate": 1,
+        "script.evaluate": 101,
+        "browsingContext.getTree": 3,
+        "browser.getUserContexts": 3
+      },
+      "memory": {
+        "driver_pid": 971445,
+        "browser_pid": 971449,
+        "driver_rss_kib": 27128,
+        "driver_pss_kib": 24479,
+        "browser_root_rss_kib": 299260,
+        "browser_root_pss_kib": 267276,
+        "browser_tree_rss_kib": 674612,
+        "browser_tree_pss_kib": 426130,
+        "browser_processes": 9,
+        "browser_observed_processes": 12,
+        "excluded_zombies": [
+          {
+            "pid": 971518,
+            "state": "Z"
+          },
+          {
+            "pid": 971527,
+            "state": "Z"
+          },
+          {
+            "pid": 971597,
+            "state": "Z"
+          }
+        ],
+        "browser_by_process": [
+          {
+            "pid": 971449,
+            "root": true,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 299260,
+            "pss_kib": 267276
+          },
+          {
+            "pid": 971515,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 16988,
+            "pss_kib": 4785
+          },
+          {
+            "pid": 971518,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971520,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 74576,
+            "pss_kib": 42212
+          },
+          {
+            "pid": 971527,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971557,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 46024,
+            "pss_kib": 15766
+          },
+          {
+            "pid": 971597,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971605,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 77912,
+            "pss_kib": 43589
+          },
+          {
+            "pid": 971673,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 51280,
+            "pss_kib": 18419
+          },
+          {
+            "pid": 971695,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36296,
+            "pss_kib": 11412
+          },
+          {
+            "pid": 971698,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36044,
+            "pss_kib": 11255
+          },
+          {
+            "pid": 971721,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36232,
+            "pss_kib": 11416
+          }
+        ],
+        "sampling": "sequential /proc reads; RSS double-counts shared mappings; only State:Z excluded; missing live RSS/PSS makes aggregate null"
+      }
+    },
+    {
+      "kind": "sample",
+      "completed": 200,
+      "measured_completed": 100,
+      "elapsed_ms": 2930,
+      "idle_seconds": null,
+      "counts": {
+        "pages": [
+          "45fe10ac-4b5e-49cf-b0dc-e408708b9fff",
+          "7ddede8f-1927-4ab0-a49b-7495b0e2ffef"
+        ],
+        "user_contexts": [
+          "6a27ea03-fdaf-49cd-84a6-4815195d6ce1",
+          "ac99958f-932d-463c-b44d-62d3fc4d8553",
+          "b934ec90-91fa-4f36-9b06-0c04a8005826",
+          "bee7a91a-07e1-4a78-b75a-014d07d0f048",
+          "d60053da-c64d-4351-a60c-0b3bc922ee4a",
+          "default"
+        ]
+      },
+      "baseline": {
+        "pages": [
+          "45fe10ac-4b5e-49cf-b0dc-e408708b9fff",
+          "7ddede8f-1927-4ab0-a49b-7495b0e2ffef"
+        ],
+        "user_contexts": [
+          "6a27ea03-fdaf-49cd-84a6-4815195d6ce1",
+          "ac99958f-932d-463c-b44d-62d3fc4d8553",
+          "b934ec90-91fa-4f36-9b06-0c04a8005826",
+          "bee7a91a-07e1-4a78-b75a-014d07d0f048",
+          "d60053da-c64d-4351-a60c-0b3bc922ee4a",
+          "default"
+        ]
+      },
+      "pending_commands": 0,
+      "commands": {
+        "session.new": 1,
+        "browser.createUserContext": 1,
+        "browsingContext.create": 1,
+        "browsingContext.navigate": 1,
+        "script.evaluate": 201,
+        "browsingContext.getTree": 4,
+        "browser.getUserContexts": 4
+      },
+      "memory": {
+        "driver_pid": 971445,
+        "browser_pid": 971449,
+        "driver_rss_kib": 27488,
+        "driver_pss_kib": 24827,
+        "browser_root_rss_kib": 299484,
+        "browser_root_pss_kib": 267497,
+        "browser_tree_rss_kib": 675116,
+        "browser_tree_pss_kib": 426601,
+        "browser_processes": 9,
+        "browser_observed_processes": 12,
+        "excluded_zombies": [
+          {
+            "pid": 971518,
+            "state": "Z"
+          },
+          {
+            "pid": 971527,
+            "state": "Z"
+          },
+          {
+            "pid": 971597,
+            "state": "Z"
+          }
+        ],
+        "browser_by_process": [
+          {
+            "pid": 971449,
+            "root": true,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 299484,
+            "pss_kib": 267497
+          },
+          {
+            "pid": 971515,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 16988,
+            "pss_kib": 4785
+          },
+          {
+            "pid": 971518,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971520,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 74576,
+            "pss_kib": 42207
+          },
+          {
+            "pid": 971527,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971557,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 46028,
+            "pss_kib": 15768
+          },
+          {
+            "pid": 971597,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971605,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 77912,
+            "pss_kib": 43587
+          },
+          {
+            "pid": 971673,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 51556,
+            "pss_kib": 18674
+          },
+          {
+            "pid": 971695,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36296,
+            "pss_kib": 11412
+          },
+          {
+            "pid": 971698,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36044,
+            "pss_kib": 11255
+          },
+          {
+            "pid": 971721,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36232,
+            "pss_kib": 11416
+          }
+        ],
+        "sampling": "sequential /proc reads; RSS double-counts shared mappings; only State:Z excluded; missing live RSS/PSS makes aggregate null"
+      }
+    },
+    {
+      "kind": "sample",
+      "completed": 300,
+      "measured_completed": 200,
+      "elapsed_ms": 3513,
+      "idle_seconds": null,
+      "counts": {
+        "pages": [
+          "45fe10ac-4b5e-49cf-b0dc-e408708b9fff",
+          "7ddede8f-1927-4ab0-a49b-7495b0e2ffef"
+        ],
+        "user_contexts": [
+          "6a27ea03-fdaf-49cd-84a6-4815195d6ce1",
+          "ac99958f-932d-463c-b44d-62d3fc4d8553",
+          "b934ec90-91fa-4f36-9b06-0c04a8005826",
+          "bee7a91a-07e1-4a78-b75a-014d07d0f048",
+          "d60053da-c64d-4351-a60c-0b3bc922ee4a",
+          "default"
+        ]
+      },
+      "baseline": {
+        "pages": [
+          "45fe10ac-4b5e-49cf-b0dc-e408708b9fff",
+          "7ddede8f-1927-4ab0-a49b-7495b0e2ffef"
+        ],
+        "user_contexts": [
+          "6a27ea03-fdaf-49cd-84a6-4815195d6ce1",
+          "ac99958f-932d-463c-b44d-62d3fc4d8553",
+          "b934ec90-91fa-4f36-9b06-0c04a8005826",
+          "bee7a91a-07e1-4a78-b75a-014d07d0f048",
+          "d60053da-c64d-4351-a60c-0b3bc922ee4a",
+          "default"
+        ]
+      },
+      "pending_commands": 0,
+      "commands": {
+        "session.new": 1,
+        "browser.createUserContext": 1,
+        "browsingContext.create": 1,
+        "browsingContext.navigate": 1,
+        "script.evaluate": 301,
+        "browsingContext.getTree": 5,
+        "browser.getUserContexts": 5
+      },
+      "memory": {
+        "driver_pid": 971445,
+        "browser_pid": 971449,
+        "driver_rss_kib": 27488,
+        "driver_pss_kib": 24827,
+        "browser_root_rss_kib": 299960,
+        "browser_root_pss_kib": 267944,
+        "browser_tree_rss_kib": 675816,
+        "browser_tree_pss_kib": 427166,
+        "browser_processes": 9,
+        "browser_observed_processes": 12,
+        "excluded_zombies": [
+          {
+            "pid": 971518,
+            "state": "Z"
+          },
+          {
+            "pid": 971527,
+            "state": "Z"
+          },
+          {
+            "pid": 971597,
+            "state": "Z"
+          }
+        ],
+        "browser_by_process": [
+          {
+            "pid": 971449,
+            "root": true,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 299960,
+            "pss_kib": 267944
+          },
+          {
+            "pid": 971515,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 16988,
+            "pss_kib": 4785
+          },
+          {
+            "pid": 971518,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971520,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 74244,
+            "pss_kib": 41863
+          },
+          {
+            "pid": 971527,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971557,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 46028,
+            "pss_kib": 15762
+          },
+          {
+            "pid": 971597,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971605,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 77916,
+            "pss_kib": 43584
+          },
+          {
+            "pid": 971673,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 52108,
+            "pss_kib": 19145
+          },
+          {
+            "pid": 971695,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36296,
+            "pss_kib": 11412
+          },
+          {
+            "pid": 971698,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36044,
+            "pss_kib": 11255
+          },
+          {
+            "pid": 971721,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36232,
+            "pss_kib": 11416
+          }
+        ],
+        "sampling": "sequential /proc reads; RSS double-counts shared mappings; only State:Z excluded; missing live RSS/PSS makes aggregate null"
+      }
+    },
+    {
+      "kind": "sample",
+      "completed": 400,
+      "measured_completed": 300,
+      "elapsed_ms": 4089,
+      "idle_seconds": null,
+      "counts": {
+        "pages": [
+          "45fe10ac-4b5e-49cf-b0dc-e408708b9fff",
+          "7ddede8f-1927-4ab0-a49b-7495b0e2ffef"
+        ],
+        "user_contexts": [
+          "6a27ea03-fdaf-49cd-84a6-4815195d6ce1",
+          "ac99958f-932d-463c-b44d-62d3fc4d8553",
+          "b934ec90-91fa-4f36-9b06-0c04a8005826",
+          "bee7a91a-07e1-4a78-b75a-014d07d0f048",
+          "d60053da-c64d-4351-a60c-0b3bc922ee4a",
+          "default"
+        ]
+      },
+      "baseline": {
+        "pages": [
+          "45fe10ac-4b5e-49cf-b0dc-e408708b9fff",
+          "7ddede8f-1927-4ab0-a49b-7495b0e2ffef"
+        ],
+        "user_contexts": [
+          "6a27ea03-fdaf-49cd-84a6-4815195d6ce1",
+          "ac99958f-932d-463c-b44d-62d3fc4d8553",
+          "b934ec90-91fa-4f36-9b06-0c04a8005826",
+          "bee7a91a-07e1-4a78-b75a-014d07d0f048",
+          "d60053da-c64d-4351-a60c-0b3bc922ee4a",
+          "default"
+        ]
+      },
+      "pending_commands": 0,
+      "commands": {
+        "session.new": 1,
+        "browser.createUserContext": 1,
+        "browsingContext.create": 1,
+        "browsingContext.navigate": 1,
+        "script.evaluate": 401,
+        "browsingContext.getTree": 6,
+        "browser.getUserContexts": 6
+      },
+      "memory": {
+        "driver_pid": 971445,
+        "browser_pid": 971449,
+        "driver_rss_kib": 27488,
+        "driver_pss_kib": 24827,
+        "browser_root_rss_kib": 315092,
+        "browser_root_pss_kib": 282907,
+        "browser_tree_rss_kib": 692236,
+        "browser_tree_pss_kib": 442595,
+        "browser_processes": 9,
+        "browser_observed_processes": 12,
+        "excluded_zombies": [
+          {
+            "pid": 971518,
+            "state": "Z"
+          },
+          {
+            "pid": 971527,
+            "state": "Z"
+          },
+          {
+            "pid": 971597,
+            "state": "Z"
+          }
+        ],
+        "browser_by_process": [
+          {
+            "pid": 971449,
+            "root": true,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 315092,
+            "pss_kib": 282907
+          },
+          {
+            "pid": 971515,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 16988,
+            "pss_kib": 4785
+          },
+          {
+            "pid": 971518,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971520,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 74244,
+            "pss_kib": 41700
+          },
+          {
+            "pid": 971527,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971557,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 46028,
+            "pss_kib": 15761
+          },
+          {
+            "pid": 971597,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971605,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 77916,
+            "pss_kib": 43581
+          },
+          {
+            "pid": 971673,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 53396,
+            "pss_kib": 19778
+          },
+          {
+            "pid": 971695,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36296,
+            "pss_kib": 11412
+          },
+          {
+            "pid": 971698,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36044,
+            "pss_kib": 11255
+          },
+          {
+            "pid": 971721,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36232,
+            "pss_kib": 11416
+          }
+        ],
+        "sampling": "sequential /proc reads; RSS double-counts shared mappings; only State:Z excluded; missing live RSS/PSS makes aggregate null"
+      }
+    },
+    {
+      "kind": "sample",
+      "completed": 500,
+      "measured_completed": 400,
+      "elapsed_ms": 4670,
+      "idle_seconds": null,
+      "counts": {
+        "pages": [
+          "45fe10ac-4b5e-49cf-b0dc-e408708b9fff",
+          "7ddede8f-1927-4ab0-a49b-7495b0e2ffef"
+        ],
+        "user_contexts": [
+          "6a27ea03-fdaf-49cd-84a6-4815195d6ce1",
+          "ac99958f-932d-463c-b44d-62d3fc4d8553",
+          "b934ec90-91fa-4f36-9b06-0c04a8005826",
+          "bee7a91a-07e1-4a78-b75a-014d07d0f048",
+          "d60053da-c64d-4351-a60c-0b3bc922ee4a",
+          "default"
+        ]
+      },
+      "baseline": {
+        "pages": [
+          "45fe10ac-4b5e-49cf-b0dc-e408708b9fff",
+          "7ddede8f-1927-4ab0-a49b-7495b0e2ffef"
+        ],
+        "user_contexts": [
+          "6a27ea03-fdaf-49cd-84a6-4815195d6ce1",
+          "ac99958f-932d-463c-b44d-62d3fc4d8553",
+          "b934ec90-91fa-4f36-9b06-0c04a8005826",
+          "bee7a91a-07e1-4a78-b75a-014d07d0f048",
+          "d60053da-c64d-4351-a60c-0b3bc922ee4a",
+          "default"
+        ]
+      },
+      "pending_commands": 0,
+      "commands": {
+        "session.new": 1,
+        "browser.createUserContext": 1,
+        "browsingContext.create": 1,
+        "browsingContext.navigate": 1,
+        "script.evaluate": 501,
+        "browsingContext.getTree": 7,
+        "browser.getUserContexts": 7
+      },
+      "memory": {
+        "driver_pid": 971445,
+        "browser_pid": 971449,
+        "driver_rss_kib": 28156,
+        "driver_pss_kib": 25495,
+        "browser_root_rss_kib": 317592,
+        "browser_root_pss_kib": 285387,
+        "browser_tree_rss_kib": 695504,
+        "browser_tree_pss_kib": 445755,
+        "browser_processes": 9,
+        "browser_observed_processes": 12,
+        "excluded_zombies": [
+          {
+            "pid": 971518,
+            "state": "Z"
+          },
+          {
+            "pid": 971527,
+            "state": "Z"
+          },
+          {
+            "pid": 971597,
+            "state": "Z"
+          }
+        ],
+        "browser_by_process": [
+          {
+            "pid": 971449,
+            "root": true,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 317592,
+            "pss_kib": 285387
+          },
+          {
+            "pid": 971515,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 16988,
+            "pss_kib": 4785
+          },
+          {
+            "pid": 971518,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971520,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 74244,
+            "pss_kib": 41682
+          },
+          {
+            "pid": 971527,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971557,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 46028,
+            "pss_kib": 15761
+          },
+          {
+            "pid": 971597,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971605,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 77916,
+            "pss_kib": 43580
+          },
+          {
+            "pid": 971673,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 54164,
+            "pss_kib": 20477
+          },
+          {
+            "pid": 971695,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36296,
+            "pss_kib": 11412
+          },
+          {
+            "pid": 971698,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36044,
+            "pss_kib": 11255
+          },
+          {
+            "pid": 971721,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36232,
+            "pss_kib": 11416
+          }
+        ],
+        "sampling": "sequential /proc reads; RSS double-counts shared mappings; only State:Z excluded; missing live RSS/PSS makes aggregate null"
+      }
+    },
+    {
+      "kind": "sample",
+      "completed": 600,
+      "measured_completed": 500,
+      "elapsed_ms": 5251,
+      "idle_seconds": null,
+      "counts": {
+        "pages": [
+          "45fe10ac-4b5e-49cf-b0dc-e408708b9fff",
+          "7ddede8f-1927-4ab0-a49b-7495b0e2ffef"
+        ],
+        "user_contexts": [
+          "6a27ea03-fdaf-49cd-84a6-4815195d6ce1",
+          "ac99958f-932d-463c-b44d-62d3fc4d8553",
+          "b934ec90-91fa-4f36-9b06-0c04a8005826",
+          "bee7a91a-07e1-4a78-b75a-014d07d0f048",
+          "d60053da-c64d-4351-a60c-0b3bc922ee4a",
+          "default"
+        ]
+      },
+      "baseline": {
+        "pages": [
+          "45fe10ac-4b5e-49cf-b0dc-e408708b9fff",
+          "7ddede8f-1927-4ab0-a49b-7495b0e2ffef"
+        ],
+        "user_contexts": [
+          "6a27ea03-fdaf-49cd-84a6-4815195d6ce1",
+          "ac99958f-932d-463c-b44d-62d3fc4d8553",
+          "b934ec90-91fa-4f36-9b06-0c04a8005826",
+          "bee7a91a-07e1-4a78-b75a-014d07d0f048",
+          "d60053da-c64d-4351-a60c-0b3bc922ee4a",
+          "default"
+        ]
+      },
+      "pending_commands": 0,
+      "commands": {
+        "session.new": 1,
+        "browser.createUserContext": 1,
+        "browsingContext.create": 1,
+        "browsingContext.navigate": 1,
+        "script.evaluate": 601,
+        "browsingContext.getTree": 8,
+        "browser.getUserContexts": 8
+      },
+      "memory": {
+        "driver_pid": 971445,
+        "browser_pid": 971449,
+        "driver_rss_kib": 28160,
+        "driver_pss_kib": 25499,
+        "browser_root_rss_kib": 319116,
+        "browser_root_pss_kib": 286870,
+        "browser_tree_rss_kib": 698332,
+        "browser_tree_pss_kib": 448165,
+        "browser_processes": 9,
+        "browser_observed_processes": 12,
+        "excluded_zombies": [
+          {
+            "pid": 971518,
+            "state": "Z"
+          },
+          {
+            "pid": 971527,
+            "state": "Z"
+          },
+          {
+            "pid": 971597,
+            "state": "Z"
+          }
+        ],
+        "browser_by_process": [
+          {
+            "pid": 971449,
+            "root": true,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 319116,
+            "pss_kib": 286870
+          },
+          {
+            "pid": 971515,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 16988,
+            "pss_kib": 4792
+          },
+          {
+            "pid": 971518,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971520,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 74288,
+            "pss_kib": 41692
+          },
+          {
+            "pid": 971527,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971557,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 46048,
+            "pss_kib": 15755
+          },
+          {
+            "pid": 971597,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971605,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 77936,
+            "pss_kib": 43575
+          },
+          {
+            "pid": 971673,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 54920,
+            "pss_kib": 21189
+          },
+          {
+            "pid": 971695,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36472,
+            "pss_kib": 11503
+          },
+          {
+            "pid": 971698,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36156,
+            "pss_kib": 11282
+          },
+          {
+            "pid": 971721,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36408,
+            "pss_kib": 11507
+          }
+        ],
+        "sampling": "sequential /proc reads; RSS double-counts shared mappings; only State:Z excluded; missing live RSS/PSS makes aggregate null"
+      }
+    },
+    {
+      "kind": "sample",
+      "completed": 700,
+      "measured_completed": 600,
+      "elapsed_ms": 5822,
+      "idle_seconds": null,
+      "counts": {
+        "pages": [
+          "45fe10ac-4b5e-49cf-b0dc-e408708b9fff",
+          "7ddede8f-1927-4ab0-a49b-7495b0e2ffef"
+        ],
+        "user_contexts": [
+          "6a27ea03-fdaf-49cd-84a6-4815195d6ce1",
+          "ac99958f-932d-463c-b44d-62d3fc4d8553",
+          "b934ec90-91fa-4f36-9b06-0c04a8005826",
+          "bee7a91a-07e1-4a78-b75a-014d07d0f048",
+          "d60053da-c64d-4351-a60c-0b3bc922ee4a",
+          "default"
+        ]
+      },
+      "baseline": {
+        "pages": [
+          "45fe10ac-4b5e-49cf-b0dc-e408708b9fff",
+          "7ddede8f-1927-4ab0-a49b-7495b0e2ffef"
+        ],
+        "user_contexts": [
+          "6a27ea03-fdaf-49cd-84a6-4815195d6ce1",
+          "ac99958f-932d-463c-b44d-62d3fc4d8553",
+          "b934ec90-91fa-4f36-9b06-0c04a8005826",
+          "bee7a91a-07e1-4a78-b75a-014d07d0f048",
+          "d60053da-c64d-4351-a60c-0b3bc922ee4a",
+          "default"
+        ]
+      },
+      "pending_commands": 0,
+      "commands": {
+        "session.new": 1,
+        "browser.createUserContext": 1,
+        "browsingContext.create": 1,
+        "browsingContext.navigate": 1,
+        "script.evaluate": 701,
+        "browsingContext.getTree": 9,
+        "browser.getUserContexts": 9
+      },
+      "memory": {
+        "driver_pid": 971445,
+        "browser_pid": 971449,
+        "driver_rss_kib": 28160,
+        "driver_pss_kib": 25498,
+        "browser_root_rss_kib": 318224,
+        "browser_root_pss_kib": 285115,
+        "browser_tree_rss_kib": 710536,
+        "browser_tree_pss_kib": 458147,
+        "browser_processes": 9,
+        "browser_observed_processes": 12,
+        "excluded_zombies": [
+          {
+            "pid": 971518,
+            "state": "Z"
+          },
+          {
+            "pid": 971527,
+            "state": "Z"
+          },
+          {
+            "pid": 971597,
+            "state": "Z"
+          }
+        ],
+        "browser_by_process": [
+          {
+            "pid": 971449,
+            "root": true,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 318224,
+            "pss_kib": 285115
+          },
+          {
+            "pid": 971515,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 16988,
+            "pss_kib": 4790
+          },
+          {
+            "pid": 971518,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971520,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 74292,
+            "pss_kib": 41505
+          },
+          {
+            "pid": 971527,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971557,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 46064,
+            "pss_kib": 15726
+          },
+          {
+            "pid": 971597,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971605,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 91704,
+            "pss_kib": 55684
+          },
+          {
+            "pid": 971673,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 54784,
+            "pss_kib": 21174
+          },
+          {
+            "pid": 971695,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36284,
+            "pss_kib": 11454
+          },
+          {
+            "pid": 971698,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 35976,
+            "pss_kib": 11241
+          },
+          {
+            "pid": 971721,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36220,
+            "pss_kib": 11458
+          }
+        ],
+        "sampling": "sequential /proc reads; RSS double-counts shared mappings; only State:Z excluded; missing live RSS/PSS makes aggregate null"
+      }
+    },
+    {
+      "kind": "sample",
+      "completed": 800,
+      "measured_completed": 700,
+      "elapsed_ms": 6416,
+      "idle_seconds": null,
+      "counts": {
+        "pages": [
+          "45fe10ac-4b5e-49cf-b0dc-e408708b9fff",
+          "7ddede8f-1927-4ab0-a49b-7495b0e2ffef"
+        ],
+        "user_contexts": [
+          "6a27ea03-fdaf-49cd-84a6-4815195d6ce1",
+          "ac99958f-932d-463c-b44d-62d3fc4d8553",
+          "b934ec90-91fa-4f36-9b06-0c04a8005826",
+          "bee7a91a-07e1-4a78-b75a-014d07d0f048",
+          "d60053da-c64d-4351-a60c-0b3bc922ee4a",
+          "default"
+        ]
+      },
+      "baseline": {
+        "pages": [
+          "45fe10ac-4b5e-49cf-b0dc-e408708b9fff",
+          "7ddede8f-1927-4ab0-a49b-7495b0e2ffef"
+        ],
+        "user_contexts": [
+          "6a27ea03-fdaf-49cd-84a6-4815195d6ce1",
+          "ac99958f-932d-463c-b44d-62d3fc4d8553",
+          "b934ec90-91fa-4f36-9b06-0c04a8005826",
+          "bee7a91a-07e1-4a78-b75a-014d07d0f048",
+          "d60053da-c64d-4351-a60c-0b3bc922ee4a",
+          "default"
+        ]
+      },
+      "pending_commands": 0,
+      "commands": {
+        "session.new": 1,
+        "browser.createUserContext": 1,
+        "browsingContext.create": 1,
+        "browsingContext.navigate": 1,
+        "script.evaluate": 801,
+        "browsingContext.getTree": 10,
+        "browser.getUserContexts": 10
+      },
+      "memory": {
+        "driver_pid": 971445,
+        "browser_pid": 971449,
+        "driver_rss_kib": 28160,
+        "driver_pss_kib": 25498,
+        "browser_root_rss_kib": 318588,
+        "browser_root_pss_kib": 285434,
+        "browser_tree_rss_kib": 711376,
+        "browser_tree_pss_kib": 458763,
+        "browser_processes": 9,
+        "browser_observed_processes": 12,
+        "excluded_zombies": [
+          {
+            "pid": 971518,
+            "state": "Z"
+          },
+          {
+            "pid": 971527,
+            "state": "Z"
+          },
+          {
+            "pid": 971597,
+            "state": "Z"
+          }
+        ],
+        "browser_by_process": [
+          {
+            "pid": 971449,
+            "root": true,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 318588,
+            "pss_kib": 285434
+          },
+          {
+            "pid": 971515,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 16988,
+            "pss_kib": 4790
+          },
+          {
+            "pid": 971518,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971520,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 74292,
+            "pss_kib": 41482
+          },
+          {
+            "pid": 971527,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971557,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 46064,
+            "pss_kib": 15724
+          },
+          {
+            "pid": 971597,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971605,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 91712,
+            "pss_kib": 55675
+          },
+          {
+            "pid": 971673,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 55236,
+            "pss_kib": 21502
+          },
+          {
+            "pid": 971695,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36292,
+            "pss_kib": 11455
+          },
+          {
+            "pid": 971698,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 35976,
+            "pss_kib": 11241
+          },
+          {
+            "pid": 971721,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36228,
+            "pss_kib": 11460
+          }
+        ],
+        "sampling": "sequential /proc reads; RSS double-counts shared mappings; only State:Z excluded; missing live RSS/PSS makes aggregate null"
+      }
+    },
+    {
+      "kind": "sample",
+      "completed": 900,
+      "measured_completed": 800,
+      "elapsed_ms": 6975,
+      "idle_seconds": null,
+      "counts": {
+        "pages": [
+          "45fe10ac-4b5e-49cf-b0dc-e408708b9fff",
+          "7ddede8f-1927-4ab0-a49b-7495b0e2ffef"
+        ],
+        "user_contexts": [
+          "6a27ea03-fdaf-49cd-84a6-4815195d6ce1",
+          "ac99958f-932d-463c-b44d-62d3fc4d8553",
+          "b934ec90-91fa-4f36-9b06-0c04a8005826",
+          "bee7a91a-07e1-4a78-b75a-014d07d0f048",
+          "d60053da-c64d-4351-a60c-0b3bc922ee4a",
+          "default"
+        ]
+      },
+      "baseline": {
+        "pages": [
+          "45fe10ac-4b5e-49cf-b0dc-e408708b9fff",
+          "7ddede8f-1927-4ab0-a49b-7495b0e2ffef"
+        ],
+        "user_contexts": [
+          "6a27ea03-fdaf-49cd-84a6-4815195d6ce1",
+          "ac99958f-932d-463c-b44d-62d3fc4d8553",
+          "b934ec90-91fa-4f36-9b06-0c04a8005826",
+          "bee7a91a-07e1-4a78-b75a-014d07d0f048",
+          "d60053da-c64d-4351-a60c-0b3bc922ee4a",
+          "default"
+        ]
+      },
+      "pending_commands": 0,
+      "commands": {
+        "session.new": 1,
+        "browser.createUserContext": 1,
+        "browsingContext.create": 1,
+        "browsingContext.navigate": 1,
+        "script.evaluate": 901,
+        "browsingContext.getTree": 11,
+        "browser.getUserContexts": 11
+      },
+      "memory": {
+        "driver_pid": 971445,
+        "browser_pid": 971449,
+        "driver_rss_kib": 28160,
+        "driver_pss_kib": 25498,
+        "browser_root_rss_kib": 318792,
+        "browser_root_pss_kib": 285632,
+        "browser_tree_rss_kib": 710056,
+        "browser_tree_pss_kib": 457435,
+        "browser_processes": 9,
+        "browser_observed_processes": 12,
+        "excluded_zombies": [
+          {
+            "pid": 971518,
+            "state": "Z"
+          },
+          {
+            "pid": 971527,
+            "state": "Z"
+          },
+          {
+            "pid": 971597,
+            "state": "Z"
+          }
+        ],
+        "browser_by_process": [
+          {
+            "pid": 971449,
+            "root": true,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 318792,
+            "pss_kib": 285632
+          },
+          {
+            "pid": 971515,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 16988,
+            "pss_kib": 4790
+          },
+          {
+            "pid": 971518,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971520,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 74292,
+            "pss_kib": 41482
+          },
+          {
+            "pid": 971527,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971557,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 46064,
+            "pss_kib": 15724
+          },
+          {
+            "pid": 971597,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971605,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 90056,
+            "pss_kib": 54019
+          },
+          {
+            "pid": 971673,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 55368,
+            "pss_kib": 21631
+          },
+          {
+            "pid": 971695,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36292,
+            "pss_kib": 11456
+          },
+          {
+            "pid": 971698,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 35976,
+            "pss_kib": 11241
+          },
+          {
+            "pid": 971721,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36228,
+            "pss_kib": 11460
+          }
+        ],
+        "sampling": "sequential /proc reads; RSS double-counts shared mappings; only State:Z excluded; missing live RSS/PSS makes aggregate null"
+      }
+    },
+    {
+      "kind": "sample",
+      "completed": 1000,
+      "measured_completed": 900,
+      "elapsed_ms": 7534,
+      "idle_seconds": null,
+      "counts": {
+        "pages": [
+          "45fe10ac-4b5e-49cf-b0dc-e408708b9fff",
+          "7ddede8f-1927-4ab0-a49b-7495b0e2ffef"
+        ],
+        "user_contexts": [
+          "6a27ea03-fdaf-49cd-84a6-4815195d6ce1",
+          "ac99958f-932d-463c-b44d-62d3fc4d8553",
+          "b934ec90-91fa-4f36-9b06-0c04a8005826",
+          "bee7a91a-07e1-4a78-b75a-014d07d0f048",
+          "d60053da-c64d-4351-a60c-0b3bc922ee4a",
+          "default"
+        ]
+      },
+      "baseline": {
+        "pages": [
+          "45fe10ac-4b5e-49cf-b0dc-e408708b9fff",
+          "7ddede8f-1927-4ab0-a49b-7495b0e2ffef"
+        ],
+        "user_contexts": [
+          "6a27ea03-fdaf-49cd-84a6-4815195d6ce1",
+          "ac99958f-932d-463c-b44d-62d3fc4d8553",
+          "b934ec90-91fa-4f36-9b06-0c04a8005826",
+          "bee7a91a-07e1-4a78-b75a-014d07d0f048",
+          "d60053da-c64d-4351-a60c-0b3bc922ee4a",
+          "default"
+        ]
+      },
+      "pending_commands": 0,
+      "commands": {
+        "session.new": 1,
+        "browser.createUserContext": 1,
+        "browsingContext.create": 1,
+        "browsingContext.navigate": 1,
+        "script.evaluate": 1001,
+        "browsingContext.getTree": 12,
+        "browser.getUserContexts": 12
+      },
+      "memory": {
+        "driver_pid": 971445,
+        "browser_pid": 971449,
+        "driver_rss_kib": 28160,
+        "driver_pss_kib": 25498,
+        "browser_root_rss_kib": 319296,
+        "browser_root_pss_kib": 286128,
+        "browser_tree_rss_kib": 710840,
+        "browser_tree_pss_kib": 458207,
+        "browser_processes": 9,
+        "browser_observed_processes": 12,
+        "excluded_zombies": [
+          {
+            "pid": 971518,
+            "state": "Z"
+          },
+          {
+            "pid": 971527,
+            "state": "Z"
+          },
+          {
+            "pid": 971597,
+            "state": "Z"
+          }
+        ],
+        "browser_by_process": [
+          {
+            "pid": 971449,
+            "root": true,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 319296,
+            "pss_kib": 286128
+          },
+          {
+            "pid": 971515,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 16988,
+            "pss_kib": 4790
+          },
+          {
+            "pid": 971518,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971520,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 74292,
+            "pss_kib": 41481
+          },
+          {
+            "pid": 971527,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971557,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 46064,
+            "pss_kib": 15724
+          },
+          {
+            "pid": 971597,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971605,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 90056,
+            "pss_kib": 54019
+          },
+          {
+            "pid": 971673,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 55648,
+            "pss_kib": 21908
+          },
+          {
+            "pid": 971695,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36292,
+            "pss_kib": 11456
+          },
+          {
+            "pid": 971698,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 35976,
+            "pss_kib": 11241
+          },
+          {
+            "pid": 971721,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36228,
+            "pss_kib": 11460
+          }
+        ],
+        "sampling": "sequential /proc reads; RSS double-counts shared mappings; only State:Z excluded; missing live RSS/PSS makes aggregate null"
+      }
+    },
+    {
+      "kind": "sample",
+      "completed": 1100,
+      "measured_completed": 1000,
+      "elapsed_ms": 8093,
+      "idle_seconds": null,
+      "counts": {
+        "pages": [
+          "45fe10ac-4b5e-49cf-b0dc-e408708b9fff",
+          "7ddede8f-1927-4ab0-a49b-7495b0e2ffef"
+        ],
+        "user_contexts": [
+          "6a27ea03-fdaf-49cd-84a6-4815195d6ce1",
+          "ac99958f-932d-463c-b44d-62d3fc4d8553",
+          "b934ec90-91fa-4f36-9b06-0c04a8005826",
+          "bee7a91a-07e1-4a78-b75a-014d07d0f048",
+          "d60053da-c64d-4351-a60c-0b3bc922ee4a",
+          "default"
+        ]
+      },
+      "baseline": {
+        "pages": [
+          "45fe10ac-4b5e-49cf-b0dc-e408708b9fff",
+          "7ddede8f-1927-4ab0-a49b-7495b0e2ffef"
+        ],
+        "user_contexts": [
+          "6a27ea03-fdaf-49cd-84a6-4815195d6ce1",
+          "ac99958f-932d-463c-b44d-62d3fc4d8553",
+          "b934ec90-91fa-4f36-9b06-0c04a8005826",
+          "bee7a91a-07e1-4a78-b75a-014d07d0f048",
+          "d60053da-c64d-4351-a60c-0b3bc922ee4a",
+          "default"
+        ]
+      },
+      "pending_commands": 0,
+      "commands": {
+        "session.new": 1,
+        "browser.createUserContext": 1,
+        "browsingContext.create": 1,
+        "browsingContext.navigate": 1,
+        "script.evaluate": 1101,
+        "browsingContext.getTree": 13,
+        "browser.getUserContexts": 13
+      },
+      "memory": {
+        "driver_pid": 971445,
+        "browser_pid": 971449,
+        "driver_rss_kib": 28160,
+        "driver_pss_kib": 25498,
+        "browser_root_rss_kib": 319524,
+        "browser_root_pss_kib": 286350,
+        "browser_tree_rss_kib": 711700,
+        "browser_tree_pss_kib": 459055,
+        "browser_processes": 9,
+        "browser_observed_processes": 12,
+        "excluded_zombies": [
+          {
+            "pid": 971518,
+            "state": "Z"
+          },
+          {
+            "pid": 971527,
+            "state": "Z"
+          },
+          {
+            "pid": 971597,
+            "state": "Z"
+          }
+        ],
+        "browser_by_process": [
+          {
+            "pid": 971449,
+            "root": true,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 319524,
+            "pss_kib": 286350
+          },
+          {
+            "pid": 971515,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 16988,
+            "pss_kib": 4790
+          },
+          {
+            "pid": 971518,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971520,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 74292,
+            "pss_kib": 41481
+          },
+          {
+            "pid": 971527,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971557,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 46064,
+            "pss_kib": 15724
+          },
+          {
+            "pid": 971597,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971605,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 90068,
+            "pss_kib": 54027
+          },
+          {
+            "pid": 971673,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 56268,
+            "pss_kib": 22526
+          },
+          {
+            "pid": 971695,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36292,
+            "pss_kib": 11456
+          },
+          {
+            "pid": 971698,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 35976,
+            "pss_kib": 11241
+          },
+          {
+            "pid": 971721,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36228,
+            "pss_kib": 11460
+          }
+        ],
+        "sampling": "sequential /proc reads; RSS double-counts shared mappings; only State:Z excluded; missing live RSS/PSS makes aggregate null"
+      }
+    },
+    {
+      "kind": "sample",
+      "completed": 1100,
+      "measured_completed": 1000,
+      "elapsed_ms": 8507,
+      "idle_seconds": 0.0,
+      "counts": {
+        "pages": [
+          "45fe10ac-4b5e-49cf-b0dc-e408708b9fff",
+          "7ddede8f-1927-4ab0-a49b-7495b0e2ffef"
+        ],
+        "user_contexts": [
+          "6a27ea03-fdaf-49cd-84a6-4815195d6ce1",
+          "ac99958f-932d-463c-b44d-62d3fc4d8553",
+          "b934ec90-91fa-4f36-9b06-0c04a8005826",
+          "bee7a91a-07e1-4a78-b75a-014d07d0f048",
+          "d60053da-c64d-4351-a60c-0b3bc922ee4a",
+          "default"
+        ]
+      },
+      "baseline": {
+        "pages": [
+          "45fe10ac-4b5e-49cf-b0dc-e408708b9fff",
+          "7ddede8f-1927-4ab0-a49b-7495b0e2ffef"
+        ],
+        "user_contexts": [
+          "6a27ea03-fdaf-49cd-84a6-4815195d6ce1",
+          "ac99958f-932d-463c-b44d-62d3fc4d8553",
+          "b934ec90-91fa-4f36-9b06-0c04a8005826",
+          "bee7a91a-07e1-4a78-b75a-014d07d0f048",
+          "d60053da-c64d-4351-a60c-0b3bc922ee4a",
+          "default"
+        ]
+      },
+      "pending_commands": 0,
+      "commands": {
+        "session.new": 1,
+        "browser.createUserContext": 1,
+        "browsingContext.create": 1,
+        "browsingContext.navigate": 1,
+        "script.evaluate": 1101,
+        "browsingContext.getTree": 14,
+        "browser.getUserContexts": 14
+      },
+      "memory": {
+        "driver_pid": 971445,
+        "browser_pid": 971449,
+        "driver_rss_kib": 28164,
+        "driver_pss_kib": 25501,
+        "browser_root_rss_kib": 304692,
+        "browser_root_pss_kib": 270989,
+        "browser_tree_rss_kib": 698672,
+        "browser_tree_pss_kib": 443688,
+        "browser_processes": 9,
+        "browser_observed_processes": 12,
+        "excluded_zombies": [
+          {
+            "pid": 971518,
+            "state": "Z"
+          },
+          {
+            "pid": 971527,
+            "state": "Z"
+          },
+          {
+            "pid": 971597,
+            "state": "Z"
+          }
+        ],
+        "browser_by_process": [
+          {
+            "pid": 971449,
+            "root": true,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 304692,
+            "pss_kib": 270989
+          },
+          {
+            "pid": 971515,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 16988,
+            "pss_kib": 4790
+          },
+          {
+            "pid": 971518,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971520,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 74536,
+            "pss_kib": 40889
+          },
+          {
+            "pid": 971527,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971557,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 47624,
+            "pss_kib": 16399
+          },
+          {
+            "pid": 971597,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971605,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 90068,
+            "pss_kib": 53991
+          },
+          {
+            "pid": 971673,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 56268,
+            "pss_kib": 22474
+          },
+          {
+            "pid": 971695,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36292,
+            "pss_kib": 11455
+          },
+          {
+            "pid": 971698,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 35976,
+            "pss_kib": 11241
+          },
+          {
+            "pid": 971721,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36228,
+            "pss_kib": 11460
+          }
+        ],
+        "sampling": "sequential /proc reads; RSS double-counts shared mappings; only State:Z excluded; missing live RSS/PSS makes aggregate null"
+      }
+    },
+    {
+      "kind": "sample",
+      "completed": 1100,
+      "measured_completed": 1000,
+      "elapsed_ms": 18519,
+      "idle_seconds": 10.0,
+      "counts": {
+        "pages": [
+          "45fe10ac-4b5e-49cf-b0dc-e408708b9fff",
+          "7ddede8f-1927-4ab0-a49b-7495b0e2ffef"
+        ],
+        "user_contexts": [
+          "6a27ea03-fdaf-49cd-84a6-4815195d6ce1",
+          "ac99958f-932d-463c-b44d-62d3fc4d8553",
+          "b934ec90-91fa-4f36-9b06-0c04a8005826",
+          "bee7a91a-07e1-4a78-b75a-014d07d0f048",
+          "d60053da-c64d-4351-a60c-0b3bc922ee4a",
+          "default"
+        ]
+      },
+      "baseline": {
+        "pages": [
+          "45fe10ac-4b5e-49cf-b0dc-e408708b9fff",
+          "7ddede8f-1927-4ab0-a49b-7495b0e2ffef"
+        ],
+        "user_contexts": [
+          "6a27ea03-fdaf-49cd-84a6-4815195d6ce1",
+          "ac99958f-932d-463c-b44d-62d3fc4d8553",
+          "b934ec90-91fa-4f36-9b06-0c04a8005826",
+          "bee7a91a-07e1-4a78-b75a-014d07d0f048",
+          "d60053da-c64d-4351-a60c-0b3bc922ee4a",
+          "default"
+        ]
+      },
+      "pending_commands": 0,
+      "commands": {
+        "session.new": 1,
+        "browser.createUserContext": 1,
+        "browsingContext.create": 1,
+        "browsingContext.navigate": 1,
+        "script.evaluate": 1101,
+        "browsingContext.getTree": 15,
+        "browser.getUserContexts": 15
+      },
+      "memory": {
+        "driver_pid": 971445,
+        "browser_pid": 971449,
+        "driver_rss_kib": 28176,
+        "driver_pss_kib": 25507,
+        "browser_root_rss_kib": 281316,
+        "browser_root_pss_kib": 247115,
+        "browser_tree_rss_kib": 660428,
+        "browser_tree_pss_kib": 403279,
+        "browser_processes": 9,
+        "browser_observed_processes": 12,
+        "excluded_zombies": [
+          {
+            "pid": 971518,
+            "state": "Z"
+          },
+          {
+            "pid": 971527,
+            "state": "Z"
+          },
+          {
+            "pid": 971597,
+            "state": "Z"
+          }
+        ],
+        "browser_by_process": [
+          {
+            "pid": 971449,
+            "root": true,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 281316,
+            "pss_kib": 247115
+          },
+          {
+            "pid": 971515,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 16988,
+            "pss_kib": 4788
+          },
+          {
+            "pid": 971518,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971520,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 66108,
+            "pss_kib": 32211
+          },
+          {
+            "pid": 971527,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971557,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 46428,
+            "pss_kib": 14966
+          },
+          {
+            "pid": 971597,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971605,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 84628,
+            "pss_kib": 47482
+          },
+          {
+            "pid": 971673,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 56428,
+            "pss_kib": 22553
+          },
+          {
+            "pid": 971695,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36300,
+            "pss_kib": 11456
+          },
+          {
+            "pid": 971698,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 35996,
+            "pss_kib": 11247
+          },
+          {
+            "pid": 971721,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36236,
+            "pss_kib": 11461
+          }
+        ],
+        "sampling": "sequential /proc reads; RSS double-counts shared mappings; only State:Z excluded; missing live RSS/PSS makes aggregate null"
+      }
+    },
+    {
+      "kind": "sample",
+      "completed": 1100,
+      "measured_completed": 1000,
+      "elapsed_ms": 38549,
+      "idle_seconds": 30.0,
+      "counts": {
+        "pages": [
+          "45fe10ac-4b5e-49cf-b0dc-e408708b9fff",
+          "7ddede8f-1927-4ab0-a49b-7495b0e2ffef"
+        ],
+        "user_contexts": [
+          "6a27ea03-fdaf-49cd-84a6-4815195d6ce1",
+          "ac99958f-932d-463c-b44d-62d3fc4d8553",
+          "b934ec90-91fa-4f36-9b06-0c04a8005826",
+          "bee7a91a-07e1-4a78-b75a-014d07d0f048",
+          "d60053da-c64d-4351-a60c-0b3bc922ee4a",
+          "default"
+        ]
+      },
+      "baseline": {
+        "pages": [
+          "45fe10ac-4b5e-49cf-b0dc-e408708b9fff",
+          "7ddede8f-1927-4ab0-a49b-7495b0e2ffef"
+        ],
+        "user_contexts": [
+          "6a27ea03-fdaf-49cd-84a6-4815195d6ce1",
+          "ac99958f-932d-463c-b44d-62d3fc4d8553",
+          "b934ec90-91fa-4f36-9b06-0c04a8005826",
+          "bee7a91a-07e1-4a78-b75a-014d07d0f048",
+          "d60053da-c64d-4351-a60c-0b3bc922ee4a",
+          "default"
+        ]
+      },
+      "pending_commands": 0,
+      "commands": {
+        "session.new": 1,
+        "browser.createUserContext": 1,
+        "browsingContext.create": 1,
+        "browsingContext.navigate": 1,
+        "script.evaluate": 1101,
+        "browsingContext.getTree": 16,
+        "browser.getUserContexts": 16
+      },
+      "memory": {
+        "driver_pid": 971445,
+        "browser_pid": 971449,
+        "driver_rss_kib": 28180,
+        "driver_pss_kib": 25511,
+        "browser_root_rss_kib": 283616,
+        "browser_root_pss_kib": 249370,
+        "browser_tree_rss_kib": 659552,
+        "browser_tree_pss_kib": 402289,
+        "browser_processes": 9,
+        "browser_observed_processes": 12,
+        "excluded_zombies": [
+          {
+            "pid": 971518,
+            "state": "Z"
+          },
+          {
+            "pid": 971527,
+            "state": "Z"
+          },
+          {
+            "pid": 971597,
+            "state": "Z"
+          }
+        ],
+        "browser_by_process": [
+          {
+            "pid": 971449,
+            "root": true,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 283616,
+            "pss_kib": 249370
+          },
+          {
+            "pid": 971515,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 16988,
+            "pss_kib": 4788
+          },
+          {
+            "pid": 971518,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971520,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 64652,
+            "pss_kib": 30737
+          },
+          {
+            "pid": 971527,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971557,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 46436,
+            "pss_kib": 14970
+          },
+          {
+            "pid": 971597,
+            "root": false,
+            "state": "Z",
+            "excluded_zombie": true,
+            "rss_kib": null,
+            "pss_kib": null
+          },
+          {
+            "pid": 971605,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 84380,
+            "pss_kib": 47217
+          },
+          {
+            "pid": 971673,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 54932,
+            "pss_kib": 21034
+          },
+          {
+            "pid": 971695,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36308,
+            "pss_kib": 11461
+          },
+          {
+            "pid": 971698,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 35996,
+            "pss_kib": 11247
+          },
+          {
+            "pid": 971721,
+            "root": false,
+            "state": "S",
+            "excluded_zombie": false,
+            "rss_kib": 36244,
+            "pss_kib": 11465
+          }
+        ],
+        "sampling": "sequential /proc reads; RSS double-counts shared mappings; only State:Z excluded; missing live RSS/PSS makes aggregate null"
+      }
+    }
+  ]
+}

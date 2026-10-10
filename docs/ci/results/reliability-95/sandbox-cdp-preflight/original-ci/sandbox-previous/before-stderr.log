@@ -1,0 +1,26 @@
+[3595:3595:1009/212558.737712:FATAL:content/browser/zygote_host/zygote_host_impl_linux.cc:128] No usable sandbox! If you are running on Ubuntu 23.10+ or another Linux distro that has disabled unprivileged user namespaces with AppArmor, see https://chromium.googlesource.com/chromium/src/+/main/docs/security/apparmor-userns-restrictions.md. Otherwise see https://chromium.googlesource.com/chromium/src/+/main/docs/linux/suid_sandbox_development.md for more information on developing with the (older) SUID sandbox. If you want to live dangerously and need an immediate workaround, you can try using --no-sandbox.
+Received signal 6
+#0 0x55908a18de33 (/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome+0x6a7fe32)
+#1 0x55908ec26964 (/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome+0xb518963)
+#2 0x7fbff5c45330 (/usr/lib/x86_64-linux-gnu/libc.so.6+0x4532f)
+#3 0x7fbff5c4527e (/usr/lib/x86_64-linux-gnu/libc.so.6+0x4527d)
+#4 0x7fbff5c288ff (/usr/lib/x86_64-linux-gnu/libc.so.6+0x288fe)
+#5 0x55908ec1e875 (/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome+0xb510874)
+#6 0x55908ebe217d (/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome+0xb4d417c)
+#7 0x55908ebe210e (/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome+0xb4d410d)
+#8 0x559089e720d8 (/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome+0x67640d7)
+#9 0x5590888f8b29 (/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome+0x51eab28)
+#10 0x5590886ce3fb (/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome+0x4fc03fa)
+#11 0x55908e0168fc (/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome+0xa9088fb)
+#12 0x559088e7f90c (/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome+0x577190b)
+#13 0x559088e80375 (/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome+0x5772374)
+#14 0x7fbff5c2a1ca (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a1c9)
+#15 0x7fbff5c2a28b (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a28a)
+#16 0x55908a3cdd9a (/opt/hostedtoolcache/setup-chrome/chrome/151.0.7922.138/x64/chrome+0x6cbfd99)
+  r8: 00000b88000b4263  r9: 0000000000000001 r10: 0000000000000008 r11: 0000000000000246
+ r12: 0000000000000006 r13: 0000000000000264 r14: 0000000000000016 r15: 00007ffe0c77e698
+  di: 0000000000000e0b  si: 0000000000000e0b  bp: 00007ffe0c77e010  bx: 0000000000000e0b
+  dx: 0000000000000006  ax: 0000000000000000  cx: 00007fbff5c9ec0c  sp: 00007ffe0c77dfd0
+  ip: 00007fbff5c9ec0c efl: 0000000000000246 cgf: 002b000000000033 erf: 0000000000000000
+ trp: 0000000000000000 msk: 0000000000000000 cr2: 0000000000000000
+[end of stack trace]

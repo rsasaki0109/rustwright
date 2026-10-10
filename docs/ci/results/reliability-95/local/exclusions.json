@@ -1,0 +1,18 @@
+{
+  "excluded": [
+    "distribution/consumer-cargo-home/",
+    "distribution/consumer-target-stable/",
+    "distribution/consumer-target-msrv/",
+    "distribution/registry-9074e78050740866/ (third-party archives, index and dependency caches)",
+    "distribution/native-profiles/",
+    "distribution/package-target/ except exactly eight report-listed project .crate archives",
+    "all site/browser temporary profiles and NSS databases/private store configurations",
+    "browser and consumer native binaries; other ELF/rlib/build caches",
+    "container/__pycache__/ and Python bytecode"
+  ],
+  "retained": "Public CA/tool identity hashes, wrapper source, generated consumer local-registry Cargo configuration, and paths in original manifests remain; private NSS store contents and certificate databases do not. Screenshot/report copying for sites is restricted to top-level report.json and PNG files.",
+  "missing_on_purpose": [
+    "run-records/container-headed-155-157/run.json was never completed and is not fabricated."
+  ],
+  "source_scope": "observed-source contains only 149 source inputs independently matched to completed outer-run source-hash records at4c, not the later hosted-verification workflow changes."
+}

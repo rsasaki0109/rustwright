@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "/workspace/rustwright/scripts/release/readme_runtime.py", line 98, in <module>
+    main()
+  File "/workspace/rustwright/scripts/release/readme_runtime.py", line 91, in main
+    run(output)
+  File "/workspace/rustwright/scripts/release/readme_runtime.py", line 32, in run
+    snippets = json.loads((consumer / "readme-snippets.json").read_text(encoding="utf-8"))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/rustwright/target/ci-rollout/guard-probes/stale-readme/consumer/readme-snippets.json'

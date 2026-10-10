@@ -1,0 +1,949 @@
+{
+  "backend": "firefox",
+  "browser": {
+    "backend": "firefox",
+    "capabilities": {
+      "acceptInsecureCerts": false,
+      "browserName": "firefox",
+      "browserVersion": "157.0.1",
+      "moz:buildID": "20261005135250",
+      "moz:headless": true,
+      "moz:platformVersion": "6.18.44",
+      "moz:processID": 1752852,
+      "moz:profile": "/workspace/rustwright/target/reliability95/sites/fixture-firefox/firefox-profile",
+      "moz:shutdownTimeout": 60000,
+      "platformName": "linux",
+      "setWindowRect": true,
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:157.0) Gecko/20100101 Firefox/157.0"
+    },
+    "session_id": "a2d044e4-4287-4121-990d-bfa24393582c",
+    "version": "157.0.1"
+  },
+  "certificate_policy": "Firefox enterprise system CA roots; certificate verification enabled",
+  "diagnostic_limits": "event snapshots end before page close; Chrome backend has no public lost-event counter; Firefox cap/lag is explicit; a timed-out subscription can remain active until page/browser close",
+  "firefox_profile": "target/reliability95/sites/fixture-firefox/firefox-profile",
+  "headed_requested": false,
+  "idle_timeout_seconds": 3,
+  "mode_verification": "requested launch flags and environment preflight; native window visibility is not probed",
+  "operations": [
+    {
+      "deadline_ms": 15000,
+      "elapsed_ms": 0,
+      "error": null,
+      "failure_attribution": null,
+      "operation": "profile_prepare",
+      "status": "passed"
+    },
+    {
+      "deadline_ms": 15000,
+      "elapsed_ms": 1505,
+      "error": null,
+      "failure_attribution": null,
+      "operation": "browser_launch",
+      "status": "passed"
+    },
+    {
+      "deadline_ms": 15000,
+      "elapsed_ms": 17,
+      "error": null,
+      "failure_attribution": null,
+      "operation": "browser_close",
+      "status": "passed"
+    },
+    {
+      "deadline_ms": 15000,
+      "elapsed_ms": 4,
+      "error": null,
+      "failure_attribution": null,
+      "operation": "profile_cleanup",
+      "status": "passed"
+    }
+  ],
+  "persistent_profile_requested": false,
+  "platform": {
+    "arch": "x86_64",
+    "os": "linux"
+  },
+  "proxy": "http://127.0.0.1:9",
+  "proxy_policy": "explicit proxy only; localhost/loopback bypass; no credentials stored",
+  "purpose": "read-only site observations; HTTP denial is not a driver-defect attribution",
+  "requested_profile": null,
+  "schema_version": 1,
+  "sites": [
+    {
+      "diagnostics": {
+        "capture": {
+          "complete": true,
+          "drain_truncated": false,
+          "dropped_events": 0,
+          "events": [
+            {
+              "method": "browsingContext.navigationStarted",
+              "params": {
+                "context": "c197413d-dd6f-481a-938d-74e4c66a5ba8",
+                "navigation": "30a27fde-92e1-470f-8348-f7509325c963",
+                "timestamp": 1791573362092,
+                "url": "http://127.0.0.1:34437/okay",
+                "userContext": "default"
+              }
+            },
+            {
+              "method": "network.beforeRequestSent",
+              "params": {
+                "context": "c197413d-dd6f-481a-938d-74e4c66a5ba8",
+                "errorText": null,
+                "navigation": "30a27fde-92e1-470f-8348-f7509325c963",
+                "request": {
+                  "destination": "document",
+                  "method": "GET",
+                  "request": "2-35e6ca7a-cf4b-4e82-beb6-6dbd8b8f3234",
+                  "url": "http://127.0.0.1:34437/okay"
+                },
+                "response": {
+                  "mimeType": null,
+                  "status": null,
+                  "statusText": null
+                },
+                "timestamp": 1791573362093
+              }
+            },
+            {
+              "method": "network.responseStarted",
+              "params": {
+                "context": "c197413d-dd6f-481a-938d-74e4c66a5ba8",
+                "errorText": null,
+                "navigation": "30a27fde-92e1-470f-8348-f7509325c963",
+                "request": {
+                  "destination": "document",
+                  "method": "GET",
+                  "request": "2-35e6ca7a-cf4b-4e82-beb6-6dbd8b8f3234",
+                  "url": "http://127.0.0.1:34437/okay"
+                },
+                "response": {
+                  "mimeType": "text/html;charset=utf-8",
+                  "status": 200,
+                  "statusText": "OK"
+                },
+                "timestamp": 1791573362105
+              }
+            },
+            {
+              "method": "network.responseCompleted",
+              "params": {
+                "context": "c197413d-dd6f-481a-938d-74e4c66a5ba8",
+                "errorText": null,
+                "navigation": "30a27fde-92e1-470f-8348-f7509325c963",
+                "request": {
+                  "destination": "document",
+                  "method": "GET",
+                  "request": "2-35e6ca7a-cf4b-4e82-beb6-6dbd8b8f3234",
+                  "url": "http://127.0.0.1:34437/okay"
+                },
+                "response": {
+                  "mimeType": "text/html;charset=utf-8",
+                  "status": 200,
+                  "statusText": "OK"
+                },
+                "timestamp": 1791573362126
+              }
+            },
+            {
+              "method": "log.entryAdded",
+              "params": {
+                "args": [
+                  {
+                    "type": "string",
+                    "value": "compat-fixture-console"
+                  }
+                ],
+                "level": "info",
+                "method": "log",
+                "source": {
+                  "context": "c197413d-dd6f-481a-938d-74e4c66a5ba8",
+                  "realm": "0e365b37-de17-47a6-8cc6-9ae93ee54a88",
+                  "userContext": "default"
+                },
+                "stackTrace": {
+                  "callFrames": [
+                    {
+                      "columnNumber": 16,
+                      "functionName": "",
+                      "lineNumber": 1,
+                      "url": "http://127.0.0.1:34437/okay"
+                    }
+                  ]
+                },
+                "text": "compat-fixture-console",
+                "timestamp": 1791573362134,
+                "type": "console"
+              }
+            },
+            {
+              "method": "browsingContext.domContentLoaded",
+              "params": {
+                "context": "c197413d-dd6f-481a-938d-74e4c66a5ba8",
+                "navigation": "30a27fde-92e1-470f-8348-f7509325c963",
+                "timestamp": 1791573362149,
+                "url": "http://127.0.0.1:34437/okay",
+                "userContext": "default"
+              }
+            },
+            {
+              "method": "browsingContext.load",
+              "params": {
+                "context": "c197413d-dd6f-481a-938d-74e4c66a5ba8",
+                "navigation": "30a27fde-92e1-470f-8348-f7509325c963",
+                "timestamp": 1791573362149,
+                "url": "http://127.0.0.1:34437/okay",
+                "userContext": "default"
+              }
+            },
+            {
+              "method": "network.beforeRequestSent",
+              "params": {
+                "context": "c197413d-dd6f-481a-938d-74e4c66a5ba8",
+                "errorText": null,
+                "navigation": null,
+                "request": {
+                  "destination": "image",
+                  "method": "GET",
+                  "request": "3-35e6ca7a-cf4b-4e82-beb6-6dbd8b8f3234",
+                  "url": "http://127.0.0.1:34437/favicon.ico"
+                },
+                "response": {
+                  "mimeType": null,
+                  "status": null,
+                  "statusText": null
+                },
+                "timestamp": 1791573362160
+              }
+            },
+            {
+              "method": "network.responseStarted",
+              "params": {
+                "context": "c197413d-dd6f-481a-938d-74e4c66a5ba8",
+                "errorText": null,
+                "navigation": null,
+                "request": {
+                  "destination": "image",
+                  "method": "GET",
+                  "request": "3-35e6ca7a-cf4b-4e82-beb6-6dbd8b8f3234",
+                  "url": "http://127.0.0.1:34437/favicon.ico"
+                },
+                "response": {
+                  "mimeType": "text/html;charset=utf-8",
+                  "status": 200,
+                  "statusText": "OK"
+                },
+                "timestamp": 1791573362165
+              }
+            },
+            {
+              "method": "network.responseCompleted",
+              "params": {
+                "context": "c197413d-dd6f-481a-938d-74e4c66a5ba8",
+                "errorText": null,
+                "navigation": null,
+                "request": {
+                  "destination": "image",
+                  "method": "GET",
+                  "request": "3-35e6ca7a-cf4b-4e82-beb6-6dbd8b8f3234",
+                  "url": "http://127.0.0.1:34437/favicon.ico"
+                },
+                "response": {
+                  "mimeType": "text/html;charset=utf-8",
+                  "status": 200,
+                  "statusText": "OK"
+                },
+                "timestamp": 1791573362167
+              }
+            },
+            {
+              "method": "log.entryAdded",
+              "params": {
+                "level": "error",
+                "source": {
+                  "context": "c197413d-dd6f-481a-938d-74e4c66a5ba8",
+                  "realm": "0e365b37-de17-47a6-8cc6-9ae93ee54a88",
+                  "userContext": "default"
+                },
+                "stackTrace": {
+                  "callFrames": [
+                    {
+                      "columnNumber": 68,
+                      "functionName": "",
+                      "lineNumber": 1,
+                      "url": "http://127.0.0.1:34437/okay"
+                    }
+                  ]
+                },
+                "text": "Error: compat-fixture-js-error",
+                "timestamp": 1791573362192,
+                "type": "javascript"
+              }
+            }
+          ],
+          "scope": "page and observed descendant contexts; diagnostic fields exclude HTTP headers"
+        },
+        "console": [
+          {
+            "args": [
+              {
+                "type": "string",
+                "value": "compat-fixture-console"
+              }
+            ],
+            "level": "info",
+            "method": "log",
+            "source": {
+              "context": "c197413d-dd6f-481a-938d-74e4c66a5ba8",
+              "realm": "0e365b37-de17-47a6-8cc6-9ae93ee54a88",
+              "userContext": "default"
+            },
+            "stackTrace": {
+              "callFrames": [
+                {
+                  "columnNumber": 16,
+                  "functionName": "",
+                  "lineNumber": 1,
+                  "url": "http://127.0.0.1:34437/okay"
+                }
+              ]
+            },
+            "text": "compat-fixture-console",
+            "timestamp": 1791573362134,
+            "type": "console"
+          }
+        ],
+        "javascript_errors": [
+          {
+            "level": "error",
+            "source": {
+              "context": "c197413d-dd6f-481a-938d-74e4c66a5ba8",
+              "realm": "0e365b37-de17-47a6-8cc6-9ae93ee54a88",
+              "userContext": "default"
+            },
+            "stackTrace": {
+              "callFrames": [
+                {
+                  "columnNumber": 68,
+                  "functionName": "",
+                  "lineNumber": 1,
+                  "url": "http://127.0.0.1:34437/okay"
+                }
+              ]
+            },
+            "text": "Error: compat-fixture-js-error",
+            "timestamp": 1791573362192,
+            "type": "javascript"
+          }
+        ],
+        "navigations": [
+          {
+            "method": "browsingContext.navigationStarted",
+            "params": {
+              "context": "c197413d-dd6f-481a-938d-74e4c66a5ba8",
+              "navigation": "30a27fde-92e1-470f-8348-f7509325c963",
+              "timestamp": 1791573362092,
+              "url": "http://127.0.0.1:34437/okay",
+              "userContext": "default"
+            }
+          },
+          {
+            "method": "browsingContext.domContentLoaded",
+            "params": {
+              "context": "c197413d-dd6f-481a-938d-74e4c66a5ba8",
+              "navigation": "30a27fde-92e1-470f-8348-f7509325c963",
+              "timestamp": 1791573362149,
+              "url": "http://127.0.0.1:34437/okay",
+              "userContext": "default"
+            }
+          },
+          {
+            "method": "browsingContext.load",
+            "params": {
+              "context": "c197413d-dd6f-481a-938d-74e4c66a5ba8",
+              "navigation": "30a27fde-92e1-470f-8348-f7509325c963",
+              "timestamp": 1791573362149,
+              "url": "http://127.0.0.1:34437/okay",
+              "userContext": "default"
+            }
+          }
+        ],
+        "network": [
+          {
+            "failure": null,
+            "method": "GET",
+            "mime_type": "text/html;charset=utf-8",
+            "request_id": "2-35e6ca7a-cf4b-4e82-beb6-6dbd8b8f3234",
+            "status": 200,
+            "status_text": "OK",
+            "url": "http://127.0.0.1:34437/okay"
+          },
+          {
+            "failure": null,
+            "method": "GET",
+            "mime_type": "text/html;charset=utf-8",
+            "request_id": "3-35e6ca7a-cf4b-4e82-beb6-6dbd8b8f3234",
+            "status": 200,
+            "status_text": "OK",
+            "url": "http://127.0.0.1:34437/favicon.ico"
+          }
+        ],
+        "network_snapshot_scope": "root context only; scoped raw events also include descendants"
+      },
+      "document_status_attribution": "root browsing context with navigation ID",
+      "document_status_selection": "scoped network response events with root context and a navigation ID; repeated lifecycle events can repeat a status",
+      "final_url": "http://127.0.0.1:34437/okay",
+      "observation": "http_document_observed",
+      "observed_document_statuses": [
+        200,
+        200
+      ],
+      "operations": [
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 410,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "new_page",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 21,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "viewport",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 10,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "diagnostic_subscription",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 0,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "network_monitoring",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 80,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "navigation",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 3000,
+          "elapsed_ms": 513,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "network_idle",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 1,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "final_url",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 1,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "title",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 36,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "screenshot",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 0,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "diagnostic_capture",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 2,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "diagnostic_unsubscribe",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 57,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "page_close",
+          "status": "passed"
+        }
+      ],
+      "operations_succeeded": true,
+      "requested_url": "http://127.0.0.1:34437/okay",
+      "screenshot": "target/reliability95/sites/fixture-firefox/000.png",
+      "screenshot_requested_path": "target/reliability95/sites/fixture-firefox/000.png",
+      "title": "fixture observation"
+    },
+    {
+      "diagnostics": {
+        "capture": {
+          "complete": true,
+          "drain_truncated": false,
+          "dropped_events": 0,
+          "events": [
+            {
+              "method": "browsingContext.navigationStarted",
+              "params": {
+                "context": "86af01ac-659e-4b48-ace3-c00e596a5c9c",
+                "navigation": "69c5a7d8-7e57-4429-ae53-b6b75bbd8e47",
+                "timestamp": 1791573362852,
+                "url": "http://127.0.0.1:34437/denied",
+                "userContext": "default"
+              }
+            },
+            {
+              "method": "network.beforeRequestSent",
+              "params": {
+                "context": "86af01ac-659e-4b48-ace3-c00e596a5c9c",
+                "errorText": null,
+                "navigation": "69c5a7d8-7e57-4429-ae53-b6b75bbd8e47",
+                "request": {
+                  "destination": "document",
+                  "method": "GET",
+                  "request": "4-35e6ca7a-cf4b-4e82-beb6-6dbd8b8f3234",
+                  "url": "http://127.0.0.1:34437/denied"
+                },
+                "response": {
+                  "mimeType": null,
+                  "status": null,
+                  "statusText": null
+                },
+                "timestamp": 1791573362853
+              }
+            },
+            {
+              "method": "network.responseStarted",
+              "params": {
+                "context": "86af01ac-659e-4b48-ace3-c00e596a5c9c",
+                "errorText": null,
+                "navigation": "69c5a7d8-7e57-4429-ae53-b6b75bbd8e47",
+                "request": {
+                  "destination": "document",
+                  "method": "GET",
+                  "request": "4-35e6ca7a-cf4b-4e82-beb6-6dbd8b8f3234",
+                  "url": "http://127.0.0.1:34437/denied"
+                },
+                "response": {
+                  "mimeType": "text/html;charset=utf-8",
+                  "status": 403,
+                  "statusText": "Forbidden"
+                },
+                "timestamp": 1791573362856
+              }
+            },
+            {
+              "method": "network.responseCompleted",
+              "params": {
+                "context": "86af01ac-659e-4b48-ace3-c00e596a5c9c",
+                "errorText": null,
+                "navigation": "69c5a7d8-7e57-4429-ae53-b6b75bbd8e47",
+                "request": {
+                  "destination": "document",
+                  "method": "GET",
+                  "request": "4-35e6ca7a-cf4b-4e82-beb6-6dbd8b8f3234",
+                  "url": "http://127.0.0.1:34437/denied"
+                },
+                "response": {
+                  "mimeType": "text/html;charset=utf-8",
+                  "status": 403,
+                  "statusText": "Forbidden"
+                },
+                "timestamp": 1791573362879
+              }
+            },
+            {
+              "method": "log.entryAdded",
+              "params": {
+                "args": [
+                  {
+                    "type": "string",
+                    "value": "compat-fixture-console"
+                  }
+                ],
+                "level": "info",
+                "method": "log",
+                "source": {
+                  "context": "86af01ac-659e-4b48-ace3-c00e596a5c9c",
+                  "realm": "43481352-0d78-439d-a3ba-2d88579cf331",
+                  "userContext": "default"
+                },
+                "stackTrace": {
+                  "callFrames": [
+                    {
+                      "columnNumber": 16,
+                      "functionName": "",
+                      "lineNumber": 1,
+                      "url": "http://127.0.0.1:34437/denied"
+                    }
+                  ]
+                },
+                "text": "compat-fixture-console",
+                "timestamp": 1791573362886,
+                "type": "console"
+              }
+            },
+            {
+              "method": "browsingContext.domContentLoaded",
+              "params": {
+                "context": "86af01ac-659e-4b48-ace3-c00e596a5c9c",
+                "navigation": "69c5a7d8-7e57-4429-ae53-b6b75bbd8e47",
+                "timestamp": 1791573362899,
+                "url": "http://127.0.0.1:34437/denied",
+                "userContext": "default"
+              }
+            },
+            {
+              "method": "browsingContext.load",
+              "params": {
+                "context": "86af01ac-659e-4b48-ace3-c00e596a5c9c",
+                "navigation": "69c5a7d8-7e57-4429-ae53-b6b75bbd8e47",
+                "timestamp": 1791573362899,
+                "url": "http://127.0.0.1:34437/denied",
+                "userContext": "default"
+              }
+            },
+            {
+              "method": "network.beforeRequestSent",
+              "params": {
+                "context": "86af01ac-659e-4b48-ace3-c00e596a5c9c",
+                "errorText": null,
+                "navigation": null,
+                "request": {
+                  "destination": "image",
+                  "method": "GET",
+                  "request": "5-35e6ca7a-cf4b-4e82-beb6-6dbd8b8f3234",
+                  "url": "http://127.0.0.1:34437/favicon.ico"
+                },
+                "response": {
+                  "mimeType": null,
+                  "status": null,
+                  "statusText": null
+                },
+                "timestamp": 1791573362908
+              }
+            },
+            {
+              "method": "network.responseStarted",
+              "params": {
+                "context": "86af01ac-659e-4b48-ace3-c00e596a5c9c",
+                "errorText": null,
+                "navigation": null,
+                "request": {
+                  "destination": "image",
+                  "method": "GET",
+                  "request": "5-35e6ca7a-cf4b-4e82-beb6-6dbd8b8f3234",
+                  "url": "http://127.0.0.1:34437/favicon.ico"
+                },
+                "response": {
+                  "mimeType": "text/html;charset=utf-8",
+                  "status": 200,
+                  "statusText": "OK"
+                },
+                "timestamp": 1791573362909
+              }
+            },
+            {
+              "method": "network.responseCompleted",
+              "params": {
+                "context": "86af01ac-659e-4b48-ace3-c00e596a5c9c",
+                "errorText": null,
+                "navigation": null,
+                "request": {
+                  "destination": "image",
+                  "method": "GET",
+                  "request": "5-35e6ca7a-cf4b-4e82-beb6-6dbd8b8f3234",
+                  "url": "http://127.0.0.1:34437/favicon.ico"
+                },
+                "response": {
+                  "mimeType": "text/html;charset=utf-8",
+                  "status": 200,
+                  "statusText": "OK"
+                },
+                "timestamp": 1791573362911
+              }
+            },
+            {
+              "method": "log.entryAdded",
+              "params": {
+                "level": "error",
+                "source": {
+                  "context": "86af01ac-659e-4b48-ace3-c00e596a5c9c",
+                  "realm": "43481352-0d78-439d-a3ba-2d88579cf331",
+                  "userContext": "default"
+                },
+                "stackTrace": {
+                  "callFrames": [
+                    {
+                      "columnNumber": 68,
+                      "functionName": "",
+                      "lineNumber": 1,
+                      "url": "http://127.0.0.1:34437/denied"
+                    }
+                  ]
+                },
+                "text": "Error: compat-fixture-js-error",
+                "timestamp": 1791573362944,
+                "type": "javascript"
+              }
+            }
+          ],
+          "scope": "page and observed descendant contexts; diagnostic fields exclude HTTP headers"
+        },
+        "console": [
+          {
+            "args": [
+              {
+                "type": "string",
+                "value": "compat-fixture-console"
+              }
+            ],
+            "level": "info",
+            "method": "log",
+            "source": {
+              "context": "86af01ac-659e-4b48-ace3-c00e596a5c9c",
+              "realm": "43481352-0d78-439d-a3ba-2d88579cf331",
+              "userContext": "default"
+            },
+            "stackTrace": {
+              "callFrames": [
+                {
+                  "columnNumber": 16,
+                  "functionName": "",
+                  "lineNumber": 1,
+                  "url": "http://127.0.0.1:34437/denied"
+                }
+              ]
+            },
+            "text": "compat-fixture-console",
+            "timestamp": 1791573362886,
+            "type": "console"
+          }
+        ],
+        "javascript_errors": [
+          {
+            "level": "error",
+            "source": {
+              "context": "86af01ac-659e-4b48-ace3-c00e596a5c9c",
+              "realm": "43481352-0d78-439d-a3ba-2d88579cf331",
+              "userContext": "default"
+            },
+            "stackTrace": {
+              "callFrames": [
+                {
+                  "columnNumber": 68,
+                  "functionName": "",
+                  "lineNumber": 1,
+                  "url": "http://127.0.0.1:34437/denied"
+                }
+              ]
+            },
+            "text": "Error: compat-fixture-js-error",
+            "timestamp": 1791573362944,
+            "type": "javascript"
+          }
+        ],
+        "navigations": [
+          {
+            "method": "browsingContext.navigationStarted",
+            "params": {
+              "context": "86af01ac-659e-4b48-ace3-c00e596a5c9c",
+              "navigation": "69c5a7d8-7e57-4429-ae53-b6b75bbd8e47",
+              "timestamp": 1791573362852,
+              "url": "http://127.0.0.1:34437/denied",
+              "userContext": "default"
+            }
+          },
+          {
+            "method": "browsingContext.domContentLoaded",
+            "params": {
+              "context": "86af01ac-659e-4b48-ace3-c00e596a5c9c",
+              "navigation": "69c5a7d8-7e57-4429-ae53-b6b75bbd8e47",
+              "timestamp": 1791573362899,
+              "url": "http://127.0.0.1:34437/denied",
+              "userContext": "default"
+            }
+          },
+          {
+            "method": "browsingContext.load",
+            "params": {
+              "context": "86af01ac-659e-4b48-ace3-c00e596a5c9c",
+              "navigation": "69c5a7d8-7e57-4429-ae53-b6b75bbd8e47",
+              "timestamp": 1791573362899,
+              "url": "http://127.0.0.1:34437/denied",
+              "userContext": "default"
+            }
+          }
+        ],
+        "network": [
+          {
+            "failure": null,
+            "method": "GET",
+            "mime_type": "text/html;charset=utf-8",
+            "request_id": "4-35e6ca7a-cf4b-4e82-beb6-6dbd8b8f3234",
+            "status": 403,
+            "status_text": "Forbidden",
+            "url": "http://127.0.0.1:34437/denied"
+          },
+          {
+            "failure": null,
+            "method": "GET",
+            "mime_type": "text/html;charset=utf-8",
+            "request_id": "5-35e6ca7a-cf4b-4e82-beb6-6dbd8b8f3234",
+            "status": 200,
+            "status_text": "OK",
+            "url": "http://127.0.0.1:34437/favicon.ico"
+          }
+        ],
+        "network_snapshot_scope": "root context only; scoped raw events also include descendants"
+      },
+      "document_status_attribution": "root browsing context with navigation ID",
+      "document_status_selection": "scoped network response events with root context and a navigation ID; repeated lifecycle events can repeat a status",
+      "final_url": "http://127.0.0.1:34437/denied",
+      "observation": "http_access_denied",
+      "observed_document_statuses": [
+        403,
+        403
+      ],
+      "operations": [
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 68,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "new_page",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 5,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "viewport",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 4,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "diagnostic_subscription",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 0,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "network_monitoring",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 51,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "navigation",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 3000,
+          "elapsed_ms": 510,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "network_idle",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 1,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "final_url",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 1,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "title",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 33,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "screenshot",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 0,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "diagnostic_capture",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 2,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "diagnostic_unsubscribe",
+          "status": "passed"
+        },
+        {
+          "deadline_ms": 15000,
+          "elapsed_ms": 58,
+          "error": null,
+          "failure_attribution": null,
+          "operation": "page_close",
+          "status": "passed"
+        }
+      ],
+      "operations_succeeded": true,
+      "requested_url": "http://127.0.0.1:34437/denied",
+      "screenshot": "target/reliability95/sites/fixture-firefox/001.png",
+      "screenshot_requested_path": "target/reliability95/sites/fixture-firefox/001.png",
+      "title": "fixture denial"
+    }
+  ],
+  "started_unix_ms": 1791573360125,
+  "status": "completed",
+  "timeout_seconds": 15,
+  "viewport": {
+    "height": 800,
+    "width": 1280
+  }
+}

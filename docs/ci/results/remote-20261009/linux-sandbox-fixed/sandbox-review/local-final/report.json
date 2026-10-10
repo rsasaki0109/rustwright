@@ -1,0 +1,55 @@
+{
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "status": "failed",
+  "probes": [
+    {
+      "phase": "before",
+      "command": [
+        "/workspace/.rustwright-env/chrome155/chrome-linux64/chrome",
+        "--no-first-run",
+        "--no-default-browser-check",
+        "--user-data-dir=/workspace/rustwright/target/linux-sandbox-review/local-final/before-profile-826hbinb",
+        "--headless=new",
+        "--disable-gpu",
+        "--hide-scrollbars",
+        "--mute-audio",
+        "--dump-dom",
+        "http://127.0.0.1:44899/"
+      ],
+      "exit_code": -6,
+      "timed_out": false,
+      "stdout": "/workspace/rustwright/target/linux-sandbox-review/local-final/before-stdout.log",
+      "stderr": "/workspace/rustwright/target/linux-sandbox-review/local-final/before-stderr.log",
+      "document_rendered": false,
+      "passed": false
+    }
+  ],
+  "sandbox_disabled": false,
+  "global_policy_modified": false,
+  "uid": 1000,
+  "chrome": {
+    "path": "/workspace/.rustwright-env/chrome155/chrome-linux64/chrome",
+    "uid": 1000,
+    "gid": 1000,
+    "mode": "0o755",
+    "bytes": 297680200,
+    "sha256": "ed05e73a2cdf875326fcfa438b31c71a6a885a353610731dd52090dfc476f778"
+  },
+  "version": "Google Chrome for Testing 155.0.8059.39",
+  "host_policy_observation": {
+    "/proc/sys/kernel/apparmor_restrict_unprivileged_userns": null,
+    "/proc/sys/kernel/unprivileged_userns_clone": null,
+    "/sys/module/apparmor/parameters/enabled": null
+  },
+  "bundled_helper": {
+    "path": "/workspace/.rustwright-env/chrome155/chrome-linux64/chrome_sandbox",
+    "uid": 1000,
+    "gid": 1000,
+    "mode": "0o755",
+    "bytes": 15216,
+    "sha256": "be9f5d4be90fa60b985ad3069812b144ba7331fed0c3f980c6d9399d37d60314"
+  },
+  "initial_CHROME_DEVEL_SANDBOX": null,
+  "diagnosis": "Chrome explicitly reported no usable or misconfigured sandbox; host policy is observed separately",
+  "error": "Sandbox installation requires the non-root GitHub Linux runner"
+}

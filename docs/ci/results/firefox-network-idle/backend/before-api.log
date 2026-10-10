@@ -1,0 +1,21 @@
+error[E0599]: no method named `wait_for_network_idle` found for reference `&BidiPage` in the current scope
+ --> target/firefox-network-idle/api-probe.rs:5:15
+  |
+5 |     drop(page.wait_for_network_idle());
+  |               ^^^^^^^^^^^^^^^^^^^^^ method not found in `&BidiPage`
+
+error[E0599]: no method named `wait_for_network_idle_with_timeout` found for reference `&BidiPage` in the current scope
+ --> target/firefox-network-idle/api-probe.rs:6:15
+  |
+6 |     drop(page.wait_for_network_idle_with_timeout(Duration::from_secs(1)));
+  |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+help: there is a method `go_forward_with_timeout` with a similar name
+  |
+6 -     drop(page.wait_for_network_idle_with_timeout(Duration::from_secs(1)));
+6 +     drop(page.go_forward_with_timeout(Duration::from_secs(1)));
+  |
+
+error: aborting due to 2 previous errors
+
+For more information about this error, try `rustc --explain E0599`.

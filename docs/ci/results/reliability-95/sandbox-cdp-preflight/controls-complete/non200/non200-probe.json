@@ -1,0 +1,47 @@
+{
+  "phase": "non200",
+  "method": "CDP HTTP renderer preflight",
+  "outer_timeout_seconds": 5,
+  "stdout": "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controls-complete/non200/non200-stdout.log",
+  "stderr": "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controls-complete/non200/non200-stderr.log",
+  "protocol": "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controls-complete/non200/non200-cdp.jsonl",
+  "timed_out": false,
+  "document_rendered": false,
+  "exit_code": 0,
+  "passed": false,
+  "profile_path": "/tmp/rustwright-cdp-controls-cxyuju27/rustwright-non200-_u1dqi1l",
+  "command": [
+    "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controlled_peer.py",
+    "--no-first-run",
+    "--no-default-browser-check",
+    "--user-data-dir=/tmp/rustwright-cdp-controls-cxyuju27/rustwright-non200-_u1dqi1l",
+    "--headless=new",
+    "--disable-gpu",
+    "--hide-scrollbars",
+    "--mute-audio",
+    "--remote-debugging-address=127.0.0.1",
+    "--remote-debugging-port=0",
+    "about:blank"
+  ],
+  "fixture_url": "http://127.0.0.1:43381/preflight-88a6b0f3fc9664b5",
+  "fixture_path": "/preflight-88a6b0f3fc9664b5",
+  "navigation": {
+    "frameId": "frame-main",
+    "loaderId": "loader-main"
+  },
+  "error": "RuntimeError: Fixture document did not return expected HTTP200 HTML: {'frameId': 'frame-main', 'loaderId': 'loader-main', 'type': 'Document', 'requestId': 'request-main', 'response': {'url': 'http://127.0.0.1:43381/preflight-88a6b0f3fc9664b5', 'status': 403, 'mimeType': 'text/html'}}",
+  "cleanup": {
+    "termination_requested": true,
+    "errors": [],
+    "direct_child_reaped": true,
+    "exit_code": 0
+  },
+  "fixture_requests": [
+    {
+      "path": "/preflight-88a6b0f3fc9664b5",
+      "status": 200,
+      "bytes_written": 78
+    }
+  ],
+  "profile_removed": true
+}

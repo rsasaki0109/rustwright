@@ -1,0 +1,101 @@
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.26
+   Compiling libc v0.2.189
+   Compiling typenum v1.20.1
+   Compiling cfg-if v1.0.5
+   Compiling getrandom v0.4.3
+   Compiling serde_core v1.0.229
+   Compiling rand_core v0.10.1
+   Compiling cpufeatures v0.3.1
+   Compiling syn v3.0.6
+   Compiling itoa v1.0.18
+   Compiling zmij v1.0.23
+   Compiling hybrid-array v0.4.15
+   Compiling httparse v1.10.1
+   Compiling const-oid v0.10.2
+   Compiling thiserror v2.0.20
+   Compiling bytes v1.12.1
+   Compiling pin-project-lite v0.2.17
+   Compiling block-buffer v0.12.1
+   Compiling crypto-common v0.2.2
+   Compiling errno v0.3.14
+   Compiling chacha20 v0.10.2
+   Compiling digest v0.11.3
+   Compiling serde_json v1.0.151
+   Compiling sha1 v0.11.0
+   Compiling rand v0.10.2
+   Compiling http v1.5.0
+   Compiling thiserror-impl v2.0.20
+   Compiling tokio-macros v2.7.2
+   Compiling futures-macro v0.3.34
+   Compiling signal-hook-registry v1.4.8
+   Compiling mio v1.2.3
+   Compiling socket2 v0.6.5
+   Compiling syn v2.0.119
+   Compiling futures-sink v0.3.34
+   Compiling once_cell v1.21.4
+   Compiling futures-core v0.3.34
+   Compiling memchr v2.8.3
+   Compiling serde v1.0.229
+   Compiling data-encoding v2.11.1
+   Compiling log v0.4.34
+   Compiling slab v0.4.12
+   Compiling futures-task v0.3.34
+   Compiling futures-util v0.3.34
+   Compiling tungstenite v0.30.0
+   Compiling tracing-core v0.1.36
+   Compiling tokio v1.53.1
+   Compiling serde_derive v1.0.229
+   Compiling tracing-attributes v0.1.31
+   Compiling rustwright-common v0.1.0 (/workspace/rustwright/target/frame-helper-cache/baseline-workspace/crates/rustwright-common)
+   Compiling base64 v0.22.1
+   Compiling tracing v0.1.44
+   Compiling tokio-tungstenite v0.30.0
+   Compiling rustwright-cdp v0.1.0 (/workspace/rustwright/target/frame-helper-cache/baseline-workspace/crates/rustwright-cdp)
+   Compiling rustwright-browser v0.1.0 (/workspace/rustwright/target/frame-helper-cache/baseline-workspace/crates/rustwright-browser)
+   Compiling rustwright-bidi v0.1.0 (/workspace/rustwright/target/frame-helper-cache/baseline-workspace/crates/rustwright-bidi)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 16.57s
+     Running unittests src/lib.rs (/workspace/rustwright/target/frame-helper-cache/baseline-target/debug/deps/rustwright_bidi-cedd5209c7d1f7e2)
+
+running 5 tests
+test browser::frame_helper_cache_tests::live_frame_reuses_its_document_helper_without_reinjection ... ok
+test browser::frame_helper_cache_tests::late_injection_reply_does_not_initialize_a_replacement_document ... FAILED
+test browser::frame_helper_cache_tests::destroyed_frame_is_not_treated_as_an_initialized_document ... FAILED
+test browser::frame_helper_cache_tests::same_frame_id_in_a_new_document_gets_its_helper_again ... FAILED
+test browser::frame_helper_cache_tests::destroyed_frame_history_is_bounded_before_only ... FAILED
+
+failures:
+
+---- browser::frame_helper_cache_tests::late_injection_reply_does_not_initialize_a_replacement_document stdout ----
+
+thread 'browser::frame_helper_cache_tests::late_injection_reply_does_not_initialize_a_replacement_document' (970424) panicked at crates/rustwright-bidi/src/frame_helper_cache_tests.rs:214:5:
+the old document's late success must not suppress new injection
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- browser::frame_helper_cache_tests::destroyed_frame_is_not_treated_as_an_initialized_document stdout ----
+
+thread 'browser::frame_helper_cache_tests::destroyed_frame_is_not_treated_as_an_initialized_document' (970423) panicked at crates/rustwright-bidi/src/frame_helper_cache_tests.rs:189:5:
+assertion failed: matches!(page.ensure_helper_in("frame").await,
+    Err(BidiError::Protocol { error, .. }) if error == "no such frame")
+
+---- browser::frame_helper_cache_tests::same_frame_id_in_a_new_document_gets_its_helper_again stdout ----
+
+thread 'browser::frame_helper_cache_tests::same_frame_id_in_a_new_document_gets_its_helper_again' (970426) panicked at crates/rustwright-bidi/src/frame_helper_cache_tests.rs:173:5:
+a cached frame id cannot prove helper presence in a new document
+
+---- browser::frame_helper_cache_tests::destroyed_frame_history_is_bounded_before_only stdout ----
+
+thread 'browser::frame_helper_cache_tests::destroyed_frame_history_is_bounded_before_only' (970422) panicked at crates/rustwright-bidi/src/frame_helper_cache_tests.rs:234:5:
+only one live document, but 1001 historical context ids retained
+
+
+failures:
+    browser::frame_helper_cache_tests::destroyed_frame_history_is_bounded_before_only
+    browser::frame_helper_cache_tests::destroyed_frame_is_not_treated_as_an_initialized_document
+    browser::frame_helper_cache_tests::late_injection_reply_does_not_initialize_a_replacement_document
+    browser::frame_helper_cache_tests::same_frame_id_in_a_new_document_gets_its_helper_again
+
+test result: FAILED. 1 passed; 4 failed; 0 ignored; 0 measured; 36 filtered out; finished in 0.65s
+
+error: test failed, to rerun pass `-p rustwright-bidi --lib`

@@ -1,0 +1,16 @@
+{
+  "reviewed_host": "host-3",
+  "run_id": 38005723883,
+  "tested_merge": "87f6180e4922ca860e10f91701e6032e6cb85390",
+  "review_scope": "Read-only source/raw-data review; no new native execution.",
+  "findings": {
+    "mock_return": "Both drivers await mock registration and verify initial OOPIF native fetch/XHR responses before timing the same return navigation. All 100 measured reference failures returned 200/network rather than 201/mocked. No concrete harness bug was found; internal Playwright cause is not established.",
+    "rotated_clipped_click": "Default click APIs without force or an explicit point in both drivers. 63 measured reference failures were watchdog failures and 37 were click timeouts reporting intercepted pointer events. Different default point-selection policies limit algorithm comparisons.",
+    "remote_frame_evidence": "Node matches target URL to current frame URL and checks localhost; Rust additionally matches target ID to resolved frame ID. These evidence strengths differ.",
+    "source_identity": "All six reviewed source hashes match the actual merge checkout."
+  },
+  "limitations": [
+    "Only host-3 received this qualitative independent review.",
+    "This review does not establish general SOTA or a Playwright internal root cause."
+  ]
+}

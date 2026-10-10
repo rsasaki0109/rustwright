@@ -1,0 +1,11 @@
+Running /workspace/.rustwright-env/cargo/bin/cargo +stable package --allow-dirty --offline --locked --target-dir /workspace/rustwright/target/reliability95/distribution/package-target/1e79ef93767eac83 --package rustwright --package rustwright-bidi --package rustwright-browser --package rustwright-cdp --package rustwright-common --package rustwright-core --package rustwright-test --package rustwright-test-macros
+Running /workspace/.rustwright-env/cargo/bin/cargo +stable generate-lockfile --offline
+Running /workspace/.rustwright-env/cargo/bin/cargo +stable test --offline --locked --all-targets --no-run
+Running /workspace/.rustwright-env/cargo/bin/cargo +stable run --offline --locked --bin rustwright-release-consumer
+Running /workspace/.rustwright-env/cargo/bin/cargo +stable metadata --offline --locked --format-version 1
+Running /workspace/.rustwright-env/cargo/bin/cargo +1.85.0 test --offline --locked --all-targets --no-run
+Running /workspace/.rustwright-env/cargo/bin/cargo +1.85.0 run --offline --locked --bin rustwright-release-consumer
+Running /workspace/.rustwright-env/cargo/bin/cargo +1.85.0 metadata --offline --locked --format-version 1
+Running /workspace/.rustwright-env/cargo/bin/cargo +stable test --offline --locked --test browser -- --test-threads=1 --nocapture
+Running /workspace/.rustwright-env/cargo/bin/cargo +stable test --offline --locked --test browser -- --test-threads=1 --nocapture
+Release checks passed: /workspace/rustwright/target/reliability95/distribution/report.json

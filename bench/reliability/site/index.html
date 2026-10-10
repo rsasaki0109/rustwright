@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Reliability fixture</title>
+<style>iframe { margin: 80px 0 0 120px; width: 400px; height: 200px; }</style>
+<div id="host"></div>
+<script src="/actionability.js"></script>
+<script>
+  window.fixtureReady = true;
+  window.navigateNetworkFrame = (url) => new Promise(resolve => {
+    let frame = document.querySelector('#late-frame');
+    if (!frame) { frame = document.createElement('iframe'); frame.id = 'late-frame'; }
+    frame.onload = () => resolve(true);
+    frame.src = new URL(url, location.href).href;
+    if (!frame.isConnected) document.querySelector('#host').append(frame);
+  });
+  window.clicked = false;
+  window.frameValue = null;
+  window.expectedFrameOrigin = location.origin;
+  window.scheduleButton = (delay) => {
+    document.querySelector('#host').replaceChildren();
+    setTimeout(() => {
+      const button = document.createElement('button');
+      button.id = 'late';
+      button.textContent = 'Go';
+      button.onclick = () => { window.clicked = true; };
+      document.querySelector('#host').append(button);
+    }, delay);
+  };
+  window.scheduleFrame = (delay, url = '/frame.html') => {
+    window.expectedFrameOrigin = new URL(url, location.href).origin;
+    if (window.expectedFrameOrigin !== location.origin) {
+      const target = new URL(url, location.href);
+      target.searchParams.set('parentOrigin', location.origin);
+      url = target.href;
+    }
+    document.querySelector('#host').replaceChildren();
+    setTimeout(() => {
+      const frame = document.createElement('iframe');
+      frame.id = 'late-frame';
+      frame.src = url;
+      document.querySelector('#host').append(frame);
+    }, delay);
+  };
+  window.scheduleFrameSwap = (delay, url) => {
+    window.scheduleFrame(0);
+    setTimeout(() => {
+      const target = new URL(url, location.href);
+      target.searchParams.set('parentOrigin', location.origin);
+      window.expectedFrameOrigin = target.origin;
+      document.querySelector('#late-frame').src = target.href;
+    }, delay);
+  };
+  window.addEventListener('message', (event) => {
+    if (event.origin === window.expectedFrameOrigin &&
+        event.source === document.querySelector('#late-frame')?.contentWindow &&
+        event.data?.kind === 'submitted') {
+      window.frameValue = event.data.value;
+    }
+  });
+</script>

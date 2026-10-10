@@ -1,0 +1,68 @@
+{
+  "scope": "Receiver registered before remote subscription acknowledgement; no API or ownership expansion",
+  "production_files": [
+    "crates/rustwright-bidi/src/browser.rs",
+    "crates/rustwright-bidi/src/network.rs"
+  ],
+  "regression_file": "crates/rustwright-bidi/src/network_subscription_tests.rs",
+  "before": {
+    "normal_pre_ack": {
+      "exit_code": 101,
+      "passed": 0,
+      "failed": 1
+    },
+    "cancelled_pre_ack": {
+      "exit_code": 101,
+      "passed": 0,
+      "failed": 1
+    },
+    "regression_source_sha256": "30dc9c89a0201aefe04d25427c897a94b6aa506379596052a6b6f5a42ff4d9d3"
+  },
+  "after": {
+    "readiness": {
+      "exit_code": 0,
+      "passed": 8,
+      "failed": 0
+    },
+    "bidi_library": {
+      "exit_code": 0,
+      "passed": 86,
+      "failed": 0
+    },
+    "firefox_native": {
+      "exit_code": 0,
+      "passed": 1,
+      "failed": 0,
+      "repeated_fetch_cycles": 10
+    },
+    "msrv": {
+      "exit_code": 0,
+      "rust": "1.85.0",
+      "scope": "BiDi all targets"
+    },
+    "clippy": {
+      "exit_code": 0,
+      "scope": "BiDi all targets, -D warnings"
+    },
+    "format": {
+      "exit_code": 0,
+      "scope": "three modified files"
+    },
+    "whitespace": {
+      "exit_code": 0
+    }
+  },
+  "attempt_note": "Initial native command used nonexistent package rustwright-tests and exited 101 without executing tests; correct package rustwright-integration-tests rerun passed. Failed invocation log retained.",
+  "browser_config": {
+    "RUSTWRIGHT_FIREFOX": "/workspace/.rustwright-env/firefox-browser",
+    "headless": true,
+    "profile": "test fixture creates fresh disposable profile; source tests/support/lifecycle.rs",
+    "installed_binary": "/workspace/.rustwright-env/firefox/firefox-bin",
+    "installed_binary_sha256": "b3089612093d427f3912dead43f377e65c709e8da4496c2912a84b447a368779"
+  },
+  "limits": [
+    "existing broadcast capacity and lag handling unchanged",
+    "pre-subscription historical activity and descendant filtering unchanged",
+    "network-idle parity not implemented"
+  ]
+}

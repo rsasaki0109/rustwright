@@ -1,0 +1,17 @@
+{
+  "command": [
+    "rustc",
+    "--edition=2021",
+    "--crate-type=lib",
+    "target/firefox-network-idle/api-probe.rs",
+    "--extern",
+    "rustwright_bidi=target/debug/deps/librustwright_bidi-2c438d1ad6aabbbb.rlib",
+    "-L",
+    "dependency=target/debug/deps",
+    "-o",
+    "target/firefox-network-idle/api-probe.rlib"
+  ],
+  "exit_code": 1,
+  "rlib": "target/debug/deps/librustwright_bidi-2c438d1ad6aabbbb.rlib",
+  "rlib_sha256": "f9e4f1bca67158537483f480e2c8f152b794bbc7111af1c7ef2cef6291b220a4"
+}

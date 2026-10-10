@@ -1,0 +1,33 @@
+{
+  "runs": {
+    "100": {
+      "Rust main-thread stack-overflow thread-info initialization": {
+        "bytes": 548,
+        "outstanding_allocations": 2
+      },
+      "Tokio signal globals initialization": {
+        "bytes": 24064,
+        "outstanding_allocations": 65
+      },
+      "Loader TLS via pthread_create and Tokio runtime worker launch": {
+        "bytes": 1408,
+        "outstanding_allocations": 4
+      }
+    },
+    "1000": {
+      "Rust main-thread stack-overflow thread-info initialization": {
+        "bytes": 548,
+        "outstanding_allocations": 2
+      },
+      "Tokio signal globals initialization": {
+        "bytes": 24064,
+        "outstanding_allocations": 65
+      },
+      "Loader TLS via pthread_create and Tokio runtime worker launch": {
+        "bytes": 1408,
+        "outstanding_allocations": 4
+      }
+    }
+  },
+  "interpretation": "All end-outstanding bytes in these two traces have the recorded initialization stacks. Allocation stack is not a reachability proof. heaptrack analyzer labels all unfreed-at-exit amounts MEMORY LEAKS; this archive does not relabel the run as leak-free."
+}

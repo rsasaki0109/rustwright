@@ -1,0 +1,261 @@
+# Reliability milestones toward the 95% goal
+
+Completion estimates used during development are provisional planning judgments,
+not benchmark results or proof of state-of-the-art performance. The initial 90% goal
+requires evidence across the following areas; small fixes alone do not establish
+it. Keep failing, skipped and unexecuted cases separate from passing cases.
+
+## Verified foundation
+
+- [x] Linux Chrome regressions for frame geometry, nested renderer changes,
+  request routing, cancellation, navigation lifecycle and resumed network traffic.
+- [x] Context ownership across default/isolated contexts and independent CDP
+  clients; popup discovery, concurrent attachment and shutdown notification.
+- [x] Transport tests for cancellation, response cleanup and detached sessions.
+- [x] CDP/BiDi socket-task lifetime: ten regressions fail before correction and
+  pass after it, plus a CDP disconnection-marker regression. Native process loss
+  and manual restart succeed 25 times per backend, with pending operations
+  reporting closure and event senders released after owner Drop.
+  [Evidence and limits](../bench/endurance/TRANSPORT_LIFETIME.md).
+- [x] Creation cancellation with delayed acknowledgments and initialization:
+  ten failing regressions corrected, with seven more ownership/timeout/thread
+  checks. Native Chrome and Firefox each complete 50 controlled cancellations
+  with exact page/context IDs restored, a retained page usable and subsequent
+  creation successful. [Evidence and limits](../bench/endurance/CREATION_CANCELLATION.md).
+- [x] Assertion retry and explicit browser startup failure tests.
+- [x] Firefox interception ownership: registration/removal cancellation,
+  response-phase expansion, shared discovered handles and retained-handle
+  resource closure. Native delayed acknowledgments verify real blocked requests,
+  descendant routing and removal of the actual known intercept IDs.
+  [Evidence and limits](../bench/endurance/INTERCEPTION_LIFECYCLE.md).
+- [x] Independent Python/WebSocket Firefox baseline: 6,000 measured cycles plus
+  two matched Rust raw runs totaling 2,000 cycles, with context-only/evaluation
+  controls and idle-tail samples. Browser PSS growth occurs without Rustwright's
+  transport and can decline afterward; heap attribution remains unresolved.
+  Historical frame-ID retention and premature network-monitoring readiness are
+  corrected, with native same-page iframe churn and subscription cancellation.
+  [Evidence and limits](../bench/endurance/INDEPENDENT_BIDI.md).
+- [x] Interrupted shutdown: 24 Chrome/Firefox controlled-peer tests and 50 native
+  context/page cancellations verify independent cleanup, concurrent completion,
+  bounded waiting and Firefox helper retry. Twelve shared actionability and ten
+  overflow-clipping checks exercise trusted clicks on both installed browsers.
+  [Evidence and limits](../bench/endurance/SHUTDOWN_ACTIONABILITY.md).
+- [x] Locked all-target compilation on Rust 1.85.0, with the matching minimum
+  version check defined in CI; stable Clippy and formatting checks.
+- [x] Verified packaging of eight actual `.crate` archives with README/license
+  assets and required helper JavaScript. An external version-only consumer
+  resolves those exact archives, compiles all nine Rust README fences on stable
+  and Rust 1.85.0, and has native consumer/macro checks on installed browsers.
+  [Release evidence and limits](RELEASE_VERIFICATION.md). Registry publication
+  and name ownership remain separate from local packaging success.
+- [x] Shared Linux HTTP matrix on Chrome 151 and Firefox 157: 12 scenarios per
+  backend, 24 real-browser tests with no missing-browser or startup skips.
+  See the [compatibility matrix and its remaining gaps](COMPATIBILITY_MATRIX.md).
+- [x] Linux endurance: 1,000 measured context/page cycles per backend after
+  warmup, with driver/browser RSS separated, sampled page targets/isolated
+  contexts and zero pending commands. A further Firefox 1,000-cycle run records
+  zero internal helpers awaiting acknowledged removal at each checkpoint.
+  Five helper lifecycle regressions cover discovered handles, context ownership,
+  Drop and cancellation. [Raw observations and limits](../bench/endurance/RESULTS.md)
+  retain remaining memory growth and unmeasured resources explicitly.
+- [x] Firefox workload ablation: 6,000 measured cycles plus 600 warmups, with
+  direct BiDi/helper/page APIs in forward/reverse order and separate RSS/PSS.
+  Growth also occurs without automatic helpers; its cause and steady bound
+  remain unresolved. [Evidence and limits](../bench/endurance/ABLATION.md).
+- [x] Chrome closed-page registry lifetime: explicit/external closure and browser
+  disconnection remove entries without discovery. Three failing ownership tests
+  now pass, and 1,000 native default-context cycles alternate explicit/external
+  page closure while retaining handles. [Correction and evidence](../bench/endurance/CACHE_LIFETIME.md).
+- [x] Local Chromium comparison: all 16 cases × 100 measured attempts per engine,
+  alternating engine order. Rustwright 1,600/1,600, Playwright 1,399/1,600;
+  successful median/p95, every failure, separate driver/descendant RSS/PSS and
+  exact source/binary/version identifiers are preserved. This does not establish
+  broad superiority. [Results and scope](../bench/reliability/COMPARISON_100.md).
+
+The local browser suites use HTTP fixtures and installed Chrome/Firefox engine
+bytes, with container-specific sandbox launch adjustments. This cloud environment
+restricts file/data URL fixtures, so local HTTP success does not establish every
+integration target passed. The separately verified Ubuntu CI workspace does
+execute the full legacy integration suite with its native sandbox configuration. Existing benchmark
+measurements have their own recorded versions, sample sizes and limits in
+[the results](../bench/reliability/RESULTS.md).
+
+## Conditions for the 90% checkpoint
+
+1. **Chrome and Firefox compatibility:** execute a shared local HTTP matrix on
+   installed Chrome/CDP and Firefox/BiDi. Cover navigation, fragment/history URLs,
+   locator waits, trusted form input, frames, popup ownership, isolated storage,
+   cancellation and closure. Document unsupported backend APIs explicitly.
+2. **Long-running reliability:** exercise at least 1,000 context/page cycles and
+   repeated frame swaps, routing changes and failed/cancelled waits. Record driver
+   and browser memory separately, open targets/sessions, pending responses and
+   errors. Investigate growth after warmup rather than assuming a passing short
+   test establishes absence of leaks.
+3. **Reproducible comparisons:** compare Rustwright and Playwright on the same
+   browser, machine and fixtures, with at least 100 measured samples per case,
+   alternating run order. Publish success counts and failure causes alongside
+   median/p95 successful latency and separate memory measurements. Preserve raw
+   results and source/binary/version identifiers.
+4. **Release checks:** run locked checks at the declared minimum Rust version and
+   stable; execute browser tests in CI without silently skipping the required
+   browser. Verify documented examples and packaging. Add Windows/macOS evidence
+   before making cross-platform reliability claims.
+5. **Representative site behavior:** use the existing compatibility report on
+   representative real sites, preserving navigation, network and console failures.
+   Distinguish server access decisions from driver defects; add generic regression
+   fixtures for confirmed driver defects rather than site-specific workarounds.
+
+The initial shared Firefox/Chrome HTTP matrix and 1,000-cycle sampled endurance
+checks are verified. Before declaring the long-running checkpoint complete,
+attribute the remaining browser RSS/PSS growth with longer runs and heap analysis
+(the independent WebSocket baseline reproduces growth and observes idle declines),
+measure attached sessions/intercepts, and cover remote allocations whose
+identifiers never arrive or arrive after the cleanup grace. Controlled interrupted
+shutdown and twenty early native owned-browser cancellations are verified;
+later startup stages, all-stage cancellation, remote cleanup refusal and runtime
+loss remain separate limits.
+Known page-owned BiDi intercept retirement is verified under acknowledged
+removal. Unknown IDs after lost allocation replies, event overflow, overlapping
+caller-managed interception and persistent cleanup refusal remain outside that
+guarantee; refusal after final-owner Drop can retain a neutral pump/session until
+explicit closure.
+Controlled creation cancellation is verified; it does not guarantee remote
+reclamation after an absent acknowledgment or lost connection.
+The local 100-sample alternating comparison is verified; broader
+browser/site coverage and independent host repeats remain outstanding.
+Continue expanding the shared matrix's remaining geometry, routing and navigation
+cases so performance work measures correct behavior.
+
+## Completed scoped 95% checkpoint, before a SOTA claim
+
+The scoped development milestone is now assessed at 95% after completed final
+verification. This is a planning estimate, not a measured reliability probability.
+Preserve the earlier checkpoint's remaining limits.
+
+Locally verified additions include eleven BiDi navigation protocol cases and
+seven native Chrome/Firefox reload/history checks. Required browser policy also
+turns explicitly configured legacy discovery/startup errors into failures.
+The [CI verification record](CI_VERIFICATION.md) distinguishes configured OS jobs
+from executed results and preserves the historical HEAD run separately. The first
+new Windows run exposed Chrome HTTP navigation failures; macOS had an incomplete
+first test, and the Linux jobs were canceled while queued. The record preserves
+those initial failures separately from the corrected results below.
+
+The Windows installation, macOS bundle and Linux bundled-sandbox corrections
+have actual before/after records. The repaired lifecycle/discovery source
+`4cdec571a26c64e123a4dde66d4d9b47e8c64f63` passes all six jobs in
+[run 37983300059](https://github.com/rsasaki0109/rustwright/actions/runs/37983300059):
+79 portable cases per OS on Chrome 155/Firefox 157, plus 114 Ubuntu HTTP cases.
+The full Ubuntu workspace passes 475 cases with one existing ignored macro
+doctest. Its library subset is 211, including 111 BiDi cases; overlapping job
+counts are not additional distinct coverage. Actual eight-archive distribution,
+version-only consumers on stable/MSRV and both native README programs also pass.
+CI checks out a synthetic merge; the record verifies the equality of all 152
+relevant input blobs and modes with the source head. The prior stale-target
+failure remains preserved separately rather than being counted as a pass.
+
+[Firefox network-idle waits](FIREFOX_NETWORK_IDLE_IMPLEMENTATION.md) are now
+implemented for `BidiPage` and `AnyPage`, with body-completion, redirect-hop,
+nested/cross-origin frame, cancellation, closure and event-loss handling.
+Twenty-six shared native cases pass on each OS; 22 new backend cases are
+included in the library totals. New Firefox pages establish acknowledged
+observation before handoff. Cold already-active discovered contexts return a
+typed incomplete-observation error, and every Firefox wait starts a fresh
+500 ms window. This scope does not reconstruct missing historical activity.
+The earlier [investigation](FIREFOX_NETWORK_IDLE.md) remains a frozen
+pre-implementation record rather than a current missing-API statement.
+
+Owned browser startup now reaps the direct child before removing its temporary
+profile after cancellation, timeout or early exit. Twenty actual early-startup
+cancellations on Linux, ten per browser, verify binary identity, direct-child reaping and
+profile ownership. Closed Firefox pages/browsers also finish idle and diagnostic
+observers when callers retain page handles. Chrome discovery verifies actual
+target disappearance before skipping a detached initialization; unexpected
+errors still propagate. [The checkpoint](RELIABILITY_95_CHECKPOINT.md)
+links the frozen before/after tests and native evidence. The native startup
+build records head `908323d` with the then-dirty context correction; it is not
+relabeled as final `39e1`.
+
+Requested Rust-driver heap at exit is 26,020 B in both the 100- and 1,000-cycle
+profiled Firefox runs, each with 100 additional warmup cycles on recorded source
+`908323d`, with complete allocation stacks retained. An independent
+3,000-cycle Firefox run restores page/context counts and pending commands but
+retains some resident memory and reporter categories after its 90-second tail.
+These finite measurements distinguish driver allocations from browser memory;
+they do not establish reachability, a long-run plateau or universal leak freedom.
+
+The final [run 37994561086](https://github.com/rsasaki0109/rustwright/actions/runs/37994561086)
+passes **all seven required jobs** for head `39e1c895`. All original checkout logs
+identify tested merge `a2191f8`, and all 153 relevant source/test/helper/workflow/package
+inputs have identical blobs and modes to the head. The
+[frozen final record](ci/results/reliability-95/remote-final/README.md) verifies
+workspace 475 / libraries 211 / example 4, native 79 on each OS plus Ubuntu 114,
+formatting/Clippy/MSRV and eight-archive distribution. The added Linux scope
+passes the full79 cases headed on Chrome 155/Firefox 157 and the full79 headless
+on Chrome 151.0.7922.138/Firefox 153.4.0esr, with exact version and per-command
+owned mapped Xvfb-window records. Both current engines complete all operations
+and teardown for the three selected read-only sites with HTTP 200 observations
+and six hashed PNGs. Repeated cases and HTTP lifecycle events are not additional
+unique coverage. Headed/version scope is Linux-only.
+
+Two earlier seven-job attempts passed six baseline jobs but failed alternate
+Chrome's CLI sandbox preflight. The
+[first completed supplement](ci/results/reliability-95/remote-final-before-completed/README.md)
+and [second complete failure](ci/results/reliability-95/remote-final-second-before/README.md)
+preserve their actual unrun scopes. The final CDP correction verifies actual
+HTTP rendering and normal shutdown; 26 synthetic controls are separate from
+native confirmation. The helper-installation function remains unchanged.
+
+The provisional completion assessment is now **95% for the specified
+reliability checkpoint**, supported by the completed and independently audited
+proof. Local failures remain in [their frozen record](ci/results/reliability-95/local/README.md),
+including native thread/fork exhaustion and both failed nine-site aggregates.
+Selected hosted success does not rewrite those outcomes. Lost remote IDs,
+cleanup refusal, descendant processes and unexplained browser-memory retention
+remain explicit limits. A general SOTA claim requires separately specified
+comparative workloads and reproducible independent measurements.
+
+1. **Maintain verified required CI:** test the reviewed changes on Linux, macOS and Windows
+   with explicitly installed Chrome and Firefox. Reject missing browsers,
+   initialization failure, zero tests, ignored native tests and filtered suites.
+   Keep the workspace's existing ignored macro doctest explicit. Retain
+   logs and actual browser versions; distinguish the old main-branch run from
+   runs containing the reviewed feature-branch changes.
+2. **Expand backend parity:** preserve verified reload/history and response-body
+   network-idle coverage, then cover nested frame transforms and clipping,
+   ancestor overlays and interception during renderer changes. Document
+   backend-specific APIs rather than implying complete parity.
+3. **Bound long-running resources:** attribute remaining memory growth, count
+   sessions/intercepts as well as pages and contexts, and exercise lost replies,
+   remote cleanup refusal and runtime loss. State finite cleanup budgets and
+   ownership limits alongside measurements.
+4. **Verify representative sites and versions:** preserve operation outcomes,
+   console/network errors and browser versions on an agreed site set. Reproduce
+   confirmed driver failures in generic local fixtures; access denial alone does
+   not establish a driver defect. Include headed sessions and multiple supported
+   browser versions before extending compatibility claims.
+5. **Verify distribution repeatedly:** run actual archives, version-only consumers,
+   minimum-Rust builds, documented entry points and the macro runner in CI. Real
+   registry publication remains a separate decision about names and ownership.
+
+Only after these reliability checks should broader SOTA comparisons begin. Use
+matched browsers, machines and fixtures, independent repeats and published raw
+success/failure, latency and memory results. The existing local comparison is
+useful preliminary evidence; it does not establish a general SOTA result.
+
+## Repeated comparison completed, 2026-10-10 UTC
+
+The [three-job Chromium comparison](../bench/reliability/COMPARISON_CI.md) now
+retains 9,600 measured observations on sixteen local cases with Playwright Core
+1.64.0: Rustwright succeeded 4,800/4,800 and Playwright 4,200/4,800. Warmups,
+reference failures, an earlier incomplete cohort, source archives and separate
+driver/descendant memory samples are preserved. All fourteen mutually successful
+cases had lower Rustwright p95 in each job; these are descriptive observations,
+not statistically established general SOTA.
+
+The fresh seven-job required CI passed 480 workspace tests, including five new
+Firefox creation regressions, plus the existing portable, headed, alternate
+version and package scopes. This supplement keeps the scoped **95%** checkpoint
+and its original proof intact. Broader workloads and attribution of the higher
+sampled Rust browser-descendant RSS remain necessary before expanding performance
+or memory claims.

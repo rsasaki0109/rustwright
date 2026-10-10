@@ -1,0 +1,40 @@
+{
+  "suite": "portable",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "status": "failed",
+  "targets": [
+    "http_compat",
+    "http_actionability",
+    "http_clipped_control",
+    "http_bidi_navigation"
+  ],
+  "cases": [
+    {
+      "target": "http_compat",
+      "command": [
+        "/workspace/rustwright/target/ci-rollout/guard-probes/ci-guard-pj4kd1cw/bin/cargo",
+        "test",
+        "--locked",
+        "-p",
+        "rustwright-integration-tests",
+        "--test",
+        "http_compat",
+        "--",
+        "--test-threads=1",
+        "--nocapture"
+      ],
+      "log": "/workspace/rustwright/target/ci-rollout/guard-probes/ignored-tests/http_compat.log",
+      "exit_code": 0,
+      "passed": 0,
+      "failed": 0,
+      "ignored": 1,
+      "filtered": 0
+    }
+  ],
+  "browsers": {
+    "RUSTWRIGHT_CHROME": "/usr/bin/true",
+    "RUSTWRIGHT_FIREFOX": "/usr/bin/true"
+  },
+  "cargo_version": "cargo fake-guard-probe",
+  "error": "http_compat was empty, failed, ignored or filtered: {'target': 'http_compat', 'command': ['/workspace/rustwright/target/ci-rollout/guard-probes/ci-guard-pj4kd1cw/bin/cargo', 'test', '--locked', '-p', 'rustwright-integration-tests', '--test', 'http_compat', '--', '--test-threads=1', '--nocapture'], 'log': '/workspace/rustwright/target/ci-rollout/guard-probes/ignored-tests/http_compat.log', 'exit_code': 0, 'passed': 0, 'failed': 0, 'ignored': 1, 'filtered': 0}"
+}

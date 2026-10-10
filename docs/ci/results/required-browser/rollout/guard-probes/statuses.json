@@ -1,0 +1,43 @@
+[
+  {
+    "case": "missing-chrome",
+    "exit_code": 1,
+    "expected_failure_verified": true,
+    "error": "RUSTWRIGHT_CHROME must explicitly select an installed browser file"
+  },
+  {
+    "case": "missing-firefox",
+    "exit_code": 1,
+    "expected_failure_verified": true,
+    "error": "RUSTWRIGHT_FIREFOX must explicitly select an installed browser file"
+  },
+  {
+    "case": "zero-tests",
+    "exit_code": 1,
+    "expected_failure_verified": true,
+    "error": "http_compat was empty, failed, ignored or filtered: {'target': 'http_compat', 'command': ['/workspace/rustwright/target/ci-rollout/guard-probes/ci-guard-ed9h1aoh/bin/cargo', 'test', '--locked', '-p', 'rustwright-integration-tests', '--test', 'http_compat', '--', '--test-threads=1', '--nocapture'], 'log': '/workspace/rustwright/target/ci-rollout/guard-probes/zero-tests/http_compat.log', 'exit_code': 0, 'passed': 0, 'failed': 0, 'ignored': 0, 'filtered': 0}"
+  },
+  {
+    "case": "ignored-tests",
+    "exit_code": 1,
+    "expected_failure_verified": true,
+    "error": "http_compat was empty, failed, ignored or filtered: {'target': 'http_compat', 'command': ['/workspace/rustwright/target/ci-rollout/guard-probes/ci-guard-pj4kd1cw/bin/cargo', 'test', '--locked', '-p', 'rustwright-integration-tests', '--test', 'http_compat', '--', '--test-threads=1', '--nocapture'], 'log': '/workspace/rustwright/target/ci-rollout/guard-probes/ignored-tests/http_compat.log', 'exit_code': 0, 'passed': 0, 'failed': 0, 'ignored': 1, 'filtered': 0}"
+  },
+  {
+    "case": "filtered-tests",
+    "exit_code": 1,
+    "expected_failure_verified": true,
+    "error": "http_compat was empty, failed, ignored or filtered: {'target': 'http_compat', 'command': ['/workspace/rustwright/target/ci-rollout/guard-probes/ci-guard-29qfs6ju/bin/cargo', 'test', '--locked', '-p', 'rustwright-integration-tests', '--test', 'http_compat', '--', '--test-threads=1', '--nocapture'], 'log': '/workspace/rustwright/target/ci-rollout/guard-probes/filtered-tests/http_compat.log', 'exit_code': 0, 'passed': 0, 'failed': 0, 'ignored': 0, 'filtered': 1}"
+  },
+  {
+    "case": "one-backend-only",
+    "exit_code": 1,
+    "expected_failure_verified": true,
+    "error": "http_compat did not execute successful firefox cases"
+  },
+  {
+    "case": "stale-readme-summary",
+    "exit_code": 1,
+    "expected_failure_verified": true
+  }
+]

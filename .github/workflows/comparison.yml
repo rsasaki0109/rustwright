@@ -1,0 +1,141 @@
+name: Matched Chromium comparison
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/comparison.yml'
+      - 'bench/reliability/**'
+      - 'bench/playwright/**'
+      - 'examples/reliability.rs'
+      - 'examples/Cargo.toml'
+      - 'Cargo.toml'
+      - 'Cargo.lock'
+      - 'crates/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+concurrency:
+  group: comparison-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  CARGO_TERM_COLOR: always
+  CARGO_INCREMENTAL: '0'
+  CARGO_BUILD_JOBS: '2'
+  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+  RUSTWRIGHT_COMPARISON_OUTPUT: rustwright-comparison-${{ github.run_id }}-${{ github.run_attempt }}
+
+jobs:
+  measure:
+    name: Same-browser comparison / ${{ matrix.host }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        host: [host-1, host-2, host-3]
+    env:
+      RUSTWRIGHT_BENCH_HOST_ID: ${{ matrix.host }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: dtolnay/rust-toolchain@1.99.0
+      - uses: Swatinem/rust-cache@v2
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.19.0'
+          cache: npm
+          cache-dependency-path: bench/playwright/package-lock.json
+      - name: Reserve fresh comparison artifact directory
+        run: |
+          python3 - <<'PYTHON'
+          import os, pathlib
+          output = pathlib.Path(os.environ['RUNNER_TEMP']) / os.environ['RUSTWRIGHT_COMPARISON_OUTPUT']
+          output.mkdir(parents=True, exist_ok=False)
+          with open(os.environ['GITHUB_ENV'], 'a', encoding='utf-8') as stream:
+              stream.write(f'RUSTWRIGHT_COMPARISON_OUTPUT={output}\n')
+          PYTHON
+      - name: Install the locked reference driver
+        run: npm ci --prefix bench/playwright
+      - name: Install the common pinned browser
+        id: chrome
+        uses: browser-actions/setup-chrome@v2
+        with:
+          chrome-version: '155.0.8059.39'
+          install-dependencies: true
+      - name: Verify and configure the native sandbox
+        timeout-minutes: 3
+        env:
+          RUSTWRIGHT_CHROME: ${{ steps.chrome.outputs.chrome-path }}
+          CHROME_DEVEL_SANDBOX: ''
+        run: python scripts/ci/chrome_linux_sandbox.py --output "$RUSTWRIGHT_COMPARISON_OUTPUT/sandbox"
+      - name: Verify reporting and failure guards
+        run: |
+          python -m unittest discover -s bench/reliability -p 'test_*.py' -v
+          node --test bench/playwright/launch_metadata.test.mjs
+      - name: Build the measured release driver
+        run: cargo build --release --locked -p rustwright-examples --example reliability 2>&1 | tee "$RUSTWRIGHT_COMPARISON_OUTPUT/build.log"
+      - name: Measure all sixteen cases in alternating order
+        env:
+          BENCH_CHROME: ${{ steps.chrome.outputs.chrome-path }}
+        run: |
+          python bench/reliability/run.py --chrome "$BENCH_CHROME" \
+            --samples 100 --pairs 2 --require-engine-success rustwright \
+            --output "$RUSTWRIGHT_COMPARISON_OUTPUT/report.json" 2>&1 | tee "$RUSTWRIGHT_COMPARISON_OUTPUT/runner.log"
+      - name: Retain raw measurements and setup failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: comparison-${{ matrix.host }}
+          path: ${{ env.RUSTWRIGHT_COMPARISON_OUTPUT }}/
+          if-no-files-found: error
+
+  aggregate:
+    name: Validate and summarize three comparison environments
+    needs: measure
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - name: Reserve fresh comparison artifact directory
+        run: |
+          python3 - <<'PYTHON'
+          import os, pathlib
+          output = pathlib.Path(os.environ['RUNNER_TEMP']) / os.environ['RUSTWRIGHT_COMPARISON_OUTPUT']
+          output.mkdir(parents=True, exist_ok=False)
+          with open(os.environ['GITHUB_ENV'], 'a', encoding='utf-8') as stream:
+              stream.write(f'RUSTWRIGHT_COMPARISON_OUTPUT={output}\n')
+          PYTHON
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: comparison-host-*
+          path: ${{ env.RUSTWRIGHT_COMPARISON_OUTPUT }}/input
+      - name: Validate complete reports before comparison
+        run: |
+          python bench/reliability/aggregate.py --reports \
+            "$RUSTWRIGHT_COMPARISON_OUTPUT/input/comparison-host-1/report.json" \
+            "$RUSTWRIGHT_COMPARISON_OUTPUT/input/comparison-host-2/report.json" \
+            "$RUSTWRIGHT_COMPARISON_OUTPUT/input/comparison-host-3/report.json" \
+            --output "$RUSTWRIGHT_COMPARISON_OUTPUT/aggregate.json" \
+            --markdown "$RUSTWRIGHT_COMPARISON_OUTPUT/REPORT.md"
+      - name: Retain the comparison and validation outcome
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: comparison-summary
+          path: |
+            ${{ env.RUSTWRIGHT_COMPARISON_OUTPUT }}/aggregate.json
+            ${{ env.RUSTWRIGHT_COMPARISON_OUTPUT }}/REPORT.md
+          if-no-files-found: error

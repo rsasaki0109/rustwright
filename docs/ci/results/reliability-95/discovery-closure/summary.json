@@ -1,0 +1,114 @@
+{
+  "scope": "CI-discovered Chrome page discovery closure race; controlled WebSocket regressions and one native Chrome155 context suite.",
+  "original_ci_run": 37979801258,
+  "original_ci_source_commit": "908323d38ba036960c41347ecbe2a5dfa8c24271",
+  "baseline_production_matches_tested_git_source": true,
+  "original_failure": "http_contexts::closed_pages_are_removed_from_the_context_list; SessionDetached during Page.enable; suite9 passed1 failed",
+  "same_focused_peer_and_test_source_byte_verified": true,
+  "stages": {
+    "before": {
+      "status": "FAILED",
+      "passed": 2,
+      "failed": 6,
+      "ignored": 0,
+      "filtered": 53
+    },
+    "after": {
+      "status": "ok",
+      "passed": 8,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 53
+    },
+    "native-chrome155": {
+      "status": "ok",
+      "passed": 10,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0
+    }
+  },
+  "test_commands": [
+    {
+      "command": "cargo test --locked -p rustwright-core context::discovery_tests -- --test-threads=1 --nocapture",
+      "log": "before.log",
+      "exit_code": 101
+    },
+    {
+      "command": "cargo test --locked -p rustwright-core context::discovery_tests -- --test-threads=1 --nocapture",
+      "log": "after.log",
+      "exit_code": 0
+    },
+    {
+      "command": "RUSTWRIGHT_CHROME=/workspace/.rustwright-env/chrome155/chromium RUSTWRIGHT_REQUIRE_BROWSERS=1 cargo test --locked -p rustwright-integration-tests --test http_contexts -- --test-threads=1 --nocapture",
+      "log": "native-chrome155.log",
+      "exit_code": 0
+    }
+  ],
+  "scoped_checks": [
+    {
+      "command": [
+        "rustfmt",
+        "--edition",
+        "2021",
+        "--check",
+        "/workspace/rustwright/crates/rustwright-core/src/context.rs",
+        "/workspace/rustwright/crates/rustwright-core/src/context_discovery_tests.rs"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check",
+        "--",
+        "/workspace/rustwright/crates/rustwright-core/src/context.rs",
+        "/workspace/rustwright/crates/rustwright-core/src/context_discovery_tests.rs"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "native_engine": {
+    "version_command": [
+      "/workspace/.rustwright-env/chrome155/chrome-linux64/chrome",
+      "--version"
+    ],
+    "version": "Google Chrome for Testing 155.0.8059.39",
+    "sha256": "ed05e73a2cdf875326fcfa438b31c71a6a885a353610731dd52090dfc476f778",
+    "selected_launcher": "/workspace/.rustwright-env/chrome155/chromium",
+    "scope": "Existing cloud launch wrapper; authoritative unmodified engine; no wrapper/sandbox policy changes in this correction."
+  },
+  "final_source_sha256": {
+    "context.rs": "2d7bc6e3a8f79e3790732b24e5e56672b07f379588badbede6d471e48802e5fe",
+    "context_discovery_tests.rs": "3c52dc35e70fc9f38fc3a7e9728564c8da2bc1138de17d1651477dbd64d48754"
+  },
+  "git_head_at_freeze": "4cdec571a26c64e123a4dde66d4d9b47e8c64f63",
+  "limits": [
+    "Only typed SessionDetached initialization failures receive the extra browser-level target existence query.",
+    "Only exact CDP getTargetInfo no-target error (-32602 and matching message/method) permits skipping; every other error remains an error.",
+    "No retry or arbitrary initialization-error suppression.",
+    "Focused core tests intentionally filter53 other tests; native context suite runs all10 without filters/ignores.",
+    "This local native result does not claim final combined-source six-job CI success; root runs broader checks and remote CI separately."
+  ],
+  "final_source_commit": "4cdec571a26c64e123a4dde66d4d9b47e8c64f63",
+  "owned_source_equality_to_final_commit": [
+    {
+      "path": "crates/rustwright-core/src/context.rs",
+      "frozen_sha256": "2d7bc6e3a8f79e3790732b24e5e56672b07f379588badbede6d471e48802e5fe",
+      "git_commit_sha256": "2d7bc6e3a8f79e3790732b24e5e56672b07f379588badbede6d471e48802e5fe",
+      "matches": true
+    },
+    {
+      "path": "crates/rustwright-core/src/context_discovery_tests.rs",
+      "frozen_sha256": "3c52dc35e70fc9f38fc3a7e9728564c8da2bc1138de17d1651477dbd64d48754",
+      "git_commit_sha256": "3c52dc35e70fc9f38fc3a7e9728564c8da2bc1138de17d1651477dbd64d48754",
+      "matches": true
+    }
+  ],
+  "native_run_identity": "Unchanged Chrome155 context suite on the two owned source files before commit; those final files are byte-identical to final commit4cdec571. Other full-source build/CI evidence belongs to root."
+}

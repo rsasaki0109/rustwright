@@ -1,0 +1,5 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Frame fixture</title>
+<input id="value">
+<button id="submit" onclick="parent.postMessage({kind: 'submitted', value: document.querySelector('#value').value}, new window.URL(location.href).searchParams.get('parentOrigin') || location.origin)">Submit</button>

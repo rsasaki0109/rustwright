@@ -1,0 +1,9 @@
+# Headed portable harness implementation checks
+
+Exactly five portable targets honor RUSTWRIGHT_HEADLESS: missing/1/true is headless; 0/false is headed; other values fail before browser launch. Direct headed Linux execution requires DISPLAY or WAYLAND_DISPLAY. Headed Firefox rejects nonempty MOZ_HEADLESS. The harness default remains headless, and --headed selects only the portable suite, records mode/headless, and rejects missing displays or inherited Firefox headless forcing. Existing required headless CI commands are unchanged.
+
+Final source snapshots are under source/. All five targets compiled without running browsers; scoped Rust formatting, Python syntax and whitespace checks pass. Twenty final negative cases exercise each target's invalid/0-without-display/false-without-display/forced-headless-Firefox paths and confirm failure before browser launch. Harness negative/default/list checks remain in their distinct reports.
+
+Two narrow native actionability cases passed on the isolated display :95 using Chrome151.0.7922.173 (RUSTWRIGHT_HEADLESS=0) and Firefox157.0.1 (RUSTWRIGHT_HEADLESS=false). Each runs one case and intentionally filters eleven; this is not a full-suite or Chrome155 headed result. Those smokes preceded the added fail-fast display/MOZ_HEADLESS guards; the final guards were compiled and checked with negative cases afterward, with no additional browser launch during concurrent memory measurements. Activation's existing cloud browser wrappers and sandbox settings were not modified by this task. No system packages were installed by this agent.
+
+Full portable headed validation at the final source, and any remote/Chrome155 claim, must be recorded separately. No compiled binaries or browser profiles are copied into this evidence snapshot. SHA256SUMS uses repository-root-relative paths and covers all files here except itself.

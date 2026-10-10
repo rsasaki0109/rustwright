@@ -1,0 +1,100 @@
+--- a/crates/rustwright-bidi/src/browser.rs
++++ b/crates/rustwright-bidi/src/browser.rs
+@@ -1,6 +1,5 @@
+ //! A minimal Firefox/BiDi browser and page on top of [`BidiSession`].
+ 
+-use std::collections::HashSet;
+ use std::path::Path;
+ use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
+ use std::sync::{Arc, Mutex};
+@@ -10,6 +9,9 @@
+ #[cfg(test)]
+ #[path = "creation_tests.rs"]
+ mod creation_tests;
++#[cfg(test)]
++#[path = "frame_helper_cache_tests.rs"]
++mod frame_helper_cache_tests;
+ #[cfg(test)]
+ #[path = "shutdown_tests.rs"]
+ mod shutdown_tests;
+@@ -224,7 +226,6 @@
+ // The session indexes weak references so it cannot keep abandoned pages alive.
+ pub(crate) struct PageHelper {
+     runtime: tokio::runtime::Handle,
+-    contexts: Mutex<HashSet<String>>,
+     preload: tokio::sync::Mutex<Option<String>>,
+     connection: BidiConnection,
+     registered: Arc<AtomicUsize>,
+@@ -234,7 +235,6 @@
+     pub(crate) fn new(connection: BidiConnection, registered: Arc<AtomicUsize>) -> Self {
+         Self {
+             runtime: tokio::runtime::Handle::current(),
+-            contexts: Mutex::new(HashSet::new()),
+             preload: tokio::sync::Mutex::new(None),
+             connection,
+             registered,
+@@ -257,10 +257,6 @@
+             *preload = None;
+             self.registered.fetch_sub(1, Ordering::Relaxed);
+         }
+-        self.contexts
+-            .lock()
+-            .expect("bidi helper mutex poisoned")
+-            .clear();
+         Ok(())
+     }
+ }
+@@ -332,21 +328,8 @@
+ 
+     /// Navigate to `url` and wait for the load to complete.
+     pub async fn goto(&self, url: &str) -> BidiResult<()> {
+-        self.helper
+-            .contexts
+-            .lock()
+-            .expect("bidi helper mutex poisoned")
+-            .clear();
+         self.session.navigate(&self.context, url).await?;
+-        if self.helper.preload.lock().await.is_some() {
+-            // The preload script already installed the helper in the new
+-            // document, so no evaluate round-trip is needed.
+-            self.helper
+-                .contexts
+-                .lock()
+-                .expect("bidi helper mutex poisoned")
+-                .insert(self.context.clone());
+-        } else {
++        if self.helper.preload.lock().await.is_none() {
+             self.install_helper().await?;
+         }
+         Ok(())
+@@ -767,21 +750,20 @@
+     }
+ 
+     pub(crate) async fn ensure_helper_in(&self, context: &str) -> BidiResult<()> {
++        // Frame ids survive navigation and can outlive their documents. Check
++        // this document instead of retaining every frame id ever encountered.
++        // A live helper is reused; a late injection reply cannot cache a stale
++        // document. This costs one small evaluation on each locator operation.
+         if self
+-            .helper
+-            .contexts
+-            .lock()
+-            .expect("bidi helper mutex poisoned")
+-            .contains(context)
++            .session
++            .evaluate(context, "!!window.__rustwright")
++            .await?
++            .as_bool()
++            == Some(true)
+         {
+             return Ok(());
+         }
+         self.session.evaluate(context, INJECTED_SCRIPT).await?;
+-        self.helper
+-            .contexts
+-            .lock()
+-            .expect("bidi helper mutex poisoned")
+-            .insert(context.to_string());
+         Ok(())
+     }
+ 

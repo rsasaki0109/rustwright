@@ -1,0 +1,34 @@
+   Compiling rustwright-bidi v0.1.0 (/workspace/rustwright/crates/rustwright-bidi)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.94s
+     Running unittests src/lib.rs (target/debug/deps/rustwright_bidi-cedd5209c7d1f7e2)
+
+running 26 tests
+test browser::interception_tests::acknowledged_late_removal_is_reconciled_before_a_new_route ... ok
+test browser::interception_tests::canceled_pre_ack_event_continues_instead_of_being_lost ... ok
+test browser::interception_tests::canceled_reconciliation_restores_previous_committed_rules ... ok
+test browser::interception_tests::canceled_registration_reclaims_the_late_id ... ok
+test browser::interception_tests::cancellation_after_old_phase_removal_preserves_previous_rules ... ok
+test browser::interception_tests::clear_continues_after_waiter_cancellation ... ok
+test browser::interception_tests::closing_during_unacknowledged_add_closes_remote_and_removes_helper ... ok
+test browser::interception_tests::concurrent_registration_does_not_return_before_ack ... ok
+test browser::interception_tests::context_close_marks_every_page_closed_before_waiting_for_late_add ... ok
+test browser::interception_tests::descendant_events_use_owned_ids_and_foreign_intercepts_are_untouched ... ok
+test browser::interception_tests::discovered_handles_share_routes_and_keep_registration_alive ... ok
+test browser::interception_tests::failed_broader_registration_keeps_previous_phases_usable ... ok
+test browser::interception_tests::failed_drop_retirement_is_reused_by_discovered_handle ... ok
+test browser::interception_tests::failed_phase_expansion_preserves_existing_registration ... ok
+test browser::interception_tests::final_handle_drop_outside_runtime_uses_its_origin_runtime ... ok
+test browser::interception_tests::final_routed_page_handle_drop_removes_registration ... ok
+test browser::interception_tests::page_close_retires_routes_while_handle_is_retained ... ok
+test browser::interception_tests::persistent_drop_rejection_exits_after_explicit_browser_close ... ok
+test browser::interception_tests::previous_routes_keep_dispatching_while_broader_allocation_is_unacknowledged ... ok
+test browser::interception_tests::queued_unobserved_registration_handoff_is_rolled_back ... ok
+test browser::interception_tests::rejected_registration_is_retryable ... ok
+test browser::interception_tests::removal_error_is_typed_and_retains_the_id ... ok
+test browser::interception_tests::repeated_canceled_upgrades_do_not_retain_historical_intercept_ids ... ok
+test browser::interception_tests::retiring_intercept_continues_blocked_requests_until_ack ... ok
+test browser::interception_tests::route_removal_failure_does_not_skip_native_close_or_helper_cleanup ... ok
+test browser::interception_tests::user_context_close_retires_only_owned_routes ... ok
+
+test result: ok. 26 passed; 0 failed; 0 ignored; 0 measured; 46 filtered out; finished in 6.16s
+

@@ -1,0 +1,37 @@
+{
+  "phase": "missing-endpoint",
+  "method": "CDP HTTP renderer preflight",
+  "outer_timeout_seconds": 0.6,
+  "stdout": "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controls-final/missing-endpoint/missing-endpoint-stdout.log",
+  "stderr": "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controls-final/missing-endpoint/missing-endpoint-stderr.log",
+  "protocol": "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controls-final/missing-endpoint/missing-endpoint-cdp.jsonl",
+  "timed_out": true,
+  "document_rendered": false,
+  "exit_code": 0,
+  "passed": false,
+  "profile_path": "/tmp/rustwright-cdp-controls-t1esjxns/rustwright-missing-endpoint-0hx8n9gx",
+  "command": [
+    "/workspace/rustwright/target/reliability95/sandbox-cdp-preflight/controlled_peer.py",
+    "--no-first-run",
+    "--no-default-browser-check",
+    "--user-data-dir=/tmp/rustwright-cdp-controls-t1esjxns/rustwright-missing-endpoint-0hx8n9gx",
+    "--headless=new",
+    "--disable-gpu",
+    "--hide-scrollbars",
+    "--mute-audio",
+    "--remote-debugging-address=127.0.0.1",
+    "--remote-debugging-port=0",
+    "about:blank"
+  ],
+  "fixture_url": "http://127.0.0.1:35453/preflight-d64bc90c8383cbd1",
+  "fixture_path": "/preflight-d64bc90c8383cbd1",
+  "error": "TimeoutError: Shared Chrome CDP preflight deadline expired",
+  "cleanup": {
+    "termination_requested": true,
+    "errors": [],
+    "direct_child_reaped": true,
+    "exit_code": 0
+  },
+  "fixture_requests": [],
+  "profile_removed": true
+}

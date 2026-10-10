@@ -1,0 +1,101 @@
+--- a/crates/rustwright-core/src/context.rs
++++ b/crates/rustwright-core/src/context.rs
+@@ -430,6 +430,7 @@
+         TargetDuringDiscovery,
+         Initialization,
+         FailInitialization,
++        Live,
+     }
+ 
+     async fn mock_context(
+@@ -452,6 +453,20 @@
+                 let command: Value = serde_json::from_str(message.to_text().unwrap()).unwrap();
+                 tx.send(command.clone()).unwrap();
+                 let result = match command["method"].as_str().unwrap() {
++                    "Target.createTarget" if matches!(hold, Hold::Live) => {
++                        json!({"targetId":format!("tab-{}",command["id"])})
++                    }
++                    "Target.attachToTarget" if matches!(hold, Hold::Live) => {
++                        json!({"sessionId":format!("session-{}",command["params"]["targetId"].as_str().unwrap())})
++                    }
++                    "Page.getFrameTree" if matches!(hold, Hold::Live) => {
++                        json!({"frameTree":{"frame":{"id":"main","url":"about:blank","mimeType":"text/html"}}})
++                    }
++                    "Test.detach" if matches!(hold, Hold::Live) => {
++                        socket.send(Message::Text(json!({"method":"Target.detachedFromTarget","params":{"sessionId":command["params"]["sessionId"]}}).to_string().into())).await.unwrap();
++                        json!({})
++                    }
++                    _ if matches!(hold, Hold::Live) => json!({}),
+                     "Target.getTargets" if matches!(hold, Hold::Discovery) => continue,
+                     "Target.getTargets" if matches!(hold, Hold::TargetDuringDiscovery) => {
+                         socket.send(Message::Text(json!({
+@@ -589,4 +604,69 @@
+         context.connection.close();
+         server.abort();
+     }
++
++    #[tokio::test]
++    async fn explicit_close_releases_registry_without_discovery() {
++        let (context, _rx, server) = mock_context(Hold::Live).await;
++        let keep = context.new_page().await.unwrap();
++        for _ in 0..20 {
++            let page = context.new_page().await.unwrap();
++            let retained = page.clone();
++            page.close().await.unwrap();
++            assert_eq!(
++                context.pages.lock().unwrap().len(),
++                1,
++                "closed pages must be removed without calling pages() or refresh_pages()"
++            );
++            assert!(retained.is_closed());
++            assert!(!keep.is_closed());
++        }
++        keep.close().await.unwrap();
++        assert!(context.pages.lock().unwrap().is_empty());
++        context.connection.close();
++        server.abort();
++    }
++
++    async fn registry_empty(context: &BrowserContext) {
++        tokio::time::timeout(Duration::from_secs(1), async {
++            loop {
++                if context.pages.lock().unwrap().is_empty() {
++                    break;
++                }
++                tokio::task::yield_now().await;
++            }
++        })
++        .await
++        .expect("closure must release the registry without discovery");
++    }
++
++    #[tokio::test]
++    async fn external_detach_releases_registry_with_retained_handles() {
++        let (context, _rx, server) = mock_context(Hold::Live).await;
++        let page = context.new_page().await.unwrap();
++        context
++            .connection
++            .send_raw(
++                None,
++                "Test.detach",
++                json!({"sessionId":format!("session-{}",page.target_id())}),
++            )
++            .await
++            .unwrap();
++        registry_empty(&context).await;
++        assert!(page.is_closed());
++        page.close().await.unwrap();
++        context.connection.close();
++        server.abort();
++    }
++
++    #[tokio::test]
++    async fn disconnect_releases_registry_with_retained_handles() {
++        let (context, _rx, server) = mock_context(Hold::Live).await;
++        let page = context.new_page().await.unwrap();
++        context.connection.close();
++        registry_empty(&context).await;
++        assert!(page.is_closed());
++        server.abort();
++    }
+ }

@@ -1,0 +1,9 @@
+# Compatibility report validation
+
+The final example and example manifest are copied exactly under `sources/` with SHA-256 identities in `metadata.json`. The manifest enables four focused tests in normal workspace CI. This record contains scoped stable build, Clippy with warnings denied, Rust 1.85 check, formatting check and four passing unit tests.
+
+Two sequential headless local runs used actual Chrome 151.0.7922.173 and Firefox 157.0.1. Each observed a controlled HTTP 200 page and HTTP 403 page with known console and uncaught-JavaScript markers, preserved status/navigation/network diagnostics, produced a PNG, and completed all requested operations. HTTP 403 is classified as an access-denial observation while operation completion remains distinct. An explicit unreachable HTTP proxy was configured; successful loopback observations verify localhost bypass. They do not validate a remote proxy or HTTPS CA trust. Firefox scoped subscription/unsubscription and zero diagnostic loss were verified; its owned fresh profile was removed after successful shutdown.
+
+Ten actual subprocess negatives verified three invalid CLI cases exit 2 and seven operation/output/environment failures exit 1, including explicit missing executables, real existing-file processes exiting immediately, missing headed display and conflicting Firefox MOZ_HEADLESS. Raw reports, process logs, command records, fixture source and server requests are preserved without rewriting their original paths or URLs. The fixture server was stopped after verification.
+
+`git_head` provides repository context. Concurrent production edits are not frozen here; these are example-scoped observations rather than an independently archived complete production snapshot. Browser executables, compiled Rust binaries, browser profiles and caches are excluded. No public-site, native headed-window, HTTPS-trust, three-OS or SOTA result is claimed.

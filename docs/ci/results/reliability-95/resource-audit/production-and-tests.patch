@@ -1,0 +1,278 @@
+diff --git a/crates/rustwright-bidi/src/browser.rs b/crates/rustwright-bidi/src/browser.rs
+index 0941ac0..b795b5f 100644
+--- a/crates/rustwright-bidi/src/browser.rs
++++ b/crates/rustwright-bidi/src/browser.rs
+@@ -528,14 +528,31 @@ impl BidiPage {
+         tokio::spawn(async move {
+             tokio::time::timeout(crate::session::NETWORK_SETUP_TIMEOUT, async {
+                 let mut ready = page.network_started.lock().await;
++                if page.session.connection().is_closed() || page.idle.is_closed() {
++                    return Err(BidiError::Closed);
++                }
+                 if *ready {
+                     return Ok(());
+                 }
+                 // The remote end may emit events before acknowledging subscribe.
+                 // Buffer them locally while the cancellation-safe setup owns ACK.
+                 let events = page.session.events();
+-                page.session.ensure_network_subscription().await?;
+-                let guard = spawn_network_pump(events, page.context.clone(), page.network.clone());
++                let shutdown = page.session.connection().shutdown_receiver();
++                let mut closed = page.idle.close_receiver();
++                tokio::select! {
++                    result = page.session.ensure_network_subscription() => result?,
++                    _ = closed.changed() => return Err(BidiError::Closed),
++                }
++                if *shutdown.borrow() || page.idle.is_closed() {
++                    return Err(BidiError::Closed);
++                }
++                let guard = spawn_network_pump(
++                    events,
++                    page.context.clone(),
++                    page.network.clone(),
++                    shutdown,
++                    closed,
++                );
+                 *page
+                     .network_pump
+                     .lock()
+diff --git a/crates/rustwright-bidi/src/network.rs b/crates/rustwright-bidi/src/network.rs
+index 3e6ce79..7b2d61d 100644
+--- a/crates/rustwright-bidi/src/network.rs
++++ b/crates/rustwright-bidi/src/network.rs
+@@ -111,6 +111,10 @@ impl NetworkPumpGuard {
+     pub(crate) fn task_id(&self) -> tokio::task::Id {
+         self.handle.id()
+     }
++
++    pub(crate) fn abort_handle(&self) -> tokio::task::AbortHandle {
++        self.handle.abort_handle()
++    }
+ }
+ 
+ impl Drop for NetworkPumpGuard {
+@@ -137,15 +141,25 @@ pub(crate) fn spawn_network_pump(
+     mut events: broadcast::Receiver<BidiEvent>,
+     context: String,
+     sink: Arc<Mutex<Vec<BidiNetworkRequest>>>,
++    mut shutdown: watch::Receiver<bool>,
++    mut closed: watch::Receiver<bool>,
+ ) -> NetworkPumpGuard {
+     // The receiver was registered before the remote subscription handshake.
+     // Retain those queued events even before this task is first scheduled.
+     let handle = tokio::spawn(async move {
+         loop {
+-            match events.recv().await {
+-                Ok(event) => dispatch(&context, &sink, &event.method, &event.params),
+-                Err(broadcast::error::RecvError::Lagged(_)) => continue,
+-                Err(broadcast::error::RecvError::Closed) => break,
++            if *shutdown.borrow() || *closed.borrow() {
++                break;
++            }
++            tokio::select! {
++                event = events.recv() => match event {
++                    Ok(event) if event.method == "browsingContext.contextDestroyed" && event.params["context"] == context => break,
++                    Ok(event) => dispatch(&context, &sink, &event.method, &event.params),
++                    Err(broadcast::error::RecvError::Lagged(_)) => continue,
++                    Err(broadcast::error::RecvError::Closed) => break,
++                },
++                _ = shutdown.changed() => break,
++                _ = closed.changed() => break,
+             }
+         }
+     });
+diff --git a/crates/rustwright-bidi/src/network_idle.rs b/crates/rustwright-bidi/src/network_idle.rs
+index 06e8afa..56da654 100644
+--- a/crates/rustwright-bidi/src/network_idle.rs
++++ b/crates/rustwright-bidi/src/network_idle.rs
+@@ -253,6 +253,7 @@ impl Activity {
+ pub(crate) struct IdleObserver {
+     state: Arc<Mutex<Activity>>,
+     changes: watch::Sender<()>,
++    closed: watch::Sender<bool>,
+     setup: tokio::sync::Mutex<bool>,
+     pump: Mutex<Option<JoinHandle<()>>>,
+ }
+@@ -271,9 +272,11 @@ impl Drop for IdleObserver {
+ impl IdleObserver {
+     pub(crate) fn new(root: String) -> Self {
+         let (changes, _) = watch::channel(());
++        let (closed, _) = watch::channel(false);
+         Self {
+             state: Arc::new(Mutex::new(Activity::new(root))),
+             changes,
++            closed,
+             setup: tokio::sync::Mutex::new(false),
+             pump: Mutex::new(None),
+         }
+@@ -283,8 +286,21 @@ impl IdleObserver {
+             .lock()
+             .expect("idle state mutex poisoned")
+             .close();
++        self.closed.send_replace(true);
+         self.changes.send_replace(());
+     }
++
++    pub(crate) fn close_receiver(&self) -> watch::Receiver<bool> {
++        self.closed.subscribe()
++    }
++
++    pub(crate) fn is_closed(&self) -> bool {
++        matches!(
++            self.state.lock().expect("idle state mutex poisoned").fault,
++            Some(Fault::Closed)
++        )
++    }
++
+     pub(crate) async fn initialize(self: &Arc<Self>, session: BidiSession) -> BidiResult<()> {
+         let observer = self.clone();
+         tokio::spawn(async move {
+@@ -348,7 +364,13 @@ impl IdleObserver {
+             }
+             *state = activity;
+         }
+-        let pump = spawn_idle_pump(self.state.clone(), self.changes.clone(), events, shutdown);
++        let pump = spawn_idle_pump(
++            self.state.clone(),
++            self.changes.clone(),
++            events,
++            shutdown,
++            self.close_receiver(),
++        );
+         *self.pump.lock().expect("idle pump mutex poisoned") = Some(pump);
+         *ready = true;
+         self.changes.send_replace(());
+@@ -393,10 +415,11 @@ fn spawn_idle_pump(
+     changes: watch::Sender<()>,
+     mut events: broadcast::Receiver<BidiEvent>,
+     mut shutdown: watch::Receiver<bool>,
++    mut closed: watch::Receiver<bool>,
+ ) -> JoinHandle<()> {
+     tokio::spawn(async move {
+         loop {
+-            if *shutdown.borrow() {
++            if *shutdown.borrow() || *closed.borrow() {
+                 state.lock().expect("idle state mutex poisoned").close();
+                 changes.send_replace(());
+                 break;
+@@ -419,6 +442,11 @@ fn spawn_idle_pump(
+                     state.lock().expect("idle state mutex poisoned").close();
+                     changes.send_replace(());
+                     break;
++                },
++                _ = closed.changed() => {
++                    state.lock().expect("idle state mutex poisoned").close();
++                    changes.send_replace(());
++                    break;
+                 }
+             }
+         }
+diff --git a/crates/rustwright-bidi/src/network_idle/protocol_tests.rs b/crates/rustwright-bidi/src/network_idle/protocol_tests.rs
+index 42026eb..b8312b3 100644
+--- a/crates/rustwright-bidi/src/network_idle/protocol_tests.rs
++++ b/crates/rustwright-bidi/src/network_idle/protocol_tests.rs
+@@ -396,3 +396,28 @@ async fn silent_idle_setup_has_a_finite_budget_and_a_late_ack_does_not_poison_re
+     observer.wait(Duration::from_secs(2)).await.unwrap();
+     browser.close().await.unwrap();
+ }
++
++#[tokio::test]
++async fn local_page_close_releases_idle_pump_without_a_remote_destroy_event() {
++    let (_remote, browser) = remote(None, false, false).await;
++    let page = browser.new_page().await.unwrap();
++    let retained = page.clone();
++    let pump = page
++        .idle
++        .pump
++        .lock()
++        .unwrap()
++        .as_ref()
++        .unwrap()
++        .abort_handle();
++    page.close().await.unwrap();
++    assert!(!browser.session().connection().is_closed());
++    tokio::time::timeout(Duration::from_secs(1), async {
++        while !pump.is_finished() { tokio::task::yield_now().await; }
++    }).await.expect("local page closure must stop the idle pump even with retained closed handles and no remote events");
++    assert!(matches!(
++        retained.wait_for_network_idle().await,
++        Err(BidiError::Closed)
++    ));
++    browser.close().await.unwrap();
++}
+diff --git a/crates/rustwright-bidi/src/network_idle/tests.rs b/crates/rustwright-bidi/src/network_idle/tests.rs
+index d09288d..5173dc4 100644
+--- a/crates/rustwright-bidi/src/network_idle/tests.rs
++++ b/crates/rustwright-bidi/src/network_idle/tests.rs
+@@ -320,6 +320,7 @@ async fn actual_broadcast_lag_invalidates_the_live_pump_and_releases_waiters() {
+         observer.changes.clone(),
+         receiver,
+         shutdown,
++        observer.close_receiver(),
+     );
+     *observer.pump.lock().unwrap() = Some(pump);
+     // No await lets the real receiver overflow before its task first runs.
+diff --git a/crates/rustwright-bidi/src/network_subscription_tests.rs b/crates/rustwright-bidi/src/network_subscription_tests.rs
+index cb00e04..7560254 100644
+--- a/crates/rustwright-bidi/src/network_subscription_tests.rs
++++ b/crates/rustwright-bidi/src/network_subscription_tests.rs
+@@ -361,3 +361,59 @@ async fn monitoring_retains_events_received_before_subscription_acknowledgment()
+ async fn cancelled_monitoring_retains_events_received_before_subscription_acknowledgment() {
+     pre_ack_events_remain_observable(true).await;
+ }
++
++fn diagnostic_pump(page: &BidiPage) -> tokio::task::AbortHandle {
++    page.network_pump
++        .lock()
++        .unwrap()
++        .as_ref()
++        .unwrap()
++        .abort_handle()
++}
++
++async fn finished(pump: &tokio::task::AbortHandle) {
++    tokio::time::timeout(Duration::from_secs(1), async {
++        while !pump.is_finished() {
++            tokio::task::yield_now().await;
++        }
++    })
++    .await
++    .expect("closed resource must release its diagnostic pump without dropping retained handles");
++}
++
++#[tokio::test]
++async fn retained_page_diagnostics_stop_on_browser_close_without_remote_events() {
++    let (_remote, browser) = remote(false, false).await;
++    let context = browser.session().create_context().await.unwrap();
++    let page = BidiPage::from_context(browser.session().clone(), context, None);
++    page.start_network_monitoring().await.unwrap();
++    let pump = diagnostic_pump(&page);
++    browser.close().await.unwrap();
++    assert!(page.session.connection().is_closed());
++    finished(&pump).await;
++    assert!(matches!(
++        page.start_network_monitoring().await,
++        Err(BidiError::Closed)
++    ));
++}
++
++#[tokio::test]
++async fn closing_one_page_alias_stops_all_diagnostics_without_a_destroy_event() {
++    let (_remote, browser) = remote(false, false).await;
++    let context = browser.session().create_context().await.unwrap();
++    let page = BidiPage::from_context(browser.session().clone(), context.clone(), None);
++    let alias = BidiPage::from_context(browser.session().clone(), context, None);
++    page.start_network_monitoring().await.unwrap();
++    alias.start_network_monitoring().await.unwrap();
++    let first = diagnostic_pump(&page);
++    let second = diagnostic_pump(&alias);
++    page.close().await.unwrap();
++    assert!(!browser.session().connection().is_closed());
++    finished(&first).await;
++    finished(&second).await;
++    assert!(matches!(
++        alias.start_network_monitoring().await,
++        Err(BidiError::Closed)
++    ));
++    browser.close().await.unwrap();
++}

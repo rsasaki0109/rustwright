@@ -1,0 +1,28 @@
+   Compiling rustwright-bidi v0.1.0 (/workspace/rustwright/crates/rustwright-bidi)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 13.68s
+     Running unittests src/lib.rs (target/debug/deps/rustwright_bidi-cedd5209c7d1f7e2)
+
+running 8 tests
+
+thread 'browser::navigation_tests::context_destruction_wakes_history_even_with_command_acknowledgment_held' (1320873) panicked at crates/rustwright-bidi/src/navigation_tests.rs:270:5:
+assertion `left == right` failed
+  left: 1
+ right: 0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test browser::navigation_tests::context_destruction_wakes_history_even_with_command_acknowledgment_held ... FAILED
+test browser::navigation_tests::connection_shutdown_wakes_history_waiter ... ok
+test browser::navigation_tests::missing_history_entry_preserves_typed_protocol_error ... ok
+test browser::navigation_tests::cancelled_history_releases_command_and_next_traversal_recovers ... ok
+test browser::navigation_tests::history_deadline_covers_lifecycle_and_releases_pending_command ... ok
+test browser::navigation_tests::lifecycle_before_command_acknowledgment_is_not_lost ... ok
+test browser::navigation_tests::same_document_history_and_fragment_commits_share_one_subscription ... ok
+test browser::navigation_tests::stale_foreign_and_wrong_navigation_loads_do_not_finish_history ... ok
+
+failures:
+
+failures:
+    browser::navigation_tests::context_destruction_wakes_history_even_with_command_acknowledgment_held
+
+test result: FAILED. 7 passed; 1 failed; 0 ignored; 0 measured; 73 filtered out; finished in 0.12s
+
+error: test failed, to rerun pass `-p rustwright-bidi --lib`

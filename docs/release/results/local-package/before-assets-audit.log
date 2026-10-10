@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/workspace/rustwright/scripts/release_check.py", line 282, in <module>
+    main()
+  File "/workspace/rustwright/scripts/release_check.py", line 236, in main
+    audit_archives(args.audit_only.resolve(), output / "archive-audit.json", version)
+  File "/workspace/rustwright/scripts/release_check.py", line 90, in audit_archives
+    raise RuntimeError("Archive audit failed: " + ", ".join(failures))
+RuntimeError: Archive audit failed: rustwright: readme_metadata, rustwright: readme_content, rustwright: license_mit, rustwright: license_apache, rustwright-bidi: readme_metadata, rustwright-bidi: readme_content, rustwright-bidi: license_mit, rustwright-bidi: license_apache, rustwright-browser: readme_metadata, rustwright-browser: readme_content, rustwright-browser: license_mit, rustwright-browser: license_apache, rustwright-cdp: readme_metadata, rustwright-cdp: readme_content, rustwright-cdp: license_mit, rustwright-cdp: license_apache, rustwright-common: readme_metadata, rustwright-common: readme_content, rustwright-common: license_mit, rustwright-common: license_apache, rustwright-core: readme_metadata, rustwright-core: readme_content, rustwright-core: license_mit, rustwright-core: license_apache, rustwright-test: readme_metadata, rustwright-test: readme_content, rustwright-test: license_mit, rustwright-test: license_apache, rustwright-test-macros: readme_metadata, rustwright-test-macros: readme_content, rustwright-test-macros: license_mit, rustwright-test-macros: license_apache

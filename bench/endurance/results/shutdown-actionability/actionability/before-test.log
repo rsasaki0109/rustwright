@@ -1,0 +1,65 @@
+   Compiling rustwright-bidi v0.1.0 (/workspace/rustwright/crates/rustwright-bidi)
+   Compiling rustwright-core v0.1.0 (/workspace/rustwright/crates/rustwright-core)
+   Compiling rustwright v0.1.0 (/workspace/rustwright/crates/rustwright)
+   Compiling rustwright-integration-tests v0.1.0 (/workspace/rustwright/tests)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.38s
+     Running http_actionability.rs (target/debug/deps/http_actionability-4979319a40142347)
+
+running 10 tests
+test chrome_clipped_control ... Chrome version: Chrome/151.0.7922.173
+
+thread 'chrome_clipped_control' (839437) panicked at tests/http_actionability.rs:139:5:
+click failed: Err(Elapsed(()))
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+test chrome_disabled_aria_ancestor ... Chrome version: Chrome/151.0.7922.173
+ok
+test chrome_disabled_fieldset ... Chrome version: Chrome/151.0.7922.173
+ok
+test chrome_move_on_hover ... Chrome version: Chrome/151.0.7922.173
+ok
+test chrome_transient_overlay ... Chrome version: Chrome/151.0.7922.173
+ok
+test firefox_clipped_control ... Firefox version: Some("157.0.1")
+ok
+test firefox_disabled_aria_ancestor ... Firefox version: Some("157.0.1")
+
+thread 'firefox_disabled_aria_ancestor' (840422) panicked at tests/http_actionability.rs:140:5:
+assertion `left == right` failed
+  left: Array [Number(1), Bool(true), Bool(false), Number(1)]
+ right: Array [Number(1), Bool(true), Bool(true), Number(0)]
+FAILED
+test firefox_disabled_fieldset ... Firefox version: Some("157.0.1")
+
+thread 'firefox_disabled_fieldset' (840744) panicked at tests/http_actionability.rs:140:5:
+assertion `left == right` failed
+  left: Array [Number(0), Null, Bool(false), Number(0)]
+ right: Array [Number(1), Bool(true), Bool(true), Number(0)]
+FAILED
+test firefox_move_on_hover ... Firefox version: Some("157.0.1")
+
+thread 'firefox_move_on_hover' (841049) panicked at tests/http_actionability.rs:140:5:
+assertion `left == right` failed
+  left: Array [Number(0), Null, Bool(false), Number(0)]
+ right: Array [Number(1), Bool(true), Bool(true), Number(0)]
+FAILED
+test firefox_transient_overlay ... Firefox version: Some("157.0.1")
+
+thread 'firefox_transient_overlay' (841299) panicked at tests/http_actionability.rs:140:5:
+assertion `left == right` failed
+  left: Array [Number(0), Null, Bool(false), Number(1)]
+ right: Array [Number(1), Bool(true), Bool(true), Number(0)]
+FAILED
+
+failures:
+
+failures:
+    chrome_clipped_control
+    firefox_disabled_aria_ancestor
+    firefox_disabled_fieldset
+    firefox_move_on_hover
+    firefox_transient_overlay
+
+test result: FAILED. 5 passed; 5 failed; 0 ignored; 0 measured; 0 filtered out; finished in 20.32s
+
+error: test failed, to rerun pass `-p rustwright-integration-tests --test http_actionability`

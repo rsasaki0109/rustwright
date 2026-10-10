@@ -1,0 +1,40 @@
+   Compiling rustwright-integration-tests v0.1.0 (/workspace/rustwright/tests)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.66s
+     Running http_bidi_navigation.rs (target/debug/deps/http_bidi_navigation-5fb55f4b1a8f8cf0)
+
+running 7 tests
+test chrome_history_boundary_and_closed_errors ... backend=chrome version=Chrome/151.0.7922.173
+ok
+test chrome_history_commits_and_loads ... backend=chrome version=Chrome/151.0.7922.173
+
+thread 'chrome_history_commits_and_loads' (1316788) panicked at tests/http_bidi_navigation.rs:137:5:
+assertion failed: page.url().await.unwrap().ends_with("/pushed-without-fragment")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+test chrome_reload_waits_for_resources ... backend=chrome version=Chrome/151.0.7922.173
+ok
+test firefox_history_boundary_and_closed_errors ... backend=firefox version=Some("157.0.1")
+
+thread 'firefox_history_boundary_and_closed_errors' (1317060) panicked at tests/http_bidi_navigation.rs:169:18:
+assertion failed: missing.unwrap_err().contains("no such history entry")
+FAILED
+test firefox_history_commits_and_loads ... backend=firefox version=Some("157.0.1")
+
+thread 'firefox_history_commits_and_loads' (1317352) panicked at tests/http_bidi_navigation.rs:116:185:
+called `Result::unwrap()` on an `Err` value: Protocol { method: "session.subscribe", error: "invalid argument", message: "browsingContext.navigationAborted is not a valid event name" }
+FAILED
+test firefox_reload_deadline_cancellation_and_recovery ... backend=firefox version=Some("157.0.1")
+ok
+test firefox_reload_waits_for_resources ... backend=firefox version=Some("157.0.1")
+ok
+
+failures:
+
+failures:
+    chrome_history_commits_and_loads
+    firefox_history_boundary_and_closed_errors
+    firefox_history_commits_and_loads
+
+test result: FAILED. 4 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 11.92s
+
+error: test failed, to rerun pass `-p rustwright-integration-tests --test http_bidi_navigation`

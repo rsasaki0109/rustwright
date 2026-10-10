@@ -1,0 +1,19 @@
+[package]
+name = "rustwright-release-consumer"
+version = "0.0.0"
+edition = "2021"
+rust-version = "1.85"
+
+[workspace]
+
+[dependencies]
+rustwright = "=0.1.0"
+rustwright-bidi = "=0.1.0"
+rustwright-browser = "=0.1.0"
+rustwright-cdp = "=0.1.0"
+rustwright-common = "=0.1.0"
+rustwright-core = "=0.1.0"
+rustwright-test = "=0.1.0"
+rustwright-test-macros = "=0.1.0"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "io-util", "sync", "time"] }
+serde_json = "1"

@@ -1,0 +1,350 @@
+   Compiling rustwright-bidi v0.1.0 (/workspace/rustwright/crates/rustwright-bidi)
+   Compiling rustwright-core v0.1.0 (/workspace/rustwright/crates/rustwright-core)
+   Compiling rustwright v0.1.0 (/workspace/rustwright/crates/rustwright)
+   Compiling rustwright-integration-tests v0.1.0 (/workspace/rustwright/tests)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 11.66s
+     Running http_compat.rs (target/debug/deps/http_compat-13835e7b87cc4bc8)
+
+running 24 tests
+test chrome_cancelled_wait_recovers ... Chrome version: Chrome/151.0.7922.173
+ok
+test chrome_closing_page_wakes_wait ... Chrome version: Chrome/151.0.7922.173
+ok
+test chrome_delayed_and_absent_elements ... Chrome version: Chrome/151.0.7922.173
+ok
+test chrome_disconnect_wakes_wait ... Chrome version: Chrome/151.0.7922.173
+ok
+test chrome_frame_click ... Chrome version: Chrome/151.0.7922.173
+ok
+test chrome_frame_hover_and_keyboard ... Chrome version: Chrome/151.0.7922.173
+ok
+test chrome_frame_reload ... Chrome version: Chrome/151.0.7922.173
+ok
+test chrome_isolated_popup_ownership ... Chrome version: Chrome/151.0.7922.173
+ok
+test chrome_isolated_storage ... Chrome version: Chrome/151.0.7922.173
+ok
+test chrome_javascript_exceptions ... Chrome version: Chrome/151.0.7922.173
+ok
+test chrome_navigation_and_forms ... Chrome version: Chrome/151.0.7922.173
+ok
+test chrome_wait_deadline ... Chrome version: Chrome/151.0.7922.173
+ok
+test firefox_cancelled_wait_recovers ... Firefox version: Some("157.0.1")
+ok
+test firefox_closing_page_wakes_wait ... Firefox version: Some("157.0.1")
+ok
+test firefox_delayed_and_absent_elements ... Firefox version: Some("157.0.1")
+ok
+test firefox_disconnect_wakes_wait ... Firefox version: Some("157.0.1")
+ok
+test firefox_frame_click ... Firefox version: Some("157.0.1")
+ok
+test firefox_frame_hover_and_keyboard ... Firefox version: Some("157.0.1")
+ok
+test firefox_frame_reload ... Firefox version: Some("157.0.1")
+ok
+test firefox_isolated_popup_ownership ... Firefox version: Some("157.0.1")
+ok
+test firefox_isolated_storage ... Firefox version: Some("157.0.1")
+ok
+test firefox_javascript_exceptions ... Firefox version: Some("157.0.1")
+ok
+test firefox_navigation_and_forms ... Firefox version: Some("157.0.1")
+ok
+test firefox_wait_deadline ... Firefox version: Some("157.0.1")
+ok
+
+test result: ok. 24 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 39.30s
+
+     Running http_contexts.rs (target/debug/deps/http_contexts-7790aada98a9b338)
+
+running 10 tests
+test browser_disconnect_wakes_a_pending_page_wait ... ok
+test cancelled_popup_wait_does_not_stop_future_discovery ... ok
+test closed_pages_are_removed_from_the_context_list ... ok
+test concurrent_refresh_shares_one_page_session_and_route_state ... ok
+test concurrent_waiters_adopt_distinct_popups ... ok
+test connected_browser_excludes_another_clients_isolated_context ... ok
+test context_close_wakes_a_pending_page_wait ... ok
+test default_discovery_does_not_adopt_isolated_pages ... ok
+test default_popup_wait_ignores_isolated_target_created_events ... ok
+test isolated_popup_wait_ignores_default_and_other_isolated_contexts ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 9.14s
+
+     Running http_creation.rs (target/debug/deps/http_creation-56c8e51711cc4f3c)
+
+running 2 tests
+test chrome_cancelled_creation_releases_native_resources ... {"context_ids":[],"contexts":0,"cycle":1,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"context","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":[],"contexts":0,"cycle":2,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"context","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":[],"contexts":0,"cycle":3,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"context","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":[],"contexts":0,"cycle":4,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"context","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":[],"contexts":0,"cycle":5,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"context","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":[],"contexts":0,"cycle":6,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"context","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":[],"contexts":0,"cycle":7,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"context","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":[],"contexts":0,"cycle":8,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"context","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":[],"contexts":0,"cycle":9,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"context","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":[],"contexts":0,"cycle":10,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"context","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":[],"contexts":0,"cycle":1,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"default-create","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":[],"contexts":0,"cycle":2,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"default-create","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":[],"contexts":0,"cycle":3,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"default-create","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":[],"contexts":0,"cycle":4,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"default-create","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":[],"contexts":0,"cycle":5,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"default-create","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":[],"contexts":0,"cycle":6,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"default-create","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":[],"contexts":0,"cycle":7,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"default-create","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":[],"contexts":0,"cycle":8,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"default-create","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":[],"contexts":0,"cycle":9,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"default-create","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":[],"contexts":0,"cycle":10,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"default-create","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":[],"contexts":0,"cycle":1,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"default-init","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":[],"contexts":0,"cycle":2,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"default-init","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":[],"contexts":0,"cycle":3,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"default-init","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":[],"contexts":0,"cycle":4,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"default-init","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":[],"contexts":0,"cycle":5,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"default-init","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":[],"contexts":0,"cycle":6,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"default-init","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":[],"contexts":0,"cycle":7,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"default-init","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":[],"contexts":0,"cycle":8,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"default-init","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":[],"contexts":0,"cycle":9,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"default-init","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":[],"contexts":0,"cycle":10,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"default-init","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":["89C4A6625F771BB7A7E15C4145D77110"],"contexts":1,"cycle":1,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"isolated-create","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":["89C4A6625F771BB7A7E15C4145D77110"],"contexts":1,"cycle":2,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"isolated-create","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":["89C4A6625F771BB7A7E15C4145D77110"],"contexts":1,"cycle":3,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"isolated-create","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":["89C4A6625F771BB7A7E15C4145D77110"],"contexts":1,"cycle":4,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"isolated-create","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":["89C4A6625F771BB7A7E15C4145D77110"],"contexts":1,"cycle":5,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"isolated-create","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":["89C4A6625F771BB7A7E15C4145D77110"],"contexts":1,"cycle":6,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"isolated-create","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":["89C4A6625F771BB7A7E15C4145D77110"],"contexts":1,"cycle":7,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"isolated-create","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":["89C4A6625F771BB7A7E15C4145D77110"],"contexts":1,"cycle":8,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"isolated-create","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":["89C4A6625F771BB7A7E15C4145D77110"],"contexts":1,"cycle":9,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"isolated-create","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":["89C4A6625F771BB7A7E15C4145D77110"],"contexts":1,"cycle":10,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"isolated-create","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":["9773CF9BC12F7A5B094219524EB6682F"],"contexts":1,"cycle":1,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"isolated-init","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":["9773CF9BC12F7A5B094219524EB6682F"],"contexts":1,"cycle":2,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"isolated-init","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":["9773CF9BC12F7A5B094219524EB6682F"],"contexts":1,"cycle":3,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"isolated-init","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":["9773CF9BC12F7A5B094219524EB6682F"],"contexts":1,"cycle":4,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"isolated-init","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":["9773CF9BC12F7A5B094219524EB6682F"],"contexts":1,"cycle":5,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"isolated-init","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":["9773CF9BC12F7A5B094219524EB6682F"],"contexts":1,"cycle":6,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"isolated-init","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":["9773CF9BC12F7A5B094219524EB6682F"],"contexts":1,"cycle":7,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"isolated-init","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":["9773CF9BC12F7A5B094219524EB6682F"],"contexts":1,"cycle":8,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"isolated-init","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":["9773CF9BC12F7A5B094219524EB6682F"],"contexts":1,"cycle":9,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"isolated-init","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+{"context_ids":["9773CF9BC12F7A5B094219524EB6682F"],"contexts":1,"cycle":10,"engine":"chrome","existing_page_preserved":true,"helper_preloads":null,"mode":"isolated-init","page_ids":["123E7F46B9BE691E1D4395DFBF9716DA","3E7CC5C0708552B752EB3CDBF8A377F6"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"Chrome/151.0.7922.173"}
+ok
+test firefox_cancelled_creation_releases_native_resources ... {"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":5,"cycle":1,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"context","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":5,"cycle":2,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"context","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":5,"cycle":3,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"context","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":5,"cycle":4,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"context","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":5,"cycle":5,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"context","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":5,"cycle":6,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"context","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":5,"cycle":7,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"context","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":5,"cycle":8,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"context","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":5,"cycle":9,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"context","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":5,"cycle":10,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"context","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":5,"cycle":1,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"default-create","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":5,"cycle":2,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"default-create","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":5,"cycle":3,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"default-create","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":5,"cycle":4,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"default-create","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":5,"cycle":5,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"default-create","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":5,"cycle":6,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"default-create","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":5,"cycle":7,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"default-create","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":5,"cycle":8,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"default-create","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":5,"cycle":9,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"default-create","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":5,"cycle":10,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"default-create","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":5,"cycle":1,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"default-init","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":5,"cycle":2,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"default-init","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":5,"cycle":3,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"default-init","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":5,"cycle":4,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"default-init","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":5,"cycle":5,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"default-init","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":5,"cycle":6,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"default-init","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":5,"cycle":7,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"default-init","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":5,"cycle":8,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"default-init","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":5,"cycle":9,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"default-init","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":5,"cycle":10,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"default-init","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","9b7775be-77fe-4660-86e3-f1f7b662a0af","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":6,"cycle":1,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"isolated-create","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","9b7775be-77fe-4660-86e3-f1f7b662a0af","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":6,"cycle":2,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"isolated-create","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","9b7775be-77fe-4660-86e3-f1f7b662a0af","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":6,"cycle":3,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"isolated-create","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","9b7775be-77fe-4660-86e3-f1f7b662a0af","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":6,"cycle":4,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"isolated-create","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","9b7775be-77fe-4660-86e3-f1f7b662a0af","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":6,"cycle":5,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"isolated-create","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","9b7775be-77fe-4660-86e3-f1f7b662a0af","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":6,"cycle":6,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"isolated-create","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","9b7775be-77fe-4660-86e3-f1f7b662a0af","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":6,"cycle":7,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"isolated-create","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","9b7775be-77fe-4660-86e3-f1f7b662a0af","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":6,"cycle":8,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"isolated-create","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","9b7775be-77fe-4660-86e3-f1f7b662a0af","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":6,"cycle":9,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"isolated-create","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","9b7775be-77fe-4660-86e3-f1f7b662a0af","default","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":6,"cycle":10,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"isolated-create","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","e305d36c-85f1-4ef9-8c59-11d5ec615851","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":6,"cycle":1,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"isolated-init","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","e305d36c-85f1-4ef9-8c59-11d5ec615851","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":6,"cycle":2,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"isolated-init","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","e305d36c-85f1-4ef9-8c59-11d5ec615851","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":6,"cycle":3,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"isolated-init","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","e305d36c-85f1-4ef9-8c59-11d5ec615851","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":6,"cycle":4,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"isolated-init","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","e305d36c-85f1-4ef9-8c59-11d5ec615851","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":6,"cycle":5,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"isolated-init","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","e305d36c-85f1-4ef9-8c59-11d5ec615851","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":6,"cycle":6,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"isolated-init","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","e305d36c-85f1-4ef9-8c59-11d5ec615851","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":6,"cycle":7,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"isolated-init","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","e305d36c-85f1-4ef9-8c59-11d5ec615851","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":6,"cycle":8,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"isolated-init","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","e305d36c-85f1-4ef9-8c59-11d5ec615851","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":6,"cycle":9,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"isolated-init","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+{"context_ids":["25fe0c10-c6d4-4b83-9d92-8db0decc6128","87f8939e-e04c-45d1-874a-b18470c634fc","default","e305d36c-85f1-4ef9-8c59-11d5ec615851","f16e6b10-571d-4781-9c8c-2e2b9a37dd73","fe3ea35e-0454-4389-ba50-49bcec84041a"],"contexts":6,"cycle":10,"engine":"firefox","existing_page_preserved":true,"helper_preloads":1,"mode":"isolated-init","page_ids":["7abd8b05-0160-44ec-948d-39dfa78a2a26","c24bd12f-2931-4b53-ad58-337ab99c2e55"],"pages":2,"pending":0,"subsequent_page_usable":true,"version":"157.0.1"}
+ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 38.92s
+
+     Running http_disconnect.rs (target/debug/deps/http_disconnect-c07d6c39e224a143)
+
+running 2 tests
+test chrome_process_loss_and_manual_restart ... {"cleanup_ms":12.869791000000001,"cycle":1,"engine":"chrome","event_channel_closed":true,"pending_after_loss":0,"pid":813034,"root_exited":true,"version":"Chrome/151.0.7922.173","wake_ms":12.576806}
+{"cleanup_ms":12.681586,"cycle":2,"engine":"chrome","event_channel_closed":true,"pending_after_loss":0,"pid":813169,"root_exited":true,"version":"Chrome/151.0.7922.173","wake_ms":12.572415999999999}
+{"cleanup_ms":6.343077,"cycle":3,"engine":"chrome","event_channel_closed":true,"pending_after_loss":0,"pid":813304,"root_exited":true,"version":"Chrome/151.0.7922.173","wake_ms":6.244518}
+{"cleanup_ms":9.511567,"cycle":4,"engine":"chrome","event_channel_closed":true,"pending_after_loss":0,"pid":813433,"root_exited":true,"version":"Chrome/151.0.7922.173","wake_ms":9.406633}
+{"cleanup_ms":9.977324,"cycle":5,"engine":"chrome","event_channel_closed":true,"pending_after_loss":0,"pid":813562,"root_exited":true,"version":"Chrome/151.0.7922.173","wake_ms":9.816984000000001}
+{"cleanup_ms":19.172176,"cycle":6,"engine":"chrome","event_channel_closed":true,"pending_after_loss":0,"pid":813692,"root_exited":true,"version":"Chrome/151.0.7922.173","wake_ms":19.036780999999998}
+{"cleanup_ms":46.574935999999994,"cycle":7,"engine":"chrome","event_channel_closed":true,"pending_after_loss":0,"pid":813823,"root_exited":true,"version":"Chrome/151.0.7922.173","wake_ms":46.464893000000004}
+{"cleanup_ms":33.222653,"cycle":8,"engine":"chrome","event_channel_closed":true,"pending_after_loss":0,"pid":813955,"root_exited":true,"version":"Chrome/151.0.7922.173","wake_ms":33.045012}
+{"cleanup_ms":31.249388,"cycle":9,"engine":"chrome","event_channel_closed":true,"pending_after_loss":0,"pid":814085,"root_exited":true,"version":"Chrome/151.0.7922.173","wake_ms":31.117936}
+{"cleanup_ms":16.45082,"cycle":10,"engine":"chrome","event_channel_closed":true,"pending_after_loss":0,"pid":814215,"root_exited":true,"version":"Chrome/151.0.7922.173","wake_ms":16.290098999999998}
+{"cleanup_ms":56.526951,"cycle":11,"engine":"chrome","event_channel_closed":true,"pending_after_loss":0,"pid":814345,"root_exited":true,"version":"Chrome/151.0.7922.173","wake_ms":56.400706}
+{"cleanup_ms":8.880752000000001,"cycle":12,"engine":"chrome","event_channel_closed":true,"pending_after_loss":0,"pid":814474,"root_exited":true,"version":"Chrome/151.0.7922.173","wake_ms":8.775098999999999}
+{"cleanup_ms":92.34603700000001,"cycle":13,"engine":"chrome","event_channel_closed":true,"pending_after_loss":0,"pid":814604,"root_exited":true,"version":"Chrome/151.0.7922.173","wake_ms":92.23737899999999}
+{"cleanup_ms":6.302683,"cycle":14,"engine":"chrome","event_channel_closed":true,"pending_after_loss":0,"pid":814734,"root_exited":true,"version":"Chrome/151.0.7922.173","wake_ms":6.182942000000001}
+{"cleanup_ms":18.628194,"cycle":15,"engine":"chrome","event_channel_closed":true,"pending_after_loss":0,"pid":814866,"root_exited":true,"version":"Chrome/151.0.7922.173","wake_ms":18.518034}
+{"cleanup_ms":22.077359,"cycle":16,"engine":"chrome","event_channel_closed":true,"pending_after_loss":0,"pid":814997,"root_exited":true,"version":"Chrome/151.0.7922.173","wake_ms":21.961275}
+{"cleanup_ms":8.204312999999999,"cycle":17,"engine":"chrome","event_channel_closed":true,"pending_after_loss":0,"pid":815126,"root_exited":true,"version":"Chrome/151.0.7922.173","wake_ms":8.073337}
+{"cleanup_ms":18.249616,"cycle":18,"engine":"chrome","event_channel_closed":true,"pending_after_loss":0,"pid":815256,"root_exited":true,"version":"Chrome/151.0.7922.173","wake_ms":18.115389999999998}
+{"cleanup_ms":5.8066439999999995,"cycle":19,"engine":"chrome","event_channel_closed":true,"pending_after_loss":0,"pid":815388,"root_exited":true,"version":"Chrome/151.0.7922.173","wake_ms":5.666847}
+{"cleanup_ms":8.135167000000001,"cycle":20,"engine":"chrome","event_channel_closed":true,"pending_after_loss":0,"pid":815518,"root_exited":true,"version":"Chrome/151.0.7922.173","wake_ms":8.036398}
+{"cleanup_ms":6.877944,"cycle":21,"engine":"chrome","event_channel_closed":true,"pending_after_loss":0,"pid":815650,"root_exited":true,"version":"Chrome/151.0.7922.173","wake_ms":6.730892}
+{"cleanup_ms":9.16459,"cycle":22,"engine":"chrome","event_channel_closed":true,"pending_after_loss":0,"pid":815781,"root_exited":true,"version":"Chrome/151.0.7922.173","wake_ms":9.060805}
+{"cleanup_ms":14.595273,"cycle":23,"engine":"chrome","event_channel_closed":true,"pending_after_loss":0,"pid":815909,"root_exited":true,"version":"Chrome/151.0.7922.173","wake_ms":14.462861}
+{"cleanup_ms":12.881053,"cycle":24,"engine":"chrome","event_channel_closed":true,"pending_after_loss":0,"pid":816039,"root_exited":true,"version":"Chrome/151.0.7922.173","wake_ms":12.779615}
+{"cleanup_ms":19.604937999999997,"cycle":25,"engine":"chrome","event_channel_closed":true,"pending_after_loss":0,"pid":816168,"root_exited":true,"version":"Chrome/151.0.7922.173","wake_ms":19.470879}
+ok
+test firefox_process_loss_and_manual_restart ... {"cleanup_ms":25.059058,"cycle":1,"engine":"firefox","event_channel_closed":true,"pending_after_loss":0,"pid":816301,"root_exited":true,"version":"157.0.1","wake_ms":24.957122000000002}
+{"cleanup_ms":14.979011999999999,"cycle":2,"engine":"firefox","event_channel_closed":true,"pending_after_loss":0,"pid":816599,"root_exited":true,"version":"157.0.1","wake_ms":14.883011999999999}
+{"cleanup_ms":107.81263100000001,"cycle":3,"engine":"firefox","event_channel_closed":true,"pending_after_loss":0,"pid":816868,"root_exited":true,"version":"157.0.1","wake_ms":107.676151}
+{"cleanup_ms":26.099,"cycle":4,"engine":"firefox","event_channel_closed":true,"pending_after_loss":0,"pid":817163,"root_exited":true,"version":"157.0.1","wake_ms":26.006635}
+{"cleanup_ms":12.200466,"cycle":5,"engine":"firefox","event_channel_closed":true,"pending_after_loss":0,"pid":817482,"root_exited":true,"version":"157.0.1","wake_ms":12.067385999999999}
+{"cleanup_ms":61.913304000000004,"cycle":6,"engine":"firefox","event_channel_closed":true,"pending_after_loss":0,"pid":817796,"root_exited":true,"version":"157.0.1","wake_ms":61.742697}
+{"cleanup_ms":19.620988,"cycle":7,"engine":"firefox","event_channel_closed":true,"pending_after_loss":0,"pid":818057,"root_exited":true,"version":"157.0.1","wake_ms":19.53017}
+{"cleanup_ms":35.177246000000004,"cycle":8,"engine":"firefox","event_channel_closed":true,"pending_after_loss":0,"pid":818326,"root_exited":true,"version":"157.0.1","wake_ms":35.079223999999996}
+{"cleanup_ms":35.604573,"cycle":9,"engine":"firefox","event_channel_closed":true,"pending_after_loss":0,"pid":818603,"root_exited":true,"version":"157.0.1","wake_ms":35.510331}
+{"cleanup_ms":28.355821,"cycle":10,"engine":"firefox","event_channel_closed":true,"pending_after_loss":0,"pid":818841,"root_exited":true,"version":"157.0.1","wake_ms":28.222512000000002}
+{"cleanup_ms":40.03897,"cycle":11,"engine":"firefox","event_channel_closed":true,"pending_after_loss":0,"pid":819145,"root_exited":true,"version":"157.0.1","wake_ms":39.901615}
+{"cleanup_ms":79.59842,"cycle":12,"engine":"firefox","event_channel_closed":true,"pending_after_loss":0,"pid":819397,"root_exited":true,"version":"157.0.1","wake_ms":79.497996}
+{"cleanup_ms":54.508244999999995,"cycle":13,"engine":"firefox","event_channel_closed":true,"pending_after_loss":0,"pid":819699,"root_exited":true,"version":"157.0.1","wake_ms":17.25507}
+{"cleanup_ms":29.867848,"cycle":14,"engine":"firefox","event_channel_closed":true,"pending_after_loss":0,"pid":820017,"root_exited":true,"version":"157.0.1","wake_ms":29.748873}
+{"cleanup_ms":17.088894,"cycle":15,"engine":"firefox","event_channel_closed":true,"pending_after_loss":0,"pid":820306,"root_exited":true,"version":"157.0.1","wake_ms":16.997078}
+{"cleanup_ms":26.275917,"cycle":16,"engine":"firefox","event_channel_closed":true,"pending_after_loss":0,"pid":820626,"root_exited":true,"version":"157.0.1","wake_ms":26.181155}
+{"cleanup_ms":51.358903,"cycle":17,"engine":"firefox","event_channel_closed":true,"pending_after_loss":0,"pid":820939,"root_exited":true,"version":"157.0.1","wake_ms":51.259738}
+{"cleanup_ms":16.588227,"cycle":18,"engine":"firefox","event_channel_closed":true,"pending_after_loss":0,"pid":821256,"root_exited":true,"version":"157.0.1","wake_ms":16.484003}
+{"cleanup_ms":20.646938,"cycle":19,"engine":"firefox","event_channel_closed":true,"pending_after_loss":0,"pid":821533,"root_exited":true,"version":"157.0.1","wake_ms":20.550487}
+{"cleanup_ms":15.867723999999999,"cycle":20,"engine":"firefox","event_channel_closed":true,"pending_after_loss":0,"pid":821797,"root_exited":true,"version":"157.0.1","wake_ms":15.770240000000001}
+{"cleanup_ms":30.272277,"cycle":21,"engine":"firefox","event_channel_closed":true,"pending_after_loss":0,"pid":822115,"root_exited":true,"version":"157.0.1","wake_ms":30.180727}
+{"cleanup_ms":18.053476999999997,"cycle":22,"engine":"firefox","event_channel_closed":true,"pending_after_loss":0,"pid":822443,"root_exited":true,"version":"157.0.1","wake_ms":17.952905}
+{"cleanup_ms":56.500477000000004,"cycle":23,"engine":"firefox","event_channel_closed":true,"pending_after_loss":0,"pid":822744,"root_exited":true,"version":"157.0.1","wake_ms":56.399524}
+{"cleanup_ms":129.312238,"cycle":24,"engine":"firefox","event_channel_closed":true,"pending_after_loss":0,"pid":823042,"root_exited":true,"version":"157.0.1","wake_ms":129.193564}
+{"cleanup_ms":15.707220000000001,"cycle":25,"engine":"firefox","event_channel_closed":true,"pending_after_loss":0,"pid":823380,"root_exited":true,"version":"157.0.1","wake_ms":15.607980000000001}
+ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 71.62s
+
+     Running http_frames.rs (target/debug/deps/http_frames-3007310b5bae71f1)
+
+running 67 tests
+test checkbox_actions_wait_for_the_same_click_checks ... ok
+test click_accepts_descendants_and_native_fieldset_legend_exceptions ... ok
+test click_deadline_bounds_a_stalled_preparation_promise ... ok
+test click_deadline_includes_a_missing_frame ... ok
+test click_does_not_intercept_an_overlay_above_the_iframe ... ok
+test click_handles_a_one_pixel_target ... ok
+test click_maps_an_offscreen_iframe_to_root_viewport_coordinates ... ok
+test click_preserves_javascript_and_closed_page_errors ... ok
+test click_rechecks_overlay_created_on_hover ... ok
+test click_reresolves_target_replaced_on_hover ... ok
+test click_scrolls_an_offscreen_target_into_view ... ok
+test click_timeout_reports_disabled_and_intercepted_targets_without_clicking ... ok
+test click_waits_until_aria_disabled_ancestor_is_enabled ... ok
+test click_waits_until_button_is_enabled ... ok
+test click_waits_until_button_stops_moving ... ok
+test click_waits_until_overlay_disappears ... ok
+test click_waits_until_parent_fieldset_is_enabled ... ok
+test cross_origin_frame_with_another_port_fills_and_submits ... ok
+test cross_site_already_loaded_frame_is_initialized_when_connecting ... ok
+test cross_site_click_checks_parent_overlays_and_transformed_scrolled_coordinates ... ok
+test cross_site_click_retries_when_its_renderer_detaches_during_preparation ... ok
+test cross_site_frame_fills_and_submits ... ok
+test cross_site_frame_keeps_working_after_reload_and_swaps_back_to_the_parent_site ... ok
+test cross_site_frame_removal_cleans_up_and_a_new_frame_can_be_resolved ... ok
+test cross_site_frame_wait_survives_a_process_swap ... ok
+test cross_site_isolated_worlds_do_not_replace_default_context_and_errors_propagate ... ok
+test cross_site_nested_renderer_click_maps_both_frame_boundaries ... ok
+test cross_site_network_block_is_inherited_and_clear_restores_requests ... ok
+test cross_site_network_diagnostics_capture_initial_request_and_response_body ... ok
+test cross_site_network_diagnostics_capture_mocked_responses_and_blocked_failures ... ok
+test cross_site_network_diagnostics_capture_nested_renderer_bodies ... ok
+test cross_site_network_diagnostics_follow_reloads_and_repeated_process_swaps ... ok
+test cross_site_network_diagnostics_keep_concurrent_parent_and_child_bodies_separate ... ok
+test cross_site_network_diagnostics_retain_detached_requests_without_reusing_the_parent_session ... ok
+test cross_site_network_existing_child_adds_clears_and_readds_mocks ... ok
+test cross_site_network_gate_blocks_the_first_request_on_return_to_parent ... ok
+test cross_site_network_gate_changes_the_first_response_header_on_return_to_parent ... ok
+test cross_site_network_gate_covers_fetch_and_xhr_on_repeated_returns_without_server_access ... ok
+test cross_site_network_gate_restores_the_first_request_when_nested_child_returns_to_outer ... ok
+test cross_site_network_gate_resumes_application_debugger_statements_and_clears_cleanly ... ok
+test cross_site_network_mock_is_inherited_before_child_scripts_run ... ok
+test cross_site_network_mock_overrides_previously_cached_responses ... ok
+test cross_site_network_nested_child_inherits_routes_and_clear_reaches_every_renderer ... ok
+test cross_site_network_request_headers_apply_to_child_without_losing_original_headers ... ok
+test cross_site_network_response_stage_upgrades_existing_and_new_children ... ok
+test cross_site_network_route_changes_and_child_attachment_are_serialized ... ok
+test cross_site_network_rules_cover_first_script_requests_after_process_swaps ... ok
+test cross_site_sibling_sessions_do_not_mix_contexts ... ok
+test fills_and_clicks_in_a_frame_added_after_the_action_starts ... ok
+test frame_wait_deadline_also_bounds_the_child_element_wait ... ok
+test frame_wait_includes_iframe_resolution_in_its_deadline ... ok
+test frame_wait_preserves_javascript_errors ... ok
+test frame_wait_propagates_closed_page_errors_without_waiting_for_timeout ... ok
+test geometry_click_finds_an_uncovered_point_away_from_the_center ... ok
+test geometry_click_handles_a_clip_path_with_an_occluded_center ... ok
+test geometry_click_handles_a_rotated_element_clipped_by_the_viewport ... ok
+test geometry_click_handles_a_transformed_iframe ... ok
+test geometry_click_handles_overflow_clipping ... ok
+test geometry_click_handles_perspective_transforms ... ok
+test geometry_click_selects_an_uncovered_point_on_a_rotated_target ... ok
+test geometry_click_uses_an_uncovered_inline_fragment ... ok
+test geometry_click_waits_for_transform_changes_with_identical_bounding_rects ... ok
+test network_gate_cancelled_updates_finish_before_later_cleanup_or_reconfiguration ... ok
+test network_gate_is_inert_for_other_debuggers_after_routes_are_cleared ... ok
+test network_gate_keeps_cached_resources_mocked_across_navigation_and_frame_returns ... ok
+test waiting_locator_survives_frame_navigation ... ok
+test waits_for_the_frame_document_to_load ... ok
+
+test result: ok. 67 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 60.82s
+
+     Running http_navigation.rs (target/debug/deps/http_navigation-ef29bf3a90cb572b)
+
+running 14 tests
+test another_document_interrupts_an_older_navigation_waiter ... ok
+test browser_disconnect_wakes_pending_waiters ... ok
+test cancelled_navigation_does_not_corrupt_the_next_navigation ... ok
+test click_navigation_does_not_reuse_the_previous_documents_load ... ok
+test closing_a_page_wakes_pending_load_waiters ... ok
+test closing_a_page_wakes_pending_url_waiters ... ok
+test fragment_navigation_preserves_the_document_load_state ... ok
+test goto_timeout_covers_headers_and_document_load_together ... ok
+test redirected_goto_reports_the_committed_url ... ok
+test reload_waits_for_the_new_document_and_its_resources ... ok
+test same_document_history_and_full_document_history_finish ... ok
+test timeout_before_commit_allows_a_new_navigation_and_ignores_the_old_response ... ok
+test url_wait_observes_a_matching_url_even_if_it_changes_again_immediately ... ok
+test url_wait_observes_push_state_and_hash_changes ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 10.04s
+
+     Running http_network_idle.rs (target/debug/deps/http_network_idle-fee690056236f8cf)
+
+running 10 tests
+test aborted_fetch_and_cancelled_idle_wait_leave_no_pending_activity ... ok
+test closing_during_the_quiet_timer_wakes_the_idle_waiter ... ok
+test concurrent_requests_and_a_second_burst_restart_the_quiet_window ... ok
+test mocked_blocked_and_redirected_requests_finish_without_stale_counts ... ok
+test new_main_document_does_not_wait_for_old_keepalive_or_child_requests ... ok
+test remote_frame_fetch_prevents_parent_network_idle ... ok
+test remote_frame_reload_and_return_do_not_leave_stale_pending_requests ... ok
+test removing_a_same_process_frame_releases_its_pending_requests ... ok
+test removing_nested_renderer_frames_releases_the_entire_subtree ... ok
+test restarted_fetch_waits_for_the_body_and_a_new_quiet_window ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 18.90s
+

@@ -1,0 +1,14 @@
+{
+  "activation": ". /workspace/.rustwright-env/activate.sh",
+  "command": [
+    "cargo",
+    "build",
+    "--offline",
+    "--manifest-path",
+    "target/reliability95/native-startup/consumer/Cargo.toml",
+    "--target-dir",
+    "target/reliability95/native-startup/build"
+  ],
+  "CARGO_BUILD_JOBS": 4,
+  "target_isolated_from_root": true
+}

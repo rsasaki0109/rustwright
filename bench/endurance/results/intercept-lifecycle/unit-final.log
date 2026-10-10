@@ -1,0 +1,213 @@
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+   Compiling rustwright-bidi v0.1.0 (/workspace/rustwright/crates/rustwright-bidi)
+   Compiling rustwright v0.1.0 (/workspace/rustwright/crates/rustwright)
+   Compiling rustwright-test v0.1.0 (/workspace/rustwright/crates/rustwright-test)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 13.06s
+     Running unittests src/lib.rs (target/debug/deps/rustwright-1dd936e5ff7c530b)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/rustwright_bidi-3304ec2cb5ff2a61)
+
+running 73 tests
+test browser::creation_tests::cancelled_after_reply_before_handoff_removes_context ... ok
+test browser::creation_tests::cancelled_context_before_creation_reply_is_removed ... ok
+test browser::creation_tests::cancelled_creation_with_silent_peer_releases_local_waiter_after_grace ... ok
+test browser::creation_tests::cancelled_default_page_before_creation_reply_is_closed ... ok
+test browser::creation_tests::cancelled_initialization_outside_runtime_thread_cleans_up ... ok
+test browser::creation_tests::cancelled_page_before_creation_reply_is_closed ... ok
+test browser::creation_tests::cancelled_page_initialization_closes_created_page ... ok
+test browser::creation_tests::failed_page_initialization_closes_created_page ... ok
+test browser::frame_helper_cache_tests::destroyed_frame_is_not_treated_as_an_initialized_document ... ok
+test browser::frame_helper_cache_tests::late_injection_reply_does_not_initialize_a_replacement_document ... ok
+test browser::frame_helper_cache_tests::live_frame_reuses_its_document_helper_without_reinjection ... ok
+test browser::frame_helper_cache_tests::same_frame_id_in_a_new_document_gets_its_helper_again ... ok
+test browser::interception_tests::acknowledged_late_removal_is_reconciled_before_a_new_route ... ok
+test browser::interception_tests::canceled_pre_ack_event_continues_instead_of_being_lost ... ok
+test browser::interception_tests::canceled_reconciliation_restores_previous_committed_rules ... ok
+test browser::interception_tests::canceled_registration_reclaims_the_late_id ... ok
+test browser::interception_tests::cancellation_after_old_phase_removal_preserves_previous_rules ... ok
+test browser::interception_tests::clear_continues_after_waiter_cancellation ... ok
+test browser::interception_tests::closing_during_unacknowledged_add_closes_remote_and_removes_helper ... ok
+test browser::interception_tests::concurrent_registration_does_not_return_before_ack ... ok
+test browser::interception_tests::context_close_marks_every_page_closed_before_waiting_for_late_add ... ok
+test browser::interception_tests::descendant_events_use_owned_ids_and_foreign_intercepts_are_untouched ... ok
+test browser::interception_tests::discovered_handles_share_routes_and_keep_registration_alive ... ok
+test browser::interception_tests::failed_broader_registration_keeps_previous_phases_usable ... ok
+test browser::interception_tests::failed_drop_retirement_is_reused_by_discovered_handle ... ok
+test browser::interception_tests::failed_phase_expansion_preserves_existing_registration ... ok
+test browser::interception_tests::final_handle_drop_outside_runtime_uses_its_origin_runtime ... ok
+test browser::interception_tests::final_routed_page_handle_drop_removes_registration ... ok
+test browser::interception_tests::page_close_retires_routes_while_handle_is_retained ... ok
+test browser::interception_tests::persistent_drop_rejection_exits_after_explicit_browser_close ... ok
+test browser::interception_tests::previous_routes_keep_dispatching_while_broader_allocation_is_unacknowledged ... ok
+test browser::interception_tests::queued_unobserved_registration_handoff_is_rolled_back ... ok
+test browser::interception_tests::rejected_registration_is_retryable ... ok
+test browser::interception_tests::removal_error_is_typed_and_retains_the_id ... ok
+test browser::interception_tests::repeated_canceled_upgrades_do_not_retain_historical_intercept_ids ... ok
+test browser::interception_tests::retiring_intercept_continues_blocked_requests_until_ack ... ok
+test browser::interception_tests::route_removal_failure_does_not_skip_native_close_or_helper_cleanup ... ok
+test browser::interception_tests::user_context_close_retires_only_owned_routes ... ok
+test browser::network_subscription_tests::cancelled_monitoring_setup_finishes_with_one_reused_pump ... ok
+test browser::network_subscription_tests::cancelling_subscription_waiter_keeps_acknowledgment_owned ... ok
+test browser::network_subscription_tests::concurrent_session_subscription_waits_for_the_same_successful_handshake ... ok
+test browser::network_subscription_tests::rejected_monitoring_setup_can_retry_without_installing_a_failed_pump ... ok
+test browser::network_subscription_tests::rejected_subscription_preserves_error_and_queued_caller_retries ... ok
+test browser::network_subscription_tests::silent_subscription_has_a_bounded_local_waiter ... ok
+test browser::shutdown_tests::browser_close_bounds_silent_end_and_closes_retained_connection ... ok
+test browser::shutdown_tests::cancelled_browser_close_closes_retained_connection ... ok
+test browser::shutdown_tests::cancelled_context_close_before_reply_removes_retained_helper ... ok
+test browser::shutdown_tests::cancelled_context_close_bounds_silent_remote_waiter ... ok
+test browser::shutdown_tests::cancelled_context_close_during_helper_removal_finishes ... ok
+test browser::shutdown_tests::cancelled_page_close_during_helper_removal_closes_page ... ok
+test browser::shutdown_tests::concurrent_and_repeated_context_close_remove_helper_once ... ok
+test browser::shutdown_tests::concurrent_context_cleanup_error_does_not_skip_other_helpers ... ok
+test browser::shutdown_tests::failed_helper_removal_is_retried_after_context_is_gone ... ok
+test browser::shutdown_tests::page_helper_cleanup_error_is_returned_and_clone_retries ... ok
+test browser::shutdown_tests::remote_context_error_is_returned_and_retry_cleans_helper ... ok
+test connection::tests::cancelled_request_is_removed ... ok
+test connection::tests::protocol_error_preserves_command_details ... ok
+test connection::tests::timed_out_request_is_removed ... ok
+test connection::transport_lifetime_tests::explicit_close_interrupts_blocked_write_and_close ... ok
+test connection::transport_lifetime_tests::last_clone_drop_releases_inner_and_socket ... ok
+test connection::transport_lifetime_tests::peer_loss_releases_waiters_and_inner ... ok
+test connection::transport_lifetime_tests::reader_failure_interrupts_blocked_write_and_close ... ok
+test connection::transport_lifetime_tests::writer_failure_releases_idle_reader_and_socket ... ok
+test lifecycle_tests::cancelling_helper_registration_still_releases_the_remote_script ... ok
+test lifecycle_tests::closing_one_context_preserves_other_context_helpers ... ok
+test lifecycle_tests::context_close_releases_helpers_even_while_page_handles_are_retained ... ok
+test lifecycle_tests::dropping_the_last_page_handle_releases_its_helper_registration ... ok
+test lifecycle_tests::repeated_discovery_reuses_the_page_helper_registration ... ok
+test network::interception_queue_tests::deferred_allocation_events_have_a_separate_bounded_queue ... ok
+test session::tests::converts_arrays_and_objects ... ok
+test session::tests::converts_scalars ... ok
+test session::tests::evaluation_exceptions_preserve_the_browser_message ... ok
+test session::tests::successful_null_and_undefined_are_distinct_from_exceptions ... ok
+
+test result: ok. 73 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 7.19s
+
+     Running unittests src/lib.rs (target/debug/deps/rustwright_browser-bf27d89c70b1d7cd)
+
+running 4 tests
+test firefox::tests::detects_snap_wrapper_scripts ... ok
+test launch::tests::build_args_includes_profile_and_headless_flags ... ok
+test launch::tests::parses_devtools_active_port_file ... ok
+test launch::tests::rejects_malformed_active_port_file ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/rustwright_cdp-f01c6c6fb8729e0d)
+
+running 17 tests
+test connection::tests::cancelled_request_is_removed ... ok
+test connection::tests::context_destruction_is_scoped_to_both_session_and_context ... ok
+test connection::tests::detachment_fails_only_its_sessions_pending_requests ... ok
+test connection::tests::protocol_error_preserves_command_details ... ok
+test connection::tests::timed_out_request_is_removed ... ok
+test connection::transport_lifetime_tests::explicit_close_interrupts_blocked_write_and_close ... ok
+test connection::transport_lifetime_tests::last_clone_drop_releases_inner_and_socket ... ok
+test connection::transport_lifetime_tests::peer_loss_releases_waiters_and_inner ... ok
+test connection::transport_lifetime_tests::reader_failure_interrupts_blocked_write_and_close ... ok
+test connection::transport_lifetime_tests::repeated_close_emits_one_disconnection_marker ... ok
+test connection::transport_lifetime_tests::writer_failure_releases_idle_reader_and_socket ... ok
+test http::tests::decodes_chunked_bodies ... ok
+test http::tests::detects_complete_chunked_bodies ... ok
+test http::tests::endpoint_parses_default_port ... ok
+test http::tests::missing_content_length_is_none ... ok
+test http::tests::parses_content_length_case_insensitively ... ok
+test protocol::page::tests::frame_urls_include_separately_reported_fragments ... ok
+
+test result: ok. 17 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.54s
+
+     Running unittests src/lib.rs (target/debug/deps/rustwright_common-248035973218982d)
+
+running 7 tests
+test route::tests::glob_matches_wildcards ... ok
+test route::tests::route_uses_glob_when_wildcards_present ... ok
+test route::tests::substring_matches_when_no_wildcards ... ok
+test selectors::tests::describes_selectors_for_errors ... ok
+test selectors::tests::serializes_css_specs ... ok
+test selectors::tests::serializes_role_specs ... ok
+test selectors::tests::serializes_text_specs ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/rustwright_core-021fc5399fbb8a5c)
+
+running 53 tests
+test browser::shutdown_tests::cancelled_owned_shutdown_has_bounded_forced_process_and_socket_cleanup ... ok
+test browser::shutdown_tests::cancelled_owned_shutdown_keeps_worker_alive_until_acknowledgement ... ok
+test browser::shutdown_tests::concurrent_owned_shutdown_does_not_interrupt_graceful_command ... ok
+test browser::shutdown_tests::externally_owned_process_survives_repeated_disconnect ... ok
+test context::shutdown_tests::cancelled_attachment_wait_still_disposes ... ok
+test context::shutdown_tests::cancelled_disposal_wait_still_waits_for_acknowledgement ... ok
+test context::shutdown_tests::concurrent_close_waits_for_disposal_acknowledgement ... ok
+test context::shutdown_tests::default_context_close_keeps_foreign_context_and_connection_open ... ok
+test context::shutdown_tests::disposal_failure_is_visible_and_replayed_without_duplicate_command ... ok
+test context::shutdown_tests::stalled_attachment_still_attempts_disposal_and_replays_timeout ... ok
+test context::shutdown_tests::stalled_disposal_has_bounded_replayed_error_without_waiter_leak ... ok
+test context::tests::cancelled_page_wait_detaches_partial_initialization ... ok
+test context::tests::disconnect_releases_registry_with_retained_handles ... ok
+test context::tests::discovery_returns_initialization_errors_and_detaches_the_session ... ok
+test context::tests::explicit_close_releases_registry_without_discovery ... ok
+test context::tests::external_detach_releases_registry_with_retained_handles ... ok
+test context::tests::page_wait_deadline_includes_stalled_discovery ... ok
+test context::tests::page_wait_timeout_detaches_partial_initialization ... ok
+test context::tests::popup_created_during_discovery_is_not_lost ... ok
+test creation_tests::cancelled_after_reply_before_handoff_removes_context ... ok
+test creation_tests::cancelled_context_before_creation_reply_is_removed ... ok
+test creation_tests::cancelled_creation_with_silent_peer_releases_local_waiter_after_grace ... ok
+test creation_tests::cancelled_default_page_before_creation_reply_is_closed ... ok
+test creation_tests::cancelled_discovery_before_attach_reply_detaches_without_closing_existing_page ... ok
+test creation_tests::cancelled_initialization_outside_runtime_thread_cleans_up ... ok
+test creation_tests::cancelled_page_before_creation_reply_is_closed ... ok
+test creation_tests::cancelled_page_initialization_closes_created_page ... ok
+test creation_tests::failed_page_initialization_closes_created_page ... ok
+test diagnostics::tests::formats_epoch_timestamps ... ok
+test geometry::tests::clips_both_axes_before_selecting_the_center ... ok
+test geometry::tests::limits_search_for_many_inline_fragments ... ok
+test geometry::tests::prioritizes_distinct_fragments_and_accepts_reversed_winding ... ok
+test geometry::tests::projection_round_trips_affine_and_perspective_quads ... ok
+test geometry::tests::rejects_nonfinite_degenerate_and_offscreen_quads ... ok
+test geometry::tests::rotated_clipping_keeps_candidates_in_the_visible_triangle ... ok
+test geometry::tests::searches_edges_when_a_central_band_is_covered ... ok
+test geometry::tests::searches_the_actual_overflow_strip_after_scrolling_an_oversized_control ... ok
+test locator::tests::detached_pre_input_probes_can_retry_but_input_never_retries ... ok
+test network_idle::tests::colliding_ids_and_duplicate_terminal_events_preserve_the_last_request_window ... ok
+test network_idle::tests::new_main_document_discards_old_requests_but_preserves_its_pending_navigation ... ok
+test network_idle::tests::redirects_and_document_transfers_do_not_create_phantom_requests ... ok
+test network_idle::tests::removing_frames_and_sessions_preserves_other_pending_frames ... ok
+test page::tests::detaching_a_session_removes_descendants_and_preserves_siblings ... ok
+test page::tests::document_completion_transfers_to_its_new_session_without_duplicates ... ok
+test page::tests::empty_input_becomes_about_blank ... ok
+test page::tests::leaves_explicit_schemes_alone ... ok
+test page::tests::maps_common_keys ... ok
+test page::tests::network_ids_and_har_bodies_are_isolated_between_sessions ... ok
+test page::tests::new_documents_discard_old_load_states_and_ignore_late_old_events ... ok
+test page::tests::prefixes_bare_hosts_with_https ... ok
+test page::tests::same_document_and_bfcache_commits_do_not_wait_for_nonexistent_load_events ... ok
+test shutdown::shutdown_tests::cancelled_waiter_does_not_cancel_single_worker_or_late_result ... ok
+test shutdown::shutdown_tests::worker_panic_wakes_all_waiters_with_failure ... ok
+
+test result: ok. 53 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 15.75s
+
+     Running unittests src/lib.rs (target/debug/deps/rustwright_test-a3fc5b184068da3e)
+
+running 4 tests
+test tests::automatic_discovery_absence_skips_both_backends ... ok
+test tests::connection_and_context_setup_errors_fail ... ok
+test tests::other_browser_setup_errors_fail_both_backends ... ok
+test tests::shards_partition_tests ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/rustwright_test_macros-3c6131cb2c16ca6c)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

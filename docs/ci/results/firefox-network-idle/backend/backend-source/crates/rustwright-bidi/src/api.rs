@@ -1,0 +1,130 @@
+//! Backend-agnostic [`PageApi`] / [`LocatorApi`] implementations for the BiDi
+//! backend, so the same generic code can drive Chrome and Firefox.
+
+use std::path::Path;
+use std::time::Duration;
+
+use rustwright_common::{LocatorApi, PageApi, Selector, WaitState};
+use serde_json::Value;
+
+use crate::browser::BidiPage;
+use crate::error::BidiError;
+use crate::locator::BidiLocator;
+
+impl PageApi for BidiPage {
+    type Error = BidiError;
+    type Locator = BidiLocator;
+
+    async fn goto(&self, url: &str) -> Result<(), Self::Error> {
+        BidiPage::goto(self, url).await
+    }
+
+    async fn url(&self) -> Result<String, Self::Error> {
+        BidiPage::url(self).await
+    }
+
+    async fn title(&self) -> Result<String, Self::Error> {
+        BidiPage::title(self).await
+    }
+
+    async fn content(&self) -> Result<String, Self::Error> {
+        BidiPage::content(self).await
+    }
+
+    async fn evaluate(&self, expression: &str) -> Result<Value, Self::Error> {
+        BidiPage::evaluate(self, expression).await
+    }
+
+    async fn screenshot(&self, path: &Path) -> Result<(), Self::Error> {
+        BidiPage::screenshot(self, path).await
+    }
+
+    async fn set_viewport(
+        &self,
+        width: i64,
+        height: i64,
+        device_pixel_ratio: f64,
+    ) -> Result<(), Self::Error> {
+        BidiPage::set_viewport(self, width, height, device_pixel_ratio).await
+    }
+
+    async fn close(&self) -> Result<(), Self::Error> {
+        BidiPage::close(self).await
+    }
+
+    fn locator(&self, selector: Selector) -> Self::Locator {
+        BidiPage::locator(self, selector)
+    }
+}
+
+impl LocatorApi for BidiLocator {
+    type Error = BidiError;
+
+    async fn click(&self) -> Result<(), Self::Error> {
+        BidiLocator::click(self).await
+    }
+
+    async fn fill(&self, text: &str) -> Result<(), Self::Error> {
+        BidiLocator::fill(self, text).await
+    }
+
+    async fn text(&self) -> Result<String, Self::Error> {
+        BidiLocator::text(self).await
+    }
+
+    async fn text_content(&self) -> Result<String, Self::Error> {
+        BidiLocator::text_content(self).await
+    }
+
+    async fn is_visible(&self) -> Result<bool, Self::Error> {
+        BidiLocator::is_visible(self).await
+    }
+
+    async fn is_hidden(&self) -> Result<bool, Self::Error> {
+        BidiLocator::is_hidden(self).await
+    }
+
+    async fn is_enabled(&self) -> Result<bool, Self::Error> {
+        BidiLocator::is_enabled(self).await
+    }
+
+    async fn count(&self) -> Result<usize, Self::Error> {
+        BidiLocator::count(self).await
+    }
+
+    async fn get_attribute(&self, name: &str) -> Result<Option<String>, Self::Error> {
+        BidiLocator::get_attribute(self, name).await
+    }
+
+    async fn hover(&self) -> Result<(), Self::Error> {
+        BidiLocator::hover(self).await
+    }
+
+    async fn scroll_into_view_if_needed(&self) -> Result<(), Self::Error> {
+        BidiLocator::scroll_into_view_if_needed(self).await
+    }
+
+    async fn wait_for(&self, state: WaitState) -> Result<(), Self::Error> {
+        BidiLocator::wait_for(self, state).await
+    }
+
+    async fn wait_for_with_timeout(
+        &self,
+        state: WaitState,
+        timeout: Duration,
+    ) -> Result<(), Self::Error> {
+        BidiLocator::wait_for_with_timeout(self, state, timeout).await
+    }
+
+    fn first(&self) -> Self {
+        BidiLocator::first(self)
+    }
+
+    fn last(&self) -> Self {
+        BidiLocator::last(self)
+    }
+
+    fn nth(&self, index: i64) -> Self {
+        BidiLocator::nth(self, index)
+    }
+}

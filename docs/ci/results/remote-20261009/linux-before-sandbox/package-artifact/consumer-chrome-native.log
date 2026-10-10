@@ -1,0 +1,102 @@
+[1m[92m    Finished[0m `test` profile [unoptimized + debuginfo] target(s) in 0.03s
+[1m[92m     Running[0m tests/browser.rs (/home/runner/work/rustwright/rustwright/target/release-check/consumer-target-stable/debug/deps/browser-a48408479796c969)
+
+running 2 tests
+test archived_facade_helpers_routing_and_screenshot ... 
+thread 'archived_facade_helpers_routing_and_screenshot' (6300) panicked at tests/browser.rs:152:22:
+Chrome must launch; no skip: Browser(EarlyExit { status: "signal: 6 (SIGABRT) (core dumped)", log_path: "/home/runner/work/rustwright/rustwright/target/release-check/native-profiles/chrome-elui5em6/rustwright-chrome.log" })
+stack backtrace:
+   0: __rustc::rust_begin_unwind
+             at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panicking.rs:679:5
+   1: core::panicking::panic_fmt
+             at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/panicking.rs:80:14
+   2: core::result::unwrap_failed
+             at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/result.rs:1871:5
+   3: <core::result::Result<rustwright_core::browser::Browser, rustwright_core::error::Error>>::expect
+             at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/result.rs:1184:23
+   4: <browser::Engine>::launch::{closure#0}
+             at ./tests/browser.rs:152:22
+   5: browser::archived_facade_helpers_routing_and_screenshot::{closure#0}
+             at ./tests/browser.rs:186:35
+   6: <core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>> as core::future::future::Future>::poll
+             at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/future/future.rs:133:9
+   7: <core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>> as core::future::future::Future>::poll
+             at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/future/future.rs:133:9
+   8: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}
+             at /home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-220505dccdea11df/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:830:70
+   9: tokio::task::coop::with_budget::<core::task::poll::Poll<()>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}>
+             at /home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-220505dccdea11df/tokio-1.53.1/src/task/coop/mod.rs:167:5
+  10: tokio::task::coop::budget::<core::task::poll::Poll<()>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}>
+             at /home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-220505dccdea11df/tokio-1.53.1/src/task/coop/mod.rs:133:5
+  11: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}
+             at /home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-220505dccdea11df/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:830:25
+  12: <tokio::runtime::scheduler::current_thread::Context>::enter::<core::task::poll::Poll<()>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}>
+             at /home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-220505dccdea11df/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:488:19
+  13: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}
+             at /home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-220505dccdea11df/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:829:44
+  14: <tokio::runtime::scheduler::current_thread::CoreGuard>::enter::<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}
+             at /home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-220505dccdea11df/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:906:68
+  15: <tokio::runtime::context::scoped::Scoped<tokio::runtime::scheduler::Context>>::set::<<tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>)>
+             at /home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-220505dccdea11df/tokio-1.53.1/src/runtime/context/scoped.rs:40:9
+  16: tokio::runtime::context::set_scheduler::<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>::{closure#0}
+             at /home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-220505dccdea11df/tokio-1.53.1/src/runtime/context.rs:187:38
+  17: <std::thread::local::LocalKey<tokio::runtime::context::Context>>::try_with::<tokio::runtime::context::set_scheduler<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>)>
+             at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/thread/local.rs:463:12
+  18: <std::thread::local::LocalKey<tokio::runtime::context::Context>>::with::<tokio::runtime::context::set_scheduler<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>)>
+             at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/thread/local.rs:427:20
+  19: tokio::runtime::context::set_scheduler::<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<()>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>::{closure#0}>
+             at /home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-220505dccdea11df/tokio-1.53.1/src/runtime/context.rs:187:17
+  20: <tokio::runtime::scheduler::current_thread::CoreGuard>::enter::<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>::{closure#0}, core::option::Option<()>>
+             at /home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-220505dccdea11df/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:906:27
+  21: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>>
+             at /home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-220505dccdea11df/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:817:24
+  22: <tokio::runtime::scheduler::current_thread::CurrentThread>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>::{closure#0}
+             at /home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-220505dccdea11df/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:218:33
+  23: tokio::runtime::context::runtime::enter_runtime::<<tokio::runtime::scheduler::current_thread::CurrentThread>::block_on<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>::{closure#0}, ()>
+             at /home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-220505dccdea11df/tokio-1.53.1/src/runtime/context/runtime.rs:65:16
+  24: <tokio::runtime::scheduler::current_thread::CurrentThread>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>
+             at /home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-220505dccdea11df/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:206:9
+  25: <tokio::runtime::runtime::Runtime>::block_on_inner::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>
+             at /home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-220505dccdea11df/tokio-1.53.1/src/runtime/runtime.rs:374:52
+  26: <tokio::runtime::runtime::Runtime>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = ()>>>
+             at /home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-220505dccdea11df/tokio-1.53.1/src/runtime/runtime.rs:343:18
+  27: browser::archived_facade_helpers_routing_and_screenshot
+             at ./tests/browser.rs:208:25
+  28: browser::archived_facade_helpers_routing_and_screenshot::{closure#0}
+             at ./tests/browser.rs:183:58
+  29: <browser::archived_facade_helpers_routing_and_screenshot::{closure#0} as core::ops::function::FnOnce<()>>::call_once
+             at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ops/function.rs:250:5
+  30: <fn() -> core::result::Result<(), alloc::string::String> as core::ops::function::FnOnce<()>>::call_once
+             at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ops/function.rs:250:5
+note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
+FAILED
+test archived_proc_macro_runner ... 
+thread 'archived_proc_macro_runner' (6319) panicked at /home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-220505dccdea11df/rustwright-test-0.1.0/src/lib.rs:158:5:
+test `archived_proc_macro_runner` failed after 1 attempt(s): chrome setup failed: browser exited during startup with signal: 6 (SIGABRT) (core dumped) (log: /home/runner/work/rustwright/rustwright/target/release-check/native-profiles/chrome-elui5em6/rustwright-chrome.log)
+stack backtrace:
+   0: __rustc::rust_begin_unwind
+             at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panicking.rs:679:5
+   1: core::panicking::panic_fmt
+             at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/panicking.rs:80:14
+   2: rustwright_test::run_test::<browser::archived_proc_macro_runner::{closure#0}, browser::__rustwright_test_impl_archived_proc_macro_runner::{closure#0}>
+             at /home/runner/work/rustwright/rustwright/target/release-check/consumer-cargo-home/registry/src/-220505dccdea11df/rustwright-test-0.1.0/src/lib.rs:158:5
+   3: browser::archived_proc_macro_runner
+             at ./tests/browser.rs:211:1
+   4: browser::archived_proc_macro_runner::{closure#0}
+             at ./tests/browser.rs:211:36
+   5: <browser::archived_proc_macro_runner::{closure#0} as core::ops::function::FnOnce<()>>::call_once
+             at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ops/function.rs:250:5
+   6: <fn() -> core::result::Result<(), alloc::string::String> as core::ops::function::FnOnce<()>>::call_once
+             at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ops/function.rs:250:5
+note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
+FAILED
+
+failures:
+
+failures:
+    archived_facade_helpers_routing_and_screenshot
+    archived_proc_macro_runner
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.60s
+
+[1m[91merror[0m: test failed, to rerun pass `--test browser`

@@ -1,0 +1,56 @@
+   Compiling rustwright-browser v0.1.0 (/workspace/rustwright/crates/rustwright-browser)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.02s
+     Running unittests src/lib.rs (target/debug/deps/rustwright_browser-8f5b99b04dc90327)
+
+running 10 tests
+test firefox::tests::detects_snap_wrapper_scripts ... ok
+test firefox::tests::firefox_startup_cancellation_reaps_child_and_preserves_caller_profile ... {"caller_sentinel_preserved":true,"case":"firefox_cancellation","error_log":null,"error_log_preserved":null,"launcher_owned_profile":false,"owned_process_still_present":true,"pid":1753455,"profile":"/tmp/rw-startup-owner-1753452-1791573386623815191-1/caller-profile","profile_exists":true}
+
+thread 'firefox::tests::firefox_startup_cancellation_reaps_child_and_preserves_caller_profile' (1753454) panicked at crates/rustwright-browser/src/launch.rs:495:13:
+firefox_cancellation: startup child must be killed and reaped
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+test firefox::tests::firefox_startup_timeout_reaps_child_and_preserves_caller_profile ... {"caller_sentinel_preserved":true,"case":"firefox_timeout","error_log":"/tmp/rustwright-firefox-1753452-1791573386652822186-4.log","error_log_preserved":true,"launcher_owned_profile":false,"owned_process_still_present":true,"pid":1753461,"profile":"/tmp/rw-startup-owner-1753452-1791573386652724987-3/caller-profile","profile_exists":true}
+
+thread 'firefox::tests::firefox_startup_timeout_reaps_child_and_preserves_caller_profile' (1753460) panicked at crates/rustwright-browser/src/launch.rs:495:13:
+firefox_timeout: startup child must be killed and reaped
+FAILED
+test launch::startup_tests::chrome_early_exit_removes_ephemeral_profile_but_preserves_error_log ... {"caller_sentinel_preserved":false,"case":"chrome_early_exit","error_log":"/tmp/rustwright-1753452-1791573386917444589-6/rustwright-chrome.log","error_log_preserved":true,"launcher_owned_profile":true,"owned_process_still_present":false,"pid":1753467,"profile":"/tmp/rustwright-1753452-1791573386917444589-6","profile_exists":true}
+
+thread 'launch::startup_tests::chrome_early_exit_removes_ephemeral_profile_but_preserves_error_log' (1753466) panicked at crates/rustwright-browser/src/launch.rs:496:13:
+assertion `left == right` failed: chrome_early_exit: profile ownership must be respected
+  left: true
+ right: false
+FAILED
+test launch::startup_tests::chrome_startup_cancellation_reaps_child_and_removes_ephemeral_profile ... {"caller_sentinel_preserved":false,"case":"chrome_cancellation","error_log":null,"error_log_preserved":null,"launcher_owned_profile":true,"owned_process_still_present":true,"pid":1753471,"profile":"/tmp/rustwright-1753452-1791573386931727388-8","profile_exists":true}
+
+thread 'launch::startup_tests::chrome_startup_cancellation_reaps_child_and_removes_ephemeral_profile' (1753470) panicked at crates/rustwright-browser/src/launch.rs:495:13:
+chrome_cancellation: startup child must be killed and reaped
+FAILED
+test launch::startup_tests::chrome_startup_timeout_preserves_caller_profile ... {"caller_sentinel_preserved":true,"case":"chrome_persistent_timeout","error_log":"/tmp/rw-startup-owner-1753452-1791573386943478243-9/caller-profile/rustwright-chrome.log","error_log_preserved":true,"launcher_owned_profile":false,"owned_process_still_present":true,"pid":1753477,"profile":"/tmp/rw-startup-owner-1753452-1791573386943478243-9/caller-profile","profile_exists":true}
+
+thread 'launch::startup_tests::chrome_startup_timeout_preserves_caller_profile' (1753476) panicked at crates/rustwright-browser/src/launch.rs:495:13:
+chrome_persistent_timeout: startup child must be killed and reaped
+FAILED
+test launch::startup_tests::chrome_startup_timeout_reaps_child_and_removes_ephemeral_profile ... {"caller_sentinel_preserved":false,"case":"chrome_timeout","error_log":"/tmp/rustwright-1753452-1791573387204944651-11/rustwright-chrome.log","error_log_preserved":true,"launcher_owned_profile":true,"owned_process_still_present":true,"pid":1753483,"profile":"/tmp/rustwright-1753452-1791573387204944651-11","profile_exists":true}
+
+thread 'launch::startup_tests::chrome_startup_timeout_reaps_child_and_removes_ephemeral_profile' (1753482) panicked at crates/rustwright-browser/src/launch.rs:495:13:
+chrome_timeout: startup child must be killed and reaped
+FAILED
+test launch::tests::build_args_includes_profile_and_headless_flags ... ok
+test launch::tests::parses_devtools_active_port_file ... ok
+test launch::tests::rejects_malformed_active_port_file ... ok
+
+failures:
+
+failures:
+    firefox::tests::firefox_startup_cancellation_reaps_child_and_preserves_caller_profile
+    firefox::tests::firefox_startup_timeout_reaps_child_and_preserves_caller_profile
+    launch::startup_tests::chrome_early_exit_removes_ephemeral_profile_but_preserves_error_log
+    launch::startup_tests::chrome_startup_cancellation_reaps_child_and_removes_ephemeral_profile
+    launch::startup_tests::chrome_startup_timeout_preserves_caller_profile
+    launch::startup_tests::chrome_startup_timeout_reaps_child_and_removes_ephemeral_profile
+
+test result: FAILED. 4 passed; 6 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.84s
+
+error: test failed, to rerun pass `-p rustwright-browser --lib`
