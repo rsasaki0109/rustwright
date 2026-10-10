@@ -495,19 +495,21 @@ median of 5 runs; the harnesses live in [`bench/`](bench/) and are reproducible
 | process startup | ~40 ms (Node) | **~0 ms** (native) |
 | install footprint | 14 MB npm + Node runtime | **2.9 MB binary**, no runtime |
 
-Because both drive the same engine, **navigation and launch are essentially
-equivalent** — browser startup dominates, and launch varies by tens of
-milliseconds from run to run (it can favor either side). The durable wins come
-from removing the Node runtime:
+These values are a historical five-run snapshot on the stated browser and
+runtimes. They are not measurements of the current locked Playwright reference
+or evidence of a general speed or memory advantage. The table's startup and
+installation figures are approximate, and its driver RSS excludes every browser
+process. Original per-run observations for this microbenchmark are not archived.
 
-- `evaluate` round-trips are ~2.6× faster (no event loop / JS protocol layer),
-  which matters for round-trip-heavy work.
-- The driver uses ~31× less memory, starts instantly, and ships as a single
-  binary instead of an npm package plus a Node runtime.
-- Rustwright polls `DevToolsActivePort` while Playwright uses
-  `--remote-debugging-pipe`; adopting the pipe transport (which needs a small
-  amount of platform `unsafe` to pass inherited file descriptors) is a possible
-  future optimization, not a fundamental gap.
+The separate [matched-browser comparison](bench/reliability/COMPARISON_CI.md)
+retains repeated CI observations, successful and failed operations, and sampled
+driver/descendant memory. It measures different workloads and should not be used
+to refresh or pool the historical table. See its protocol and limits before
+interpreting the results.
+
+Rustwright uses Tokio and CDP over a localhost debugging port; Playwright uses
+Node and a debugging pipe. These runtime and transport differences are recorded
+conditions, not isolated causes of the observed latency differences.
 
 ## Compatibility
 

@@ -19,7 +19,7 @@ cargo run --release -p rustwright-examples --example bench
 
 ```sh
 cd bench/playwright
-npm install
+npm ci
 node bench.mjs
 ```
 
@@ -27,18 +27,22 @@ Set `RUSTWRIGHT_BENCH_CHROME` to point Playwright at the installed Chrome (it
 defaults to `/usr/bin/google-chrome-stable`). `RUSTWRIGHT_BENCH_GOTOS` and
 `RUSTWRIGHT_BENCH_EVALS` change the iteration counts for both harnesses.
 
-Run each a few times and compare medians. These numbers measure the automation
-layer, not the browser: because both drive the same engine, navigation latency is
-expected to be close, while `evaluate` throughput, driver memory and process
-startup reflect the runtime overhead.
+Run each a few times and compare medians. Timings include both driver and browser
+work; driving the same executable does not isolate the cause of their differences.
+The historical README snapshot uses an older reference version and has no
+archived per-run data. Keep it separate from the repeated comparison below.
 
 ## Reliability and tail latency
+
+The [2026-10-09–10 three-job comparison](reliability/COMPARISON_CI.md) records
+Rustwright 4,800/4,800 and Playwright 4,200/4,800 measured successes on sixteen
+local Chromium cases, with all raw failures, source archives and sampled memory.
+It is a scoped fixture result; it does not establish general SOTA.
 
 The [repeated matched-browser protocol](reliability/COMPARISON_PROTOCOL.md)
 now aligns viewport and main-context policy and defines three separate CI job
 environments. Its fresh schema-version-2 reports preserve failed setup and raw
 phase sidecars; the historical single-host records below remain unchanged.
-
 
 The [2026-10-08 local baseline](reliability/RESULTS.md) records a late-iframe bug
 found through the comparison and the measurements after its fix.

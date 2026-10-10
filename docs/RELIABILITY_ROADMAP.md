@@ -242,3 +242,20 @@ Only after these reliability checks should broader SOTA comparisons begin. Use
 matched browsers, machines and fixtures, independent repeats and published raw
 success/failure, latency and memory results. The existing local comparison is
 useful preliminary evidence; it does not establish a general SOTA result.
+
+## Repeated comparison completed, 2026-10-10 UTC
+
+The [three-job Chromium comparison](../bench/reliability/COMPARISON_CI.md) now
+retains 9,600 measured observations on sixteen local cases with Playwright Core
+1.64.0: Rustwright succeeded 4,800/4,800 and Playwright 4,200/4,800. Warmups,
+reference failures, an earlier incomplete cohort, source archives and separate
+driver/descendant memory samples are preserved. All fourteen mutually successful
+cases had lower Rustwright p95 in each job; these are descriptive observations,
+not statistically established general SOTA.
+
+The fresh seven-job required CI passed 480 workspace tests, including five new
+Firefox creation regressions, plus the existing portable, headed, alternate
+version and package scopes. This supplement keeps the scoped **95%** checkpoint
+and its original proof intact. Broader workloads and attribution of the higher
+sampled Rust browser-descendant RSS remain necessary before expanding performance
+or memory claims.

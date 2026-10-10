@@ -5,7 +5,29 @@ verified. This is a development milestone, not a measured reliability
 probability or a broader SOTA result. Earlier failures and incomplete runs
 remain preserved with their original source identities.
 
-## Current seven-job verification
+## Fresh verification after repeated-comparison repairs
+
+[Run 38005723888](https://github.com/rsasaki0109/rustwright/actions/runs/38005723888)
+passed all seven jobs for branch source `fadb3463297fb611915cc8fc92a4b1a91f196f15`
+and actual PR merge `87f6180e4922ca860e10f91701e6032e6cb85390`. It verifies
+480 workspace passes, zero failures and the one existing ignored macro doctest,
+including five added Firefox creation regressions. The portable 79-case suite
+passes on all three OSes, Ubuntu adds 114 cases, and Linux headed and alternate
+versions each pass 79. Five fresh Firefox startup/visible-page/close cycles
+complete in each of the five dedicated portable native suite commands.
+
+The [comparison report](../bench/reliability/COMPARISON_CI.md) links all original
+logs, official artifact digests, package and screenshot audits, and all eleven
+actual checkout confirmations for required CI and comparison. It also preserves
+the first attempt's Windows page-creation and cached-output failures, without
+relabelling those incomplete results. Output paths now live outside Cargo caches;
+Firefox allocation and activation have separate ownership-safe stages.
+
+All 3,641 Git blobs and modes match between tested branch head and tested merge.
+Reporting edits after measurement preserve runtime inputs and the README's nine
+Rust code fences. The original 95% record below remains an immutable baseline.
+
+## Original 95% seven-job verification
 
 [Run 37994561086](https://github.com/rsasaki0109/rustwright/actions/runs/37994561086)
 completed with **all seven jobs successful** for head

@@ -13,7 +13,19 @@ verifies actual Chrome target closure during discovery initialization, and uses
 a bounded native CDP sandbox preflight. Historical studies below retain their
 original source identities rather than being relabeled as final-source runs.
 
-## Final source and completed CI
+## Fresh supplement, 2026-10-10 UTC
+
+The [repeated Chromium comparison](../bench/reliability/COMPARISON_CI.md) retains
+Rustwright 4,800/4,800 and Playwright Core 1.64.0 4,200/4,800 measured successes
+over sixteen local cases and three CI job environments. The fresh required
+seven-job CI passes 480 workspace tests, five new creation regressions, and the
+existing native/version/package scopes. Source and actual merge identities,
+earlier failures, raw observations and audits have their own frozen record.
+This supplement does not rewrite the original proof or change the scoped 95%
+assessment. General SOTA and complete-browser memory advantage remain unproven;
+the new sampled descendant RSS is larger for Rustwright and needs attribution.
+
+## Original final source and completed CI
 
 The tested head is `39e1c8951dd2ebd67cd1ef8e7311f582d418d873`; all seven original
 checkout logs identify actual PR merge

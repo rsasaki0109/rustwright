@@ -1,0 +1,123 @@
+{
+  "suite": "portable",
+  "platform": "Windows-10-10.0.26100-SP0",
+  "status": "failed",
+  "targets": [
+    "http_compat",
+    "http_actionability",
+    "http_clipped_control",
+    "http_bidi_navigation",
+    "http_network_idle_parity"
+  ],
+  "headless": true,
+  "mode": "headless",
+  "cases": [
+    {
+      "target": "http_compat",
+      "command": [
+        "C:\\Users\\runneradmin\\.cargo\\bin\\cargo.EXE",
+        "test",
+        "--locked",
+        "-p",
+        "rustwright-integration-tests",
+        "--test",
+        "http_compat",
+        "--",
+        "--test-threads=1",
+        "--nocapture"
+      ],
+      "log": "D:\\a\\rustwright\\rustwright\\target\\ci\\portable\\http_compat.log",
+      "exit_code": 0,
+      "passed": 24,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0
+    },
+    {
+      "target": "http_actionability",
+      "command": [
+        "C:\\Users\\runneradmin\\.cargo\\bin\\cargo.EXE",
+        "test",
+        "--locked",
+        "-p",
+        "rustwright-integration-tests",
+        "--test",
+        "http_actionability",
+        "--",
+        "--test-threads=1",
+        "--nocapture"
+      ],
+      "log": "D:\\a\\rustwright\\rustwright\\target\\ci\\portable\\http_actionability.log",
+      "exit_code": 0,
+      "passed": 12,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0
+    },
+    {
+      "target": "http_clipped_control",
+      "command": [
+        "C:\\Users\\runneradmin\\.cargo\\bin\\cargo.EXE",
+        "test",
+        "--locked",
+        "-p",
+        "rustwright-integration-tests",
+        "--test",
+        "http_clipped_control",
+        "--",
+        "--test-threads=1",
+        "--nocapture"
+      ],
+      "log": "D:\\a\\rustwright\\rustwright\\target\\ci\\portable\\http_clipped_control.log",
+      "exit_code": 0,
+      "passed": 10,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0
+    },
+    {
+      "target": "http_bidi_navigation",
+      "command": [
+        "C:\\Users\\runneradmin\\.cargo\\bin\\cargo.EXE",
+        "test",
+        "--locked",
+        "-p",
+        "rustwright-integration-tests",
+        "--test",
+        "http_bidi_navigation",
+        "--",
+        "--test-threads=1",
+        "--nocapture"
+      ],
+      "log": "D:\\a\\rustwright\\rustwright\\target\\ci\\portable\\http_bidi_navigation.log",
+      "exit_code": 0,
+      "passed": 7,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0
+    },
+    {
+      "target": "http_network_idle_parity",
+      "command": [
+        "C:\\Users\\runneradmin\\.cargo\\bin\\cargo.EXE",
+        "test",
+        "--locked",
+        "-p",
+        "rustwright-integration-tests",
+        "--test",
+        "http_network_idle_parity",
+        "--",
+        "--test-threads=1",
+        "--nocapture"
+      ],
+      "log": "D:\\a\\rustwright\\rustwright\\target\\ci\\portable\\http_network_idle_parity.log",
+      "exit_code": 101
+    }
+  ],
+  "browsers": {
+    "RUSTWRIGHT_CHROME": "C:\\hostedtoolcache\\windows\\setup-chrome\\chrome\\stable\\x64\\chrome.exe",
+    "RUSTWRIGHT_FIREFOX": "C:\\Program Files\\Firefox_157.0.1\\firefox.exe"
+  },
+  "cargo_version": "cargo 1.99.0 (5f94df478 2026-08-27)",
+  "error": "http_network_idle_parity failed or did not finish one native suite; see D:\\a\\rustwright\\rustwright\\target\\ci\\portable\\http_network_idle_parity.log"
+}
