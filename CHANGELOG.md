@@ -6,6 +6,57 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 0.1.0 — 2026-10-10
+
+First GitHub source release of Rustwright, an async browser automation library
+for Rust 1.85+ using installed Chrome and Firefox.
+
+### Included
+
+- Chrome CDP and Firefox WebDriver BiDi, with shared `PageApi`, `LocatorApi`
+  and dynamic `AnyPage` dispatch.
+- Pages, isolated contexts, persistent profiles, browser discovery and attachment.
+- Semantic locators, real input, actionability checks, clipped click geometry,
+  delayed elements, cross-origin frames and renderer changes.
+- Reload/history, HTTP(S) network-idle observation, native request mocking and
+  clearing, and console/network diagnostics.
+- The `rustwright-test` runner, procedural macro and retrying assertions.
+- Ownership and bounded cleanup for startup, page/context creation, cancellation,
+  disconnected transports and interception. Firefox tab allocation is separated
+  from foreground activation, with cleanup on activation failure/cancellation.
+- Real Chrome/Firefox CI on Linux, macOS and Windows, plus selected Linux headed,
+  alternate-version, public-site and package-consumer checks.
+
+### Verification
+
+The recorded runtime-source CI passed all seven jobs: 480 workspace tests, five
+new Firefox creation regressions, Rust 1.85.0, formatting and Clippy. One existing
+macro doctest is ignored. Portable native suites passed 79 cases per OS, Ubuntu
+added 114 cases, and Linux headed/alternate suites passed 79 each. Eight actual
+package archives and stable/MSRV consumers were verified.
+
+The [repeated comparison](bench/reliability/COMPARISON_CI.md) records sixteen local
+Chromium cases across three CI job environments: Rustwright 4,800/4,800 measured
+successes and Playwright Core 1.64.0 4,200/4,800. Warmups, all failures, per-job
+latency, sampled driver/descendant memory, exact source identities and original
+artifacts remain archived. This establishes the recorded fixture result, not
+general SOTA. The release's main-branch CI also validates the refreshed README
+and package documentation.
+
+### Distribution and scope
+
+Use the `v0.1.0` Git tag for a Git dependency or download the GitHub source
+archives. The release includes CI-verified `.crate` archives as downloadable
+artifacts, with checksums; these are not claims of crates.io publication.
+[Registry names](docs/PUBLISHING.md) have historical ownership conflicts.
+
+APIs may evolve during the 0.x series. Backend-specific capabilities, unavailable
+live-browser descendant PSS, larger sampled Rust browser-descendant RSS and
+bounded-cleanup limits remain documented. See the [compatibility matrix](docs/COMPATIBILITY_MATRIX.md)
+and [reliability roadmap](docs/RELIABILITY_ROADMAP.md).
+
+### Development history included in this release
+
 - Add Firefox/BiDi reload, back and forward navigation, with explicit timeout
   variants and shared `AnyPage` operations. Wait for same-document history
   commits or the matching full-document load rather than stale/foreign events.
@@ -18,7 +69,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   Hash package inputs into staging locations and compare archive source bytes
   to avoid reusing old unpublished same-version dependencies from Cargo's cache.
 
-### Added
+#### Added
 
 - Offline release verification packages the eight distributable crates with
   Cargo verification enabled, audits assets and canonical dependency checksums,
@@ -58,7 +109,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   BiDi sessions expose `helper_preload_count` for internal registrations awaiting
   acknowledged removal, including asynchronous handle cleanup.
 
-### Fixed
+#### Fixed
 
 - Every distributable archive now includes a compact README with absolute links
   and both license texts. Required embedded helper assets are audited too.
@@ -210,11 +261,14 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   out or their futures are dropped, preventing accumulation on long-lived
   connections. Commands already sent to the browser are not cancelled.
 
-## [0.1.0] - 2026-09-20
+### Initial implementation record, 2026-09-20
+
+The earlier 0.1.0 development notes below predate this first GitHub release.
+Their validation descriptions reflect that earlier stage.
 
 Initial release.
 
-### Added
+#### Added
 
 - **Workspace**: `rustwright` (facade + prelude), `rustwright-core` (CDP object
   model), `rustwright-cdp` (transport + typed protocol), `rustwright-browser`

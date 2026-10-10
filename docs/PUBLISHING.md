@@ -1,5 +1,10 @@
 # Packaging and publishing
 
+Version 0.1.0 is distributed as a GitHub source release and the `v0.1.0` Git tag.
+Use `rustwright = { git = "https://github.com/rsasaki0109/rustwright", tag = "v0.1.0" }`
+or an adjacent-checkout path dependency. Downloadable `.crate` assets are verified
+archives, not registry uploads. See the [release notes](../CHANGELOG.md#010--2026-10-10).
+
 The current distribution uses this repository through path/git dependencies.
 Local package verification does not upload a crate, reserve a name or establish
 crates.io ownership. No package names or versions were changed by these checks.

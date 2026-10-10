@@ -3,6 +3,7 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/rsasaki0109/rustwright/releases/tag/v0.1.0"><img alt="v0.1.0" src="https://img.shields.io/badge/release-v0.1.0-006c93.svg"></a>
   <a href="#quick-start"><img alt="Rust 1.85+" src="https://img.shields.io/badge/rust-1.85%2B-orange.svg"></a>
   <img alt="License" src="https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg">
   <img alt="unsafe forbidden" src="https://img.shields.io/badge/unsafe-forbidden-success.svg">
@@ -12,17 +13,20 @@
 </p>
 
 <p align="center">
-  <b>Real-browser-first browser automation for Rust.</b><br>
-  Drives the Chrome or Firefox already installed on your machine — one Playwright-like async API, two real-browser transports.
+  <b>Browser automation in Rust, using your installed Chrome or Firefox.</b><br>
+  Async pages, locators and browser tests over Chrome CDP and Firefox WebDriver BiDi.
 </p>
 
 <p align="center">
   <img src="docs/assets/screenshot-chrome.png" alt="A page rendered by Rustwright in Chrome" width="760">
 </p>
 
-Rustwright is not a Playwright binding and not an anti-bot framework. It minimizes
-the difference between automated and normal browsing by driving a standard,
-unmodified browser and by making any remaining difference observable.
+Rustwright 0.1.0 provides a shared async API for pages, locators, frames, contexts
+and browser tests. It drives installed browsers directly from Rust, with
+persistent profiles, protocol input and observable network/console diagnostics.
+
+Get started with [Rust 1.85+ and an installed browser](#quick-start), explore
+[the API](#api-sketch), or read the [v0.1.0 release notes](CHANGELOG.md#010--2026-10-10).
 
 ```rust
 use rustwright::prelude::*;
@@ -50,6 +54,7 @@ async fn main() -> Result<()> {
 - [One API, two backends](#one-api-two-backends)
 - [Firefox and WebDriver BiDi](#firefox-and-webdriver-bidi)
 - [Testing](#testing)
+- [Verification](#verification)
 - [Performance](#performance)
 - [Compatibility](#compatibility)
 - [Browser discovery](#browser-discovery)
@@ -59,7 +64,8 @@ async fn main() -> Result<()> {
 
 ## Why Rustwright
 
-- **Rust-native implementation**, `async`/`await` on Tokio. No Node, no driver.
+- **Rust-native implementation**, `async`/`await` on Tokio, without a Node runtime
+  or a separate WebDriver server.
 - **Installed browsers first** — no bundled or patched browser.
 - **Persistent profiles** so cookies, `localStorage`, `sessionStorage` and logins
   survive between runs.
@@ -75,31 +81,32 @@ async fn main() -> Result<()> {
   <img src="docs/assets/architecture.svg" alt="Rustwright architecture" width="820">
 </p>
 
-Transport is the only thing that differs between backends: selectors, wait states
-and the page-side helper are shared, and the object model is exposed through the
-same `PageApi` / `LocatorApi` traits.
+Selectors, wait states and the page-side helper are shared, with the object model
+exposed through `PageApi` / `LocatorApi`. The protocol transports and some
+capabilities differ; the compatibility matrix records backend-specific scope.
 
 ## Quick start
 
 Rust 1.85 or newer is required, including by the WebSocket transport dependencies.
 CI checks the locked workspace and all targets on Rust 1.85.0 as well as stable.
 
-This repository currently uses path/git distribution. The intended crates.io
-names have historical conflicts; see [publishing status](docs/PUBLISHING.md).
-For a project alongside a local checkout, add:
+Add the tagged Git release and Tokio to your project. This release is
+distributed through GitHub; registry names have historical conflicts, so follow
+[the publishing status](docs/PUBLISHING.md) before choosing a crates.io dependency:
 
 ```toml
 [dependencies]
-rustwright = { path = "../rustwright/crates/rustwright" }
+rustwright = { git = "https://github.com/rsasaki0109/rustwright", tag = "v0.1.0" }
 tokio = { version = "1", features = ["full"] }
 ```
 
-Adjust the path to your checkout. With a Git dependency, use
-`rustwright = { git = "https://github.com/rsasaki0109/rustwright" }` and pin a
-reviewed revision for repeatable builds. To run the repository's examples,
-clone it, enter its directory and use:
+For an adjacent development checkout, use
+`rustwright = { path = "../rustwright/crates/rustwright" }` instead. To run the
+release examples, clone the tagged source and enter its directory:
 
 ```sh
+git clone --branch v0.1.0 https://github.com/rsasaki0109/rustwright.git
+cd rustwright
 cargo run -p rustwright-examples --example quickstart
 cargo run -p rustwright-examples --example offline_smoke      # no internet needed
 cargo run -p rustwright-examples --example quickstart -- --headless https://example.com
@@ -424,11 +431,11 @@ the driver wait; it does not cancel JavaScript already running in the browser.
 `rustwright-test` turns an annotated async function into a normal `#[test]`,
 with a fresh browser, isolated context and page per test:
 
-Add the runner alongside the earlier dependencies (adjust the checkout path):
+Add the runner from the same tagged release alongside the earlier dependencies:
 
 ```toml
 [dev-dependencies]
-rustwright-test = { path = "../rustwright/crates/rustwright-test" }
+rustwright-test = { git = "https://github.com/rsasaki0109/rustwright", tag = "v0.1.0" }
 ```
 
 ```rust
@@ -475,41 +482,52 @@ The deadline includes locator reads. An unmet condition panics with the locator,
 expected condition, timeout and last observation; transport and JavaScript errors
 are returned immediately when observed.
 
+## Verification
+
+The [required seven-job CI](https://github.com/rsasaki0109/rustwright/actions/runs/38005723888)
+passed for the release's runtime source. It includes **480 workspace passes**,
+formatting, Clippy, Rust 1.85.0, actual package archives and external consumers.
+One existing macro doctest is explicitly ignored. The refreshed README and
+package documentation are rechecked by the release's main-branch CI.
+
+| Verified scope | Result |
+| --- | --- |
+| Native Chrome + Firefox, Windows / macOS / Ubuntu | 79 cases passed per OS |
+| Additional Ubuntu regressions | 114 passed |
+| Linux headed, Chrome 155 / Firefox 157 | 79 passed |
+| Linux alternate versions, Chrome 151 / Firefox 153 ESR | 79 passed |
+| Package distribution | Eight verified archives; stable + minimum Rust consumers |
+
+The [CI record](docs/CI_VERIFICATION.md) and [compatibility matrix](docs/COMPATIBILITY_MATRIX.md)
+identify tested versions, operation outcomes and remaining gaps. Repeated suite
+runs are confirmations, not additional unique capabilities.
+
 ## Performance
 
-For reproducible success-rate and p95 measurements of delayed DOM/frame actions
-and disconnection handling, see the [reliability comparison](bench/README.md#reliability-and-tail-latency).
+A [repeated matched-browser comparison](bench/reliability/COMPARISON_CI.md) ran
+sixteen local Chromium fixture cases, 100 measured attempts per engine/case in
+three Ubuntu CI job environments. Both drivers used Chrome for Testing
+155.0.8059.39; the reference was Playwright Core 1.64.0 on Node 24.19.0.
 
-Driver-overhead comparison against Playwright, driving the **same installed
-Chrome 150** on Linux (8 vCPU, Node 22), headless, single page. Values are the
-median of 5 runs; the harnesses live in [`bench/`](bench/) and are reproducible
-(Rustwright: `examples/bench.rs`; Playwright: `bench/playwright/bench.mjs`).
-`driver RSS` is the automation process's peak `VmHWM`, excluding the browser.
+| Driver | Measured successes | Failures |
+| --- | ---: | ---: |
+| Rustwright | **4,800 / 4,800** | 0 |
+| Playwright Core 1.64.0 | **4,200 / 4,800** | 600 |
 
-| Metric | Playwright (`playwright-core` 1.63) | Rustwright |
-|---|---:|---:|
-| launch → first page | 410.0 ms | 457.7 ms |
-| `goto`, per navigation | 36.05 ms | 35.17 ms |
-| `evaluate`, round-trip | 0.872 ms | **0.341 ms** (≈2.6×) |
-| driver peak RSS | 150.8 MB | **4.8 MB** (≈31×) |
-| process startup | ~40 ms (Node) | **~0 ms** (native) |
-| install footprint | 14 MB npm + Node runtime | **2.9 MB binary**, no runtime |
+Reference failures occurred in default clicks on rotated/clipped geometry and
+mocked fetch/XHR after an iframe returned to the parent renderer. All fourteen
+mutually successful cases had lower Rustwright successful p95 in each recorded
+job. Default launch and point-selection policies still differ. These local
+observations do not establish general SOTA or statistical population estimates.
 
-These values are a historical five-run snapshot on the stated browser and
-runtimes. They are not measurements of the current locked Playwright reference
-or evidence of a general speed or memory advantage. The table's startup and
-installation figures are approximate, and its driver RSS excludes every browser
-process. Original per-run observations for this microbenchmark are not archived.
+![Success counts for sixteen local cases](bench/reliability/results/ci-comparison-20261009/figures/success-counts.svg)
 
-The separate [matched-browser comparison](bench/reliability/COMPARISON_CI.md)
-retains repeated CI observations, successful and failed operations, and sampled
-driver/descendant memory. It measures different workloads and should not be used
-to refresh or pool the historical table. See its protocol and limits before
-interpreting the results.
-
-Rustwright uses Tokio and CDP over a localhost debugging port; Playwright uses
-Node and a debugging pipe. These runtime and transport differences are recorded
-conditions, not isolated causes of the observed latency differences.
+The Rust driver had lower sampled RSS, while its browser descendants had higher
+sampled RSS in this cohort. Live-browser descendant PSS was unavailable. See the
+[full report](bench/reliability/COMPARISON_CI.md) for per-job latency, failure strings,
+separate memory, source identities, raw observations and measurement limits.
+[Benchmark commands](bench/README.md) also retain the earlier microbenchmark
+context; those workloads should not be pooled with this comparison.
 
 ## Compatibility
 
@@ -525,11 +543,11 @@ cargo run -p rustwright-examples --example compat_report -- https://example.com
 It reports the final URL, navigation chain, console/JS errors, failed requests,
 non-2xx document responses and a screenshot for each site.
 
-X demonstrates the real-browser-first premise: the same framework code that
-gets a 403 headless succeeds in a headed browser with a persistent profile.
-TikTok's 403 is a server-side anti-bot response; Rustwright does **not** attempt
-to defeat it, which is an explicit non-goal. For sites that gate anonymous
-access, use `browse_session` to log in by hand once and then reuse the profile:
+The recorded Linux public-site check completed its operations on example.com,
+MDN and docs.rs with both current browsers, retaining six screenshots and
+Document HTTP 200 observations. This small selected scope does not predict
+arbitrary sites or access-controlled services. For a normal interactive login,
+use `browse_session` once and reuse your persistent profile:
 
 ```sh
 cargo run -p rustwright-examples --example browse_session -- --profile ./target/live https://x.com/
@@ -567,10 +585,11 @@ rustwright/
 
 ## Status
 
-The original roadmap is complete: contexts, network interception, downloads and
-uploads, dialogs, frames (including cross-origin), tabs/windows, tracing,
-WebDriver BiDi, Firefox, and an independent test runner — plus a shared
-`PageApi` / `LocatorApi` and dynamic `AnyPage` dispatch.
+**v0.1.0 is the first GitHub source release.** It includes the shared page and
+locator API, Chrome and Firefox transports, browser contexts, network
+interception, cross-origin frames and the independent browser test runner.
+Downloads and some diagnostics remain backend-specific; the compatibility
+matrix documents their scope. APIs may evolve during the 0.x series.
 
 Further reliability milestones, validation limits and the next compatibility
 checks are tracked in the [reliability roadmap](docs/RELIABILITY_ROADMAP.md).
@@ -607,9 +626,11 @@ bypasses. Site-specific behaviour belongs in your code, not in the core.
 
 ## Development
 
-The current development target is the [95% reliability checkpoint](docs/RELIABILITY_ROADMAP.md),
-followed by broader reproducible comparisons. Required browser CI and its
-execution limits are documented in [CI verification](docs/CI_VERIFICATION.md).
+The scoped [95% reliability checkpoint](docs/RELIABILITY_95_CHECKPOINT.md) is
+complete. Next work includes broader reproducible comparisons and attribution
+of remaining browser memory growth; see the [roadmap](docs/RELIABILITY_ROADMAP.md).
+Required browser CI and its execution limits are documented in
+[CI verification](docs/CI_VERIFICATION.md).
 
 `python3 scripts/release_check.py` verifies the eight distributable archives and
 an external version-only consumer on stable and Rust 1.85.0, including all Rust
